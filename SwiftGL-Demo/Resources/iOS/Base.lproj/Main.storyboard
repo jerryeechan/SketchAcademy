@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="CvM-l6-OQ6">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+            <string>HelveticaNeue</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Dot Game View Controller-->
+        <scene sceneID="laf-AH-h7b">
+            <objects>
+                <viewController id="Nu2-Wz-aDe" customClass="DotGameViewController" customModule="SwiftGL_Demo_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hTK-xz-nhe"/>
+                        <viewControllerLayoutGuide type="bottom" id="OKn-ZD-57f"/>
+                    </layoutGuides>
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="GOD-ow-OJl">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eId-HH-vnd" customClass="SKView">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="724"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cKo-PW-397">
+                                <rect key="frame" x="0.0" y="724" width="1024" height="44"/>
+                                <items>
+                                    <barButtonItem width="459" style="plain" systemItem="fixedSpace" id="X85-Vb-cfH"/>
+                                    <barButtonItem style="plain" id="70f-MM-qvJ">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HkR-Su-2EU">
+                                            <rect key="frame" x="459" y="7" width="76" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <state key="normal" title="新關卡"/>
+                                            <connections>
+                                                <action selector="newStageButtonTouched:" destination="Nu2-Wz-aDe" eventType="touchUpInside" id="cPy-mX-1fh"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="8X8-rm-GYf">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SLg-Am-i5k">
+                                            <rect key="frame" x="545" y="7" width="76" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <state key="normal" title="計算分數"/>
+                                            <connections>
+                                                <action selector="confirmButtonTouched:" destination="Nu2-Wz-aDe" eventType="touchUpInside" id="PHJ-4d-MgU"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="tVM-cl-4sO">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="teA-Cq-sHn">
+                                            <rect key="frame" x="631" y="7" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="重新">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="restartButtonTouched:" destination="Nu2-Wz-aDe" eventType="touchUpInside" id="kms-tY-ovi"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem width="158" style="plain" systemItem="fixedSpace" id="GII-Hc-7Bf"/>
+                                    <barButtonItem title="2" width="19" id="x7O-fb-Fom"/>
+                                    <barButtonItem style="plain" id="xic-ND-vX1">
+                                        <stepper key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="9" id="cT5-eI-P5G">
+                                            <rect key="frame" x="874" y="7.5" width="94" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="difficultyStepperValueChanged:" destination="Nu2-Wz-aDe" eventType="valueChanged" id="y9s-B9-RP8"/>
+                                            </connections>
+                                        </stepper>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="confirmButton" destination="SLg-Am-i5k" id="XD7-F4-HS0"/>
+                        <outlet property="difficultyLabel" destination="x7O-fb-Fom" id="5cB-xg-sfS"/>
+                        <outlet property="dotGameView" destination="eId-HH-vnd" id="pWU-XE-qPP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xYD-Bg-Jao" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="460" y="1681"/>
+        </scene>
+        <!--File Table View Controller-->
+        <scene sceneID="AJc-09-dU5">
+            <objects>
+                <tableViewController storyboardIdentifier="fileTableView" id="FK9-be-HgE" customClass="FileTableViewController" customModule="SwiftGL_Demo_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="hCq-g7-97q">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="96x-aX-r0y">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FileCell" textLabel="kBY-Os-gxh" style="IBUITableViewCellStyleDefault" id="21y-yb-4Nf">
+                                <rect key="frame" x="0.0" y="93.5" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="21y-yb-4Nf" id="IkI-cg-arL">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kBY-Os-gxh">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="FK9-be-HgE" id="dIB-Hh-Y4y"/>
+                            <outlet property="delegate" destination="FK9-be-HgE" id="7oG-IG-4dM"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uaN-Qa-bYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="919.5" y="-192.75"/>
+        </scene>
+        <!--Cut Image Rect-->
+        <scene sceneID="V1J-TX-ALj">
+            <objects>
+                <viewController title="Cut Image Rect" id="HTY-VL-ghM" customClass="ReferenceImageViewController" customModule="SwiftGL_Demo_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ohz-Dv-28m"/>
+                        <viewControllerLayoutGuide type="bottom" id="F2t-Uu-BLr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="6BH-mE-SpE">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r1q-X3-kPF">
+                                <rect key="frame" x="0.0" y="724" width="1024" height="44"/>
+                                <items>
+                                    <barButtonItem width="407" style="plain" systemItem="fixedSpace" id="Ffp-If-ZUE"/>
+                                    <barButtonItem style="plain" id="mfL-rB-3Zu">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="MUw-yX-PBN">
+                                            <rect key="frame" x="407" y="7" width="123" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="Rect"/>
+                                                <segment title="Erase"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="toolModeSegControlValueChanged:" destination="HTY-VL-ghM" eventType="valueChanged" id="KvU-Qq-Ani"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </barButtonItem>
+                                    <barButtonItem title="toggle" id="bcB-zi-Wfe">
+                                        <connections>
+                                            <action selector="toggleButtonTouched:" destination="HTY-VL-ghM" id="jE1-wr-51p"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Cut the image into rectangles" id="5q4-ef-U7f">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="b6E-5c-wNx">
+                            <connections>
+                                <action selector="doneButtonTouched:" destination="HTY-VL-ghM" id="fgm-Sn-PV2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <segue destination="CvM-l6-OQ6" kind="show" identifier="showPaintView" id="OmH-27-dYP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ybo-L6-ayT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-44" y="771"/>
+        </scene>
+        <!--Paint View Controller-->
+        <scene sceneID="PH6-8W-dQf">
+            <objects>
+                <viewController id="CvM-l6-OQ6" customClass="PaintViewController" customModule="SwiftGL_Demo_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="L9Z-eM-g2B"/>
+                        <viewControllerLayoutGuide type="bottom" id="cSE-Dl-CJp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MuV-st-KEp">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wKi-nP-2wB">
+                                <rect key="frame" x="0.0" y="724" width="1024" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" id="7Mg-F9-F26">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="m5w-Mc-ydH">
+                                            <rect key="frame" x="0.0" y="7" width="123" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="蠟筆"/>
+                                                <segment title="擦子"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="paintToolSelect:" destination="CvM-l6-OQ6" eventType="valueChanged" id="UUz-q6-Frs"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="1UK-vo-4fW">
+                                        <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minValue="5" maxValue="50" id="aEq-Z1-WmC">
+                                            <rect key="frame" x="133" y="6.5" width="118" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="brushScaleSliderValueChanged:" destination="CvM-l6-OQ6" eventType="valueChanged" id="QiR-cM-Ken"/>
+                                            </connections>
+                                        </slider>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="trash" id="nHJ-C3-55d">
+                                        <connections>
+                                            <action selector="trashButtonTouched:" destination="CvM-l6-OQ6" id="gPm-K7-wTo"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="Grc-Mx-qmK">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hem-jL-OwS">
+                                            <rect key="frame" x="290" y="7" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="load">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="loadButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="jdW-dC-9Z0"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="UGW-cG-iRv">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9dj-Wv-LKZ">
+                                            <rect key="frame" x="346" y="7" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="save"/>
+                                            <connections>
+                                                <action selector="saveButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="m7n-lZ-79i"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="Meb-EL-5fy">
+                                        <stepper key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="xoH-Z7-E9A">
+                                            <rect key="frame" x="402" y="7.5" width="94" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </stepper>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="rewind" id="1Zu-sv-esa">
+                                        <connections>
+                                            <action selector="RewindButtonTouched:" destination="CvM-l6-OQ6" id="YT0-Um-eBA"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="play" id="EvQ-J5-ScH">
+                                        <connections>
+                                            <action selector="PlayButtonTouched:" destination="CvM-l6-OQ6" id="CPu-eK-Uo9"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="fastForward" id="OtO-ZG-NRp">
+                                        <connections>
+                                            <action selector="fastForwardButtonTouched:" destination="CvM-l6-OQ6" id="ryh-4d-hoV"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e0Y-7M-m0z">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="724"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UCv-DA-xiU" customClass="PaintView" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="41" y="-39" width="1024" height="724"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="724" id="dGq-ay-qbi"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="pUw-RS-vpk" appends="YES" id="eKo-IQ-fOb"/>
+                                            <outletCollection property="gestureRecognizers" destination="ToE-63-J0L" appends="YES" id="jOk-dz-ZVq"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="UCv-DA-xiU" firstAttribute="leading" secondItem="e0Y-7M-m0z" secondAttribute="leading" id="6pW-zh-oPP"/>
+                                    <constraint firstAttribute="bottom" secondItem="UCv-DA-xiU" secondAttribute="bottom" id="Xti-9C-Ta4"/>
+                                    <constraint firstItem="UCv-DA-xiU" firstAttribute="centerX" secondItem="e0Y-7M-m0z" secondAttribute="centerX" id="nRr-iE-6pr"/>
+                                    <constraint firstAttribute="trailing" secondItem="UCv-DA-xiU" secondAttribute="trailing" id="xbX-rG-dlO"/>
+                                    <constraint firstItem="UCv-DA-xiU" firstAttribute="top" secondItem="e0Y-7M-m0z" secondAttribute="top" id="zyO-aH-00b"/>
+                                </constraints>
+                            </scrollView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rcV-el-onX">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="00f-mn-Hob" appends="YES" id="gZC-Ko-Bbl"/>
+                                </connections>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.42558735663688912" green="0.52655234920458727" blue="0.70132970328282829" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="bottom" secondItem="wKi-nP-2wB" secondAttribute="top" id="3yr-Tl-VZp"/>
+                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="trailing" secondItem="wKi-nP-2wB" secondAttribute="trailing" id="5FY-kq-pmh"/>
+                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="top" secondItem="MuV-st-KEp" secondAttribute="top" id="5ac-VK-0DJ"/>
+                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="A3l-Jx-Qv4"/>
+                            <constraint firstAttribute="bottom" secondItem="e0Y-7M-m0z" secondAttribute="bottom" constant="44" id="E1V-ql-3Hl"/>
+                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="leading" secondItem="wKi-nP-2wB" secondAttribute="leading" id="VvT-lM-Elo"/>
+                            <constraint firstAttribute="trailing" secondItem="e0Y-7M-m0z" secondAttribute="trailing" id="ddU-gJ-tf2"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="H61-HT-vFb" appends="YES" id="Zgi-Wo-ldx"/>
+                        </connections>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="brushScaleSlider" destination="aEq-Z1-WmC" id="ESS-NN-7mA"/>
+                        <outlet property="imageView" destination="rcV-el-onX" id="SYK-dt-IW5"/>
+                        <outlet property="mainView" destination="MuV-st-KEp" id="nSJ-pA-k2h"/>
+                        <outlet property="paintView" destination="UCv-DA-xiU" id="Bv6-eq-1RR"/>
+                        <outlet property="scrollView" destination="e0Y-7M-m0z" id="g5P-9I-Pt8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S5l-Ye-bTM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="H61-HT-vFb">
+                    <connections>
+                        <action selector="uiPinchGestrueEvent:" destination="CvM-l6-OQ6" id="yuL-iR-Kv1"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="pUw-RS-vpk">
+                    <connections>
+                        <action selector="uiPanGestureHandler:" destination="CvM-l6-OQ6" id="52n-jg-owX"/>
+                    </connections>
+                </panGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" numberOfTouchesRequired="2" id="ToE-63-J0L">
+                    <connections>
+                        <action selector="uiTapGestureEvent:" destination="CvM-l6-OQ6" id="Pg8-ei-Kql"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="00f-mn-Hob">
+                    <connections>
+                        <action selector="imageViewPanGestureHandler:" destination="CvM-l6-OQ6" id="lWO-2u-Y1w"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1380" y="693"/>
+        </scene>
+        <!--Draw Detail Navigation Controller-->
+        <scene sceneID="waB-zp-PVn">
+            <objects>
+                <navigationController id="a41-D0-Cvt" customClass="DrawDetailNavigationController" customModule="SwiftGL_Demo_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QVg-fv-LQb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="HTY-VL-ghM" kind="relationship" relationship="rootViewController" id="vkg-QK-NqZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fdu-zf-Wj4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="168" y="-25"/>
+        </scene>
+    </scenes>
+</document>

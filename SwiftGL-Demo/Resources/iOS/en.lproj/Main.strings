@@ -1,0 +1,24 @@
+
+/* Class = "UISegmentedControl"; 9GQ-s5-8vK.segmentTitles[0] = "pen"; ObjectID = "9GQ-s5-8vK"; */
+"9GQ-s5-8vK.segmentTitles[0]" = "pen";
+
+/* Class = "UISegmentedControl"; 9GQ-s5-8vK.segmentTitles[1] = "eraser"; ObjectID = "9GQ-s5-8vK"; */
+"9GQ-s5-8vK.segmentTitles[1]" = "eraser";
+
+/* Class = "UIButton"; normalTitle = "Load"; ObjectID = "ElR-CJ-p38"; */
+"ElR-CJ-p38.normalTitle" = "Load";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "TOR-tp-bb8"; */
+"TOR-tp-bb8.normalTitle" = "Save";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "jqx-eF-5y6"; */
+"jqx-eF-5y6.title" = "Title";
+
+/* Class = "UISegmentedControl"; yqy-L9-C67.segmentTitles[0] = "Red"; ObjectID = "yqy-L9-C67"; */
+"yqy-L9-C67.segmentTitles[0]" = "Red";
+
+/* Class = "UISegmentedControl"; yqy-L9-C67.segmentTitles[1] = "Blue"; ObjectID = "yqy-L9-C67"; */
+"yqy-L9-C67.segmentTitles[1]" = "Blue";
+
+/* Class = "UISegmentedControl"; yqy-L9-C67.segmentTitles[2] = "Black"; ObjectID = "yqy-L9-C67"; */
+"yqy-L9-C67.segmentTitles[2]" = "Black";
