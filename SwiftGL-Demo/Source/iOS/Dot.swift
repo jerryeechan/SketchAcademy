@@ -13,7 +13,6 @@ class Dot: SKNode {
     
     override init()
     {
-        
         super.init()
         //self.name = "dot"
         
@@ -21,6 +20,10 @@ class Dot: SKNode {
         touchArea.fillColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         touchArea.strokeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.addChild(touchArea)
+        
+        let image = SKSpriteNode(imageNamed: "spongebob")
+        
+        self.addChild(image)        
         
         let Circle = SKShapeNode(circleOfRadius: 10) // Size of Circle
         Circle.position = CGPointMake(0,0)  //Middle of Screen
@@ -36,6 +39,10 @@ class Dot: SKNode {
         userInteractionEnabled = true
         shape = Circle
         
+    }
+    convenience init(name:String)
+    {
+        self.init()
     }
     var shape:SKShapeNode!
     required init?(coder aDecoder: NSCoder) {
