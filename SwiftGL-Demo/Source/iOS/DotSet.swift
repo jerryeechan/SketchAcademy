@@ -44,10 +44,10 @@ class DotSet {
             node.addChild(dot)
         }
     }
-    func setMovable(movable:Bool)
+    func setMovable(isMovable:Bool)
     {
         for dot in dots{
-            dot.userInteractionEnabled = movable
+            dot.userInteractionEnabled = isMovable
         }
     }
     func removeFromParent()
