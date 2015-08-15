@@ -20,6 +20,9 @@
 		C433EEB91B5BC13000D5175F /* SliceRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB71B5BC13000D5175F /* SliceRect.swift */; };
 		C433EEBB1B5D332F00D5175F /* GLLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEBA1B5D332F00D5175F /* GLLine.swift */; };
 		C433EEBC1B5D332F00D5175F /* GLLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEBA1B5D332F00D5175F /* GLLine.swift */; };
+		C442A8931B7B3B75000BB98F /* rect.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8921B7B3B75000BB98F /* rect.vsh */; };
+		C442A8951B7B3B87000BB98F /* rect.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8941B7B3B87000BB98F /* rect.fsh */; };
+		C44609271B7A571A00C34D04 /* GLRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44609261B7A571A00C34D04 /* GLRect.swift */; };
 		C44A27991B5E21EB00A78C8E /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B38FAE194E063800722470 /* Texture.swift */; };
 		C44BB0991B48E504001B158A /* point.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C44BB08F1B48E0EF001B158A /* point.fsh */; };
 		C44BB09A1B48E504001B158A /* point.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C44BB0901B48E0EF001B158A /* point.vsh */; };
@@ -176,6 +179,9 @@
 		C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSlicedRectangles.swift; sourceTree = "<group>"; };
 		C433EEB71B5BC13000D5175F /* SliceRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceRect.swift; sourceTree = "<group>"; };
 		C433EEBA1B5D332F00D5175F /* GLLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLLine.swift; sourceTree = "<group>"; };
+		C442A8921B7B3B75000BB98F /* rect.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = rect.vsh; sourceTree = "<group>"; };
+		C442A8941B7B3B87000BB98F /* rect.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = rect.fsh; sourceTree = "<group>"; };
+		C44609261B7A571A00C34D04 /* GLRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRect.swift; sourceTree = "<group>"; };
 		C44BB08F1B48E0EF001B158A /* point.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = point.fsh; sourceTree = "<group>"; };
 		C44BB0901B48E0EF001B158A /* point.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = point.vsh; sourceTree = "<group>"; };
 		C44BB0931B48E17D001B158A /* RenderTexture.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = RenderTexture.fsh; sourceTree = "<group>"; };
@@ -447,6 +453,7 @@
 				C4C5B9B91B0EFB5400D6AD4B /* GLShaderBinder.swift */,
 				C433EEBA1B5D332F00D5175F /* GLLine.swift */,
 				C49E21661B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift */,
+				C44609261B7A571A00C34D04 /* GLRect.swift */,
 			);
 			name = GLFramework;
 			path = Common;
@@ -599,6 +606,8 @@
 				C44BB0901B48E0EF001B158A /* point.vsh */,
 				D2F663FE1ADD7607003C1925 /* DemoShader1.vsh */,
 				D2F663FD1ADD7607003C1925 /* DemoShader1.fsh */,
+				C442A8941B7B3B87000BB98F /* rect.fsh */,
+				C442A8921B7B3B75000BB98F /* rect.vsh */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -890,6 +899,8 @@
 				D2F664161ADD7607003C1925 /* LaunchScreen.xib in Resources */,
 				C44BB09A1B48E504001B158A /* point.vsh in Resources */,
 				D2F664181ADD7607003C1925 /* Main.storyboard in Resources */,
+				C442A8951B7B3B87000BB98F /* rect.fsh in Resources */,
+				C442A8931B7B3B75000BB98F /* rect.vsh in Resources */,
 				D2F6641A1ADD7607003C1925 /* Images.xcassets in Resources */,
 				C478D8531B1F4C3A00FFF3D9 /* brush2.png in Resources */,
 				C478D8521B1F4C3A00FFF3D9 /* brush1.png in Resources */,
@@ -980,6 +991,7 @@
 				D2F6642C1ADD7607003C1925 /* DemoScene.swift in Sources */,
 				C458F5E11B54CD7B00FC1235 /* Dot.swift in Sources */,
 				C458F5E31B54DE5800FC1235 /* DotStageLevelGenerator.swift in Sources */,
+				C44609271B7A571A00C34D04 /* GLRect.swift in Sources */,
 				C4C5B9BA1B0EFB5400D6AD4B /* GLShaderBinder.swift in Sources */,
 				C433EEBC1B5D332F00D5175F /* GLLine.swift in Sources */,
 				D2F664321ADD7607003C1925 /* Vertex.swift in Sources */,

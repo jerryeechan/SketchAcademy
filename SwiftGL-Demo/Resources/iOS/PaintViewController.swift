@@ -92,6 +92,7 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         sender.setTranslation(CGPointZero, inView: imageView)
     }
     
+    var rect:GLRect!
     @IBAction func uiPanGestureHandler(sender: UIPanGestureRecognizer) {
         //let glkView = view as! GLKView
           //EAGLContext.setCurrentContext(glkView.context)
@@ -155,21 +156,43 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         }
         else
         {
-            //record painting 
-            let current_time = CFAbsoluteTimeGetCurrent()
-            switch(sender.state)
+            if mode == .drawing
             {
                 
-            case UIGestureRecognizerState.Began:
-                PaintRecorder.instance.startPoint(CGPointToVec2(current_pos)*Float(paintView.contentScaleFactor), velocity: CGPointToVec2(velocity), time: current_time)
-            case UIGestureRecognizerState.Changed:
-                PaintRecorder.instance.movePoint(CGPointToVec2(current_pos)*Float(paintView.contentScaleFactor), velocity: CGPointToVec2(velocity), time: current_time)
-            case UIGestureRecognizerState.Ended:
-                PaintRecorder.instance.endStroke()
-            default :
-                return
+            
+                //record painting
+                let current_time = CFAbsoluteTimeGetCurrent()
+                switch(sender.state)
+                {
+                    
+                case UIGestureRecognizerState.Began:
+                    PaintRecorder.instance.startPoint(CGPointToVec2(current_pos)*Float(paintView.contentScaleFactor), velocity: CGPointToVec2(velocity), time: current_time)
+                case UIGestureRecognizerState.Changed:
+                    PaintRecorder.instance.movePoint(CGPointToVec2(current_pos)*Float(paintView.contentScaleFactor), velocity: CGPointToVec2(velocity), time: current_time)
+                case UIGestureRecognizerState.Ended:
+                    PaintRecorder.instance.endStroke()
+                default :
+                    return
+                }
             }
+            else if mode == AppMode.note
+            {
+                switch(sender.state)
+                {
+                    case UIGestureRecognizerState.Began:
+                        rect = GLRect(p1: CGPointToVec2(current_pos), p2: CGPointToVec2(current_pos))
+                        print(rect.leftTop)
+                    case UIGestureRecognizerState.Changed:
+                        rect.rightButtom = CGPointToVec2(current_pos)
+                        print(rect.rightButtom)
+                        GLContextBuffer.instance.drawRectangle(rect)
+                        GLContextBuffer.instance.display()
+                    default :
+                    return
 
+                }
+                
+            }
             
         }
         
@@ -436,6 +459,19 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     @IBAction func RewindButtonTouched(sender: UIBarButtonItem) {
         PaintReplayer.instance.restart()
     }
+    
+    enum AppMode{
+        case drawing
+        case note
+        case revise
+    }
+    
+    var mode:AppMode = .drawing
+    
+    @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
+        mode = AppMode.note
+    }
+    
     
 }
 

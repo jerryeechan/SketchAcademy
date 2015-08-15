@@ -25,8 +25,7 @@ class Painter{
     static var scale:Float = 1
     
     static func renderLine(vInfo:ToolValueInfo,prev2:PaintPoint,prev1:PaintPoint,cur:PaintPoint)
-    {
-
+    {        
         GLShaderBinder.instance.bindBrushColor(vInfo.color.vec)
         GLShaderBinder.instance.bindBrushSize(vInfo.size)
         vertextBuffer = []
