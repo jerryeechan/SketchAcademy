@@ -31,7 +31,6 @@ class GLContextBuffer{
         glBindFramebuffer(GL_FRAMEBUFFER, viewFramebuffer);
         glBindRenderbuffer(GL_RENDERBUFFER_ENUM, viewRenderbuffer);
         
-        
         //use context as render buffer storage
         context.renderbufferStorage(Int(GL_RENDERBUFFER), fromDrawable: layer)
         
@@ -75,8 +74,6 @@ class GLContextBuffer{
         {
             drawTexture(layer.texture)
         }
-        
-        
     }
     
     func drawBrushVertex(vertextBuffer:[PaintPoint])
@@ -93,10 +90,35 @@ class GLContextBuffer{
 
         //renderTexture.currentLayer.clean()
         //drawTexture(renderTexture.currentLayer.texture)
-        
         //println("draw point count:\(vertextBuffer.count)")
     }
     
+    func drawRectangle(rect:GLRect)
+    {
+        
+        let leftTop = rect.leftTop
+        let rightButtom = rect.rightButtom
+        var vertexBuffer:[PaintPoint] = []
+        
+        vertexBuffer.append(PaintPoint(position:Vec4(leftTop.x,leftTop.y),color: Color(0,0,0,1).vec,size: 5, rotation: 0))
+        vertexBuffer.append(PaintPoint(position:Vec4(leftTop.x,rightButtom.y),color: Color(0,0,0,1).vec,size: 5, rotation: 0))
+        
+        vertexBuffer.append(PaintPoint(position:Vec4(rightButtom.x,rightButtom.y),color: Color(0,0,0,1).vec,size: 5, rotation: 0))
+        
+        vertexBuffer.append(PaintPoint(position:Vec4(rightButtom.x,leftTop.y),color: Color(0,0,0,1).vec,size: 5, rotation: 0))
+        
+        if renderTexture.setBuffer() == false{
+            print("Framebuffer fail")
+        }
+        
+        GLShaderBinder.instance.bindBrush()
+        GLShaderBinder.instance.bindBrushColor(Vec4(0,0,0,1))
+        GLShaderBinder.instance.drawShader.useProgram()
+        GLShaderBinder.instance.bindVertexs(vertexBuffer)
+        
+        //glLineWidth(8)
+        glDrawArrays(GL_LINE_LOOP, 0, 4)
+    }
     
     func drawTexture(texture:Texture)
     {
@@ -112,7 +134,6 @@ class GLContextBuffer{
     
     func display()
     {
-        
         glBindFramebuffer(GL_FRAMEBUFFER, viewFramebuffer);
         glBindRenderbuffer(GL_RENDERBUFFER_ENUM, viewRenderbuffer);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER_ENUM, viewRenderbuffer);
