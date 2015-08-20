@@ -114,7 +114,7 @@ class PaintReplayer:NSObject
                // println("paintreplayer draw next")
                 if currentPointID >= 2
                 {
-                    let i = currentPointID
+                    let i = currentPointID                    
                     draw(strokes[currentStrokeID], p1: currentPoints[i-2], p2: currentPoints[i-1], p3: currentPoints[i])
                 }
                 
@@ -133,6 +133,7 @@ class PaintReplayer:NSObject
     {
         currentPointID++
         if currentPointID == c_PointData.count{
+            GLContextBuffer.instance.endStroke()
             return nextStroke()
         }
         return true
@@ -147,7 +148,10 @@ class PaintReplayer:NSObject
         }
         PaintToolManager.instance.changeTool(strokes[currentStrokeID].stringInfo.toolName)
         
-        //PaintToolManager.instance.changeTool()
+        print(strokes[currentStrokeID].valueInfo.color)
+        PaintToolManager.instance.loadToolValueInfo(strokes[currentStrokeID].valueInfo)
+        
+        
         c_PointData = strokes[currentStrokeID].pointData
         currentPoints = strokes[currentStrokeID].points
         
@@ -156,8 +160,8 @@ class PaintReplayer:NSObject
     func draw(stroke:PaintStroke,p1:PaintPoint,p2:PaintPoint,p3:PaintPoint)
     {
         
-        Painter.renderLine(PaintToolManager.instance.currentTool.vInfo, prev2: p1,prev1: p2,cur: p3)
-        
-        //Painter.renderLine(stroke.valueInfo, prev2: p1,prev1: p2,cur: p3)
+        //Painter.renderLine(PaintToolManager.instance.currentTool.vInfo, prev2: p1,prev1: p2,cur: p3)
+        print(stroke.valueInfo.color)
+        Painter.renderLine(stroke.valueInfo, prev2: p1,prev1: p2,cur: p3)
     }
 }

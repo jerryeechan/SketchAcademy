@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="CvM-l6-OQ6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="CvM-l6-OQ6">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -33,7 +33,7 @@
                                     <barButtonItem width="459" style="plain" systemItem="fixedSpace" id="X85-Vb-cfH"/>
                                     <barButtonItem style="plain" id="70f-MM-qvJ">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HkR-Su-2EU">
-                                            <rect key="frame" x="459" y="7" width="76" height="30"/>
+                                            <rect key="frame" x="479" y="7" width="76" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                             <state key="normal" title="新關卡"/>
@@ -44,7 +44,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="8X8-rm-GYf">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SLg-Am-i5k">
-                                            <rect key="frame" x="545" y="7" width="76" height="30"/>
+                                            <rect key="frame" x="565" y="7" width="76" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                             <state key="normal" title="計算分數"/>
@@ -55,7 +55,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="tVM-cl-4sO">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="teA-Cq-sHn">
-                                            <rect key="frame" x="631" y="7" width="46" height="30"/>
+                                            <rect key="frame" x="651" y="7" width="46" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="重新">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -69,7 +69,7 @@
                                     <barButtonItem title="2" width="19" id="x7O-fb-Fom"/>
                                     <barButtonItem style="plain" id="xic-ND-vX1">
                                         <stepper key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="9" id="cT5-eI-P5G">
-                                            <rect key="frame" x="874" y="7.5" width="94" height="29"/>
+                                            <rect key="frame" x="894" y="7.5" width="94" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <connections>
                                                 <action selector="difficultyStepperValueChanged:" destination="Nu2-Wz-aDe" eventType="valueChanged" id="y9s-B9-RP8"/>
@@ -152,7 +152,7 @@
                                     <barButtonItem width="407" style="plain" systemItem="fixedSpace" id="Ffp-If-ZUE"/>
                                     <barButtonItem style="plain" id="mfL-rB-3Zu">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="MUw-yX-PBN">
-                                            <rect key="frame" x="407" y="7" width="123" height="30"/>
+                                            <rect key="frame" x="427" y="7" width="123" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Rect"/>
@@ -207,7 +207,7 @@
                                 <items>
                                     <barButtonItem style="plain" id="7Mg-F9-F26">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="m5w-Mc-ydH">
-                                            <rect key="frame" x="0.0" y="7" width="123" height="30"/>
+                                            <rect key="frame" x="20" y="7" width="123" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="蠟筆"/>
@@ -220,7 +220,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="1UK-vo-4fW">
                                         <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minValue="5" maxValue="50" id="aEq-Z1-WmC">
-                                            <rect key="frame" x="133" y="6.5" width="118" height="31"/>
+                                            <rect key="frame" x="153" y="6.5" width="118" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <connections>
                                                 <action selector="brushScaleSliderValueChanged:" destination="CvM-l6-OQ6" eventType="valueChanged" id="QiR-cM-Ken"/>
@@ -234,7 +234,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="Grc-Mx-qmK">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hem-jL-OwS">
-                                            <rect key="frame" x="290" y="7" width="46" height="30"/>
+                                            <rect key="frame" x="310" y="7" width="46" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="load">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -246,7 +246,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="UGW-cG-iRv">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9dj-Wv-LKZ">
-                                            <rect key="frame" x="346" y="7" width="46" height="30"/>
+                                            <rect key="frame" x="366" y="7" width="46" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="save"/>
                                             <connections>
@@ -256,7 +256,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="Meb-EL-5fy">
                                         <stepper key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="xoH-Z7-E9A">
-                                            <rect key="frame" x="402" y="7.5" width="94" height="29"/>
+                                            <rect key="frame" x="422" y="7.5" width="94" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </stepper>
                                     </barButtonItem>
@@ -283,16 +283,61 @@
                                 </items>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rcV-el-onX">
+                                <rect key="frame" x="500" y="0.0" width="300" height="300"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="3m2-Zq-erL"/>
+                                    <constraint firstAttribute="width" constant="300" id="kfD-QS-i3o"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="00f-mn-Hob" appends="YES" id="gZC-Ko-Bbl"/>
+                                </connections>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AqB-Ps-H0o">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="724"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bm7-Gg-lvO">
+                                        <rect key="frame" x="140" y="337" width="46" height="30"/>
+                                        <state key="normal" title="擦子"/>
+                                    </button>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2CA-XT-VkX" customClass="ColorPicker" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q2d-KY-UEA">
+                                        <rect key="frame" x="0.0" y="547" width="240" height="177"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Annotation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qV-tb-zex">
+                                                <rect key="frame" x="73" y="8" width="95" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="253-Vf-K54">
+                                                <rect key="frame" x="8" y="37" width="224" height="128"/>
+                                                <color key="backgroundColor" red="1" green="0.97897774194176501" blue="0.76255636259620285" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.97035795590503338" blue="0.45530889666249319" alpha="1" colorSpace="calibratedRGB"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="KHm-gJ-Eju" appends="YES" id="gdL-QN-iRU"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="1" green="0.96910158972737181" blue="0.31042173043423271" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e0Y-7M-m0z">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="724"/>
+                                <rect key="frame" x="239" y="0.0" width="785" height="724"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UCv-DA-xiU" customClass="PaintView" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="724"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="785" height="724"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="724" id="dGq-ay-qbi"/>
-                                        </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="pUw-RS-vpk" appends="YES" id="eKo-IQ-fOb"/>
                                             <outletCollection property="gestureRecognizers" destination="ToE-63-J0L" appends="YES" id="jOk-dz-ZVq"/>
@@ -301,19 +346,19 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="UCv-DA-xiU" firstAttribute="leading" secondItem="e0Y-7M-m0z" secondAttribute="leading" id="6pW-zh-oPP"/>
+                                    <constraint firstItem="UCv-DA-xiU" firstAttribute="centerY" secondItem="e0Y-7M-m0z" secondAttribute="centerY" id="CLt-V9-Jpm"/>
                                     <constraint firstAttribute="bottom" secondItem="UCv-DA-xiU" secondAttribute="bottom" id="Xti-9C-Ta4"/>
                                     <constraint firstItem="UCv-DA-xiU" firstAttribute="centerX" secondItem="e0Y-7M-m0z" secondAttribute="centerX" id="nRr-iE-6pr"/>
                                     <constraint firstAttribute="trailing" secondItem="UCv-DA-xiU" secondAttribute="trailing" id="xbX-rG-dlO"/>
+                                    <constraint firstItem="UCv-DA-xiU" firstAttribute="centerX" secondItem="e0Y-7M-m0z" secondAttribute="centerX" id="ykq-0N-mz2"/>
                                     <constraint firstItem="UCv-DA-xiU" firstAttribute="top" secondItem="e0Y-7M-m0z" secondAttribute="top" id="zyO-aH-00b"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="nRr-iE-6pr"/>
+                                    </mask>
+                                </variation>
                             </scrollView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rcV-el-onX">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="00f-mn-Hob" appends="YES" id="gZC-Ko-Bbl"/>
-                                </connections>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.42558735663688912" green="0.52655234920458727" blue="0.70132970328282829" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
@@ -321,10 +366,16 @@
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="bottom" secondItem="wKi-nP-2wB" secondAttribute="top" id="3yr-Tl-VZp"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="trailing" secondItem="wKi-nP-2wB" secondAttribute="trailing" id="5FY-kq-pmh"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="top" secondItem="MuV-st-KEp" secondAttribute="top" id="5ac-VK-0DJ"/>
-                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="A3l-Jx-Qv4"/>
+                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" constant="239" id="A3l-Jx-Qv4"/>
                             <constraint firstAttribute="bottom" secondItem="e0Y-7M-m0z" secondAttribute="bottom" constant="44" id="E1V-ql-3Hl"/>
-                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="leading" secondItem="wKi-nP-2wB" secondAttribute="leading" id="VvT-lM-Elo"/>
+                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="top" secondItem="rcV-el-onX" secondAttribute="top" id="I1F-9X-ElN"/>
+                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="leading" secondItem="wKi-nP-2wB" secondAttribute="leading" constant="239" id="VvT-lM-Elo"/>
+                            <constraint firstItem="AqB-Ps-H0o" firstAttribute="leading" secondItem="wKi-nP-2wB" secondAttribute="leading" id="a15-yo-ZJB"/>
                             <constraint firstAttribute="trailing" secondItem="e0Y-7M-m0z" secondAttribute="trailing" id="ddU-gJ-tf2"/>
+                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="bottom" secondItem="AqB-Ps-H0o" secondAttribute="bottom" id="dyZ-e5-l7R"/>
+                            <constraint firstItem="e0Y-7M-m0z" firstAttribute="top" secondItem="AqB-Ps-H0o" secondAttribute="top" id="eIo-nV-Ltv"/>
+                            <constraint firstAttribute="trailing" secondItem="AqB-Ps-H0o" secondAttribute="trailing" constant="784" id="pGi-3N-xZh"/>
+                            <constraint firstItem="rcV-el-onX" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" constant="500" id="yvm-fq-XDU"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="H61-HT-vFb" appends="YES" id="Zgi-Wo-ldx"/>
@@ -334,9 +385,11 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
                         <outlet property="brushScaleSlider" destination="aEq-Z1-WmC" id="ESS-NN-7mA"/>
+                        <outlet property="colorPicker" destination="2CA-XT-VkX" id="Gdy-tV-Sq2"/>
                         <outlet property="imageView" destination="rcV-el-onX" id="SYK-dt-IW5"/>
                         <outlet property="mainView" destination="MuV-st-KEp" id="nSJ-pA-k2h"/>
                         <outlet property="paintView" destination="UCv-DA-xiU" id="Bv6-eq-1RR"/>
+                        <outlet property="reviseNoteView" destination="Q2d-KY-UEA" id="sVk-Hx-D3R"/>
                         <outlet property="scrollView" destination="e0Y-7M-m0z" id="g5P-9I-Pt8"/>
                     </connections>
                 </viewController>
@@ -361,8 +414,13 @@
                         <action selector="imageViewPanGestureHandler:" destination="CvM-l6-OQ6" id="lWO-2u-Y1w"/>
                     </connections>
                 </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="KHm-gJ-Eju" userLabel="note pan gesture">
+                    <connections>
+                        <action selector="notePanGestureRecognizerHandler:" destination="CvM-l6-OQ6" id="BEL-Lm-y34"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1380" y="693"/>
+            <point key="canvasLocation" x="1242" y="714"/>
         </scene>
         <!--Draw Detail Navigation Controller-->
         <scene sceneID="waB-zp-PVn">
@@ -438,7 +496,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="TrB-5d-pfv"/>
         <segue reference="vkg-QK-NqZ"/>
+        <segue reference="TrB-5d-pfv"/>
     </inferredMetricsTieBreakers>
 </document>

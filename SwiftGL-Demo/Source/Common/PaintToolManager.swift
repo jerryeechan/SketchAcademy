@@ -98,6 +98,12 @@ public class PaintToolManager {
         print("use eraser")
     }
    // var isToolAttributeChanged:Bool = true
+    func loadToolValueInfo(valueInfo:ToolValueInfo)
+    {
+        currentTool.changeColor(valueInfo.color)
+        currentTool.changeSize(valueInfo.size)
+    }
+    
     
     func changeColor(color:UIColor)
     {
@@ -113,7 +119,7 @@ public class PaintToolManager {
         {
             print("erase change color")
             return
-            }
+        }
         
         currentTool.changeColor(c)
     }

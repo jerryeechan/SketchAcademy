@@ -96,17 +96,14 @@ class GLShaderBinder{
             
             glBindAttribLocation(program, self.iLocImageAttribTexturePosition, "inputTextureCoordinate")
             
-            
         
-        })
-        {
-            
-        }
+            }){}
         
         iLocImageMVP = glGetUniformLocation(imageShader.id, "MVP")
         iLocImageTexture = glGetUniformLocation(imageShader.id, "imageTexture")
         
-
+        iLocImageAlpha = glGetUniformLocation(imageShader.id, "alpha")
+            
         glEnableVertexAttribArray(iLocImageAttribVertex)
         glEnableVertexAttribArray(iLocImageAttribTexturePosition)
         
@@ -139,6 +136,8 @@ class GLShaderBinder{
         let width:GLfloat = GLfloat(GLContextBuffer.instance.backingWidth)
         let height:GLfloat = GLfloat(GLContextBuffer.instance.backingHeight)
         
+        
+        /*
         imageVertices.append(ImageVertice(position: Vec4(0,0), textureCoordinate: Vec4(0,1)))
         
         imageVertices.append(ImageVertice(position: Vec4(width,0), textureCoordinate: Vec4(1,1)))
@@ -146,7 +145,14 @@ class GLShaderBinder{
         imageVertices.append(ImageVertice(position: Vec4(0,height), textureCoordinate: Vec4(0,0)))
         
         imageVertices.append(ImageVertice(position: Vec4(width,height), textureCoordinate: Vec4(1,0)))
+        */
+        imageVertices.append(ImageVertice(position: Vec4(0,0), textureCoordinate: Vec4(0,0)))
         
+        imageVertices.append(ImageVertice(position: Vec4(width,0), textureCoordinate: Vec4(1,0)))
+        
+        imageVertices.append(ImageVertice(position: Vec4(0,height), textureCoordinate: Vec4(0,1)))
+        
+        imageVertices.append(ImageVertice(position: Vec4(width,height), textureCoordinate: Vec4(1,1)))
        
     }
 
@@ -161,12 +167,11 @@ class GLShaderBinder{
     
     var iLocImageTexture:GLint = 0
     var iLocImageMVP:GLint = 0
-    
-    func drawImageTexture(texture:Texture)
+    var iLocImageAlpha:GLint = 0
+    func drawImageTexture(texture:Texture,alpha:Float)
     {
-        
-        
         imageShader.bind(iLocImageTexture,texture , index: 2)
+        imageShader.bind(iLocImageAlpha, alpha)
         imageShader.useProgram()
         
         print(glGetAttribLocation(imageShader.id, "position"))
@@ -201,6 +206,7 @@ class GLShaderBinder{
     }
     func bindBrushColor(color:Vec4)
     {
+        print(color)
         drawShader.bind(iLocBrushColor,color)
     }
     func bindBrushSize(size:Float)

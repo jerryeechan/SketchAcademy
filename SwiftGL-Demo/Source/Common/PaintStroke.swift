@@ -47,7 +47,6 @@ class PaintStroke
         for var i = 0; i < pointData.count ;i++
         {
             points.append(genPaintPoint(pointData[i].position, velocity: pointData[i].velocity))
-            print(pointData[i].position)
         }
     }
     func isPaintingAvalible()->Bool
@@ -93,7 +92,4 @@ class PaintStroke
     {
         
     }
-    
-    
-    
 }
