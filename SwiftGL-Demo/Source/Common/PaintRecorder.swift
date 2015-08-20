@@ -106,8 +106,10 @@ class PaintRecorder {
     {
         if stroke != nil
         {
+            GLContextBuffer.instance.endStroke()
             artwork.addPaintStroke(stroke)
             stroke = nil
+            GLContextBuffer.instance.display()
         }
         
     }

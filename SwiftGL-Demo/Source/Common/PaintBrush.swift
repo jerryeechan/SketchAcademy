@@ -24,7 +24,7 @@ struct ToolStringInfo {
         brushTexture = texture
     }
 }
-struct ToolValueInfo{
+public struct ToolValueInfo{
     init()
     {
         
@@ -34,8 +34,8 @@ struct ToolValueInfo{
         self.color = color
         self.size = size
     }
-    var color:Color = Color(0,0,0,255)
-    var size:Float = 0
+    public var color:Color = Color(0,0,0,255)
+    public var size:Float = 0
 }
 
 class PaintBrush:NSObject{

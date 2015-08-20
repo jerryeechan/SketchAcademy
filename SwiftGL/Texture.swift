@@ -44,7 +44,7 @@ public class Texture {
     public convenience init(image:UIImage)
     {
         self.init()
-        load(image: image, antialias: true, flipVertical: false)
+        load(image: image, antialias: true, flipVertical: true)
     }
     public convenience init(w:GLsizei,h:GLsizei)
     {
@@ -64,11 +64,11 @@ public class Texture {
     }
     
     public func load(filename filename: String) -> Bool {
-        return load(filename: filename, antialias: false, flipVertical: false)
+        return load(filename: filename, antialias: false, flipVertical: true)
     }
     
     public func load(filename filename: String, antialias: Bool) -> Bool {
-        return load(filename: filename, antialias: antialias, flipVertical: false)
+        return load(filename: filename, antialias: antialias, flipVertical: true)
     }
     
     public func load(filename filename: String, flipVertical: Bool) -> Bool {
@@ -78,6 +78,8 @@ public class Texture {
     /// @return true on success
     public func load(image image:UIImage, antialias: Bool, flipVertical: Bool)->Bool
     {
+        
+
         let cgImage = image.CGImage
         var	brushContext:CGContextRef
         // Get the width and height of the image
@@ -94,6 +96,11 @@ public class Texture {
             brushContext = CGBitmapContextCreate(brushData, Int(width), Int(height), 8, Int(width * 4),CGColorSpaceCreateDeviceRGB() ,CGImageAlphaInfo.PremultipliedLast.rawValue)!
             
             // After you create the context, you can draw the  image to the context.
+            if flipVertical {
+                CGContextTranslateCTM(brushContext, 0, CGFloat(Int(height)))
+                CGContextScaleCTM(brushContext, 1, -1)
+            }
+            
             CGContextDrawImage(brushContext, CGRectMake(0.0, 0.0, CGFloat(width), CGFloat(height)), cgImage);
             // You don't need the context at this point, so you need to release it to avoid memory leaks.
             

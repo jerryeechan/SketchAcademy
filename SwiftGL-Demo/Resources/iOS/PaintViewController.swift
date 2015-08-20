@@ -11,17 +11,27 @@ import SwiftGL
 import OpenGLES
 class PaintViewController: UIViewController,UIDocumentPickerDelegate
 {
-    //var pickerController:ColorPickerController!
+    
     
    
+    @IBOutlet weak var colorPicker: ColorPicker!
+    
     
     override func viewDidLoad() {
         
         imageView.image = RefImgManager.instance.refImg
         imageView.contentMode = UIViewContentMode.ScaleAspectFit
         imageView.userInteractionEnabled = true
+        colorPicker.setTheColor(UIColor(hue: 0.5, saturation: 0.5, brightness: 0.5, alpha: 1.0))
+        colorPicker.onColorChange = {(color, finished) in
+            if finished {
+                //self.view.backgroundColor = UIColor.whiteColor() // reset background color to white
+            } else {
+                //self.view.backgroundColor = color // set background color to current selected color (finger is still down)
+                PaintToolManager.instance.changeColor(color)
+            }
+        }
         /*
-        pickerController = ColorPickerController(svPickerView: colorPicker!, huePickerView: huePicker!, colorWell: colorWell!)
         pickerController?.color = UIColor.redColor()
         
         
@@ -32,12 +42,10 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
                 //self.view.backgroundColor = color // set background color to current selected color (finger is still down)
                 PaintToolManager.instance.changeColor(color)
             }
-        }
+        }*/
         
-        println(paintView.layer.anchorPoint)
-        println(paintView.layer.position)
         
-        */
+        
         
     }
     /*
@@ -98,9 +106,9 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
           //EAGLContext.setCurrentContext(glkView.context)
         let velocity = sender.velocityInView(paintView)
         
-        let current_pos = sender.locationInView(paintView)
+        var current_pos = sender.locationInView(paintView)
         
-        //current_pos.y = CGFloat(paintView.bounds.height) - current_pos.y
+        current_pos.y = CGFloat(paintView.bounds.height) - current_pos.y
         
         
         let dis = sender.translationInView(scrollView)
@@ -469,9 +477,58 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     var mode:AppMode = .drawing
     
     @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
-        mode = AppMode.note
+        displayCropView()
     }
     
+    
+    
+    var canvasCropView:CanvasCropView!
+    func displayCropView()
+    {
+        if !isEditingRectangle
+        {
+            
+            let viewRect = CGRectMake(240, 0, paintView.bounds.size.width,paintView.bounds.size.height);
+            canvasCropView = CanvasCropView(frame: viewRect)
+            mainView.addSubview(canvasCropView)
+            isEditingRectangle = true
+        }
+        else
+        {
+            canvasCropView.removeFromSuperview()
+            isEditingRectangle = false
+        }
+        
+        
+    }
+    
+    func getView(name:String)->UIView
+    {
+        return NSBundle.mainBundle().loadNibNamed(name, owner: self, options: nil)![0] as! UIView
+    }
+    
+    @IBOutlet weak var reviseNoteView: UIView!
+   
+    var reviseNoteStartPoint:CGPoint!
+    var isEditingRectangle:Bool = false
+    @IBAction func notePanGestureRecognizerHandler(sender: UIPanGestureRecognizer) {
+        
+        switch(sender.state)
+        {
+        case UIGestureRecognizerState.Began:
+            reviseNoteStartPoint = reviseNoteView.center
+        case UIGestureRecognizerState.Changed:
+            let dis = sender.translationInView(reviseNoteView)
+            //reviseNote.center = CGPoint(x: reviseNoteStartPoint.x + dis.x, y: reviseNoteStartPoint.y + dis.y)
+            reviseNoteView.frame = CGRectOffset(reviseNoteView.frame, dis.x,dis.y)
+            
+            sender.setTranslation(CGPoint(x: 0,y: 0), inView: reviseNoteView
+            )
+        default:
+            return
+        }
+        
+    }
     
 }
 

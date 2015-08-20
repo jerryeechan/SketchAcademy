@@ -70,7 +70,7 @@ class FileManager {
     func loadImg(filename:String)->UIImage!
     {
         
-        if let img = UIImage(contentsOfFile: dirPath+"/"+filename.stringByDeletingPathExtension+".png")
+        if let img = UIImage(contentsOfFile: dirPath+"/"+NSString(string: filename).stringByDeletingPathExtension+".png")
         {
             return img
         }
@@ -295,7 +295,8 @@ class FileManager {
     {
         if let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)  {
             let dir = dirs[0] //documents directory
-            let path = dir.stringByAppendingPathComponent(filename);
+            
+            let path = NSString(string: dir).stringByAppendingPathComponent(filename);
         
             nsFileManager.fileExistsAtPath(path)
             //writing
@@ -310,7 +311,7 @@ class FileManager {
     {
         if let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) {
             let dir = dirs[0] //documents directory
-            let path = dir.stringByAppendingPathComponent(filename);
+            let path = NSString(string: dir).stringByAppendingPathComponent(filename);
                         
             do {
                 //writing
@@ -324,7 +325,9 @@ class FileManager {
         var data:NSData
         if let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) {
             let dir = dirs[0] //documents directory
-            let path = dir.stringByAppendingPathComponent(filename);
+            
+            
+            let path = NSString(string: dir).stringByAppendingPathComponent(filename)
             
             data = NSData(contentsOfFile: path)!
             return data
@@ -340,7 +343,7 @@ class FileManager {
         let content:String!
         if let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) {
             let dir = dirs[0] //documents directory
-            let path = dir.stringByAppendingPathComponent(filename);
+            let path = NSString(string: dir).stringByAppendingPathComponent(filename);
             
             do {
                 content = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)

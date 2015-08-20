@@ -8,7 +8,7 @@
 
 import SwiftGL
 import OpenGLES.ES2
-class Layer {
+class Layer:NSObject{
     var texture:Texture!
     
     init(w: GLsizei, h: GLsizei)

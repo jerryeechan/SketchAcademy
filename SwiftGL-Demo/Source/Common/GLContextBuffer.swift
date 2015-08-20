@@ -70,10 +70,17 @@ class GLContextBuffer{
     func drawLayers(){
         //drawTexture(Texture(filename: "spongebob"))
         
+        
         for layer in renderTexture.layers
         {
-            drawTexture(layer.texture)
+
+            drawTexture(layer.texture,alpha: 1)
+            if layer == renderTexture.currentLayer
+            {
+                drawTexture(renderTexture.tempLayer.texture,alpha: 0.5)
+            }
         }
+        
     }
     
     func drawBrushVertex(vertextBuffer:[PaintPoint])
@@ -81,8 +88,8 @@ class GLContextBuffer{
         GLShaderBinder.instance.bindBrush()
         GLShaderBinder.instance.bindVertexs(vertextBuffer)
         GLShaderBinder.instance.drawShader.useProgram()
-        PaintToolManager.instance.useCurrentTool()
-        if renderTexture.setBuffer() == false{
+        
+        if renderTexture.setTempBuffer() == false{
             print("Framebuffer fail")
         }
         
@@ -91,6 +98,27 @@ class GLContextBuffer{
         //renderTexture.currentLayer.clean()
         //drawTexture(renderTexture.currentLayer.texture)
         //println("draw point count:\(vertextBuffer.count)")
+    }
+    
+    /**
+    when stroke end, draw the temp layer to the current layer
+    */
+    func endStroke()
+    {
+        drawTextureOnRenderTexture(renderTexture.tempLayer.texture,alpha: 0.5)
+        renderTexture.tempLayer.clean()
+    }
+    //draw texture on the RenderTexture layer
+    func drawTextureOnRenderTexture(texture:Texture,alpha:Float)
+    {
+        GLShaderBinder.instance.drawShader.useProgram()
+        glEnable(GL_BLEND);
+        glBlendFunc (GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        
+        if renderTexture.setBuffer() == false{
+            print("Framebuffer fail")
+        }
+        GLShaderBinder.instance.drawImageTexture(texture,alpha:alpha)
     }
     
     func drawRectangle(rect:GLRect)
@@ -120,7 +148,7 @@ class GLContextBuffer{
         glDrawArrays(GL_LINE_LOOP, 0, 4)
     }
     
-    func drawTexture(texture:Texture)
+    func drawTexture(texture:Texture,alpha:Float)
     {
         glBindFramebuffer(GL_FRAMEBUFFER, viewFramebuffer);
         glBindRenderbuffer(GL_RENDERBUFFER_ENUM, viewRenderbuffer);
@@ -129,7 +157,7 @@ class GLContextBuffer{
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
         
         //blank()  //blank to test if texture can be draw
-        GLShaderBinder.instance.drawImageTexture(texture)
+        GLShaderBinder.instance.drawImageTexture(texture,alpha:alpha)
     }
     
     func display()
