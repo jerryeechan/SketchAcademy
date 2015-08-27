@@ -93,6 +93,12 @@
 		C4EB7A821B8645D600A33651 /* TypeWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7B1B86018300A33651 /* TypeWriter.swift */; };
 		C4EB7A841B86483A00A33651 /* CanvasPanGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A831B86483A00A33651 /* CanvasPanGestureHandler.swift */; };
 		C4EB7A851B86483A00A33651 /* CanvasPanGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A831B86483A00A33651 /* CanvasPanGestureHandler.swift */; };
+		C4F1D2CC1B8EB79000634626 /* FaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1D2C61B8EB79000634626 /* FaceComponent.swift */; };
+		C4F1D2CD1B8EB79000634626 /* FaceComponentSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1D2C71B8EB79000634626 /* FaceComponentSet.swift */; };
+		C4F1D2CE1B8EB79000634626 /* FaceGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1D2C81B8EB79000634626 /* FaceGameScene.swift */; };
+		C4F1D2CF1B8EB79000634626 /* FaceGameStageLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1D2C91B8EB79000634626 /* FaceGameStageLevelGenerator.swift */; };
+		C4F1D2D01B8EB79000634626 /* FaceGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1D2CA1B8EB79000634626 /* FaceGameViewController.swift */; };
+		C4F1D2D31B8EB9D200634626 /* GameLevelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1D2D21B8EB9D200634626 /* GameLevelData.swift */; };
 		C4FFAB7D1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FFAB7C1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift */; };
 		D262B7FE19663A37004A2997 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CA623219512D24007B2DC2 /* Constants.swift */; };
 		D262B7FF19663A37004A2997 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AE71945263000655A34 /* Float.swift */; };
@@ -269,6 +275,12 @@
 		C4EB7A7B1B86018300A33651 /* TypeWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeWriter.swift; sourceTree = "<group>"; };
 		C4EB7A7D1B86450F00A33651 /* Dialogue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dialogue.swift; sourceTree = "<group>"; };
 		C4EB7A831B86483A00A33651 /* CanvasPanGestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasPanGestureHandler.swift; sourceTree = "<group>"; };
+		C4F1D2C61B8EB79000634626 /* FaceComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceComponent.swift; sourceTree = "<group>"; };
+		C4F1D2C71B8EB79000634626 /* FaceComponentSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceComponentSet.swift; sourceTree = "<group>"; };
+		C4F1D2C81B8EB79000634626 /* FaceGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceGameScene.swift; sourceTree = "<group>"; };
+		C4F1D2C91B8EB79000634626 /* FaceGameStageLevelGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceGameStageLevelGenerator.swift; sourceTree = "<group>"; };
+		C4F1D2CA1B8EB79000634626 /* FaceGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceGameViewController.swift; sourceTree = "<group>"; };
+		C4F1D2D21B8EB9D200634626 /* GameLevelData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevelData.swift; sourceTree = "<group>"; };
 		C4F49F401B83014B001E62AD /* CanvasCropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasCropView.swift; sourceTree = "<group>"; };
 		C4FFAB7C1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialIntrodutionPageViewController.swift; sourceTree = "<group>"; };
 		D20662C01947D8D2001D2FAC /* Mat4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mat4.swift; sourceTree = "<group>"; };
@@ -584,6 +596,19 @@
 			name = Caption;
 			sourceTree = "<group>";
 		};
+		C4F1D2C51B8EB74B00634626 /* componentPlacementGame */ = {
+			isa = PBXGroup;
+			children = (
+				C4F1D2D21B8EB9D200634626 /* GameLevelData.swift */,
+				C4F1D2C61B8EB79000634626 /* FaceComponent.swift */,
+				C4F1D2C71B8EB79000634626 /* FaceComponentSet.swift */,
+				C4F1D2C81B8EB79000634626 /* FaceGameScene.swift */,
+				C4F1D2C91B8EB79000634626 /* FaceGameStageLevelGenerator.swift */,
+				C4F1D2CA1B8EB79000634626 /* FaceGameViewController.swift */,
+			);
+			name = componentPlacementGame;
+			sourceTree = "<group>";
+		};
 		C4FFAB7A1B8B7947009282FF /* menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -789,6 +814,7 @@
 		D2F664081ADD7607003C1925 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C4F1D2C51B8EB74B00634626 /* componentPlacementGame */,
 				C4BD8CA61B274CCE000A20A4 /* Input */,
 				C441B9B51B82FF330059427A /* Revise and Tag */,
 				C458F5A41B54AA5E00FC1235 /* ReferenceImage */,
@@ -1144,12 +1170,15 @@
 				C4EB7A851B86483A00A33651 /* CanvasPanGestureHandler.swift in Sources */,
 				D2F6642C1ADD7607003C1925 /* DemoScene.swift in Sources */,
 				C458F5E11B54CD7B00FC1235 /* Dot.swift in Sources */,
+				C4F1D2CF1B8EB79000634626 /* FaceGameStageLevelGenerator.swift in Sources */,
 				C4FFAB7D1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift in Sources */,
+				C4F1D2CE1B8EB79000634626 /* FaceGameScene.swift in Sources */,
 				C458F5E31B54DE5800FC1235 /* DotStageLevelGenerator.swift in Sources */,
 				C44747831B8334300093F019 /* ControlPointView.swift in Sources */,
 				C4A0A9A41B8C1E7200190A33 /* ReviseManager.swift in Sources */,
 				C44609271B7A571A00C34D04 /* GLRect.swift in Sources */,
 				C4C5B9BA1B0EFB5400D6AD4B /* GLShaderBinder.swift in Sources */,
+				C4F1D2CC1B8EB79000634626 /* FaceComponent.swift in Sources */,
 				C44CF0A41B85B86100D6C43E /* MainColorView.swift in Sources */,
 				C433EEBC1B5D332F00D5175F /* GLLine.swift in Sources */,
 				D2F664321ADD7607003C1925 /* Vertex.swift in Sources */,
@@ -1172,11 +1201,13 @@
 				C44CF0A31B85B86100D6C43E /* CrossHairView.swift in Sources */,
 				C4C5B9B81B0EFB1200D6AD4B /* GLTransformation.swift in Sources */,
 				C4EB7A821B8645D600A33651 /* TypeWriter.swift in Sources */,
+				C4F1D2CD1B8EB79000634626 /* FaceComponentSet.swift in Sources */,
 				C4EB7A801B8645D200A33651 /* DialogueLine.swift in Sources */,
 				C404FAA01B1AFB98004C2D8C /* FileManager.swift in Sources */,
 				C4AE3C4D1B0D1E8A00C959C2 /* CanvasInputHandler.swift in Sources */,
 				C447477E1B8317170093F019 /* AnnotationData.swift in Sources */,
 				C404FA951B14601F004C2D8C /* PaintPoint.swift in Sources */,
+				C4F1D2D01B8EB79000634626 /* FaceGameViewController.swift in Sources */,
 				C44CF0A21B85B86100D6C43E /* ColorPicker.swift in Sources */,
 				C404FA9B1B178EBD004C2D8C /* PaintToolManager.swift in Sources */,
 				C4B4D4191B4E3211004B926D /* FileTableViewController.swift in Sources */,
@@ -1184,6 +1215,7 @@
 				D2F6642E1ADD7607003C1925 /* Engine.swift in Sources */,
 				C4AE3C3E1B0CF42200C959C2 /* PaintBrush.swift in Sources */,
 				C478D8581B20BD4400FFF3D9 /* PaintReplayer.swift in Sources */,
+				C4F1D2D31B8EB9D200634626 /* GameLevelData.swift in Sources */,
 				D2F664341ADD7607003C1925 /* AppDelegate.swift in Sources */,
 				C44747811B8333EC0093F019 /* ShadeView.swift in Sources */,
 				C4EB7A7F1B86450F00A33651 /* Dialogue.swift in Sources */,
