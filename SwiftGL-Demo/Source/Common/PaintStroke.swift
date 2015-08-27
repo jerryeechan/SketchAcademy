@@ -76,7 +76,8 @@ class PaintStroke
     func draw()
     {
         //genPointsFromPointData()
-        drawBetween(0, endIndex: pointData.count)
+        Painter.renderStroke(self)
+        //drawBetween(0, endIndex: pointData.count)
     }
     func drawBetween(startIndex:Int,endIndex:Int)
     {

@@ -10,18 +10,33 @@ import SwiftGL
 import OpenGLES.ES2
 class Layer:NSObject{
     var texture:Texture!
-    
-    init(w: GLsizei, h: GLsizei)
+    var alpha:Float = 1
+    var w,h:GLsizei!
+    convenience init(w: GLsizei, h: GLsizei)
     {
+        self.init()
         texture = Texture(w: w, h: h)
+        self.w = w
+        self.h = h
+        
     }
-    init(texture:Texture)
+    convenience init(texture:Texture)
     {
+        self.init()
         self.texture = texture
+    }
+    override init()
+    {
+        super.init()
+    }
+    deinit
+    {
+        glDeleteTextures(1,[texture.id])
     }
     
     func clean()
     {
+        //texture = Texture(w: w, h: h)
         texture.empty()
     }
 }

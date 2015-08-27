@@ -11,17 +11,22 @@ import SwiftGL
 import OpenGLES
 class PaintViewController: UIViewController,UIDocumentPickerDelegate
 {
-    
-    
-   
     @IBOutlet weak var colorPicker: ColorPicker!
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    @IBOutlet weak var playBackToolbar: UIToolbar!
+    
+    @IBOutlet weak var playBackView: UIView!
     
     override func viewDidLoad() {
+        playBackToolbar.clipsToBounds = true
         
         imageView.image = RefImgManager.instance.refImg
         imageView.contentMode = UIViewContentMode.ScaleAspectFit
         imageView.userInteractionEnabled = true
+        
         colorPicker.setTheColor(UIColor(hue: 0.5, saturation: 0.5, brightness: 0.5, alpha: 1.0))
         colorPicker.onColorChange = {(color, finished) in
             if finished {
@@ -31,6 +36,7 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
                 PaintToolManager.instance.changeColor(color)
             }
         }
+        
         /*
         pickerController?.color = UIColor.redColor()
         
@@ -44,15 +50,22 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
             }
         }*/
         
+        canvasPanGestureHandler = CanvasPanGestureHandler(pvController: self)
         
         
         
     }
+    override func viewDidLayoutSubviews() {
+        edgeGestureHandler = EdgeGestureHandler(pvController: self)
+        PaintToolManager.instance.useCurrentTool()
+    }
+    
     /*
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return paintView
     }*/
     
+    var edgeGestureHandler:EdgeGestureHandler!
     
     @IBOutlet weak var imageView: UIImageView!
     
@@ -60,28 +73,26 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     
     @IBOutlet weak var paintView: PaintView!
     
-    @IBOutlet var mainView: UIView!
+    @IBOutlet weak var mainView: UIView!
     
-    @IBOutlet weak var brushScaleSlider: UISlider!
+    //@IBOutlet weak var brushScaleSlider: UISlider!
     
+    
+    @IBOutlet weak var toolView: UIView!
     
     
     var last_ori_pos:CGPoint = CGPoint(x: 0, y: 0)
     
     
-    var twoTouchSwipeCount:Int = 0;
-    
-    enum TwoSwipeState{
-        case Unknown
-        case FastSwipe
-        case Dragging
-    }
     
 
-    var twoSwipeState:TwoSwipeState = .Unknown
+    
     
     
     @IBAction func imageViewPanGestureHandler(sender: UIPanGestureRecognizer) {
+        
+        
+        
         let dis = sender.translationInView(imageView)
         
         print("image view pan")
@@ -101,110 +112,19 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     }
     
     var rect:GLRect!
+    
+    var canvasPanGestureHandler:CanvasPanGestureHandler!
+    
+    @IBOutlet weak var canvasImageView: UIImageView!
+    
     @IBAction func uiPanGestureHandler(sender: UIPanGestureRecognizer) {
         //let glkView = view as! GLKView
           //EAGLContext.setCurrentContext(glkView.context)
-        let velocity = sender.velocityInView(paintView)
         
-        var current_pos = sender.locationInView(paintView)
-        
-        current_pos.y = CGFloat(paintView.bounds.height) - current_pos.y
+        canvasPanGestureHandler.panGestureHandler(sender)
         
         
-        let dis = sender.translationInView(scrollView)
         
-
-        
-        if sender.numberOfTouches() == 2
-        {
-            /**
-            Two touches
-            **/
-            
-            
-            switch(sender.state)
-            {
-            case UIGestureRecognizerState.Began:
-                twoTouchSwipeCount = 0;
-                twoSwipeState = TwoSwipeState.Unknown
-            case UIGestureRecognizerState.Changed:
-                if twoSwipeState == TwoSwipeState.Unknown
-                {
-                    let v = sender.velocityInView(scrollView)
-                    print("velocity:\(v)")
-                    if v.x < -600
-                    {
-                        twoSwipeState = TwoSwipeState.FastSwipe
-                        print("fast swipe")
-                        return
-                    }
-                    else if v.x>600
-                    {
-                        twoSwipeState = TwoSwipeState.FastSwipe
-                        print("fast swipe")
-                        return
-                    }
-                    
-                    twoTouchSwipeCount++
-                    if twoTouchSwipeCount > 20
-                    {
-                        twoSwipeState = TwoSwipeState.Dragging
-                    }
-                }
-                else if twoSwipeState == TwoSwipeState.Dragging
-                {
-                    let scale = paintView.layer.transform.m11
-                    paintView.layer.transform = CATransform3DTranslate(paintView.layer.transform, dis.x/scale , dis.y/scale, 0)
-                }
-                
-            default: ()
-                
-            }
-            
-        }
-        else
-        {
-            if mode == .drawing
-            {
-                
-            
-                //record painting
-                let current_time = CFAbsoluteTimeGetCurrent()
-                switch(sender.state)
-                {
-                    
-                case UIGestureRecognizerState.Began:
-                    PaintRecorder.instance.startPoint(CGPointToVec2(current_pos)*Float(paintView.contentScaleFactor), velocity: CGPointToVec2(velocity), time: current_time)
-                case UIGestureRecognizerState.Changed:
-                    PaintRecorder.instance.movePoint(CGPointToVec2(current_pos)*Float(paintView.contentScaleFactor), velocity: CGPointToVec2(velocity), time: current_time)
-                case UIGestureRecognizerState.Ended:
-                    PaintRecorder.instance.endStroke()
-                default :
-                    return
-                }
-            }
-            else if mode == AppMode.note
-            {
-                switch(sender.state)
-                {
-                    case UIGestureRecognizerState.Began:
-                        rect = GLRect(p1: CGPointToVec2(current_pos), p2: CGPointToVec2(current_pos))
-                        print(rect.leftTop)
-                    case UIGestureRecognizerState.Changed:
-                        rect.rightButtom = CGPointToVec2(current_pos)
-                        print(rect.rightButtom)
-                        GLContextBuffer.instance.drawRectangle(rect)
-                        GLContextBuffer.instance.display()
-                    default :
-                    return
-
-                }
-                
-            }
-            
-        }
-        
-        sender.setTranslation(CGPointZero, inView: scrollView)
     }
     
     
@@ -213,8 +133,6 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         print("controller double tap")
         paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
         
-        //paintView.layer.transform = CATransform3DMakeTranslation(<#tx: CGFloat#>, <#ty: CGFloat#>, <#tz: CGFloat#>)
-        
         paintView.layer.anchorPoint = CGPointZero
         paintView.layer.position = CGPointZero
         
@@ -222,6 +140,7 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     var pinchPoint:CGPoint!
     
     @IBAction func uiPinchGestrueEvent(sender: UIPinchGestureRecognizer) {
+        
         var center:CGPoint = CGPointMake(0, 0)
         for i in 0...sender.numberOfTouches()-1
         {
@@ -242,20 +161,23 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         {
             
             //paintView.layer.anchorPoint = CGPointMake(0.5, 0.5)
-            
-    
-            
         case UIGestureRecognizerState.Changed:
             
-            if sender.scale < 0.5
+            
+            if paintView.layer.transform.m11 * sender.scale <= 1
             {
-                sender.scale = 0.5
+                paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
+                paintView.layer.anchorPoint = CGPointZero
+                paintView.layer.position = CGPointZero
             }
-            else if sender.scale > 3
+            else if paintView.layer.transform.m11 * sender.scale > 3
             {
-                sender.scale = 3
+                paintView.layer.transform = CATransform3DMakeScale(3, 3, 1)
             }
-            paintView.layer.transform = CATransform3DScale(paintView.layer.transform, sender.scale, sender.scale, 1)
+            else
+            {
+                paintView.layer.transform = CATransform3DScale(paintView.layer.transform, sender.scale, sender.scale, 1)
+            }
             
             //paintView.layer.transform = CATransform3DMakeScale(sender.scale, sender.scale, 1)
             //paintView.layer.transform = CGAffineTransformScale(paintView.transform, sender.scale, )
@@ -286,34 +208,16 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     var currentProgressValue:Float = 0
     
     
-    @IBAction func ArtworkProgressSlide(sender: UISlider) {
-            /*
-        
-        if sender.value > currentProgressValue {
-            
-        
-            if PaintArtwork.instance.drawProgress(currentProgressValue,endPercentage: sender.value) == true //success draw
+    @IBOutlet weak var progressSlider: UISlider!
+    
+    @IBAction func artworkProgressSliderDragged(sender: UISlider) {
+        let artwork = PaintRecorder.instance.artwork
+        if PaintReplayer.instance.drawProgress(artwork,percentage: sender.value) == true //success draw
             {
                 currentProgressValue = sender.value
             }
-        }
-        else{
-            GLContextBuffer.erase()
-            PaintArtwork.instance.drawProgress(0,endPercentage: sender.value)
-            currentProgressValue = sender.value
-        }
-        
-        GLContextBuffer.display()
-        */
     }
-    
-    
-    
-    @IBOutlet weak var artworkProgressSlider: UISlider!
-    
-    
-   
-   
+        
     @IBAction func colorPicking(sender: UISegmentedControl) {
         //PaintToolManager.instance. sender.selectedSegmentIndex
         
@@ -391,10 +295,6 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     }
     
     
-
-    @IBAction func clearButtonTouched(sender: UIButton) {
-        PaintRecorder.instance.clear()
-    }
     @IBAction func trashButtonTouched(sender: UIBarButtonItem) {
         PaintRecorder.instance.clear()
     }
@@ -403,6 +303,7 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         if (controller.documentPickerMode == UIDocumentPickerMode.Import) {
             
         }
+        
 
     }
     
@@ -410,7 +311,7 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         
         let tool:PaintBrush = PaintToolManager.instance.changeTool(sender.selectedSegmentIndex)
         
-        brushScaleSlider.value = tool.vInfo.size
+       // brushScaleSlider.value = tool.vInfo.size
         
     }
     
@@ -440,7 +341,7 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     }
     */
     
-    
+    /*
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         _ = touches.count
         
@@ -451,8 +352,9 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         }
         
         
+        
     }
-    
+    */
     
     @IBAction func PlayButtonTouched(sender: UIBarButtonItem) {
             PaintReplayer.instance.pauseToggle()
@@ -470,8 +372,7 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     
     enum AppMode{
         case drawing
-        case note
-        case revise
+        case browsing
     }
     
     var mode:AppMode = .drawing
@@ -488,7 +389,7 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         if !isEditingRectangle
         {
             
-            let viewRect = CGRectMake(240, 0, paintView.bounds.size.width,paintView.bounds.size.height);
+            let viewRect = CGRectMake(0, 0, paintView.bounds.size.width,paintView.bounds.size.height);
             canvasCropView = CanvasCropView(frame: viewRect)
             mainView.addSubview(canvasCropView)
             isEditingRectangle = true
@@ -527,8 +428,46 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         default:
             return
         }
+    }
+    
+    
+    @IBAction func eidtModeButtonTouched(sender: UIBarButtonItem) {
+        
+            }
+    
+    @IBAction func modeSwitcherValueChanged(sender: UISwitch) {
+        if sender.on
+        {
+            mode = AppMode.browsing
+            edgeGestureHandler.showPlayBackView()
+            edgeGestureHandler.hideToolView()
+            edgeGestureHandler.isToolPanelLocked = true
+            progressSlider.value = 1
+
+        }
+        else
+        {
+            mode = AppMode.drawing
+            edgeGestureHandler.hidePlayBackView()
+            edgeGestureHandler.isToolPanelLocked = false
+        }
         
     }
+    
+    
+    @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {
+        GLContextBuffer.instance.release()
+        colorPicker.onColorChange = nil
+        colorPicker = nil
+        canvasPanGestureHandler.paintViewController = nil
+        edgeGestureHandler.pvController = nil
+            presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        
+        //dismissViewControllerAnimated(true, completion: nil)
+        
+        
+    }
+    
     
 }
 

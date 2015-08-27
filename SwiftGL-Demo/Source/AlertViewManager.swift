@@ -22,7 +22,7 @@ func displayAlert(uiVController:UIViewController)
             
             
         case .Destructive:
-            println("destructive")
+           
         }
     }))
 }

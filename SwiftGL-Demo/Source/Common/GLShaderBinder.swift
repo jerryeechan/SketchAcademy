@@ -11,12 +11,20 @@ import SwiftGL
 import OpenGLES.ES2
 
 class GLShaderBinder{
+    
+    class var instance:GLShaderBinder{
+        struct Singleton{
+            static let instance = GLShaderBinder()
+        }
+        return Singleton.instance
+    }
+    
     var shader:Shader!
     var drawShader:Shader!
     
     var imageShader:Shader!
     
-    static var instance:GLShaderBinder!
+    //static var instance:GLShaderBinder!
     //binding Attributes
     var iLocAttribPosition:GLuint = 0
     var iLocAttribSize:GLuint = 1
@@ -42,16 +50,19 @@ class GLShaderBinder{
     init()
     {
         //shader = Shader()
+        //load()
+        
+        //GLShaderBinder.instance = self
+    }
+    func load()
+    {
         loadBrushShader()
         loadImageShader()
-        
-        GLShaderBinder.instance = self
-         }
+    }
     
     func loadBrushShader()
     {
         drawShader = Shader()
-        
         if !(drawShader.load( "point.vsh","point.fsh") {
             program in
             // Here we will bind the attibute names to the correct position
@@ -106,8 +117,6 @@ class GLShaderBinder{
             
         glEnableVertexAttribArray(iLocImageAttribVertex)
         glEnableVertexAttribArray(iLocImageAttribTexturePosition)
-        
-        initVertex()
     }
     
     struct ImageVertice{
@@ -131,11 +140,15 @@ class GLShaderBinder{
     ]
     
     var imageVertices:[ImageVertice] = []
+    var imgWidth:Float!
+    var imgHeight:Float!
     func initVertex()
     {
         let width:GLfloat = GLfloat(GLContextBuffer.instance.backingWidth)
         let height:GLfloat = GLfloat(GLContextBuffer.instance.backingHeight)
         
+        imgWidth = width
+        imgHeight = height
         
         /*
         imageVertices.append(ImageVertice(position: Vec4(0,0), textureCoordinate: Vec4(0,1)))
@@ -168,20 +181,39 @@ class GLShaderBinder{
     var iLocImageTexture:GLint = 0
     var iLocImageMVP:GLint = 0
     var iLocImageAlpha:GLint = 0
-    func drawImageTexture(texture:Texture,alpha:Float)
+    func genImageVertices(leftTop:Vec4,rightBottom:Vec4)
     {
+        let ltx = leftTop.x / imgWidth
+        let lty = leftTop.y / imgHeight
+        let rbx = rightBottom.x / imgWidth
+        let rby = rightBottom.y / imgHeight
+        
+        let v1 = ImageVertice(position: Vec4(leftTop.x,leftTop.y), textureCoordinate: Vec4(ltx,lty))
+        let v2 = ImageVertice(position: Vec4(rightBottom.x,leftTop.y), textureCoordinate: Vec4(rbx,lty))
+        let v3 = ImageVertice(position: Vec4(leftTop.x,rightBottom.y), textureCoordinate: Vec4(ltx,rby))
+        let v4 = ImageVertice(position:Vec4(rightBottom.x,rightBottom.y), textureCoordinate: Vec4(rbx,rby))
+        
+        imageVertices = [v1,v2,v3,v4]
+        
+    }
+    
+    func drawImageTexture(texture:Texture,alpha:Float,leftTop:Vec4,rightBottom:Vec4)
+    {
+        
         imageShader.bind(iLocImageTexture,texture , index: 2)
         imageShader.bind(iLocImageAlpha, alpha)
         imageShader.useProgram()
-        
-        print(glGetAttribLocation(imageShader.id, "position"))
-        
+        genImageVertices(leftTop, rightBottom: rightBottom)
         imageVbo.bind(imageVertices, count: 4)
         
         imagevao.bind(attribute: iLocImageAttribVertex, type: Vec4.self, vbo: imageVbo, offset: 0)
         imagevao.bind(attribute: iLocImageAttribTexturePosition, type: Vec4.self, vbo: imageVbo, offset: sizeof(Vec4))
         
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    }
+    func drawImageTexture(texture:Texture,alpha:Float)
+    {
+        drawImageTexture(texture, alpha: alpha, leftTop: Vec4(0,0), rightBottom: Vec4(imgWidth,imgHeight))
     }
     func bindBrush()
     {
@@ -206,7 +238,6 @@ class GLShaderBinder{
     }
     func bindBrushColor(color:Vec4)
     {
-        print(color)
         drawShader.bind(iLocBrushColor,color)
     }
     func bindBrushSize(size:Float)
@@ -227,7 +258,6 @@ class GLShaderBinder{
         
         
         //vao.bind(attribute: AttribColor,    type: Vec4.self, vbo: vbo, offset: sizeof(Vec4))
-
     }
     
     

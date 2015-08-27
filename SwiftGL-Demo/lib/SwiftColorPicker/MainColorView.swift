@@ -11,7 +11,7 @@ class MainColorView: UIView {
     var color: UIColor!
     var point: CGPoint!
     
-    var delegate: ColorPicker?
+    weak var delegate: ColorPicker?
     
     init(frame: CGRect, color: UIColor) {
         super.init(frame: frame)

@@ -10,13 +10,17 @@ import Foundation
 class PaintArtwork
 {
     var strokes:[PaintStroke] = []
-    var allPoints:[PaintPoint] = []
-    var allTimeStamps:[Double]=[]
+    //var allPoints:[PaintPoint] = []
+
     var isEndPoint:[Bool] = []
+    var pointsValueInfo:[ToolValueInfo] = []
     var playbackTimer:NSTimer!
     
     var isFileExist:Bool = false
+    
+    var revises:[Revise] = []
     class var instance:PaintArtwork{
+        
         struct Singleton {
             static let instance = PaintArtwork()
         }
@@ -31,71 +35,76 @@ class PaintArtwork
     {
         playbackTimer = nil        
     }
-    func addPaintStroke(track:PaintStroke)
+    
+    var currentTime:CFAbsoluteTime = 0
+    func addPaintStroke(stroke:PaintStroke)
     {
-     //   trackEndIndex.append(track.points.count)
-        print("PaintArtwork: add track")
-        strokes.append(track)
+        currentTime = (stroke.pointData.last?.timestamps)!
+        strokes.append(stroke)
         
-        allPoints += track.points
+      //  allPoints += stroke.points
         //allTimeStamps += track.timestamps
         
-        for var i=0;i<track.points.count;i++
+        //only the first one is true
+        
+        for var i=1;i<stroke.points.count;i++
         {
             isEndPoint.append(false)
+            pointsValueInfo.append(stroke.valueInfo)
         }
-        
-        isEndPoint[isEndPoint.count - 1] = true
+        isEndPoint.append(true)
+        pointsValueInfo.append(stroke.valueInfo)
         
     }
-    static func addPaintStroke(track:PaintStroke)
-    {
-        PaintArtwork.instance.addPaintStroke(track)
-    }
-    
-    
     func undo()
     {
-        
+        strokes.removeLast()
     }
-    func replayAll()
-    {
-        PaintReplayer.instance.replayAll(self)
-    }
-    
     var currentPointID:Int = 0
     
-    func drawAll()
-    {
-        for var i=0 ;i < strokes.count ;i++
-        {
-            strokes[i].draw()
-        }
-        
-        GLContextBuffer.instance.display()
-        
-    }
+    
+    var current_vInfo:ToolValueInfo!
     /*
     func drawProgress(startIndex:Int,endIndex:Int)->Bool
     {
+        
         if startIndex+2 < endIndex {
             for var i = startIndex+2 ;i < endIndex ;i++ {
-                println("PaintArtwork:render progress")
-                Painter.renderLine(,allPoints[i-2], prev1: allPoints[i-1], cur: allPoints[i])
+                Painter.renderLine(pointsValueInfo[i-2],prev2:allPoints[i-2], prev1: allPoints[i-1], cur: allPoints[i])
                 if isEndPoint[i] == true{
                     i+=3
                 }
             }
+            
+            print("index:\(startIndex) \(endIndex)")
+            GLContextBuffer.instance.display()
             return true
         }
         return false
     }
-
+    */
+    /*
+    func drawStrokeProgress(startIndex:Int,endIndex:Int)->Bool
+    {
+        
+        if startIndex < endIndex
+        {
+            for i in startIndex...endIndex-1
+            {
+                Painter.renderStroke(strokes[i])
+            }
+            GLContextBuffer.instance.display()
+            return true
+        }
+        return false
+    }
     func drawProgress(startPercentage:Float, endPercentage:Float)->Bool
     {
+       // print("allPoints:\(allPoints.count)")
         //between 0~1
-        return drawProgress(Int(startPercentage*Float(allPoints.count)), endIndex: Int(endPercentage*Float(allPoints.count)))
-    }*/
-    
+        return drawStrokeProgress(Int(startPercentage*Float(strokes.count)), endIndex: Int(endPercentage*Float(strokes.count)))
+        //return drawProgress(Int(startPercentage*Float(allPoints.count)), endIndex: Int(endPercentage*Float(allPoints.count)))
+    }
+    */
     
 }

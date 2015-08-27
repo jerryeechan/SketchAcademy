@@ -35,6 +35,7 @@ class PaintRecorder {
         GLContextBuffer.instance.display()
         artwork = nil
         artwork = PaintArtwork()
+        artwork.currentTime = 0
     }
     
     func loadArtwork(filename:String)->Bool
@@ -43,12 +44,14 @@ class PaintRecorder {
         GLContextBuffer.instance.blank()
         GLContextBuffer.instance.display()
         //call filemanager to load the file to PaintArtwork
-        artwork = nil
         artwork = FileManager.instance.loadPaintArtWork(filename)
         if(artwork != nil)
         {
             //paint the process by Painter
-            PaintReplayer.instance.replayAll(artwork)
+            PaintReplayer.instance.startReplay(artwork)
+            
+            //PaintReplayer.instance.drawAll(artwork)
+            
             return true
         }
         else
@@ -65,11 +68,24 @@ class PaintRecorder {
         
         // call FileManager
     }
+    
+    /**
+    * 
+        When touch begin and stroke started, send in the location, velocity and current time
+        
+    
+    */
+    var strokeStartTime:CFAbsoluteTime = 0
+    var strokeEndTime:CFAbsoluteTime = 0
+    
     func startPoint(location:Vec2,velocity:Vec2,time:CFAbsoluteTime)
     {
         stroke = PaintStroke(tool: PaintToolManager.instance.currentTool)
         
-        stroke.addPoint(genPaintPoint(location, velocity: velocity), time: time,vel: velocity)
+        stroke.addPoint(genPaintPoint(location, velocity: velocity), time: artwork.currentTime,vel: velocity)
+        
+        strokeStartTime = time
+        //stroke.addPoint(genPaintPoint(location, velocity: velocity), time: time,vel: velocity)
     }
     func movePoint(location:Vec2,velocity:Vec2,time:CFAbsoluteTime)
     {
@@ -86,7 +102,10 @@ class PaintRecorder {
                 */
                 if (newPoint.position-lastPoint.position).length2>3
                 {
-                    stroke.addPoint(newPoint, time: time,vel: velocity)
+                    //the time is offset by the begining of the touch
+                    stroke.addPoint(newPoint, time: artwork.currentTime + time - strokeStartTime,vel: velocity)
+                    
+                    
                     var points = stroke.lastThree()
                     if(!points.isEmpty){
                         Painter.renderLine(stroke.valueInfo, prev2: points[0],prev1: points[1],cur: points[2])
@@ -102,11 +121,15 @@ class PaintRecorder {
         }
         
     }
-    func endStroke()
+    func endStroke(time:CFAbsoluteTime)
     {
         if stroke != nil
         {
+            strokeEndTime = time
+            artwork.currentTime += strokeEndTime - strokeStartTime
+            
             GLContextBuffer.instance.endStroke()
+            //GLContextBuffer.instance.drawStroke(stroke)
             artwork.addPaintStroke(stroke)
             stroke = nil
             GLContextBuffer.instance.display()

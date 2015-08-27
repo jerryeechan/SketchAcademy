@@ -71,7 +71,11 @@ class PaintBrush:NSObject{
     
     func useTool()
     {
-     // print("Tool color: \(vInfo.color.vec)")
+        //print("Tool color: \(vInfo.color.vec)")
+        //print(texture)
+        //print(vInfo.size)
+        
+       // texture = Texture(filename:name)
         GLShaderBinder.instance.bindBrushSize(vInfo.size)
         GLShaderBinder.instance.bindBrushTexture(texture)
         // initialize brush color

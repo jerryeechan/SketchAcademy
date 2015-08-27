@@ -59,6 +59,6 @@ void main()
 	gl_Position = MVP * vertexPosition;
     gl_PointSize = vertexSize*brushSize;
     angle = vertexAngle;
-    color = brushColor;
+    color = brushColor * 0.5;
     
 }

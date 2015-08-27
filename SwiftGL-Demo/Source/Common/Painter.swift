@@ -23,11 +23,19 @@ class Painter{
     
     static var vertextBuffer:[PaintPoint] = []
     static var scale:Float = 1
-    
+    static func renderStroke(stroke:PaintStroke)
+    {
+        /*
+        GLShaderBinder.instance.bindBrushColor(stroke.valueInfo.color.vec)
+        GLShaderBinder.instance.bindBrushSize(stroke.valueInfo.size)
+        GLContextBuffer.instance.drawBrushVertex(stroke.points)
+        GLContextBuffer.instance.endStroke()
+        */
+        GLContextBuffer.instance.drawStroke(stroke)
+    }
     static func renderLine(vInfo:ToolValueInfo,prev2:PaintPoint,prev1:PaintPoint,cur:PaintPoint)
-    {        
-        GLShaderBinder.instance.bindBrushColor(vInfo.color.vec)
-        GLShaderBinder.instance.bindBrushSize(vInfo.size)
+    {
+        GLShaderBinder.instance.bindBrushInfo(vInfo)
         vertextBuffer = []
         //smooth line
         
@@ -42,6 +50,7 @@ class Painter{
         let noS = Int(numberOfSegments)
         var t:Float = 0.0;
         let step:Float = 1.0 / (numberOfSegments-1);
+        
         for var j = 0; j < noS; j++
         {
             let p1 = powf(1-t, 2)

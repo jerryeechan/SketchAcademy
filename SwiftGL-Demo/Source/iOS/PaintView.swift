@@ -35,14 +35,13 @@ class PaintView: GLKView {
         //drawableStencilFormat = GLKViewDrawableStencilFormat.Format8;
         
         // Enable multisampling
-        drawableMultisample = GLKViewDrawableMultisample.Multisample4X;
+        //drawableMultisample = GLKViewDrawableMultisample.Multisample4X;
         opaque = false
         
         initGL()
         PaintView.instance = self
         
     }
-    var shader:Shader!
     var isInitialized:Bool = false
     
     func setContext()
@@ -57,6 +56,7 @@ class PaintView: GLKView {
         }
         let path = NSBundle.mainBundle().bundlePath
         let fm = NSFileManager.defaultManager()
+        
         let dirContents: [AnyObject]?
         do {
             dirContents = try fm.contentsOfDirectoryAtPath(path)
@@ -64,14 +64,6 @@ class PaintView: GLKView {
             dirContents = nil
         }
         print(dirContents)
-        //let filt = NSPredicate(".paw")
-        //let files =dirContents?.filter()
-        //Engine.initialize()
-        
-        //let width  = Float(frame.size.width )// * contentScaleFactor)
-        // * contentScaleFactor)
-        
-        //Engine.resize(width: width, height: height)
         
         EAGLContext.setCurrentContext(self.glcontext)
         eaglLayer = layer as! CAEAGLLayer
@@ -81,14 +73,15 @@ class PaintView: GLKView {
         eaglLayer.drawableProperties = [kEAGLDrawablePropertyColorFormat:kEAGLColorFormatRGBA8,kEAGLDrawablePropertyRetainedBacking:true]
         
         
-        
         glContextBuffer = GLContextBuffer(context: glcontext, layer: eaglLayer)
         print("PaintView: create context buffer")
-        glshaderBinder = GLShaderBinder()
+        glshaderBinder = GLShaderBinder.instance
+        GLShaderBinder.instance.load()
         print("PaintView: create shader")
         glTransformation = GLTransformation(width: glContextBuffer.backingWidth, height: glContextBuffer.backingHeight)
         print("PaintView: create transformation")
         
+        PaintToolManager.instance.load()
         PaintToolManager.instance.usePen()
         
         
@@ -106,10 +99,11 @@ class PaintView: GLKView {
         
   //      GLContextBuffer.display()
         
-        GLContextBuffer.instance.blank()
-        GLContextBuffer.instance.display()
+       // GLContextBuffer.instance.blank()
+        //GLContextBuffer.instance.display()
         
         //Painter.renderLine(Vec2(300,0),end: Vec2(0,300))
+        
         return true
     }
     
@@ -129,6 +123,8 @@ class PaintView: GLKView {
         
         glContextBuffer.resizeLayer(eaglLayer)
         glTransformation.resize(glContextBuffer.backingWidth, height: glContextBuffer.backingHeight)
+        print("\(glContextBuffer.backingWidth) \(glContextBuffer.backingHeight)")
+        
         GLContextBuffer.instance.blank()
         GLContextBuffer.instance.display()
 

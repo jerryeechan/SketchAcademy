@@ -70,6 +70,7 @@ class ColorPicker: UIView {
         // Add colorGradientView as a subview of this view
         self.addSubview(colorView)
         
+        
         // Init new CrossHairView subview
         crossHairView = CrossHairView(frame: CGRect(x: 0, y: 0, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0))
         crossHairView.delegate = self

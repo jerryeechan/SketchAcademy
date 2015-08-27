@@ -21,18 +21,25 @@ public class PaintToolManager {
     }
     
     var colorInPalette:Color = Color(0,0,0,125)
-    var pen:PaintBrush = PaintBrush(textureName: "pencil",color: Color(0,0,0,25),size: 10,type:PaintToolType.pen)
+    var pen:PaintBrush!
+    var eraser:PaintBrush!
     
-    
-    var eraser:PaintBrush = PaintBrush(textureName: "Particle", color: Color(255,255,255,255),size: 10,type:PaintToolType.eraser)
     var currentTool:PaintBrush!
     
     init()
     {
+        load()
+    }
+    func load()
+    {
+        pen = PaintBrush(textureName: "pencil",color: Color(0,0,0,25),size: 10,type:PaintToolType.pen)
+        eraser = PaintBrush(textureName: "Particle", color: Color(255,255,255,255),size: 10,type:PaintToolType.eraser)
+        
         currentTool = pen
         Painter.currentBrush = currentTool
-        pen.useTool()
+        //pen.useTool()
     }
+    
     enum PaintToolType:Int{
         case pen = 0,eraser
     }
@@ -49,7 +56,6 @@ public class PaintToolManager {
     }
    public func useCurrentTool()
     {
-        print("useCurrentTool")
         useTool(currentTool.toolType)
     }
     private func useTool(type:PaintToolType)->PaintBrush!
@@ -78,6 +84,7 @@ public class PaintToolManager {
     }
     func usePen()
     {
+    
         pen.useTool()
         pen.changeColor(colorInPalette)
         glBlendEquation(GLenum(GL_FUNC_ADD))

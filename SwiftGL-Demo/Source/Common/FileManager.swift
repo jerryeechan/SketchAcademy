@@ -29,11 +29,10 @@ class FileManager {
     
     func searchFiles()
     {
-        fileNames = self.getFileNames() as! [String]
+        fileNames = self.getFileNames(".paw") as! [String]
     }
-    func getFileNames()->[AnyObject]
+    func getFileNames(format:String)->[AnyObject]
     {
-        
         let fm = NSFileManager.defaultManager()
         
         let dirContents: [AnyObject]?
@@ -45,16 +44,16 @@ class FileManager {
         print("Get file names----------------")
         print(dirContents!)
         
-        let extPredicate = NSPredicate(format: "self ENDSWITH '.paw'")
+        let extPredicate = NSPredicate(format: "self ENDSWITH '\(format)'")
         
         return (dirContents! as NSArray).filteredArrayUsingPredicate(extPredicate)
-        
+
     }
+    
+    
+    
     var currentPtr = 0
-    func newFile()
-    {
-        
-    }
+
     func createPath(filename:String)->String
     {
         let dirs = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
@@ -75,6 +74,10 @@ class FileManager {
             return img
         }
         return nil
+        
+    }
+    func loadRevise()
+    {
         
     }
     func loadPaintArtWork(filename:String)->PaintArtwork!
@@ -167,7 +170,7 @@ class FileManager {
         var pointCount:Int = 0
         data.getBytes(&pointCount, range: NSMakeRange(currentPtr, sizeof(Int)))
         currentPtr += sizeof(Int)
-        print("point count:\(pointCount)")
+        //print("point count:\(pointCount)")
         
         // get point data
         let pointData = data.subdataWithRange(NSMakeRange(currentPtr,pointCount*sizeof(PointData)))
@@ -222,7 +225,7 @@ class FileManager {
     
     Int: number of strokes
     {
-        Int: stroke using Tool name length
+        Int: stroke using Tool name string length
         VL: tool name String
         {
             Int: number of Points
@@ -230,6 +233,20 @@ class FileManager {
             VL Double: timeinterval
             VL Vec2:  velocity
         }
+    }
+    
+    
+    rev format:
+    
+    Int: number of revise
+    {
+        Int: title string length
+        VL: title string
+    
+        Int: description string length
+        VL: description string
+    
+        
     }
     
     */
@@ -254,7 +271,7 @@ class FileManager {
             encodeString(data, str: strInfo.toolName)
             encodeString(data, str: strInfo.brushTexture)
             print("=================")
-            print(strokes[i].valueInfo.color.vec)
+            print("stroke color\(strokes[i].valueInfo.color.vec)")
             
             data.appendBytes(&strokes[i].valueInfo, length: sizeof(ToolValueInfo))
             
@@ -320,6 +337,13 @@ class FileManager {
             };
         }
     }
+    
+    
+//######################################################
+/*
+ *   read part
+*/
+    //##################################################
     func readFile(filename:String)->NSData!
     {
         var data:NSData
