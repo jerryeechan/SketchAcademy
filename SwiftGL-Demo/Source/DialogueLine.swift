@@ -8,5 +8,9 @@
 
 import Foundation
 class DialogueLine {
-    var string;
+    var text:String;
+    init(text:String)
+    {
+        self.text = text
+    }
 }

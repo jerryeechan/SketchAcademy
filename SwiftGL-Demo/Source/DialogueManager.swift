@@ -7,3 +7,20 @@
 //
 
 import Foundation
+
+class DialogueManager {
+    class var instance:DialogueManager{
+        struct Singleton{
+            static let instance = DialogueManager()
+        }
+        return Singleton.instance
+    }
+    init()
+    {
+        
+    }
+    func PlayDialogue()
+    {
+        
+    }
+}

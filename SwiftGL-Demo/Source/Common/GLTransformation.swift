@@ -32,7 +32,7 @@ class GLTransformation{
         GLShaderBinder.instance.bindMVP(MVPMatrix)
         
         glViewport(0, 0, GLsizei(width), GLsizei(height))
-        print("\(width) \(height)")
+        //print("width and height:\(width) \(height)")
         //GLShaderBinder.instance.shader.bind("Matrix", projection * Mat4.translate(x: 0, y: 0, z: -5) * modelview)
        // GLShaderBinder.instance.shader.bind("Matrix", MVPMatrix)
         GLShaderBinder.instance.bindMVP(MVPMatrix)

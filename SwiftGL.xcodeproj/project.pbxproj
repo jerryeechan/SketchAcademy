@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C401FAEC1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401FAEB1B8D6D9A00B6F177 /* GLRenderBuffer.swift */; };
+		C401FAED1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401FAEB1B8D6D9A00B6F177 /* GLRenderBuffer.swift */; };
 		C4024B6B1B56CF2E00761BB1 /* DrawDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4024B691B56CEE500761BB1 /* DrawDetailNavigationController.swift */; };
 		C404FA951B14601F004C2D8C /* PaintPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404FA921B144851004C2D8C /* PaintPoint.swift */; };
 		C404FA9B1B178EBD004C2D8C /* PaintToolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404FA9A1B178EBD004C2D8C /* PaintToolManager.swift */; };
@@ -65,6 +67,8 @@
 		C49404771B2A045600BB975E /* FileBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49404751B2A039500BB975E /* FileBrowseViewController.swift */; };
 		C49404791B2A0D7400BB975E /* SaveFileDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49404781B2A0D7400BB975E /* SaveFileDialogViewController.swift */; };
 		C49E21671B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E21661B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift */; };
+		C4A0A9A41B8C1E7200190A33 /* ReviseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0A9A31B8C1E7200190A33 /* ReviseManager.swift */; };
+		C4A0A9A61B8D3EFA00190A33 /* EdgeGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0A9A51B8D3EFA00190A33 /* EdgeGestureHandler.swift */; };
 		C4AE3C381B0CF39000C959C2 /* DemoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F664041ADD7607003C1925 /* DemoScene.swift */; };
 		C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AE3C351B0CF26100C959C2 /* Painter.swift */; };
 		C4AE3C3E1B0CF42200C959C2 /* PaintBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = C493D38D1B0CEE76001AB262 /* PaintBrush.swift */; };
@@ -82,6 +86,14 @@
 		C4EB7A781B86016100A33651 /* DialogueLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A771B86016100A33651 /* DialogueLine.swift */; };
 		C4EB7A7A1B86017500A33651 /* DialogueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A791B86017500A33651 /* DialogueManager.swift */; };
 		C4EB7A7C1B86018300A33651 /* TypeWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7B1B86018300A33651 /* TypeWriter.swift */; };
+		C4EB7A7E1B86450F00A33651 /* Dialogue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7D1B86450F00A33651 /* Dialogue.swift */; };
+		C4EB7A7F1B86450F00A33651 /* Dialogue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7D1B86450F00A33651 /* Dialogue.swift */; };
+		C4EB7A801B8645D200A33651 /* DialogueLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A771B86016100A33651 /* DialogueLine.swift */; };
+		C4EB7A811B8645D600A33651 /* DialogueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A791B86017500A33651 /* DialogueManager.swift */; };
+		C4EB7A821B8645D600A33651 /* TypeWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7B1B86018300A33651 /* TypeWriter.swift */; };
+		C4EB7A841B86483A00A33651 /* CanvasPanGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A831B86483A00A33651 /* CanvasPanGestureHandler.swift */; };
+		C4EB7A851B86483A00A33651 /* CanvasPanGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A831B86483A00A33651 /* CanvasPanGestureHandler.swift */; };
+		C4FFAB7D1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FFAB7C1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift */; };
 		D262B7FE19663A37004A2997 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CA623219512D24007B2DC2 /* Constants.swift */; };
 		D262B7FF19663A37004A2997 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AE71945263000655A34 /* Float.swift */; };
 		D262B80019663A37004A2997 /* Vec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AD11944F08E00655A34 /* Vec2.swift */; };
@@ -189,6 +201,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C401FAEB1B8D6D9A00B6F177 /* GLRenderBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRenderBuffer.swift; sourceTree = "<group>"; };
 		C4024B691B56CEE500761BB1 /* DrawDetailNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawDetailNavigationController.swift; sourceTree = "<group>"; };
 		C404FA921B144851004C2D8C /* PaintPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintPoint.swift; sourceTree = "<group>"; };
 		C404FA9A1B178EBD004C2D8C /* PaintToolManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintToolManager.swift; sourceTree = "<group>"; };
@@ -237,6 +250,8 @@
 		C49404751B2A039500BB975E /* FileBrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowseViewController.swift; sourceTree = "<group>"; };
 		C49404781B2A0D7400BB975E /* SaveFileDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveFileDialogViewController.swift; sourceTree = "<group>"; };
 		C49E21661B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRenderTextureFrameBuffer.swift; sourceTree = "<group>"; };
+		C4A0A9A31B8C1E7200190A33 /* ReviseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviseManager.swift; sourceTree = "<group>"; };
+		C4A0A9A51B8D3EFA00190A33 /* EdgeGestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeGestureHandler.swift; sourceTree = "<group>"; };
 		C4AE3C351B0CF26100C959C2 /* Painter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Painter.swift; sourceTree = "<group>"; };
 		C4AE3C411B0CF53600C959C2 /* PaintArtwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintArtwork.swift; sourceTree = "<group>"; };
 		C4AE3C441B0CF54F00C959C2 /* PaintStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintStroke.swift; sourceTree = "<group>"; };
@@ -252,7 +267,10 @@
 		C4EB7A771B86016100A33651 /* DialogueLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueLine.swift; sourceTree = "<group>"; };
 		C4EB7A791B86017500A33651 /* DialogueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueManager.swift; sourceTree = "<group>"; };
 		C4EB7A7B1B86018300A33651 /* TypeWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeWriter.swift; sourceTree = "<group>"; };
+		C4EB7A7D1B86450F00A33651 /* Dialogue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dialogue.swift; sourceTree = "<group>"; };
+		C4EB7A831B86483A00A33651 /* CanvasPanGestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasPanGestureHandler.swift; sourceTree = "<group>"; };
 		C4F49F401B83014B001E62AD /* CanvasCropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasCropView.swift; sourceTree = "<group>"; };
+		C4FFAB7C1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialIntrodutionPageViewController.swift; sourceTree = "<group>"; };
 		D20662C01947D8D2001D2FAC /* Mat4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mat4.swift; sourceTree = "<group>"; };
 		D2A18FDF1997F8E000830CA4 /* SwiftGL-Demo-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftGL-Demo-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2AB3AB51944F05700655A34 /* SwiftGL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftGL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -383,6 +401,7 @@
 				C447477F1B8333D80093F019 /* CropViews */,
 				C44747791B83157C0093F019 /* SaveData */,
 				C447477C1B8317120093F019 /* Revise.swift */,
+				C4A0A9A31B8C1E7200190A33 /* ReviseManager.swift */,
 			);
 			name = "Revise and Tag";
 			sourceTree = "<group>";
@@ -523,8 +542,11 @@
 			isa = PBXGroup;
 			children = (
 				C4BD8CA71B274CE7000A20A4 /* TouchClassifier.swift */,
+				C4EB7A831B86483A00A33651 /* CanvasPanGestureHandler.swift */,
+				C4A0A9A51B8D3EFA00190A33 /* EdgeGestureHandler.swift */,
 			);
 			name = Input;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		C4C5B9B61B0EFAC500D6AD4B /* GLFramework */ = {
@@ -537,6 +559,7 @@
 				C433EEBA1B5D332F00D5175F /* GLLine.swift */,
 				C49E21661B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift */,
 				C44609261B7A571A00C34D04 /* GLRect.swift */,
+				C401FAEB1B8D6D9A00B6F177 /* GLRenderBuffer.swift */,
 			);
 			name = GLFramework;
 			path = Common;
@@ -556,8 +579,25 @@
 				C4EB7A771B86016100A33651 /* DialogueLine.swift */,
 				C4EB7A791B86017500A33651 /* DialogueManager.swift */,
 				C4EB7A7B1B86018300A33651 /* TypeWriter.swift */,
+				C4EB7A7D1B86450F00A33651 /* Dialogue.swift */,
 			);
 			name = Caption;
+			sourceTree = "<group>";
+		};
+		C4FFAB7A1B8B7947009282FF /* menu */ = {
+			isa = PBXGroup;
+			children = (
+				C4FFAB7B1B8B7953009282FF /* training */,
+			);
+			name = menu;
+			sourceTree = "<group>";
+		};
+		C4FFAB7B1B8B7953009282FF /* training */ = {
+			isa = PBXGroup;
+			children = (
+				C4FFAB7C1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift */,
+			);
+			name = training;
 			sourceTree = "<group>";
 		};
 		D20662C41947D963001D2FAC /* Frameworks */ = {
@@ -718,8 +758,8 @@
 		D2F664021ADD7607003C1925 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C4FFAB7A1B8B7947009282FF /* menu */,
 				C4EB7A761B8600FC00A33651 /* Caption */,
-				C4BD8CA61B274CCE000A20A4 /* Input */,
 				C42468141B21E0250053CB5B /* UI */,
 				C478D84E1B1F4C3A00FFF3D9 /* brushTexture */,
 				C4C5B9B61B0EFAC500D6AD4B /* GLFramework */,
@@ -749,6 +789,7 @@
 		D2F664081ADD7607003C1925 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C4BD8CA61B274CCE000A20A4 /* Input */,
 				C441B9B51B82FF330059427A /* Revise and Tag */,
 				C458F5A41B54AA5E00FC1235 /* ReferenceImage */,
 				C458F59E1B54A5F600FC1235 /* DotPlacementGame */,
@@ -1034,14 +1075,17 @@
 			files = (
 				D262B80B19663A52004A2997 /* Constants.swift in Sources */,
 				D262B80C19663A52004A2997 /* Float.swift in Sources */,
+				C4EB7A841B86483A00A33651 /* CanvasPanGestureHandler.swift in Sources */,
 				D262B80D19663A52004A2997 /* Vec2.swift in Sources */,
 				C433EEB51B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */,
 				D262B80E19663A52004A2997 /* Vec3.swift in Sources */,
 				D262B80F19663A52004A2997 /* Vec4.swift in Sources */,
+				C4EB7A7E1B86450F00A33651 /* Dialogue.swift in Sources */,
 				D262B81019663A52004A2997 /* Mat4.swift in Sources */,
 				D262B81119663A52004A2997 /* Color.swift in Sources */,
 				C433EEB81B5BC13000D5175F /* SliceRect.swift in Sources */,
 				D262B81219663A52004A2997 /* Shader.swift in Sources */,
+				C401FAEC1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */,
 				D262B81319663A52004A2997 /* Vbo.swift in Sources */,
 				C42468161B21E0520053CB5B /* AlertViewManager.swift in Sources */,
 				C4EB7A7C1B86018300A33651 /* TypeWriter.swift in Sources */,
@@ -1094,11 +1138,16 @@
 				C447477D1B8317120093F019 /* Revise.swift in Sources */,
 				C48306801B4BFE15006743DC /* UIAlertManager.swift in Sources */,
 				C49404771B2A045600BB975E /* FileBrowseViewController.swift in Sources */,
+				C4EB7A811B8645D600A33651 /* DialogueManager.swift in Sources */,
+				C4A0A9A61B8D3EFA00190A33 /* EdgeGestureHandler.swift in Sources */,
 				C44CF0A01B85B86100D6C43E /* ColorGradientView.swift in Sources */,
+				C4EB7A851B86483A00A33651 /* CanvasPanGestureHandler.swift in Sources */,
 				D2F6642C1ADD7607003C1925 /* DemoScene.swift in Sources */,
 				C458F5E11B54CD7B00FC1235 /* Dot.swift in Sources */,
+				C4FFAB7D1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift in Sources */,
 				C458F5E31B54DE5800FC1235 /* DotStageLevelGenerator.swift in Sources */,
 				C44747831B8334300093F019 /* ControlPointView.swift in Sources */,
+				C4A0A9A41B8C1E7200190A33 /* ReviseManager.swift in Sources */,
 				C44609271B7A571A00C34D04 /* GLRect.swift in Sources */,
 				C4C5B9BA1B0EFB5400D6AD4B /* GLShaderBinder.swift in Sources */,
 				C44CF0A41B85B86100D6C43E /* MainColorView.swift in Sources */,
@@ -1118,9 +1167,12 @@
 				C46CB8661B0D9F33008C378B /* PaintView.swift in Sources */,
 				C433EEB61B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */,
 				C44CF0A11B85B86100D6C43E /* ColorLayer.swift in Sources */,
+				C401FAED1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */,
 				C4B10D791B0E3FC0001BAAAB /* GLContextBuffer.swift in Sources */,
 				C44CF0A31B85B86100D6C43E /* CrossHairView.swift in Sources */,
 				C4C5B9B81B0EFB1200D6AD4B /* GLTransformation.swift in Sources */,
+				C4EB7A821B8645D600A33651 /* TypeWriter.swift in Sources */,
+				C4EB7A801B8645D200A33651 /* DialogueLine.swift in Sources */,
 				C404FAA01B1AFB98004C2D8C /* FileManager.swift in Sources */,
 				C4AE3C4D1B0D1E8A00C959C2 /* CanvasInputHandler.swift in Sources */,
 				C447477E1B8317170093F019 /* AnnotationData.swift in Sources */,
@@ -1134,6 +1186,7 @@
 				C478D8581B20BD4400FFF3D9 /* PaintReplayer.swift in Sources */,
 				D2F664341ADD7607003C1925 /* AppDelegate.swift in Sources */,
 				C44747811B8333EC0093F019 /* ShadeView.swift in Sources */,
+				C4EB7A7F1B86450F00A33651 /* Dialogue.swift in Sources */,
 				C458F5A31B54A6D500FC1235 /* DotGameScene.swift in Sources */,
 				C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */,
 				C49E21671B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift in Sources */,

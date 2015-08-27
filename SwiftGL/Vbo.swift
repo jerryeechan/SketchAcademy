@@ -46,7 +46,8 @@ public extension Vbo {
         self.count  = count
         self.stride = sizeof(T)
         glBindBuffer(GL_ARRAY_BUFFER, id)
-        glBufferData(GL_ARRAY_BUFFER, stride * count, data, GL_DYNAMIC_DRAW)
+        glBufferData(GL_ARRAY_BUFFER, stride * count, data, GL_STATIC_DRAW)
+        
     }
     
     public func bindSubData <T> (data: UnsafePointer<T>, start: GLsizeiptr, count: GLsizeiptr) {

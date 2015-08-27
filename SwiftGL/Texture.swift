@@ -21,6 +21,7 @@ public class Texture {
     public var id: GLuint
     public var width: GLsizei
     public var height: GLsizei
+    public var filename:String!
     
     public init() {
         id = 0
@@ -28,10 +29,23 @@ public class Texture {
         height = 0
         glGenTextures(1, &id)
         
+        
     }
-    
+    public func check()->Bool
+    {
+        if glIsTexture(id) == GL_FALSE        {
+            glGenTextures(1, &id)
+            if filename != nil
+            {
+                load(filename: filename)
+            }
+            return false
+        }
+        return true
+    }
     public convenience init(filename: String) {
         self.init()
+        self.filename = filename
         print("load texture")
         if(load(filename: filename)){
         print("init texture success \(filename)")
@@ -44,7 +58,9 @@ public class Texture {
     public convenience init(image:UIImage)
     {
         self.init()
+        glBindTexture(GL_TEXTURE_2D, id)
         load(image: image, antialias: true, flipVertical: true)
+        
     }
     public convenience init(w:GLsizei,h:GLsizei)
     {
@@ -59,7 +75,7 @@ public class Texture {
     }
     
     deinit {
-        print("deinit texture \(id)")
+    //    print("deinit texture \(id)")
         glDeleteTextures(1, &id)
     }
     
@@ -125,6 +141,9 @@ public class Texture {
     public func empty()
     {
         glBindTexture(GL_TEXTURE_2D, id);
+        
+        //setTextureParameter()
+        
         let pixel = calloc(Int(width * height * 4),sizeof(GLubyte))
         glTexSubImage2D(SwiftGL.GL_TEXTURE_2D, 0, 0, 0, width, height, GLenum(GL_RGBA), SwiftGL.GL_UNSIGNED_BYTE, pixel)
         
@@ -138,6 +157,8 @@ public class Texture {
         
         glTexParameteri(SwiftGL.GL_TEXTURE_2D, GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR);
         glTexParameteri(SwiftGL.GL_TEXTURE_2D, GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR);
+        
+
         
         glTexParameteri(SwiftGL.GL_TEXTURE_2D, GLenum(GL_TEXTURE_WRAP_S), GL_CLAMP_TO_EDGE);
         glTexParameteri(SwiftGL.GL_TEXTURE_2D, GLenum(GL_TEXTURE_WRAP_T), GL_CLAMP_TO_EDGE);

@@ -12,7 +12,7 @@ class CrossHairView: UIView {
     var circleRadius: CGFloat = 10.0
     var color: UIColor!
     
-    var delegate: ColorPicker?
+    weak var delegate: ColorPicker?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
@@ -66,6 +66,7 @@ class CrossHairView: UIView {
             let context = UIGraphicsGetCurrentContext()
             // Drawing properties:
             // Set line width to 1
+            /*
             CGContextSetLineWidth(context, 1)
             // Set color to black
             CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
@@ -94,6 +95,8 @@ class CrossHairView: UIView {
             CGContextMoveToPoint(context, getCoordinate(point.x) - 19, 0)
             CGContextAddLineToPoint(context, getCoordinate(point.x) - 19, (self.bounds.height - 20))
             CGContextStrokePath(context)
+            */
+            
             
             // Set color to black
             CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
@@ -109,6 +112,8 @@ class CrossHairView: UIView {
             CGContextFillEllipseInRect(context, rect)
             // Add the rect to the drawing context
             CGContextAddRect(context, rect)
+            
+            
         }
     }
     

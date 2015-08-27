@@ -20,9 +20,11 @@ class BrushTextureLoader {
         return Singleton.instance
     }
     init()
+    {        
+        load()
+    }
+    func load()
     {
-        
-        
         buildTextureDic()
     }
     var textureDic = [String:Texture]()
@@ -42,9 +44,13 @@ class BrushTextureLoader {
     func getTexture(name:String)->Texture
     {
         let t:Texture! = textureDic[name]!
-        if t != nil
+        if t == nil
         {
             loadTexture(name)
+        }
+        if t.check() == false
+        {
+            print("texture dead")
         }
         return textureDic[name]!
     }

@@ -9,7 +9,18 @@
 import Foundation
 class PaintReplayer:NSObject
 {
-    var strokes:[PaintStroke]!
+    private var strokes:[PaintStroke]!
+    private var artwork:PaintArtwork!
+    var playingArtwork:PaintArtwork
+        {
+        set(newVal) {
+            artwork = newVal
+            strokes = artwork.strokes
+        }
+        get{
+            return artwork
+        }
+    }
     var playbackTimer:NSTimer!
     
     class var instance:PaintReplayer{
@@ -23,6 +34,14 @@ class PaintReplayer:NSObject
     {
         
     }
+    //---------------------------------------------------------------------
+    /*
+    *
+    *
+    *   replay with timer
+    *
+    *
+    */
     func doublePlayBackSpeed()
     {
         timeScale *= 2
@@ -77,9 +96,9 @@ class PaintReplayer:NSObject
         
     }
     
-    func replayAll(artwork:PaintArtwork)
+    func startReplay(artwork:PaintArtwork)
     {
-        
+        playingArtwork = artwork
         self.strokes = artwork.strokes
         print("PaintReplayer: start replay")
         playbackTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
@@ -92,7 +111,11 @@ class PaintReplayer:NSObject
         timeCounter = 0
         
         isPlaying = true
+        
+        
     }
+    
+    
     var currentStrokeID:Int = 0
     var currentPointID:Int = 0
     var currentPoints:[PaintPoint]!
@@ -108,30 +131,35 @@ class PaintReplayer:NSObject
         {
             //println("paintreplayer  time: \(timeCounter) \(c_PointData[currentPointID].timestamps - firstTimeStamps)")
             print("timecounter \(timeCounter)")
-            while timeCounter >= (c_PointData[currentPointID].timestamps - firstTimeStamps)
+            while timeCounter >= (c_PointData[currentPointID].timestamps)
             {
-                print("timestamps: \(c_PointData[currentPointID].timestamps - firstTimeStamps)")
-               // println("paintreplayer draw next")
+               // print("timestamps: \(c_PointData[currentPointID].timestamps - firstTimeStamps)")
+               
                 if currentPointID >= 2
                 {
                     let i = currentPointID                    
                     draw(strokes[currentStrokeID], p1: currentPoints[i-2], p2: currentPoints[i-1], p3: currentPoints[i])
+                    artwork.currentTime = (strokes[currentStrokeID].pointData[currentPointID].timestamps)
                 }
+                
+                playingArtwork.currentTime = strokes[currentStrokeID].pointData[currentPointID].timestamps
                 
                 if nextPoint() == false
                 {
+                    
                     playbackTimer.invalidate()
                     break
                 }
             }
             GLContextBuffer.instance.display()
             timeCounter += (playbackTimer.timeInterval*timeScale)
-            print("replayer: \(playbackTimer.timeInterval*timeScale) \(playbackTimer.timeInterval)")
+           // print("replayer: \(playbackTimer.timeInterval*timeScale) \(playbackTimer.timeInterval)")
         }
     }
     func nextPoint()->Bool
     {
         currentPointID++
+        
         if currentPointID == c_PointData.count{
             GLContextBuffer.instance.endStroke()
             return nextStroke()
@@ -148,7 +176,7 @@ class PaintReplayer:NSObject
         }
         PaintToolManager.instance.changeTool(strokes[currentStrokeID].stringInfo.toolName)
         
-        print(strokes[currentStrokeID].valueInfo.color)
+        //print(strokes[currentStrokeID].valueInfo.color)
         PaintToolManager.instance.loadToolValueInfo(strokes[currentStrokeID].valueInfo)
         
         
@@ -157,11 +185,88 @@ class PaintReplayer:NSObject
         
         return true
     }
-    func draw(stroke:PaintStroke,p1:PaintPoint,p2:PaintPoint,p3:PaintPoint)
+    private func draw(stroke:PaintStroke,p1:PaintPoint,p2:PaintPoint,p3:PaintPoint)
     {
         
         //Painter.renderLine(PaintToolManager.instance.currentTool.vInfo, prev2: p1,prev1: p2,cur: p3)
-        print(stroke.valueInfo.color)
+        
+        // draw the recorded data
         Painter.renderLine(stroke.valueInfo, prev2: p1,prev1: p2,cur: p3)
     }
+ //---------------------------------------------------------------------
+    /*
+    *
+    *
+    *   direct draw
+    *
+    *
+    */
+    
+    func drawStrokeProgress(artwork:PaintArtwork,index:Int)->Bool
+    {
+        var startIndex = 0
+        let endIndex = index
+        if startIndex == last_startIndex && endIndex == last_endIndex
+        {
+            return false
+        }
+        if index > last_stroke_index
+        {
+            startIndex = last_stroke_index
+        }
+        else
+        {
+            GLContextBuffer.instance.blank()
+        }
+        
+        
+        
+        
+        if startIndex < endIndex
+        {
+            for i in startIndex...endIndex-1
+            {
+                Painter.renderStroke(strokes[i])
+            }
+            
+            artwork.currentTime = (strokes[endIndex-1].pointData.last?.timestamps)!
+            GLContextBuffer.instance.display()
+            last_startIndex = startIndex
+            last_endIndex = endIndex
+            last_stroke_index = index
+            return true
+        }
+        return false
+    }
+    
+    var last_startIndex:Int = 0
+    var last_endIndex:Int = 0
+    var last_stroke_index:Int = 0
+    
+    func drawProgress(artwork:PaintArtwork,percentage:Float)->Bool
+    {
+        playingArtwork = artwork
+        //between 0~1
+        return drawStrokeProgress(artwork,index: Int(percentage*Float(strokes.count)))
+        //return drawProgress(Int(startPercentage*Float(allPoints.count)), endIndex: Int(endPercentage*Float(allPoints.count)))
+    }
+    
+    
+    
+    func drawAll(artwork:PaintArtwork)
+    {
+        playingArtwork = artwork
+        
+        let start = CFAbsoluteTimeGetCurrent()
+        for var i=0 ;i < strokes.count ;i++
+        {
+            Painter.renderStroke(strokes[i])
+        }
+        
+        GLContextBuffer.instance.display()
+        let end = CFAbsoluteTimeGetCurrent()
+        print("loading time spent\(end-start)")
+        artwork.currentTime = (strokes.last?.pointData.last?.timestamps)!
+    }
+    
 }
