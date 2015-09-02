@@ -310,7 +310,7 @@ class GLContextBuffer{
         let backingWidth = Int(self.backingWidth)
         let backingHeight = Int(self.backingHeight)
         
-        var buffer = UnsafeMutablePointer<GLubyte>(malloc(backingWidth * backingHeight * 4))
+        let buffer = UnsafeMutablePointer<GLubyte>(malloc(backingWidth * backingHeight * 4))
         imgBuffer  = UnsafeMutablePointer<GLubyte>(malloc(backingWidth * backingHeight * 4))
         //GLvoid *pixel_data = nil;
         

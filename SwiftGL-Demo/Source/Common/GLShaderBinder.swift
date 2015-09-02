@@ -75,7 +75,7 @@ class GLShaderBinder{
             
             }) {
                 // You can take this out after. Useful for debugging
-                print("failed to load shader", appendNewline: false)
+                print("failed to load shader", terminator: "")
                 glDebug(__FILE__, line: __LINE__)
         }
         
