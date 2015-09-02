@@ -13,6 +13,7 @@ class GameLevelData {
     var positionSet:[Array<Double>]
     
     init(nameArray:[String], positionArray:[Array<Double>]){
+        
         nameSet = nameArray
         positionSet = positionArray
     }

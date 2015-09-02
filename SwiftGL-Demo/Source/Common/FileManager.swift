@@ -262,7 +262,7 @@ class FileManager {
         data.appendBytes([strokes.count], length: sizeof(Int))
         for var i=0;i<strokes.count; i++
         {
-            var pointData = strokes[i].pointData
+            let pointData = strokes[i].pointData
             
             let length = pointData.count
             

@@ -9,7 +9,11 @@
 import GLKit
 import SwiftGL
 import OpenGLES
-class PaintViewController: UIViewController,UIDocumentPickerDelegate
+func getViewController(identifier:String)->UIViewController
+{
+    return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(identifier)
+}
+class PaintViewController: UIViewController,UIDocumentPickerDelegate, UITextViewDelegate
 {
     @IBOutlet weak var colorPicker: ColorPicker!
     
@@ -21,11 +25,16 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     @IBOutlet weak var playBackView: UIView!
     
     override func viewDidLoad() {
+        //mainView.addSubview(noteEditView)
+        //noteEditView.frame.offsetInPlace(dx: noteEditView.frame.width, dy: 0)
+        
+        
+        
         playBackToolbar.clipsToBounds = true
         
-        imageView.image = RefImgManager.instance.refImg
-        imageView.contentMode = UIViewContentMode.ScaleAspectFit
-        imageView.userInteractionEnabled = true
+        //imageView.image = RefImgManager.instance.refImg
+        //imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        //imageView.userInteractionEnabled = true
         
         colorPicker.setTheColor(UIColor(hue: 0.5, saturation: 0.5, brightness: 0.5, alpha: 1.0))
         colorPicker.onColorChange = {(color, finished) in
@@ -52,12 +61,29 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         
         canvasPanGestureHandler = CanvasPanGestureHandler(pvController: self)
         
-        
+        //noteEditTextView.delegate = self
         
     }
+    /*
+    func textViewDidBeginEditing(textView: UITextView) {
+    }*/
+    
+    @IBOutlet weak var noteEditTextView: UITextView!
+    
     override func viewDidLayoutSubviews() {
-        edgeGestureHandler = EdgeGestureHandler(pvController: self)
+        //textfield.becomeFirstResponder()
+        
+        //edgeGestureHandler = EdgeGestureHandler(pvController: self)
         PaintToolManager.instance.useCurrentTool()
+        
+        //noteEditViewOriginCenter = noteEditView.center
+        
+       // self.noteEditViewTopConstraint.constant = 100
+        //self.noteEditViewTopConstraint.constant = 0
+      //  self.noteEditView.layoutIfNeeded()
+        
+        //paintView.layer.anchorPoint = CGPointZero
+        //paintView.layer.position = CGPointZero
     }
     
     /*
@@ -117,6 +143,8 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     
     @IBOutlet weak var canvasImageView: UIImageView!
     
+    
+    
     @IBAction func uiPanGestureHandler(sender: UIPanGestureRecognizer) {
         //let glkView = view as! GLKView
           //EAGLContext.setCurrentContext(glkView.context)
@@ -128,15 +156,83 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
     }
     
     
+    
     @IBAction func uiTapGestureEvent(sender: UITapGestureRecognizer) {
         
-        print("controller double tap")
-        paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
+        switch(mode)
+        {
+        case AppMode.drawing:
+            print("controller double tap")
+            paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
+                
+            paintView.layer.anchorPoint = CGPointZero
+            paintView.layer.position = CGPointZero
+        case AppMode.browsing:
+            //view.addSubview(noteEditView)
+            showNoteEditModal()
+            break
+            
+        }
         
-        paintView.layer.anchorPoint = CGPointZero
-        paintView.layer.position = CGPointZero
         
     }
+    
+    
+    var noteEditViewOriginCenter:CGPoint!
+    
+    
+    @IBOutlet weak var noteEditViewTopConstraint: NSLayoutConstraint!
+    
+    @IBAction func noteEditButtonTouched(sender: UIBarButtonItem) {
+        
+        
+        
+        UIView.animateWithDuration(0.5, animations: {
+            let transform = CATransform3DMakeScale(0.5, 0.5, 1)
+            //transform = CATransform3DTranslate(transform,-512, -384, 0)
+            self.paintView.layer.transform = transform
+            
+            //self.noteEditView.center.y = self.noteEditViewOriginCenter.y
+            self.noteEditViewTopConstraint.constant = 0
+            self.noteEditView.layoutIfNeeded()
+            
+            })
+        
+        /*
+        UIView.animateWithDuration(0.5, animations: {
+            let transform = CATransform3DMakeScale(0.5, 0.5, 1)
+            //transform = CATransform3DTranslate(transform,-512, -384, 0)
+            self.paintView.layer.transform = transform
+            
+            self.noteEditView.center.y = self.noteEditViewOriginCenter.y
+        })
+        */
+    }
+    
+    @IBOutlet weak var noteEditView: UIView!
+    
+    func showNoteEditModal()
+    {
+//
+        let noteEditController =  getViewController("NoteEdit")
+        
+        
+        noteEditController.modalPresentationStyle = UIModalPresentationStyle.Popover
+        noteEditController.preferredContentSize = CGSize(width: 600, height: 400)
+        
+        let popoverController = noteEditController.popoverPresentationController
+        popoverController?.permittedArrowDirections = .Any
+        
+        
+        //popoverController?.sourceRect = CGRect(x: 0, y: 0, width: 100, height: 100)
+        popoverController?.sourceView = view
+        
+        
+        
+        presentViewController(noteEditController, animated: true, completion: nil)
+    }
+    
+    
     var pinchPoint:CGPoint!
     
     @IBAction func uiPinchGestrueEvent(sender: UIPinchGestureRecognizer) {
@@ -182,6 +278,10 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
             //paintView.layer.transform = CATransform3DMakeScale(sender.scale, sender.scale, 1)
             //paintView.layer.transform = CGAffineTransformScale(paintView.transform, sender.scale, )
             sender.scale = 1
+        case .Ended:
+            paintView.layer.anchorPoint = CGPointZero
+            paintView.layer.position = CGPointZero
+            
         default: ()
         }
         
@@ -430,10 +530,6 @@ class PaintViewController: UIViewController,UIDocumentPickerDelegate
         }
     }
     
-    
-    @IBAction func eidtModeButtonTouched(sender: UIBarButtonItem) {
-        
-            }
     
     @IBAction func modeSwitcherValueChanged(sender: UISwitch) {
         if sender.on

@@ -26,14 +26,13 @@ class FaceGameScene: SKScene {
     var pointNum:Int = 10
     var difficulty = 1
     
-    let sampleImg2 = SKSpriteNode(imageNamed: "img")
+    var sampleImg2 = SKSpriteNode(imageNamed: "imghint")
     
     override func didMoveToView(view: SKView) {
         scaleMode = SKSceneScaleMode.AspectFill
         backgroundColor = SKColor.whiteColor()
         //player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
         //addChild(player)
-        
         prepareScene()
         
         faceGameStageLevelGenerator = FaceGameStageLevelGenerator(size: size,num: pointNum)
@@ -41,7 +40,7 @@ class FaceGameScene: SKScene {
         newStage()
         
         self.addChild(scoreLabel)
-    
+        
     }
     
     var scoreLabel:SKLabelNode = SKLabelNode(text:"");
