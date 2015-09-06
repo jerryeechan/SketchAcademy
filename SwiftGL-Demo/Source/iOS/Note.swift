@@ -7,19 +7,19 @@
 //
 
 import Foundation
-struct Revise {
+struct Note{
     var title:String
     var description:String
     
-    var value:ReviseValueData!
+    var value:NoteValueData!
     init(title:String,description:String,timestamp:Double)
     {
         self.title = title
         self.description = description
-        self.value = ReviseValueData(timeStamp: timestamp)
+        self.value = NoteValueData(timeStamp: timestamp)
     }
 }
 
-struct ReviseValueData {
+struct NoteValueData {
     var timeStamp:Double
 }
