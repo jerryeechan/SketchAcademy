@@ -22,17 +22,13 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
     @IBOutlet weak var playBackToolbar: UIToolbar!
     
     @IBOutlet weak var playBackView: UIView!
-    @IBOutlet weak var noteEditTextView: UITextView!
+   
     
     
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
     override func viewDidLoad() {
-        //mainView.addSubview(noteEditView)
-        //noteEditView.frame.offsetInPlace(dx: noteEditView.frame.width, dy: 0)
-        
-        
         
         playBackToolbar.clipsToBounds = true
         
@@ -566,6 +562,7 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
             
             
         })
+        //NoteManager.instance.addNote(, description: <#T##String#>)
         noteDisplayTextView.text = noteEditTextView.text
         view.endEditing(true)
     }
@@ -576,28 +573,24 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
     @IBOutlet weak var playBackViewBottomConstraint: NSLayoutConstraint!
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FileCell", forIndexPath: indexPath)
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell",forIndexPath: indexPath)
         let note = NoteManager.instance.noteList[indexPath.row]
-        
-        //cell.imageView?.image = FileManager.instance.loadImg(fName)
         cell.textLabel?.text = note.title
-        
         return cell
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(NoteManager.instance.noteList.count)
         return NoteManager.instance.noteList.count
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let fileName = FileManager.instance.fileNames[indexPath.row]
-        
-        PaintRecorder.instance.loadArtwork(fileName)
-        //FileManager.instance.loadPaintArtWork(fileName).replayAll()
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
+//        let fileName = FileManager.instance.fileNames[indexPath.row]
+  //      PaintRecorder.instance.loadArtwork(fileName)
     }
-
     
+    
+    @IBOutlet weak var noteEditTextView: UITextView!
     @IBOutlet weak var noteDisplayTextView: UITextView!
     
     @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {

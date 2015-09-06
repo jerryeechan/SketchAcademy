@@ -394,7 +394,7 @@
                                             <constraint firstAttribute="height" constant="440" id="JLo-Om-ljV"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FileCell" textLabel="MkO-F4-K6m" detailTextLabel="7Fr-nK-Acx" style="IBUITableViewCellStyleValue1" id="l1I-y2-rmy">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoteCell" textLabel="MkO-F4-K6m" detailTextLabel="7Fr-nK-Acx" style="IBUITableViewCellStyleValue1" id="l1I-y2-rmy">
                                                 <rect key="frame" x="0.0" y="28" width="240" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l1I-y2-rmy" id="VCO-VI-2kA">
@@ -439,7 +439,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" restorationIdentifier="textEdit" translatesAutoresizingMaskIntoConstraints="NO" id="7d5-pR-Ahm">
-                                <rect key="frame" x="512" y="-384" width="512" height="384"/>
+                                <rect key="frame" x="512" y="0.0" width="512" height="384"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evj-YG-dMb">
                                         <rect key="frame" x="0.0" y="0.0" width="512" height="44"/>
@@ -452,8 +452,8 @@
                                             </barButtonItem>
                                         </items>
                                     </toolbar>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IL8-Lg-h4e">
-                                        <rect key="frame" x="26" y="128" width="459" height="193"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ngP-QE-E2Y">
+                                        <rect key="frame" x="136" y="128" width="240" height="128"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -487,7 +487,7 @@
                             <constraint firstItem="AqB-Ps-H0o" firstAttribute="bottom" secondItem="x6p-iR-vVk" secondAttribute="top" constant="44" id="oj7-eB-jQM"/>
                             <constraint firstAttribute="trailing" secondItem="7d5-pR-Ahm" secondAttribute="trailing" id="ppb-0k-sJd"/>
                             <constraint firstAttribute="trailing" secondItem="Olf-xl-ZcA" secondAttribute="trailing" id="sKZ-0d-VYX"/>
-                            <constraint firstItem="7d5-pR-Ahm" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" constant="-384" id="uf2-fD-e2Z"/>
+                            <constraint firstItem="7d5-pR-Ahm" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" id="uf2-fD-e2Z"/>
                             <constraint firstItem="Olf-xl-ZcA" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="xyt-VB-ylK"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="bottom" secondItem="x6p-iR-vVk" secondAttribute="top" constant="44" id="y5P-08-Bj0"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="y6g-I5-qIJ"/>
@@ -505,7 +505,7 @@
                         <outlet property="colorPicker" destination="2CA-XT-VkX" id="Gdy-tV-Sq2"/>
                         <outlet property="mainView" destination="MuV-st-KEp" id="nSJ-pA-k2h"/>
                         <outlet property="noteDisplayTextView" destination="gHL-Wl-jAc" id="Rgc-mZ-i9O"/>
-                        <outlet property="noteEditTextView" destination="IL8-Lg-h4e" id="dvp-iw-mf9"/>
+                        <outlet property="noteEditTextView" destination="ngP-QE-E2Y" id="jxi-h0-YQC"/>
                         <outlet property="noteEditView" destination="7d5-pR-Ahm" id="CXR-bk-a42"/>
                         <outlet property="noteEditViewTopConstraint" destination="uf2-fD-e2Z" id="ohG-OG-Iyw"/>
                         <outlet property="paintView" destination="UCv-DA-xiU" id="Bv6-eq-1RR"/>
