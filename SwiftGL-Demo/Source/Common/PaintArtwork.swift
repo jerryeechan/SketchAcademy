@@ -18,7 +18,7 @@ class PaintArtwork
     
     var isFileExist:Bool = false
     
-    var revises:[Revise] = []
+    var notes:[Note] = []
     class var instance:PaintArtwork{
         
         struct Singleton {

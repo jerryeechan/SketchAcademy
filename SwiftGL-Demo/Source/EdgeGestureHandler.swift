@@ -10,38 +10,43 @@ import UIKit
 
 class EdgeGestureHandler:NSObject {
     var mainView:UIView!
-    var toolView:UIView!
+    
     var paintView:UIView!
     
-    var toolView_center:CGPoint!
     
+    //播放區域 play back panel
     var playBackPanel:UIView!
-    var playBackPanel_center:CGPoint!
+    var playBackPanelBottomConstraint: NSLayoutConstraint!
+    var playBackPanelHideBottomY:CGFloat = 128
+    var playBackPanelHeight:CGFloat = 128
+    
+    //工具列 tool view
+    var toolView:UIView!
+    var toolViewLeadingConstraint: NSLayoutConstraint!
+    var toolViewHideLeadingX:CGFloat = -240
+    var toolViewWidth:CGFloat = 240
     
     var isToolPanelLocked:Bool = false
-    var pvController:PaintViewController!
+    weak var pvController:PaintViewController!
     init(pvController:PaintViewController)
     {
         super.init()
-        print("init edge")
         
         self.mainView = pvController.mainView
         self.paintView = pvController.paintView
         self.toolView = pvController.toolView
         self.playBackPanel = pvController.playBackView
-        playBackPanel_center = playBackPanel.center
-        toolView_center = toolView.center
-        //pvController =
-        //hideToolView()
-        self.toolView.center.x = self.toolView_center.x - self.toolView.frame.width
+        toolViewLeadingConstraint = pvController.toolViewLeadingConstraint
+        playBackPanelBottomConstraint = pvController.playBackViewBottomConstraint
+        self.pvController = pvController
         
-        //hidePlayBackView()
-        self.playBackPanel.center.y = self.playBackPanel_center.y + self.playBackPanel.frame.height
         
+        hidePlayBackView(0)
+        hideToolView(0)
+        //playBackPanelBottomConstraint.constant = playBackPanelHideBottomY
+        //toolViewLeadingConstraint.constant = toolViewHideLeadingX
         
         let toolViewPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
-        
-        
         toolView.addGestureRecognizer(toolViewPanGestureRecognizer)
         
         let leftEdgeGestureReconizer = UIScreenEdgePanGestureRecognizer(target: self, action: "handleLeftEdgePan:")
@@ -76,24 +81,27 @@ class EdgeGestureHandler:NSObject {
         switch sender.state
         {
         case UIGestureRecognizerState.Changed:
-            
-            toolView.center.x = toolView_center.x + delta.x
-            if toolView.center.x > toolView_center.x
+            print("tool view pan")
+            toolViewLeadingConstraint.constant = delta.x
+            if toolViewLeadingConstraint.constant > 0
             {
-                toolView.center.x = toolView_center.x
+                toolViewLeadingConstraint.constant = 0
             }
         case .Ended:
             if vel.x < -100
             {
-                hideToolView()
+                print("hide")
+                hideToolView(0.2)
             }
             else
             {
-                showToolView()
+                print("show")
+                showToolView(0.2)
             }
         default:
             break
         }
+        toolView.layoutIfNeeded()
     }
         
     
@@ -114,36 +122,40 @@ class EdgeGestureHandler:NSObject {
             
             if delta.x > 0
             {
-                showToolView()
+                showToolView(0.2)
             }
             
         default:
             break
         }
+        
     }
     var isToolViewHidden:Bool = false
-    func showToolView()
+    func showToolView(duration:NSTimeInterval)
     {
-            UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                self.toolView.center.x = self.toolView_center.x
-                }, completion: {
-                    finished in
-                    self.isToolViewHidden = false
-                }
-            )
+        UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+            self.toolViewLeadingConstraint.constant = 0
+            self.toolView.layoutIfNeeded()
+            }, completion: {
+                finished in
+                self.isToolViewHidden = false
+            }
+        )
     }
-    func hideToolView()
+    func hideToolView(duration:NSTimeInterval)
     {
         if isToolViewHidden == false
         {
-            UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                self.toolView.center.x = self.toolView_center.x - self.toolView.frame.width
+            UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                self.toolViewLeadingConstraint.constant = self.toolViewHideLeadingX
+                self.toolView.layoutIfNeeded()
                 }, completion: {
                     finished in
                     self.isToolViewHidden = true
                 }
             )
         }
+        
     }
     
     func handleBottemEdgePan(sender:UIScreenEdgePanGestureRecognizer)
@@ -158,7 +170,7 @@ class EdgeGestureHandler:NSObject {
             
             if delta.y < 0
             {
-                showPlayBackView()
+                showPlayBackView(0.2)
             }
             
         default:
@@ -176,23 +188,22 @@ class EdgeGestureHandler:NSObject {
         {
         case UIGestureRecognizerState.Changed:
             
-            print(playBackPanel.center.y)
             
-            playBackPanel.center.y = playBackPanel_center.y + delta.y
+            playBackPanelBottomConstraint.constant = delta.y
             
-            if playBackPanel.center.y < playBackPanel_center.y
+            if playBackPanelBottomConstraint.constant <  -playBackPanelHeight
             {
-                playBackPanel.center.y = playBackPanel_center.y
+                playBackPanelBottomConstraint.constant = -playBackPanelHeight
             }
             
         case .Ended:
-            if vel.y > 100
+            if vel.y > 10
             {
-                hidePlayBackView()
+                hidePlayBackView(0.2)
             }
             else
             {
-                showPlayBackView()
+                showPlayBackView(0.2)
             }
         default:
             break
@@ -200,10 +211,10 @@ class EdgeGestureHandler:NSObject {
         
     }
     
-    func showPlayBackView()
+    func showPlayBackView(duration:NSTimeInterval)
     {
-        UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-            self.playBackPanel.center.y = self.playBackPanel_center.y
+        UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+            self.playBackPanelBottomConstraint.constant = 0
             }, completion: {
                 finished in
                 
@@ -211,10 +222,10 @@ class EdgeGestureHandler:NSObject {
         )
     }
     
-    func hidePlayBackView()
+    func hidePlayBackView(duration:NSTimeInterval)
     {
-        UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-            self.playBackPanel.center.y = self.playBackPanel_center.y + self.playBackPanel.frame.height
+        UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+            self.playBackPanelBottomConstraint.constant = self.playBackPanelHideBottomY
             }, completion: {
                 finished in
                 
