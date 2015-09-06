@@ -13,8 +13,6 @@ class CanvasPanGestureHandler {
     var paintView:PaintView!
     var scrollView:UIScrollView!
     var paintViewController:PaintViewController!
-    
-    
     init(pvController:PaintViewController)
     {
         self.paintView = pvController.paintView

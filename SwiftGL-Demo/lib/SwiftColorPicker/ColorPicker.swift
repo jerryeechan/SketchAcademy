@@ -15,7 +15,6 @@ class ColorPicker: UIView {
     var crossHairView: CrossHairView!
     var colorView: ColorGradientView!
     var mainColorView: MainColorView!
-    //var hueColorView:AngleGradientBorderView!
     var selectedColorView: SelectedColorView!
     var onColorChange:((color:UIColor, finished:Bool)->Void)? = nil
     var color: UIColor!
@@ -70,9 +69,6 @@ class ColorPicker: UIView {
         colorView = ColorGradientView(frame: CGRect(x: 20, y: 20, width: smallestDim - 40, height: smallestDim - 40), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
         // Add colorGradientView as a subview of this view
         self.addSubview(colorView)
-        
-        //hueColorView = AngleGradientBorderView(frame: CGRect(x: 0,y: 0,width: 240,height: 240))
-        //self.addSubview(hueColorView)
         
         
         // Init new CrossHairView subview

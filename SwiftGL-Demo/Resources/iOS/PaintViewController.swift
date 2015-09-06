@@ -13,21 +13,22 @@ func getViewController(identifier:String)->UIViewController
 {
     return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(identifier)
 }
-class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewDelegate
+class PaintViewController: UIViewController,UIDocumentPickerDelegate, UITextViewDelegate
 {
     @IBOutlet weak var colorPicker: ColorPicker!
-    
-    
-    
-    @IBOutlet weak var playBackToolbar: UIToolbar!
-    
-    @IBOutlet weak var playBackView: UIView!
-   
-    
     
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    @IBOutlet weak var playBackToolbar: UIToolbar!
+    
+    @IBOutlet weak var playBackView: UIView!
+<<<<<<< HEAD
+   
+    
+=======
+>>>>>>> parent of 654adc0... 9/6
+    
     override func viewDidLoad() {
         
         playBackToolbar.clipsToBounds = true
@@ -60,11 +61,7 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
         }*/
         
         canvasPanGestureHandler = CanvasPanGestureHandler(pvController: self)
-        edgeGestureHandler = EdgeGestureHandler(pvController: self)
-        PaintToolManager.instance.useCurrentTool()
         
-        //noteEditViewTopConstraint.constant = -384
-        mainView.layoutIfNeeded()
         //noteEditTextView.delegate = self
         
     }
@@ -72,6 +69,23 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
     func textViewDidBeginEditing(textView: UITextView) {
     }*/
     
+    @IBOutlet weak var noteEditTextView: UITextView!
+    
+    override func viewDidLayoutSubviews() {
+        //textfield.becomeFirstResponder()
+        
+        //edgeGestureHandler = EdgeGestureHandler(pvController: self)
+        PaintToolManager.instance.useCurrentTool()
+        
+        //noteEditViewOriginCenter = noteEditView.center
+        
+       // self.noteEditViewTopConstraint.constant = 100
+        //self.noteEditViewTopConstraint.constant = 0
+      //  self.noteEditView.layoutIfNeeded()
+        
+        //paintView.layer.anchorPoint = CGPointZero
+        //paintView.layer.position = CGPointZero
+    }
     
     /*
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -172,8 +186,6 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
     
     @IBAction func noteEditButtonTouched(sender: UIBarButtonItem) {
         
-        paintView.layer.position = CGPointZero
-        paintView.layer.anchorPoint = CGPointZero
         
         
         UIView.animateWithDuration(0.5, animations: {
@@ -186,8 +198,6 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
             self.noteEditView.layoutIfNeeded()
             
             })
-        
-        noteEditTextView.becomeFirstResponder()
         
         /*
         UIView.animateWithDuration(0.5, animations: {
@@ -400,7 +410,7 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
     
     @IBAction func paintToolSelect(sender: UISegmentedControl) {
         
-        PaintToolManager.instance.changeTool(sender.selectedSegmentIndex)
+        let tool:PaintBrush = PaintToolManager.instance.changeTool(sender.selectedSegmentIndex)
         
        // brushScaleSlider.value = tool.vInfo.size
         
@@ -468,46 +478,39 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
     
     var mode:AppMode = .drawing
     
-    
+    @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
+        displayCropView()
+    }
     
     
     
     var canvasCropView:CanvasCropView!
+    func displayCropView()
+    {
+        if !isEditingRectangle
+        {
+            
+            let viewRect = CGRectMake(0, 0, paintView.bounds.size.width,paintView.bounds.size.height);
+            canvasCropView = CanvasCropView(frame: viewRect)
+            mainView.addSubview(canvasCropView)
+            isEditingRectangle = true
+        }
+        else
+        {
+            canvasCropView.removeFromSuperview()
+            isEditingRectangle = false
+        }
+        
+        
+    }
     
     func getView(name:String)->UIView
     {
         return NSBundle.mainBundle().loadNibNamed(name, owner: self, options: nil)![0] as! UIView
     }
     
-    
-    
-    
-    /*
-    @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
-    displayCropView()
-    }
-    
-    func displayCropView()
-    {
-    if !isEditingRectangle
-    {
-    
-    let viewRect = CGRectMake(0, 0, paintView.bounds.size.width,paintView.bounds.size.height);
-    canvasCropView = CanvasCropView(frame: viewRect)
-    mainView.addSubview(canvasCropView)
-    isEditingRectangle = true
-    }
-    else
-    {
-    canvasCropView.removeFromSuperview()
-    isEditingRectangle = false
-    }
-    
-    
-    }
-
-    
     @IBOutlet weak var reviseNoteView: UIView!
+   
     var reviseNoteStartPoint:CGPoint!
     var isEditingRectangle:Bool = false
     @IBAction func notePanGestureRecognizerHandler(sender: UIPanGestureRecognizer) {
@@ -527,15 +530,14 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
             return
         }
     }
-*/
     
     
     @IBAction func modeSwitcherValueChanged(sender: UISwitch) {
         if sender.on
         {
             mode = AppMode.browsing
-            edgeGestureHandler.showPlayBackView(0.2)
-            edgeGestureHandler.hideToolView(0.2)
+            edgeGestureHandler.showPlayBackView()
+            edgeGestureHandler.hideToolView()
             edgeGestureHandler.isToolPanelLocked = true
             progressSlider.value = 1
 
@@ -543,13 +545,14 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
         else
         {
             mode = AppMode.drawing
-            edgeGestureHandler.hidePlayBackView(0.2)
+            edgeGestureHandler.hidePlayBackView()
             edgeGestureHandler.isToolPanelLocked = false
         }
         
     }
     
     
+<<<<<<< HEAD
     @IBAction func noteEditViewCompleteButtonTouched(sender: AnyObject) {
         UIView.animateWithDuration(0.5, animations: {
             let transform = CATransform3DMakeScale(1, 1, 1)
@@ -593,6 +596,8 @@ class PaintViewController:UIViewController,UIDocumentPickerDelegate, UITextViewD
     @IBOutlet weak var noteEditTextView: UITextView!
     @IBOutlet weak var noteDisplayTextView: UITextView!
     
+=======
+>>>>>>> parent of 654adc0... 9/6
     @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {
         GLContextBuffer.instance.release()
         colorPicker.onColorChange = nil

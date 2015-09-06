@@ -12,6 +12,7 @@ class ColorLayer {
     let layer: CAGradientLayer!
     let layerTop: UIColor!
     let layerBottom: UIColor = UIColor.whiteColor()
+    
     init(color: UIColor!) {
         layerTop = color
         layer = CAGradientLayer()
