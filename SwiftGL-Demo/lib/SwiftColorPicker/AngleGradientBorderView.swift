@@ -9,15 +9,19 @@
 import UIKit
 
 class AngleGradientBorderView: UIView {
-
+    
+    weak var delegate:ColorPicker!
   // Constants
   let DefaultGradientBorderColors: [AnyObject] = [
     UIColor.redColor().CGColor,
+    UIColor.yellowColor().CGColor,
     UIColor.greenColor().CGColor,
+    UIColor.cyanColor().CGColor,
     UIColor.blueColor().CGColor,
+    UIColor.magentaColor().CGColor,
     UIColor.redColor().CGColor, // Repeat the first color to make a smooth transition
   ]
-  let DefaultGradientBorderWidth: CGFloat = 4
+  let DefaultGradientBorderWidth: CGFloat = 20
 
   // Set the UIView's layer class to be our AngleGradientBorderLayer
   override class func layerClass() -> AnyClass {
@@ -27,7 +31,9 @@ class AngleGradientBorderView: UIView {
   // Initializer
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+    
     setupGradientLayer()
+    backgroundColor = UIColor.clearColor()
   }
 
   // Custom initializer
@@ -35,7 +41,15 @@ class AngleGradientBorderView: UIView {
     super.init(frame: frame)
     setupGradientLayer(borderColors: gradientBorderColors, borderWidth: gradientBorderWidth)
   }
-
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first
+        let point = touch?.locationInView(self)
+        
+        let color = getColorFromPoint(point!)
+        delegate.mainColorSelected(color, point: point!)
+        
+    }
   // Setup the attributes of this view's layer
   func setupGradientLayer(borderColors gradientBorderColors: [AnyObject]? = nil, borderWidth gradientBorderWidth: CGFloat? = nil) {
     // Grab this UIView's layer and cast it as AngleGradientBorderLayer
@@ -58,6 +72,8 @@ class AngleGradientBorderView: UIView {
     } else {
       l.gradientBorderWidth = DefaultGradientBorderWidth
     }
+    
+    
   }
   
 }

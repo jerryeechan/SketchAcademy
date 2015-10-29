@@ -72,6 +72,13 @@ class GLRenderTextureFrameBuffer{
         glClear(GL_COLOR_BUFFER_BIT )
         
     }
+    func genCacheFrame()
+    {
+        
+    }
+    func cloneLayer(){
+        
+    }
     func setBuffer()->Bool
     {
         return setBuffer(currentLayer)

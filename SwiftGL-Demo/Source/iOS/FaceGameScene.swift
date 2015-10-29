@@ -42,6 +42,50 @@ class FaceGameScene: SKScene {
         self.addChild(scoreLabel)
         
     }
+    func prepareScene()
+    {
+        let quesRect = SKShapeNode(rect: CGRectMake(0, 0, size.width/2, size.height))
+        
+        //quesRect.fillColor = SKColor.brownColor()//uIntColor(231,green: 234,blue: 179,alpha: 255)
+        quesRect.position = CGPointMake(0,0)
+        //quesRect.userInteractionEnabled = false
+        addChild(quesRect)
+        
+        let ansRect = SKShapeNode(rect: CGRectMake(0, 0, size.width/2, size.height))
+        
+        ansRect.fillColor = SKColor.whiteColor()
+        ansRect.position = CGPointMake(size.width/2,0)
+        //ansRect.userInteractionEnabled = false
+        addChild(ansRect)
+        
+        /*let spongeBG = SKSpriteNode(imageNamed: "spongebob")
+        spongeBG.position = CGPointMake(300,400)
+        quesRect.addChild(spongeBG)*/
+        
+        //底圖移到generater
+        //img name  : string
+        
+        
+        let sampleImg = SKSpriteNode(imageNamed: "img")
+        sampleImg.position = CGPointMake(250,400)
+        sampleImg.setScale(0.2)
+        //sampleImg.color = uIntColor(0, green: 0, blue: 0, alpha: 255)
+        sampleImg.color = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        sampleImg.colorBlendFactor = 1;
+        quesRect.addChild(sampleImg)
+
+        
+        //        let sampleImg2 = SKSpriteNode(imageNamed: "img")
+        //        sampleImg2.position = CGPointMake(250,400)
+        //        sampleImg2.setScale(0.2)
+        //        sampleImg2.color = uIntColor(0, green: 0, blue: 0, alpha: 0)
+        //        sampleImg2.colorBlendFactor = 1;
+        //        ansRect.addChild(sampleImg2)
+        
+        self.quesRect = quesRect
+        self.ansRect = ansRect
+        
+    }
     
     var scoreLabel:SKLabelNode = SKLabelNode(text:"");
     func calScore()->Float
@@ -102,9 +146,9 @@ class FaceGameScene: SKScene {
         }
         
         quesComponents = faceGameStageLevelGenerator.correctPosition("Little Green Man")
-        //quesDots = dotStageLevelGenerator.testLevel()
+        
         quesComponents.setMovable(false)
-        quesComponents.addToNode(quesRect)
+        //quesComponents.addToNode(quesRect)
         
         
         ansComponents = faceGameStageLevelGenerator.freeComponents("Little Green Man")
@@ -141,11 +185,7 @@ class FaceGameScene: SKScene {
     
     func setFixPoint()
     {
-        for i in 0...9
-        {
-            quesComponents.components[i].setAsFixedPoint()
-        }
-        
+               
         ansComponents.components[3].position = CGPointMake(240.0, 412.0)
         //ansDots.dots[3].setAsFixedPoint()
         ansComponents.components[3].userInteractionEnabled = false
@@ -157,47 +197,7 @@ class FaceGameScene: SKScene {
         */
     }
     
-    func prepareScene()
-    {
-        let quesRect = SKShapeNode(rect: CGRectMake(0, 0, size.width/2, size.height))
-        
-        quesRect.fillColor = SKColor.whiteColor()//uIntColor(231,green: 234,blue: 179,alpha: 255)
-        quesRect.position = CGPointMake(0,0)
-        //quesRect.userInteractionEnabled = false
-        addChild(quesRect)
-        
-        let ansRect = SKShapeNode(rect: CGRectMake(0, 0, size.width/2, size.height))
-        
-        ansRect.fillColor = SKColor.whiteColor()
-        ansRect.position = CGPointMake(size.width/2,0)
-        //ansRect.userInteractionEnabled = false
-        addChild(ansRect)
-        
-        /*let spongeBG = SKSpriteNode(imageNamed: "spongebob")
-        spongeBG.position = CGPointMake(300,400)
-        quesRect.addChild(spongeBG)*/
-        
-        //底圖移到generater
-        //img name  : string
-        let sampleImg = SKSpriteNode(imageNamed: "img")
-        sampleImg.position = CGPointMake(250,400)
-        sampleImg.setScale(0.2)
-        //sampleImg.color = uIntColor(0, green: 0, blue: 0, alpha: 255)
-        sampleImg.color = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        sampleImg.colorBlendFactor = 1;
-        quesRect.addChild(sampleImg)
-        
-        //        let sampleImg2 = SKSpriteNode(imageNamed: "img")
-        //        sampleImg2.position = CGPointMake(250,400)
-        //        sampleImg2.setScale(0.2)
-        //        sampleImg2.color = uIntColor(0, green: 0, blue: 0, alpha: 0)
-        //        sampleImg2.colorBlendFactor = 1;
-        //        ansRect.addChild(sampleImg2)
-        
-        self.quesRect = quesRect
-        self.ansRect = ansRect
-        
-    }
+    
     
     /*
     var selectedNode:SKNode!

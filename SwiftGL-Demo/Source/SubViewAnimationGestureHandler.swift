@@ -8,11 +8,9 @@
 
 import UIKit
 
-class EdgeGestureHandler:NSObject {
+class SubViewAnimationGestureHandler:NSObject {
     var mainView:UIView!
-    
     var paintView:UIView!
-    
     
     //播放區域 play back panel
     var playBackPanel:UIView!
@@ -27,6 +25,15 @@ class EdgeGestureHandler:NSObject {
     var toolViewWidth:CGFloat = 240
     
     var isToolPanelLocked:Bool = false
+    
+    //註解欄位
+    var noteListView:UIView!
+    var noteListViewTrailingConstraint: NSLayoutConstraint!
+    var noteListViewTrailingX:CGFloat = -240
+    var noteListViewWidth:CGFloat = 240
+    
+    var toolViewState:SubViewPanelAnimateState!
+    
     weak var pvController:PaintViewController!
     init(pvController:PaintViewController)
     {
@@ -34,15 +41,27 @@ class EdgeGestureHandler:NSObject {
         
         self.mainView = pvController.mainView
         self.paintView = pvController.paintView
+        
+        
+        
+        
         self.toolView = pvController.toolView
+        self.toolViewLeadingConstraint = pvController.toolViewLeadingConstraint
+        
         self.playBackPanel = pvController.playBackView
-        toolViewLeadingConstraint = pvController.toolViewLeadingConstraint
-        playBackPanelBottomConstraint = pvController.playBackViewBottomConstraint
+        self.playBackPanelBottomConstraint = pvController.playBackViewBottomConstraint
+        
+        
+        self.noteListView = pvController.noteListView
+        self.noteListViewTrailingConstraint = pvController.noteListViewTrailingConstraint
+        
+        
         self.pvController = pvController
         
         
         hidePlayBackView(0)
-        hideToolView(0)
+        //hideToolView(0)
+        
         //playBackPanelBottomConstraint.constant = playBackPanelHideBottomY
         //toolViewLeadingConstraint.constant = toolViewHideLeadingX
         
@@ -72,6 +91,7 @@ class EdgeGestureHandler:NSObject {
         
         */
     }
+    
     
     
     func handlePan(sender:UIPanGestureRecognizer)
@@ -157,6 +177,8 @@ class EdgeGestureHandler:NSObject {
         }
         
     }
+    
+    
     
     func handleBottemEdgePan(sender:UIScreenEdgePanGestureRecognizer)
     {

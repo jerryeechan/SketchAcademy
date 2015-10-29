@@ -9,6 +9,8 @@ import UIKit
 
 class ColorGradientView: UIView {
     var colorLayer: ColorLayer!
+    weak var delegate: ColorPicker?
+    var point:CGPoint!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
@@ -18,7 +20,11 @@ class ColorGradientView: UIView {
         super.init(frame: frame)
         setColor(color)
     }
-
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first
+        point = touch!.locationInView(self)
+        delegate?.colorSaturationAndBrightnessSelected(point)
+    }
     func setColor(_color: UIColor!) {
         // Set member color to the new UIColor coming in
         colorLayer = ColorLayer(color: _color)

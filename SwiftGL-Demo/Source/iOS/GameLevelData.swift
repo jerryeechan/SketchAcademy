@@ -10,9 +10,9 @@
 class GameLevelData {
     
     var nameSet:[String]
-    var positionSet:[Array<Double>]
+    var positionSet:[CGPoint]
     
-    init(nameArray:[String], positionArray:[Array<Double>]){
+    init(nameArray:[String], positionArray:[CGPoint]){
         
         nameSet = nameArray
         positionSet = positionArray
@@ -22,7 +22,7 @@ class GameLevelData {
         return nameSet
     }
     
-    func getPositionSet() -> [Array<Double>]{
+    func getPositionSet() -> [CGPoint]{
         return positionSet
     }
 }

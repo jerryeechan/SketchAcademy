@@ -45,10 +45,13 @@ class PaintRecorder {
         GLContextBuffer.instance.display()
         //call filemanager to load the file to PaintArtwork
         artwork = FileManager.instance.loadPaintArtWork(filename)
+        NoteManager.instance.loadNotes(filename)
+        
         if(artwork != nil)
         {
             //paint the process by Painter
-            PaintReplayer.instance.startReplay(artwork)
+            PaintReplayer.instance.loadArtwork(artwork)
+            PaintReplayer.instance.startReplay()
             
             //PaintReplayer.instance.drawAll(artwork)
             
@@ -63,10 +66,10 @@ class PaintRecorder {
     
     func saveArtwork(filename:String,img:UIImage)
     {
-        FileManager.instance.savePaintArtWork(artwork, filename: filename, img:img)
-        //call filemanager to  save the current PaintArtwork with name
         
-        // call FileManager
+        //call filemanager to  save the current PaintArtwork with name
+        FileManager.instance.savePaintArtWork(filename, artwork: artwork, img: img, noteList:NoteManager.instance.getNotes())
+        
     }
     
     /**

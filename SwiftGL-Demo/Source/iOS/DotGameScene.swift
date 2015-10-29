@@ -23,7 +23,7 @@ class DotGameScene: SKScene {
     var quesDots:DotSet!
     var ansDots:DotSet!
     
-    var pointNum:Int = 10
+    var pointNum:Int!
     var difficulty = 1
     
     override func didMoveToView(view: SKView) {
@@ -34,6 +34,7 @@ class DotGameScene: SKScene {
         
         prepareScene()
         
+        pointNum = 6
         dotStageLevelGenerator = DotStageLevelGenerator(size: size,num: pointNum)
         newStage()
         
@@ -114,7 +115,7 @@ class DotGameScene: SKScene {
     
     func setFixPoint()
     {
-        for i in 0...(9-difficulty)
+        for i in 0...(pointNum-1-difficulty)
         {
             ansDots.dots[i].position = quesDots.dots[i].position
             ansDots.dots[i].setAsFixedPoint()
@@ -144,9 +145,11 @@ class DotGameScene: SKScene {
         //ansRect.userInteractionEnabled = false
         addChild(ansRect)
         
+        /*
         let spongeBG = SKSpriteNode(imageNamed: "spongebob")
         spongeBG.position = CGPointMake(300,400)
         quesRect.addChild(spongeBG)
+        */
         self.quesRect = quesRect
         self.ansRect = ansRect
         

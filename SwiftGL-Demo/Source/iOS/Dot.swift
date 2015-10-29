@@ -21,11 +21,11 @@ class Dot: SKNode {
         touchArea.strokeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.addChild(touchArea)
         
-        let image = SKSpriteNode(imageNamed: "spongebob")
+        //let image = SKSpriteNode(imageNamed: "spongebob")
         
-        self.addChild(image)        
+        //self.addChild(image)
         
-        let Circle = SKShapeNode(circleOfRadius: 10) // Size of Circle
+        let Circle = SKShapeNode(circleOfRadius: 20) // Size of Circle
         Circle.position = CGPointMake(0,0)  //Middle of Screen
         
         //Circle.strokeColor = uIntColor(0, 0, 0, 0)//SKColor(red: 0.2, green: 0.5, blue: 0.6, alpha: 1)
@@ -33,7 +33,7 @@ class Dot: SKNode {
         //Circle.strokeColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2)
         
         //Circle.fillColor = uIntColor(80, 151, 255, 255)
-        Circle.fillColor = uIntColor(0, green: 0, blue: 0, alpha: 255)
+        Circle.fillColor = uIntColor(80, green: 151, blue: 255, alpha: 255)
 
         self.addChild(Circle)
         userInteractionEnabled = true

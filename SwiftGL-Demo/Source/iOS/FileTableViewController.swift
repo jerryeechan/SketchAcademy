@@ -9,9 +9,10 @@
 import UIKit
 
 class FileTableViewController: UITableViewController {
+    weak var delegate:PaintViewController!
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FileCell", forIndexPath: indexPath) 
-        let fName = FileManager.instance.fileNames[indexPath.row]
+        let fName = FileManager.instance.getFileNames()[indexPath.row]
         
         cell.imageView?.image = FileManager.instance.loadImg(fName)
         cell.textLabel?.text = fName
@@ -20,17 +21,17 @@ class FileTableViewController: UITableViewController {
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        print("file counts:\(FileManager.instance.fileNames.count)")
+        print("file counts:\(FileManager.instance.getFileNames().count)")
         
-        return FileManager.instance.fileNames.count
+        return FileManager.instance.getFileNames().count
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let fileName = FileManager.instance.fileNames[indexPath.row]
+        let fileName = FileManager.instance.getFileNames()[indexPath.row]
         
         PaintRecorder.instance.loadArtwork(fileName)
         //FileManager.instance.loadPaintArtWork(fileName).replayAll()
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
+        delegate.noteListTableView.reloadData()
+        self.dismissViewControllerAnimated(true, completion:nil)
     }
 }

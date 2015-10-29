@@ -12,14 +12,30 @@ struct Note{
     var description:String
     
     var value:NoteValueData!
-    init(title:String,description:String,timestamp:Double)
+    init(title:String,description:String,strokeIndex:Int)
     {
         self.title = title
         self.description = description
-        self.value = NoteValueData(timeStamp: timestamp)
+        self.value = NoteValueData(strokeIndex: strokeIndex,timestamps: 0)
+    }
+    init(title:String,description:String,valueData:NoteValueData)
+    {
+        self.title = title
+        self.description = description
+        self.value = valueData
     }
 }
 
-struct NoteValueData {
-    var timeStamp:Double
+struct NoteValueData:Initable {
+    var strokeIndex:Int
+    var timestamps:NSTimeInterval
+    init()
+    {
+        strokeIndex = 0
+        timestamps = 0
+    }
+    init(strokeIndex:Int,timestamps:NSTimeInterval){
+        self.strokeIndex = strokeIndex
+        self.timestamps = timestamps
+    }
 }

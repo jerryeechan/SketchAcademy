@@ -32,6 +32,7 @@ class CrossHairView: UIView {
         // Set reference to the location of the touch in member point
         let touch = touches.first
         point = touch!.locationInView(self)
+        print(point)
         
         // Notify delegate of the new new color selection
         delegate?.colorSaturationAndBrightnessSelected(point)
@@ -103,7 +104,9 @@ class CrossHairView: UIView {
             
             // Draw selected color circle
             // Set the coordinates for the circle origin
-            let p = CGPoint(x: getCoordinate(point.x) - 20 - circleRadius, y: getCoordinate(point.y) - 20 - circleRadius)
+            let p = CGPoint(x: point.x , y: point.y)
+            print(p)
+            
             let rect = CGRect(origin: p, size: CGSize(width: circleRadius * 2, height: circleRadius * 2))
             // Add a circle to the previously defined rect
             CGContextAddEllipseInRect(context, rect)
@@ -127,11 +130,12 @@ class CrossHairView: UIView {
     }
     
     func getCoordinate(coord: CGFloat) -> CGFloat {
-        if (coord < 40) {
-            return 40
+        if (coord < 0) {
+            return 0
         }
-        if (coord > frame.size.height) {
-            return frame.size.height
+        if (coord > frame.height) {
+            
+            return frame.height
         }
         return coord
     }

@@ -15,7 +15,7 @@ class ColorPicker: UIView {
     var crossHairView: CrossHairView!
     var colorView: ColorGradientView!
     var mainColorView: MainColorView!
-    //var hueColorView:AngleGradientBorderView!
+    var circleHueColorView:AngleGradientBorderView!
     var selectedColorView: SelectedColorView!
     var onColorChange:((color:UIColor, finished:Bool)->Void)? = nil
     var color: UIColor!
@@ -66,26 +66,36 @@ class ColorPicker: UIView {
         for view in views {
             view.removeFromSuperview()
         }
-        // Init new ColorGradientView subview
-        colorView = ColorGradientView(frame: CGRect(x: 20, y: 20, width: smallestDim - 40, height: smallestDim - 40), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
-        // Add colorGradientView as a subview of this view
-        self.addSubview(colorView)
         
+        circleHueColorView = AngleGradientBorderView(frame: CGRect(x: 0, y: 0, width: smallestDim, height: smallestDim))
+        circleHueColorView.backgroundColor = UIColor.clearColor()
+        circleHueColorView.delegate = self
+        self.addSubview(circleHueColorView)
+        
+        
+        // Init new ColorGradientView subview
+        colorView = ColorGradientView(frame: CGRect(x: smallestDim/4, y: smallestDim/4, width: smallestDim/2, height: smallestDim/2), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
+        // Add colorGradientView as a subview of this view
+        
+        self.addSubview(colorView)
+        colorView.delegate = self
         //hueColorView = AngleGradientBorderView(frame: CGRect(x: 0,y: 0,width: 240,height: 240))
         //self.addSubview(hueColorView)
         
         
         // Init new CrossHairView subview
-        crossHairView = CrossHairView(frame: CGRect(x: 0, y: 0, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0))
-        crossHairView.delegate = self
+        //crossHairView = CrossHairView(frame: CGRect(x: smallestDim/4, y: smallestDim/4, width: smallestDim/2, height: smallestDim/2), color: UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0))
+       
+        //crossHairView.delegate = self
         // Add crossHairView as a subview of this view
-        self.addSubview(crossHairView)
+        //self.addSubview(crossHairView)
         
         // Init new MainColorView subview
-        mainColorView = MainColorView(frame: CGRect(x: smallestDim - 30, y: 10, width: 40, height: smallestDim - 20), color: color)
-        mainColorView.delegate = self
-        // Add crossHairView as a subview of this view
-        self.addSubview(mainColorView)
+        //mainColorView = MainColorView(frame: CGRect(x: smallestDim - 30, y: 10, width: 40, height: smallestDim - 20), color: color)
+        //mainColorView.delegate = self
+        //self.addSubview(mainColorView)
+        
+        
         
         // Init new SelectedColorView subview
         selectedColorView = SelectedColorView(frame: CGRect(x: 20, y: smallestDim - 20, width: smallestDim - 40, height: 20), color: color)
@@ -95,24 +105,34 @@ class ColorPicker: UIView {
     
     
     func mainColorSelected(color: UIColor, point: CGPoint) {
-        hue = (point.y - 11) / (smallestDim - 41)
+        
+        var hue:CGFloat = 0
+        var sat:CGFloat = 0
+        var bri:CGFloat = 0
+        var alpha:CGFloat = 0
+        
+        color.getHue(&hue, saturation: &sat, brightness: &bri, alpha: &alpha)
 
         self.color = color
-        
+        self.hue = hue
         notifyViews(UIColor(hue: hue, saturation: percentSaturation, brightness: percentBrightness, alpha: 1.0))
     }
     
     func colorSaturationAndBrightnessSelected(point: CGPoint) {
-        // Determine the brightness and saturation of the selected color based upon the selection coordinates and the dimensions of the container
-        percentBrightness = point.x / (smallestDim - 40)
-        percentSaturation = 1 - (point.y / (smallestDim - 40))
         
+        // Determine the brightness and saturation of the selected color based upon the selection coordinates and the dimensions of the container
+        print(point)
+        percentBrightness = point.x / (colorView.bounds.width)
+        percentSaturation = 1 - (point.y / (colorView.bounds.height))
+        print("br:\(percentBrightness)")
+        print("sa:\(percentSaturation)")
         notifyViews(UIColor(hue: hue, saturation: percentSaturation, brightness: percentBrightness, alpha: 1.0))
     }
     
     func notifyViews(selectedColor: UIColor) {
+        
         colorView.setColor(UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
-        crossHairView.setTheColor(selectedColor)
+        //crossHairView.setTheColor(selectedColor)
         selectedColorView.setTheColor(selectedColor)
         handleColorChange(selectedColor, changing: true)
     }

@@ -193,14 +193,19 @@ class GLContextBuffer{
         GLShaderBinder.instance.bindVertexs(vertexBuffer)
         GLShaderBinder.instance.drawShader.useProgram()
         
+        if renderTexture.setBuffer()==false{
+         print("Framebuffer fail")
+        }
+        
+        /*
         if renderTexture.setTempBuffer() == false{
             print("Framebuffer fail")
         }
-        //glDrawArraysInstanced(GL_POINTS, 0, Int32(vertexBuffer.count), 1)
+        */
         
         glDrawArrays(GL_POINTS, 0, Int32(vertexBuffer.count));
         //endStroke(Vec4(left,top),rightBottom: Vec4(right,bottom))
-        endStroke()
+        //endStroke()
        // renderTexture.tempLayer.clean()
     }
     //draw texture on the RenderTexture layer
@@ -303,6 +308,13 @@ class GLContextBuffer{
         
         renderTexture.blankCurrentLayer()
          
+    }
+    func getPixelColor(x:GLint,y:GLint)->UIColor
+    {
+        var pixels:[GLubyte] = [0,0,0,0]
+        glReadPixels(x, y, 1, 1, GLenum(GL_RGBA), GL_UNSIGNED_BYTE, &pixels)
+        
+        return UIColor(red: CGFloat(pixels[0])/255, green: CGFloat(pixels[1])/255, blue: CGFloat(pixels[2])/255, alpha: CGFloat(pixels[3])/255)
     }
     var imgBuffer:UnsafeMutablePointer<GLubyte>!
     func contextImage()->UIImage!

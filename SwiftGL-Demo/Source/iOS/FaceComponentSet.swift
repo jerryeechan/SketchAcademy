@@ -42,6 +42,7 @@ class FaceComponentSet {
     {
         for component in components
         {
+            print(component.position)
             node.addChild(component)
         }
     }

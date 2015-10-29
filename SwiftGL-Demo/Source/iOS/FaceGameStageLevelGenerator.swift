@@ -14,7 +14,7 @@ class FaceGameStageLevelGenerator {
     
     let imageNameSetGame1 = ["img2", "img3", "img4", "img1", "img5", "img6", "img7", "img8", "img9", "img10"]
     
-    let imagePositionSetGame1 = [[240.0, 412.0], [216.0, 275.0], [59.0, 418.0], [430.0, 328.0], [144.0, 417.0], [249.0, 411.0], [354.0, 370.0], [142.0, 409.0], [249.0, 402.0], [347.0, 364.0]]
+    let imagePositionSetGame1 = [CGPoint(x:240.0 , y:412.0), CGPoint(x:216.0,y: 275.0), CGPoint(x:59.0, y:418.0), CGPoint(x:430.0, y:328.0), CGPoint(x:144.0, y:417.0), CGPoint(x:249.0, y:411.0), CGPoint(x:354.0, y: 370.0), CGPoint(x:142.0, y: 409.0), CGPoint(x:249.0, y: 402.0), CGPoint(x:347.0, y: 364.0)]
     
     var game_LittleGreenMan:GameLevelData
     var levelDictionary = Dictionary<String, GameLevelData>()
@@ -35,17 +35,7 @@ class FaceGameStageLevelGenerator {
     }
     
     //random dot position
-    func testLevel(gameName:String)->FaceComponentSet
-    {
-        let componentSet = FaceComponentSet(imageNameSet: levelDictionary[gameName]!.getNameSet())
-        
-        for component in componentSet.components
-        {
-            component.position = CGPointMake(CGFloat(arc4random())/CGFloat(UINT32_MAX) * (size.width / 4)+(size.width / 8),CGFloat(arc4random())/CGFloat(UINT32_MAX) * (size.height / 2)+(size.height / 4))
-        }
-        
-        return componentSet
-    }
+   
     
     func freeComponents(gameName:String)->FaceComponentSet
     {
@@ -68,7 +58,7 @@ class FaceGameStageLevelGenerator {
         let positionSet = levelDictionary[gameName]!.getPositionSet()
         
         for var i = 0; i < componentSet.components.count; i++ {
-            componentSet.components[i].position = CGPointMake(CGFloat(positionSet[i][0]), CGFloat(positionSet[i][1]))
+            componentSet.components[i].position = positionSet[i]
         }
             
         return componentSet

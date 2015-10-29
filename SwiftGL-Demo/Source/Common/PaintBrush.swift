@@ -24,7 +24,7 @@ struct ToolStringInfo {
         brushTexture = texture
     }
 }
-public struct ToolValueInfo{
+public struct ToolValueInfo:Initable{
     init()
     {
         

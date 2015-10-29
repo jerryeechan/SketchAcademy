@@ -39,4 +39,5 @@ class Layer:NSObject{
         //texture = Texture(w: w, h: h)
         texture.empty()
     }
+    
 }

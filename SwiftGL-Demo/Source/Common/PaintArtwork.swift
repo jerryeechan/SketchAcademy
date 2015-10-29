@@ -14,7 +14,7 @@ class PaintArtwork
 
     var isEndPoint:[Bool] = []
     var pointsValueInfo:[ToolValueInfo] = []
-    var playbackTimer:NSTimer!
+    
     
     var isFileExist:Bool = false
     
@@ -29,11 +29,10 @@ class PaintArtwork
 
     init()
     {
-        playbackTimer = NSTimer()
+    
     }
     deinit
     {
-        playbackTimer = nil        
     }
     
     var currentTime:CFAbsoluteTime = 0
@@ -41,7 +40,7 @@ class PaintArtwork
     {
         currentTime = (stroke.pointData.last?.timestamps)!
         strokes.append(stroke)
-        
+        PaintReplayer.instance.currentStrokeID = strokes.count-1
       //  allPoints += stroke.points
         //allTimeStamps += track.timestamps
         
@@ -64,47 +63,6 @@ class PaintArtwork
     
     
     var current_vInfo:ToolValueInfo!
-    /*
-    func drawProgress(startIndex:Int,endIndex:Int)->Bool
-    {
-        
-        if startIndex+2 < endIndex {
-            for var i = startIndex+2 ;i < endIndex ;i++ {
-                Painter.renderLine(pointsValueInfo[i-2],prev2:allPoints[i-2], prev1: allPoints[i-1], cur: allPoints[i])
-                if isEndPoint[i] == true{
-                    i+=3
-                }
-            }
-            
-            print("index:\(startIndex) \(endIndex)")
-            GLContextBuffer.instance.display()
-            return true
-        }
-        return false
-    }
-    */
-    /*
-    func drawStrokeProgress(startIndex:Int,endIndex:Int)->Bool
-    {
-        
-        if startIndex < endIndex
-        {
-            for i in startIndex...endIndex-1
-            {
-                Painter.renderStroke(strokes[i])
-            }
-            GLContextBuffer.instance.display()
-            return true
-        }
-        return false
-    }
-    func drawProgress(startPercentage:Float, endPercentage:Float)->Bool
-    {
-       // print("allPoints:\(allPoints.count)")
-        //between 0~1
-        return drawStrokeProgress(Int(startPercentage*Float(strokes.count)), endIndex: Int(endPercentage*Float(strokes.count)))
-        //return drawProgress(Int(startPercentage*Float(allPoints.count)), endIndex: Int(endPercentage*Float(allPoints.count)))
-    }
-    */
+    
     
 }

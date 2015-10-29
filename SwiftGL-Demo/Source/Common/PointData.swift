@@ -8,7 +8,7 @@
 
 import Foundation
 import SwiftGL
-struct PointData {
+struct PointData:Initable {
     var position:Vec2 = Vec2()
     var timestamps:Double = 0
     var velocity:Vec2 = Vec2()

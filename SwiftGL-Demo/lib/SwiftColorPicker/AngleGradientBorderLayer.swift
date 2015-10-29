@@ -28,11 +28,12 @@ class AngleGradientBorderLayer: AngleGradientLayer {
     // Add the stroked path to the context and clip to it.
     CGContextAddPath(ctx, shapeCopyPath)
     CGContextClip(ctx)
-
+    
     // Call our super class's (AngleGradientLayer) #drawInContext
     // which will do the work to create the gradient.
     super.drawInContext(ctx)
 
     CGContextRestoreGState(ctx)
+    
   }
 }

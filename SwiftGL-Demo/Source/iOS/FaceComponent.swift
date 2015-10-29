@@ -14,16 +14,7 @@ class FaceComponent : SKNode {
     override init()
     {
         super.init()
-        /*let Component = SKSpriteNode(imageNamed: name)
-        self.filename = name
-        Component.position = CGPointMake(0, 0)
-        Component.setScale(0.2)
-        self.addChild(Component)
         
-        Component.userInteractionEnabled = false    //?
-        
-        userInteractionEnabled = true
-        sprite = Component*/
     }
     
     var filename:String!
@@ -31,16 +22,16 @@ class FaceComponent : SKNode {
     convenience init(name:String)
     {
         self.init()
-        let Component = SKSpriteNode(imageNamed: name)
+        sprite = SKSpriteNode(imageNamed: name)
         self.filename = name
-        Component.position = CGPointMake(0, 0)
-        Component.setScale(0.2)
-        self.addChild(Component)
+        sprite.position = CGPointMake(0, 0)
+        sprite.setScale(0.2)
+        self.addChild(sprite)
         
-        Component.userInteractionEnabled = false    //?
+        sprite.userInteractionEnabled = false    //?
         
         userInteractionEnabled = true
-        sprite = Component
+        
     }
     
     var sprite:SKSpriteNode!
