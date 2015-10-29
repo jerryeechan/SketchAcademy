@@ -33,6 +33,23 @@ class FaceComponentSet {
         return score
     }
     
+    func sortVec2s(var array:[Vec2])
+    {
+        array.sortInPlace({$0.x>$1.x})
+        array.sortInPlace({$0.y>$1.y})
+    }
+    func compareSet(positionArray:[Vec2])->Float
+    {
+        sortVec2s(positionArray)
+        var score:Float = 0
+        for var i=0; i < positionArray.count; i++
+        {
+            let dis = (components[i].getPos() - positionArray[i]).length
+            score += dis
+        }
+        
+        return score
+    }
     func sortComponents()
     {
         components.sortInPlace({$0.position.x > $1.position.x})
