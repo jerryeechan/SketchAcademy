@@ -13,16 +13,28 @@ import SpriteKit
 class FaceGameViewController: UIViewController {
     
     @IBOutlet weak var faceGameView: UIView!
-    
+    enum FaceGameLevelName{
+        case AngryBird
+        case GreenMan
+        case Tumbler
+    }
     var scene:FaceGameScene!
+    
+    var levelName = FaceGameLevelName.GreenMan
     override func viewDidLoad() {
         super.viewDidLoad()
         
         scene = FaceGameScene(size: view.bounds.size)
+        scene.levelName = levelName
+        
         let skView = faceGameView as! SKView
         
         skView.presentScene(scene)
         //difficultyLabel.title = "\(1)"
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
     @IBOutlet weak var confirmButton: UIButton!
@@ -55,8 +67,8 @@ class FaceGameViewController: UIViewController {
         scene.restart()
     }
     
-    func newStage()
-    {
-        scene.newStage()
+    @IBAction func dismissButtonTouched(sender: UIButton) {
+          presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
+    
 }

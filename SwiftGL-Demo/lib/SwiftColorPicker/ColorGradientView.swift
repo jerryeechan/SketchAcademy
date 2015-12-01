@@ -20,10 +20,24 @@ class ColorGradientView: UIView {
         super.init(frame: frame)
         setColor(color)
     }
+    var isTouchDown = false;
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         point = touch!.locationInView(self)
         delegate?.colorSaturationAndBrightnessSelected(point)
+        isTouchDown = true
+    }
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if(isTouchDown)
+        {
+            let touch = touches.first
+            point = touch!.locationInView(self)
+            delegate?.colorSaturationAndBrightnessSelected(point);
+        }
+        
+    }
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        isTouchDown = false
     }
     func setColor(_color: UIColor!) {
         // Set member color to the new UIColor coming in

@@ -48,19 +48,24 @@ class ArtworkFile:File{
 */
     
     //encode and save and write
+    
+    // stroke count :Int
+    // strokes []
+        //toolName :string
+        //brushTexture :string
+        //valueInfo    :ToolValueInfo
+        //pointData    :[PointData]
     func save(filename:String,artwork:PaintArtwork)
     {
         var strokes = artwork.strokes
         
-        let data:NSMutableData = NSMutableData()
+        data = NSMutableData()
 
-        
-        data.appendBytes([strokes.count], length: sizeof(Int))
+        encodeStruct(strokes.count)
         for var i=0;i<strokes.count; i++
         {
-            let pointData = strokes[i].pointData
-
             let strInfo = strokes[i].stringInfo
+            let pointData = strokes[i].pointData
             
             encodeString(strInfo.toolName)
             encodeString(strInfo.brushTexture)
@@ -69,43 +74,60 @@ class ArtworkFile:File{
             encodeStructArray(pointData)
         }
         let path = File.dirpath
-        
+        print(path)
         data.writeToFile(path+"/"+filename+".paw", atomically: true)
+        
     }
     //---------------------------------------------------------------
     //  load
     //
     //---------------------------------------------------------------
+    
+    
+    
+    
+    
+    
     func load(filename:String)->PaintArtwork!
     {
         let path = createPath(filename)
+        print(path)
         if checkFileExist(path)
         {
-            let data = readFile(filename)
+            parseData = readFile(filename)
             currentPtr = 0
             
             let artwork =  PaintArtwork()
 
+            // stroke count :Int
             let strokeCount:Int = parseStruct()
             
+            // strokes []
             for var i=0; i < strokeCount; i++ {
                 
                 //parse string info
-                var tSI = parseToolStringInfo(data)
+                var tSI = parseToolStringInfo(parseData)
                 var tVI:ToolValueInfo
                 if(tSI==nil)
                 {
+                    
+                    print("nil tSI")
                     tSI = lastTSI
                     tVI = lastTVI
                 }
                 else
                 {
-                    tVI = parseToolValueInfo(data)
+                    //valueInfo    :ToolValueInfo
+                    tVI = parseToolValueInfo(parseData)
                 }
                 
                 let stroke = PaintStroke(s: tSI, v: tVI)
                 
-                parseStrokePointData(stroke, data: data)
+                //pointData    :[PointData]
+                let pointData:[PointData] = parseStructArray()
+                stroke.pointData = pointData
+                stroke.genPointsFromPointData()
+                
                 
                 artwork.addPaintStroke(stroke)
             }
@@ -122,7 +144,7 @@ class ArtworkFile:File{
     func parseStrokeCount(data:NSData)->Int
     {
         var strokeCount = 0
-        data.getBytes(&strokeCount, range: NSMakeRange(currentPtr, sizeof(Int)))
+        parseData.getBytes(&strokeCount, range: NSMakeRange(currentPtr, sizeof(Int)))
         currentPtr += sizeof(Int)
         print("stroke count:\(strokeCount)")
         return strokeCount
@@ -132,6 +154,8 @@ class ArtworkFile:File{
     
     func parseToolStringInfo(data:NSData)->ToolStringInfo!
     {
+        //toolName :string
+        
         let toolString = parseString()
         if(toolString == nil)
         {
@@ -139,6 +163,7 @@ class ArtworkFile:File{
         }
         else
         {
+            //brushTexture :string
             let textureString = parseString()
             
             let info = ToolStringInfo(tool: toolString, texture: textureString)
@@ -154,12 +179,5 @@ class ArtworkFile:File{
         return info
     }
     
-    func parseStrokePointData(stroke:PaintStroke,data:NSData)
-    {
-
-        let pointData:[PointData] = parseStructArray()
-        stroke.pointData = pointData
-        stroke.genPointsFromPointData()
-        
-    }
+    
 }

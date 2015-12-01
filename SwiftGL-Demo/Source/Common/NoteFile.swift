@@ -25,7 +25,8 @@ class NoteFile: File {
         {
             encodeString(note.title)
             encodeString(note.description)
-            data.appendBytes([note.value],length: sizeof(NoteValueData))
+            encodeStruct(note.value)
+
 
         }
         
@@ -35,6 +36,8 @@ class NoteFile: File {
     }
     func load(filename:String)->[Note]
     {
+        // need to find the correct format first
+        /*
         let path = createPath(filename)
         currentPtr = 0
         if checkFileExist(path)
@@ -54,6 +57,7 @@ class NoteFile: File {
         {
             return []
         }
-
+        */
+        return []
     }
 }

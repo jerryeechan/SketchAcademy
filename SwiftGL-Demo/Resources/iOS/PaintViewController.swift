@@ -14,7 +14,7 @@ func getViewController(identifier:String)->UIViewController
     
     return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(identifier)
 }
-class PaintViewController:UIViewController, UITextViewDelegate
+class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate
 {
     @IBOutlet weak var colorPicker: ColorPicker!
    
@@ -22,9 +22,12 @@ class PaintViewController:UIViewController, UITextViewDelegate
         return true
     }
     override func viewDidLoad() {
+        
         //mainView.addSubview(noteEditView)
         //noteEditView.frame.offsetInPlace(dx: noteEditView.frame.width, dy: 0)
-        print(OpenCVWrapper.calculateImgSimilarity(UIImage(named: "img3"), secondImg: UIImage(named: "img2")))
+        
+        //the OpenCV
+        //print(OpenCVWrapper.calculateImgSimilarity(UIImage(named: "img3"), secondImg: UIImage(named: "img2")))
         
         initAnimateState()
         
@@ -57,7 +60,11 @@ class PaintViewController:UIViewController, UITextViewDelegate
         PaintReplayer.instance.progressSlider = progressSlider
         //noteEditTextView.delegate = self
         
-        
+        print("anchor");
+        print(paintView.layer.transform)
+        print(paintView.layer.anchorPoint)
+        print(paintView.layer.position)
+
         
     }
     
@@ -133,17 +140,19 @@ class PaintViewController:UIViewController, UITextViewDelegate
     }
     
     
-    
+    func resetAnchor()
+    {
+        paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
+        paintView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        paintView.layer.position = CGPoint(x:512,y:406)
+    }
     @IBAction func uiTapGestureEvent(sender: UITapGestureRecognizer) {
         
         switch(mode)
         {
         case AppMode.drawing:
             print("controller double tap")
-            paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
-                
-            paintView.layer.anchorPoint = CGPointZero
-            paintView.layer.position = CGPointZero
+            resetAnchor()
         case AppMode.browsing:
             //view.addSubview(noteEditView)
             if isCanvasManipulationEnabled
@@ -154,15 +163,17 @@ class PaintViewController:UIViewController, UITextViewDelegate
             
         }
         
-        
     }
-    
-    
-    
-    
-    
-    
+
     var pinchPoint:CGPoint!
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer is UIPanGestureRecognizer || gestureRecognizer is UIPinchGestureRecognizer {
+            return true
+        } else {
+            return false
+        }
+    }
     
     @IBAction func uiPinchGestrueEvent(sender: UIPinchGestureRecognizer) {
         
@@ -189,13 +200,7 @@ class PaintViewController:UIViewController, UITextViewDelegate
         case UIGestureRecognizerState.Changed:
             
             
-            if paintView.layer.transform.m11 * sender.scale <= 1
-            {
-                paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
-                paintView.layer.anchorPoint = CGPointZero
-                paintView.layer.position = CGPointZero
-            }
-            else if paintView.layer.transform.m11 * sender.scale > 3
+            if paintView.layer.transform.m11 * sender.scale > 3
             {
                 paintView.layer.transform = CATransform3DMakeScale(3, 3, 1)
             }
@@ -208,7 +213,13 @@ class PaintViewController:UIViewController, UITextViewDelegate
             //paintView.layer.transform = CGAffineTransformScale(paintView.transform, sender.scale, )
             sender.scale = 1
         case .Ended:()
-            
+            if paintView.layer.transform.m11 * sender.scale <= 0.8
+            {
+                UIView.animateWithDuration(0.5, animations: {
+                    self.paintView.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
+                    self.resetAnchor()
+                })
+            }
             
             //paintView.layer.anchorPoint = CGPointZero
          //   paintView.layer.position = CGPointZero
@@ -286,6 +297,7 @@ class PaintViewController:UIViewController, UITextViewDelegate
     
     @IBAction func loadButtonTouched(sender: UIButton) {
        
+        //resetAnchor()
         //UIAlertManager.instance.displayloadView(self)
         let fileTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("fileTableView") as! FileTableViewController
         
@@ -297,7 +309,7 @@ class PaintViewController:UIViewController, UITextViewDelegate
     
     
     @IBAction func trashButtonTouched(sender: UIBarButtonItem) {
-        PaintRecorder.instance.clear()
+        PaintManager.instance.clear()
     }
     
 
@@ -310,6 +322,24 @@ class PaintViewController:UIViewController, UITextViewDelegate
         
     }
     
+    @IBAction func brushScaleSegmentControlValueChanged(sender: UISegmentedControl) {
+        var size:Float = 1;
+        switch(sender.selectedSegmentIndex)
+        {
+        case 0:
+            size = 5
+        case 1:
+            size = 10
+            
+        case 2:
+            size = 20
+        default:
+            size = 10
+        }
+        PaintToolManager.instance.changeSize(size)        
+    }
+    
+    
     @IBAction func brushScaleSliderValueChanged(sender: UISlider) {
         let value = sender.value
         PaintToolManager.instance.changeSize(value);
@@ -317,17 +347,17 @@ class PaintViewController:UIViewController, UITextViewDelegate
    
     
     @IBAction func PlayButtonTouched(sender: UIBarButtonItem) {
-            PaintReplayer.instance.pauseToggle()
+            PaintManager.instance.pauseToggle()
         
     }
     
     @IBAction func fastForwardButtonTouched(sender: UIBarButtonItem) {
-        PaintReplayer.instance.doublePlayBackSpeed()
+        PaintManager.instance.doublePlayBackSpeed()
     }
     
     
     @IBAction func RewindButtonTouched(sender: UIBarButtonItem) {
-        PaintReplayer.instance.restart()
+        PaintManager.instance.restart()
     }
     
     enum AppMode{
@@ -397,8 +427,6 @@ class PaintViewController:UIViewController, UITextViewDelegate
         }
     }
 */
-    
-    
     @IBAction func modeSwitcherValueChanged(sender: UISwitch) {
         if sender.on
         {
@@ -413,7 +441,6 @@ class PaintViewController:UIViewController, UITextViewDelegate
             //subViewAnimationGestureHandler.hidePlayBackView(0.2)
             //subViewAnimationGestureHandler.isToolPanelLocked = false
         }
-        
     }
     
     var isCanvasManipulationEnabled:Bool = true
@@ -423,7 +450,6 @@ class PaintViewController:UIViewController, UITextViewDelegate
     //Extra Panels-------------.------
     //Extra Panels--------------------
     //Extra Panels--------------------
-    
     @IBOutlet weak var toolView: UIView!
     @IBOutlet weak var toolViewLeadingConstraint: NSLayoutConstraint!
     var toolViewState:SubViewPanelAnimateState!
@@ -487,7 +513,6 @@ class PaintViewController:UIViewController, UITextViewDelegate
 
     
     @IBAction func noteEditViewCompleteButtonTouched(sender: AnyObject) {
-        
         hideNoteEditView()
         noteDisplayTextView.text = noteEditTextView.text
         

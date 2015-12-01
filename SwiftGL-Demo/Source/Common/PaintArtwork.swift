@@ -9,15 +9,15 @@
 import Foundation
 class PaintArtwork
 {
-    var strokes:[PaintStroke] = []
+    var paintClip:PaintClip = PaintClip()
+    var revisionClips:[PaintClip]
+    var currentClip:PaintClip
     //var allPoints:[PaintPoint] = []
 
-    var isEndPoint:[Bool] = []
-    var pointsValueInfo:[ToolValueInfo] = []
-    
+    //var isEndPoint:[Bool] = []
+    //var pointsValueInfo:[ToolValueInfo] = []
     
     var isFileExist:Bool = false
-    
     var notes:[Note] = []
     class var instance:PaintArtwork{
         
@@ -29,40 +29,21 @@ class PaintArtwork
 
     init()
     {
-    
+        paintClip.currentTime = 0
+        currentClip = paintClip
     }
     deinit
     {
     }
     
-    var currentTime:CFAbsoluteTime = 0
+    //移到 PaintClip??
     func addPaintStroke(stroke:PaintStroke)
     {
-        currentTime = (stroke.pointData.last?.timestamps)!
-        strokes.append(stroke)
-        PaintReplayer.instance.currentStrokeID = strokes.count-1
-      //  allPoints += stroke.points
-        //allTimeStamps += track.timestamps
-        
-        //only the first one is true
-        
-        for var i=1;i<stroke.points.count;i++
-        {
-            isEndPoint.append(false)
-            pointsValueInfo.append(stroke.valueInfo)
-        }
-        isEndPoint.append(true)
-        pointsValueInfo.append(stroke.valueInfo)
-        
+        currentClip.addPaintStroke(stroke)
+        //%%%
+        PaintReplayer.instance.currentStrokeID = currentClip.strokes.count-1
     }
-    func undo()
-    {
-        strokes.removeLast()
-    }
-    var currentPointID:Int = 0
     
-    
-    var current_vInfo:ToolValueInfo!
     
     
 }

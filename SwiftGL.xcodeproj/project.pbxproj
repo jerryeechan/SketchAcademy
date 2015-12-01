@@ -44,6 +44,12 @@
 		C44CF0A31B85B86100D6C43E /* CrossHairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CF0971B85B84D00D6C43E /* CrossHairView.swift */; };
 		C44CF0A41B85B86100D6C43E /* MainColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CF0981B85B84D00D6C43E /* MainColorView.swift */; };
 		C44CF0A51B85B86100D6C43E /* SelectedColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CF0991B85B84D00D6C43E /* SelectedColorView.swift */; };
+		C45222F51C0CA90A00506B82 /* PaintClip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222F41C0CA90A00506B82 /* PaintClip.swift */; };
+		C45222F61C0CA90A00506B82 /* PaintClip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222F41C0CA90A00506B82 /* PaintClip.swift */; };
+		C45222F81C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222F71C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift */; };
+		C45222F91C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222F71C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift */; };
+		C45222FB1C0D6D6100506B82 /* PaintManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222FA1C0D6D6100506B82 /* PaintManager.swift */; };
+		C45222FC1C0D6D6100506B82 /* PaintManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222FA1C0D6D6100506B82 /* PaintManager.swift */; };
 		C458F5A11B54A62100FC1235 /* DotGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458F5A01B54A62100FC1235 /* DotGameViewController.swift */; };
 		C458F5A31B54A6D500FC1235 /* DotGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458F5A21B54A6D500FC1235 /* DotGameScene.swift */; };
 		C458F5A61B54AA9500FC1235 /* ReferenceImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458F5A51B54AA9500FC1235 /* ReferenceImageViewController.swift */; };
@@ -86,6 +92,7 @@
 		C4C5B9BA1B0EFB5400D6AD4B /* GLShaderBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5B9B91B0EFB5400D6AD4B /* GLShaderBinder.swift */; };
 		C4C73BD61B5F1EC8008C0D36 /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C73BD51B5F1EC8008C0D36 /* Layer.swift */; };
 		C4CEB91D1B5F7C2E00EEDD9C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F663F71ADD7607003C1925 /* MainMenu.xib */; };
+		C4E7C8EF1BF9058200CC1EAA /* LearnMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7C8EE1BF9058200CC1EAA /* LearnMenuViewController.swift */; };
 		C4EB7A781B86016100A33651 /* DialogueLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A771B86016100A33651 /* DialogueLine.swift */; };
 		C4EB7A7A1B86017500A33651 /* DialogueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A791B86017500A33651 /* DialogueManager.swift */; };
 		C4EB7A7C1B86018300A33651 /* TypeWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7B1B86018300A33651 /* TypeWriter.swift */; };
@@ -249,6 +256,9 @@
 		C44CF0971B85B84D00D6C43E /* CrossHairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossHairView.swift; sourceTree = "<group>"; };
 		C44CF0981B85B84D00D6C43E /* MainColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainColorView.swift; sourceTree = "<group>"; };
 		C44CF0991B85B84D00D6C43E /* SelectedColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedColorView.swift; sourceTree = "<group>"; };
+		C45222F41C0CA90A00506B82 /* PaintClip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintClip.swift; sourceTree = "<group>"; };
+		C45222F71C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintReplayerRevisionExtension.swift; sourceTree = "<group>"; };
+		C45222FA1C0D6D6100506B82 /* PaintManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintManager.swift; sourceTree = "<group>"; };
 		C458F5A01B54A62100FC1235 /* DotGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotGameViewController.swift; sourceTree = "<group>"; };
 		C458F5A21B54A6D500FC1235 /* DotGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotGameScene.swift; sourceTree = "<group>"; };
 		C458F5A51B54AA9500FC1235 /* ReferenceImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceImageViewController.swift; sourceTree = "<group>"; };
@@ -292,6 +302,7 @@
 		C4C5B9B71B0EFB1200D6AD4B /* GLTransformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLTransformation.swift; sourceTree = "<group>"; };
 		C4C5B9B91B0EFB5400D6AD4B /* GLShaderBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLShaderBinder.swift; sourceTree = "<group>"; };
 		C4C73BD51B5F1EC8008C0D36 /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
+		C4E7C8EE1BF9058200CC1EAA /* LearnMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LearnMenuViewController.swift; sourceTree = "<group>"; };
 		C4EB7A771B86016100A33651 /* DialogueLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueLine.swift; sourceTree = "<group>"; };
 		C4EB7A791B86017500A33651 /* DialogueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueManager.swift; sourceTree = "<group>"; };
 		C4EB7A7B1B86018300A33651 /* TypeWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeWriter.swift; sourceTree = "<group>"; };
@@ -412,6 +423,7 @@
 				C4AE3C411B0CF53600C959C2 /* PaintArtwork.swift */,
 				C4AE3C441B0CF54F00C959C2 /* PaintStroke.swift */,
 				C478D8551B1F7F1900FFF3D9 /* PointData.swift */,
+				C45222F41C0CA90A00506B82 /* PaintClip.swift */,
 			);
 			name = PaintData;
 			sourceTree = "<group>";
@@ -607,6 +619,8 @@
 				C4AE3C4C1B0D1E8A00C959C2 /* CanvasInputHandler.swift */,
 				C404FA9C1B1AF8F9004C2D8C /* PaintRecorder.swift */,
 				C478D8571B20BD4400FFF3D9 /* PaintReplayer.swift */,
+				C45222F71C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift */,
+				C45222FA1C0D6D6100506B82 /* PaintManager.swift */,
 			);
 			name = Record;
 			path = Common;
@@ -695,6 +709,7 @@
 			isa = PBXGroup;
 			children = (
 				C4FFAB7B1B8B7953009282FF /* training */,
+				C4E7C8EE1BF9058200CC1EAA /* LearnMenuViewController.swift */,
 			);
 			name = menu;
 			sourceTree = "<group>";
@@ -1183,6 +1198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D262B80B19663A52004A2997 /* Constants.swift in Sources */,
+				C45222F51C0CA90A00506B82 /* PaintClip.swift in Sources */,
 				D262B80C19663A52004A2997 /* Float.swift in Sources */,
 				C4EB7A841B86483A00A33651 /* CanvasPanGestureHandler.swift in Sources */,
 				D262B80D19663A52004A2997 /* Vec2.swift in Sources */,
@@ -1193,9 +1209,11 @@
 				D262B81019663A52004A2997 /* Mat4.swift in Sources */,
 				D262B81119663A52004A2997 /* Color.swift in Sources */,
 				C433EEB81B5BC13000D5175F /* SliceRect.swift in Sources */,
+				C45222FB1C0D6D6100506B82 /* PaintManager.swift in Sources */,
 				D262B81219663A52004A2997 /* Shader.swift in Sources */,
 				C401FAEC1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */,
 				D262B81319663A52004A2997 /* Vbo.swift in Sources */,
+				C45222F81C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift in Sources */,
 				C42468161B21E0520053CB5B /* AlertViewManager.swift in Sources */,
 				C4EB7A7C1B86018300A33651 /* TypeWriter.swift in Sources */,
 				D262B81419663A52004A2997 /* Vao.swift in Sources */,
@@ -1268,6 +1286,7 @@
 				C46CB8681B0DA8BC008C378B /* PaintViewController.swift in Sources */,
 				C458F5A81B54AB6000FC1235 /* CroppedRectangleManager.swift in Sources */,
 				C4918E3E1B6383F600539433 /* RefImgManager.swift in Sources */,
+				C4E7C8EF1BF9058200CC1EAA /* LearnMenuViewController.swift in Sources */,
 				C478D8561B1F7F1900FFF3D9 /* PointData.swift in Sources */,
 				C404FA9D1B1AF8F9004C2D8C /* PaintRecorder.swift in Sources */,
 				C4B6C76C1B563CD50052BFC3 /* ReferenceImageScene.swift in Sources */,
@@ -1275,12 +1294,14 @@
 				C458F5A61B54AA9500FC1235 /* ReferenceImageViewController.swift in Sources */,
 				C458F5A11B54A62100FC1235 /* DotGameViewController.swift in Sources */,
 				C49404791B2A0D7400BB975E /* SaveFileDialogViewController.swift in Sources */,
+				C45222FC1C0D6D6100506B82 /* PaintManager.swift in Sources */,
 				C404FAA31B1AFE01004C2D8C /* BrushTextureLoader.swift in Sources */,
 				C46CB8661B0D9F33008C378B /* PaintView.swift in Sources */,
 				C433EEB61B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */,
 				C44CF0A11B85B86100D6C43E /* ColorLayer.swift in Sources */,
 				C401FAED1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */,
 				C4B10D791B0E3FC0001BAAAB /* GLContextBuffer.swift in Sources */,
+				C45222F61C0CA90A00506B82 /* PaintClip.swift in Sources */,
 				C44CF0A31B85B86100D6C43E /* CrossHairView.swift in Sources */,
 				C4C5B9B81B0EFB1200D6AD4B /* GLTransformation.swift in Sources */,
 				C4FEDC0B1BB3D1C900BE7F1C /* LayerCache.swift in Sources */,
@@ -1304,6 +1325,7 @@
 				C4F1D2D31B8EB9D200634626 /* GameLevelData.swift in Sources */,
 				D2F664341ADD7607003C1925 /* AppDelegate.swift in Sources */,
 				C44747811B8333EC0093F019 /* ShadeView.swift in Sources */,
+				C45222F91C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift in Sources */,
 				C45BF5E91B9B6CF5000DD389 /* AngleGradientBorderView.swift in Sources */,
 				C4EB7A7F1B86450F00A33651 /* Dialogue.swift in Sources */,
 				C458F5A31B54A6D500FC1235 /* DotGameScene.swift in Sources */,
@@ -1674,6 +1696,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 2;
 				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Debug;
 		};
@@ -1712,7 +1735,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftGL-Demo/lib/SwiftColorPicker/SwiftGL-Demo-iOS-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 2;
 				USER_HEADER_SEARCH_PATHS = "";
-				VALIDATE_PRODUCT = YES;
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Release;
 		};

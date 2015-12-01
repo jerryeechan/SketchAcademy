@@ -44,7 +44,7 @@ class NoteManager {
     }
     func addNote(title:String,description:String)
     {
-        noteList.append(Note(title: "\(title)", description: description, strokeIndex: PaintReplayer.instance.currentStrokeID))
+        noteList.append(Note(title: "\(title)", description: description, strokeIndex: PaintReplayer.instance.currentStrokeID,type: NoteType.Note))
         print("add note stroke id:\(PaintReplayer.instance.currentStrokeID)")
         
         noteList.sortInPlace({$0.value.strokeIndex < $1.value.strokeIndex})

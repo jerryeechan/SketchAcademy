@@ -32,8 +32,8 @@ public class PaintToolManager {
     }
     func load()
     {
-        pen = PaintBrush(textureName: "pencil",color: Color(0,0,0,25),size: 10,type:PaintToolType.pen)
-        eraser = PaintBrush(textureName: "Particle", color: Color(255,255,255,255),size: 10,type:PaintToolType.eraser)
+        pen = PaintBrush(textureName: "pencil",color: Color(0,0,0,25),size: 5,type:PaintToolType.pen)
+        eraser = PaintBrush(textureName: "Particle", color: Color(255,255,255,255),size: 15,type:PaintToolType.eraser)
         
         currentTool = pen
         Painter.currentBrush = currentTool

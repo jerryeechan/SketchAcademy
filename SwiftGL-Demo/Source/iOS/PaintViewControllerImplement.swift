@@ -36,7 +36,7 @@ extension PaintViewController
     
     func enterNoteMode()
     {
-        PaintReplayer.instance.reloadArtwork()
+        //PaintReplayer.instance.reloadArtwork()
         mode = AppMode.browsing
         playBackViewState.animateShow(0.2)
         toolViewState.animateHide(0.2)
@@ -47,12 +47,13 @@ extension PaintViewController
         //subViewAnimationGestureHandler.isToolPanelLocked = true
         progressSlider.value = 1
 
-        
+        /*
         UIView.animateWithDuration(0.5, animations: {
             let transform = CATransform3DMakeScale(0.7, 0.7, 1)
             //transform = CATransform3DTranslate(transform,-512, -384, 0)
             self.paintView.layer.transform = transform
         })
+        */
     }
     
     func showNoteEditView()

@@ -117,14 +117,11 @@ class GLContextBuffer{
         renderTexture.blankTempLayer()
         
     }
-    var vertexBuffer:[PaintPoint]!
-    func drawStroke(stroke:PaintStroke)
+    //var vertexBuffer:[PaintPoint]!
+    func interpolatePoints(stroke:PaintStroke)->[PaintPoint]
     {
-        //glBlendFunc(GL_ONE, GL_ZERO)
-        vertexBuffer = []//stroke.points
+        var vertexBuffer:[PaintPoint] = []
         let kBrushPixelStep:Float = 10
-        
-        
         var left:Float = stroke.points.last!.position.x
         var right:Float = stroke.points.last!.position.x
         var top:Float = stroke.points.last!.position.y
@@ -181,11 +178,17 @@ class GLContextBuffer{
                 let px = sp.position.x+(ep.position.x-sp.position.x)*d
                 let py = sp.position.y+(ep.position.y-sp.position.y)*d
                 let v = PaintPoint(position: Vec4(px,py),color: sp.color,size: sp.size, rotation: randAngle)
-               
+                
                 vertexBuffer.append(v)
             }
-
+            
         }
+        return vertexBuffer
+    }
+    func drawStroke(stroke:PaintStroke)
+    {
+        //glBlendFunc(GL_ONE, GL_ZERO)
+        let vertexBuffer = interpolatePoints(stroke)//stroke.points
         
         
         GLShaderBinder.instance.bindBrushInfo(stroke.valueInfo)

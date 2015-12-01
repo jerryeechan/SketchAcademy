@@ -27,7 +27,7 @@ class File {
     func parseInt()->Int
     {
         var length:Int = 0
-        data.getBytes(&length, range: NSMakeRange(currentPtr, sizeof(Int)))
+        parseData.getBytes(&length, range: NSMakeRange(currentPtr, sizeof(Int)))
         currentPtr += sizeof(Int)
         return length
     }
@@ -40,14 +40,17 @@ class File {
             return nil
         }
         
-        let str = NSString(data: data.subdataWithRange(NSMakeRange(currentPtr, length)), encoding: NSUTF8StringEncoding) as String!
+        let str = NSString(data: parseData.subdataWithRange(NSMakeRange(currentPtr, length)), encoding: NSUTF8StringEncoding) as String!
         currentPtr += length
         
         return str
     }
     func parseStruct<T:Initable>()->T{
         var t:T = T()
-        data.getBytes(&t, range: NSMakeRange(currentPtr, sizeof(T)))
+        print("currentPtr \(currentPtr)")
+        print(t)
+        parseData.getBytes(&t, range: NSMakeRange(currentPtr, sizeof(T)))
+        currentPtr += sizeof(T)
         return t
     }
     
@@ -56,7 +59,7 @@ class File {
         let length = parseInt()
 
         var array = [T](count:length,repeatedValue:T())
-        data.getBytes(&array, range: NSMakeRange(currentPtr, length * sizeof(T)))
+        parseData.getBytes(&array, range: NSMakeRange(currentPtr, length * sizeof(T)))
         currentPtr += length * sizeof(T)
         return array
     }

@@ -48,7 +48,7 @@ class PaintBrush:NSObject{
     
     var toolType:PaintToolManager.PaintToolType
     
-    init(textureName:String,color:Color,size:Float = 10,type:PaintToolManager.PaintToolType)
+    init(textureName:String,color:Color,size:Float = 5,type:PaintToolManager.PaintToolType)
     {
         texture = BrushTextureLoader.instance.getTexture(textureName)
         name = textureName
@@ -59,6 +59,7 @@ class PaintBrush:NSObject{
     }
     func changeColor(color:Color)
     {
+        
         vInfo.color = color
         GLShaderBinder.instance.bindBrushColor(vInfo.color.vec)
     }

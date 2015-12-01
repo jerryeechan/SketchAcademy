@@ -9,6 +9,7 @@
 import Foundation
 import SwiftGL
 struct PointData:Initable {
+    //the struct to store basic paint unit, for storing
     var position:Vec2 = Vec2()
     var timestamps:Double = 0
     var velocity:Vec2 = Vec2()

@@ -10,14 +10,20 @@
 class GameLevelData {
     
     var nameSet:[String]
+    
+    //the position of the question image and the components
     var positionSet:[CGPoint]
     
-    init(nameArray:[String], positionArray:[CGPoint]){
-        
+    var main:String
+    var mainPosition:CGPoint
+    var fixPointIndex:Int
+    init(main:String,mainPosition:CGPoint,nameArray:[String], positionArray:[CGPoint],fixPointIndex:Int){
+        self.main = main
+        self.mainPosition = mainPosition
+        self.fixPointIndex = fixPointIndex
         nameSet = nameArray
         positionSet = positionArray
     }
-    
     func getNameSet() -> [String]{
         return nameSet
     }

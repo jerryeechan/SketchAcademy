@@ -29,7 +29,9 @@ class FileManager {
     }
     func savePaintArtWork(filename:String,artwork:PaintArtwork, img:UIImage,noteList:[Note])
     {
-        
+        artworkFile.save(filename, artwork: artwork)
+        imageFile.saveImg(img, filename: filename)
+        searchFiles()
     }
     
     

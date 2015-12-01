@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/PaintReplayer.swift"
-            timestampString = "464759887.21579"
+            timestampString = "470603722.465303"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
             landmarkName = "draw(_:p1:p2:p3:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -394,12 +394,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/FaceGameScene.swift"
-            timestampString = "465065138.40298"
+            timestampString = "470598137.61366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "showImg()"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "newStage()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -410,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/FaceGameViewController.swift"
-            timestampString = "462340762.872741"
+            timestampString = "470598137.61366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "hintButtonTouchUpOutside(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -426,11 +426,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/FaceGameViewController.swift"
-            timestampString = "462340764.378604"
+            timestampString = "470598137.61366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "hintButtonTouchUpInside(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -442,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/FaceGameViewController.swift"
-            timestampString = "462340773.164216"
+            timestampString = "470598137.61366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "hintButtonTouchUpOutside(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -458,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/PaintReplayer.swift"
-            timestampString = "464759887.21579"
+            timestampString = "470603722.465303"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "timerUpdate()"
             landmarkType = "5">
          </BreakpointContent>
@@ -474,11 +474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/PaintReplayer.swift"
-            timestampString = "464759887.21579"
+            timestampString = "470603722.465303"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "timerUpdate()"
             landmarkType = "5">
          </BreakpointContent>
@@ -490,11 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/PaintReplayer.swift"
-            timestampString = "464759887.21579"
+            timestampString = "470603722.465303"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "timerUpdate()"
             landmarkType = "5">
          </BreakpointContent>
@@ -506,11 +506,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/PaintReplayer.swift"
-            timestampString = "464759887.21579"
+            timestampString = "470603722.465303"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "timerUpdate()"
             landmarkType = "5">
          </BreakpointContent>
@@ -522,28 +522,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "467711858.435263"
+            timestampString = "470593239.92038"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "517"
-            endingLineNumber = "517"
-            landmarkName = "PaintViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "465239562.715546"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
-            landmarkName = "artworkProgressSliderDragged(_:)"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
+            landmarkName = "noteEditViewCancelButtonTouched(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -554,11 +538,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "467711858.435263"
+            timestampString = "470593239.92038"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "532"
-            endingLineNumber = "532"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
+            landmarkName = "setAnchorPoint(_:forView:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
+            timestampString = "470593239.92038"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -570,12 +570,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "467711858.435263"
+            timestampString = "470593239.92038"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            startingLineNumber = "553"
+            endingLineNumber = "553"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -586,11 +586,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "464769436.904525"
+            timestampString = "470603722.465303"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "drawTextureOnRenderTexture(_:alpha:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -602,11 +602,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "467711858.435263"
+            timestampString = "470593239.92038"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "557"
-            endingLineNumber = "557"
+            startingLineNumber = "574"
+            endingLineNumber = "574"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -618,13 +618,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "467711858.435263"
+            timestampString = "470593239.92038"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "464"
-            endingLineNumber = "464"
-            landmarkName = "PaintViewController"
-            landmarkType = "3">
+            startingLineNumber = "482"
+            endingLineNumber = "482"
+            landmarkName = "initAnimateState()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -634,12 +634,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "467711858.435263"
+            timestampString = "470593239.92038"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "467"
-            endingLineNumber = "467"
-            landmarkName = "showToolViewButtonTouched(_:)"
+            startingLineNumber = "485"
+            endingLineNumber = "485"
+            landmarkName = "initAnimateState()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -858,13 +858,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/File.swift"
-            timestampString = "467664448.120904"
+            timestampString = "469310162.771761"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "File"
-            landmarkType = "3">
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "encodeStruct(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -879,7 +879,23 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "43"
             endingLineNumber = "43"
-            landmarkName = "parseStruct()"
+            landmarkName = "parseString()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
+            timestampString = "470593239.92038"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "gestureRecognizer(_:shouldRecognizeSimultaneouslyWithGestureRecognizer:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

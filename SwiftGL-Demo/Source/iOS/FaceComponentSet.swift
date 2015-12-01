@@ -15,6 +15,7 @@ class FaceComponentSet {
     {
         for imageName in imageNameSet {
             components.append(FaceComponent(name:imageName))
+            
         }
                 
         sortComponents()
@@ -33,20 +34,50 @@ class FaceComponentSet {
         return score
     }
     
-    func sortVec2s(var array:[Vec2])
+    func sortCGPoints(var array:[CGPoint])->[CGPoint]
     {
-        array.sortInPlace({$0.x>$1.x})
-        array.sortInPlace({$0.y>$1.y})
+        array.sortInPlace({$0.x > $1.x})
+        array.sortInPlace({$0.y > $1.y})
+        return array
     }
-    func compareSet(positionArray:[Vec2])->Float
+    func compareSet(positionArray:[CGPoint])->Float
     {
-        sortVec2s(positionArray)
+        var pos = positionArray
+        var comps = components
+        
+        var score:Float = 0
+        while(pos.count != 0)
+        {
+            var mindis:Float = 10000
+            var minId = 0
+            for var i=0; i < pos.count; i++
+            {
+                let dis = (comps[0].getPos() - pos[i].getPos()).length
+                if(dis < mindis)
+                {
+                    mindis = dis
+                    minId = i
+                }
+            }
+            
+            comps.removeAtIndex(0)
+            pos.removeAtIndex(minId)
+            print("mindis:"+"\(mindis)")
+            score += mindis
+        }
+        /*sortComponents()
+        positionArray = sortCGPoints(positionArray)
+        */
+        
+        /*
         var score:Float = 0
         for var i=0; i < positionArray.count; i++
         {
-            let dis = (components[i].getPos() - positionArray[i]).length
+            print(components[i].getPos(),positionArray[i].getPos())
+            let dis = (components[i].getPos() - positionArray[i].getPos()).length
             score += dis
         }
+        */
         
         return score
     }

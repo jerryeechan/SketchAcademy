@@ -42,13 +42,24 @@ class AngleGradientBorderView: UIView {
     setupGradientLayer(borderColors: gradientBorderColors, borderWidth: gradientBorderWidth)
   }
     
+    var isTouchDown = false
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         let point = touch?.locationInView(self)
         
         let color = getColorFromPoint(point!)
         delegate.mainColorSelected(color, point: point!)
+        isTouchDown = true
+    }
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first
+        let point = touch?.locationInView(self)
+        let color = getColorFromPoint(point!)
+        delegate.mainColorSelected(color, point: point!)
         
+    }
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        isTouchDown = false
     }
   // Setup the attributes of this view's layer
   func setupGradientLayer(borderColors gradientBorderColors: [AnyObject]? = nil, borderWidth gradientBorderWidth: CGFloat? = nil) {

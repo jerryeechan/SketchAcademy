@@ -79,3 +79,10 @@ class FaceComponent : SKNode {
     }
     
 }
+
+extension CGPoint{
+    func getPos()->Vec2
+    {
+        return Vec2(Float(x),Float(y))
+    }
+}
