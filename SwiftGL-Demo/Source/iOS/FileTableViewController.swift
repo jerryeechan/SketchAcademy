@@ -29,7 +29,7 @@ class FileTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let fileName = FileManager.instance.getFileNames()[indexPath.row]
         self.delegate.resetAnchor()
-        PaintRecorder.instance.loadArtwork(fileName)
+        PaintManager.instance.loadArtwork(fileName)
         //FileManager.instance.loadPaintArtWork(fileName).replayAll()
         delegate.noteListTableView.reloadData()
         

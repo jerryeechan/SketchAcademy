@@ -57,10 +57,26 @@ class ArtworkFile:File{
         //pointData    :[PointData]
     func save(filename:String,artwork:PaintArtwork)
     {
-        var strokes = artwork.strokes
         
         data = NSMutableData()
 
+        encodeClip(artwork.masterClip)
+        encodeStruct(artwork.revisionClips.count)
+        print("Revision clip count:\(artwork.revisionClips.count)")
+        for(atStroke,clip) in artwork.revisionClips
+        {
+            encodeStruct(atStroke)
+            encodeClip(clip)
+        }
+        let path = File.dirpath
+        print(path)
+        data.writeToFile(path+"/"+filename+".paw", atomically: true)
+        
+    }
+    func encodeClip(clip:PaintClip)
+    {
+        let strokes = clip.strokes
+        encodeStruct(clip.branchAtIndex)
         encodeStruct(strokes.count)
         for var i=0;i<strokes.count; i++
         {
@@ -70,66 +86,36 @@ class ArtworkFile:File{
             encodeString(strInfo.toolName)
             encodeString(strInfo.brushTexture)
             encodeStruct(strokes[i].valueInfo)
-            //the point infomation byte arrays, vec2[], double[] ,vec2[]
             encodeStructArray(pointData)
         }
-        let path = File.dirpath
-        print(path)
-        data.writeToFile(path+"/"+filename+".paw", atomically: true)
-        
     }
     //---------------------------------------------------------------
     //  load
     //
     //---------------------------------------------------------------
     
-    
-    
-    
+    override func delete(filename: String) {
+        super.delete(filename+".paw")
+    }
     
     
     func load(filename:String)->PaintArtwork!
     {
-        let path = createPath(filename)
+        
+        let path = createPath(filename+".paw")
         print(path)
         if checkFileExist(path)
         {
-            parseData = readFile(filename)
+            parseData = readFile(filename+".paw")
             currentPtr = 0
             
             let artwork =  PaintArtwork()
-
-            // stroke count :Int
-            let strokeCount:Int = parseStruct()
-            
-            // strokes []
-            for var i=0; i < strokeCount; i++ {
-                
-                //parse string info
-                var tSI = parseToolStringInfo(parseData)
-                var tVI:ToolValueInfo
-                if(tSI==nil)
-                {
-                    
-                    print("nil tSI")
-                    tSI = lastTSI
-                    tVI = lastTVI
-                }
-                else
-                {
-                    //valueInfo    :ToolValueInfo
-                    tVI = parseToolValueInfo(parseData)
-                }
-                
-                let stroke = PaintStroke(s: tSI, v: tVI)
-                
-                //pointData    :[PointData]
-                let pointData:[PointData] = parseStructArray()
-                stroke.pointData = pointData
-                stroke.genPointsFromPointData()
-                
-                
-                artwork.addPaintStroke(stroke)
+            parseClip(artwork.masterClip)
+            let revisionCount:Int = parseStruct()
+            for var i = 0;i<revisionCount;i++
+            {
+                let clip = PaintClip(name: "new", branchAt: 0)
+                parseClip(clip)
             }
             
             return artwork
@@ -140,14 +126,38 @@ class ArtworkFile:File{
         }
         //data.getBytes(&brushString, range: )
     }
-    
-    func parseStrokeCount(data:NSData)->Int
+    func parseClip(clip:PaintClip)->PaintClip
     {
-        var strokeCount = 0
-        parseData.getBytes(&strokeCount, range: NSMakeRange(currentPtr, sizeof(Int)))
-        currentPtr += sizeof(Int)
-        print("stroke count:\(strokeCount)")
-        return strokeCount
+        clip.branchAtIndex = parseStruct()
+        
+        let strokeCount:Int = parseStruct()
+        for var i=0; i < strokeCount; i++ {
+            //parse string info
+            var tSI = parseToolStringInfo(parseData)
+            var tVI:ToolValueInfo
+            if(tSI==nil)
+            {
+                print("nil tSI")
+                tSI = lastTSI
+                tVI = lastTVI
+            }
+            else
+            {
+                //valueInfo    :ToolValueInfo
+                tVI = parseToolValueInfo(parseData)
+            }
+            
+            let stroke = PaintStroke(s: tSI, v: tVI)
+            
+            //pointData    :[PointData]
+            let pointData:[PointData] = parseStructArray()
+            stroke.pointData = pointData
+            stroke.genPointsFromPointData()
+            
+            clip.addPaintStroke(stroke)
+        }
+        
+        return clip
     }
     var lastTSI:ToolStringInfo = ToolStringInfo()
     var lastTVI:ToolValueInfo = ToolValueInfo()

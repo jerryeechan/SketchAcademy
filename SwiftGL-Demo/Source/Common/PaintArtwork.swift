@@ -9,13 +9,9 @@
 import Foundation
 class PaintArtwork
 {
-    var paintClip:PaintClip = PaintClip()
-    var revisionClips:[PaintClip]
+    var masterClip:PaintClip = PaintClip(name: "master",branchAt: 0)
+    var revisionClips:[Int:PaintClip] = [Int:PaintClip]()
     var currentClip:PaintClip
-    //var allPoints:[PaintPoint] = []
-
-    //var isEndPoint:[Bool] = []
-    //var pointsValueInfo:[ToolValueInfo] = []
     
     var isFileExist:Bool = false
     var notes:[Note] = []
@@ -29,21 +25,12 @@ class PaintArtwork
 
     init()
     {
-        paintClip.currentTime = 0
-        currentClip = paintClip
+        masterClip.currentTime = 0
+        currentClip = masterClip
     }
-    deinit
+    
+    func addRevisionClip(atStroke:Int)
     {
+        
     }
-    
-    //移到 PaintClip??
-    func addPaintStroke(stroke:PaintStroke)
-    {
-        currentClip.addPaintStroke(stroke)
-        //%%%
-        PaintReplayer.instance.currentStrokeID = currentClip.strokes.count-1
-    }
-    
-    
-    
 }

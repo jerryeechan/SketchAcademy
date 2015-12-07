@@ -12,6 +12,7 @@ class Layer:NSObject{
     var texture:Texture!
     var alpha:Float = 1
     var w,h:GLsizei!
+    var enabled:Bool = true
     convenience init(w: GLsizei, h: GLsizei)
     {
         self.init()

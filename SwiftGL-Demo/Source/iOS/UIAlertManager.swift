@@ -34,7 +34,7 @@ class UIAlertManager{
             if (fName != nil)
             {
                 print("load the file \(fName)")
-                PaintRecorder.instance.loadArtwork(fName!+".paw")
+                PaintManager.instance.loadArtwork(fName!+".paw")
             }
             else
             {

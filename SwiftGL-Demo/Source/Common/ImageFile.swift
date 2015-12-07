@@ -22,7 +22,9 @@ class ImageFile: File {
     {
         let imageData:NSData = UIImagePNGRepresentation(img)!;
         imageData.writeToFile(File.dirpath+"/"+filename+".png", atomically: true)
-
+    }
+    override func delete(filename: String) {
+        super.delete(filename+".png")
     }
     
 }

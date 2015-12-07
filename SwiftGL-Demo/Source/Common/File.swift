@@ -186,11 +186,14 @@ class File {
     }
     
     
-    func deleteFilfe(filename:String)
+    func delete(filename:String)
     {
+        let path = File.dirpath+"/"+filename
         do {
-            try File.nsFileManager.removeItemAtPath(File.dirpath+filename)
+            print("deleting"+path)
+            try File.nsFileManager.removeItemAtPath(path)
         } catch _ {
+            print("delete error")
         }
     }
 

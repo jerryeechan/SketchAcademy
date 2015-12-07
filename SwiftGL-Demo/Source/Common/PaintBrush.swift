@@ -53,7 +53,14 @@ class PaintBrush:NSObject{
         texture = BrushTextureLoader.instance.getTexture(textureName)
         name = textureName
     
-        sInfo = ToolStringInfo(tool: "pen",texture: textureName)
+        switch (type)
+        {
+        case .pen:
+            sInfo = ToolStringInfo(tool: "pen",texture: textureName)
+        case .eraser:
+            sInfo = ToolStringInfo(tool: "eraser",texture: textureName)
+        }
+        
         vInfo = ToolValueInfo(color: color, size: size)
         self.toolType = type
     }
@@ -81,7 +88,6 @@ class PaintBrush:NSObject{
         GLShaderBinder.instance.bindBrushTexture(texture)
         // initialize brush color
         GLShaderBinder.instance.bindBrushColor(vInfo.color.vec)
-        
         Painter.currentBrush = self
         
     }

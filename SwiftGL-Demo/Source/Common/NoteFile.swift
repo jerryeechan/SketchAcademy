@@ -16,48 +16,52 @@ class NoteFile: File {
         
     }
 
-    func save(notes:[Note],filename:String)
+    func save(notes:[Int:Note],filename:String)
     {
-        let data = NSMutableData()
-        
+        data = NSMutableData()
+        print(notes)
+        print(notes.count)
         encodeStruct(notes.count)
-        for note in notes
+        if(notes.count>0)
         {
-            encodeString(note.title)
-            encodeString(note.description)
-            encodeStruct(note.value)
-
-
+            
+            for (_,note) in notes
+            {
+                encodeString(note.title)
+                encodeString(note.description)
+                encodeStruct(note.value)
+            }
         }
         
         let path = File.dirpath
         
         data.writeToFile(path+"/"+filename+".nt", atomically: true)
     }
-    func load(filename:String)->[Note]
+    func load(filename:String)->[Int:Note]
     {
         // need to find the correct format first
-        /*
-        let path = createPath(filename)
+        
+        let path = createPath(filename+".nt")
         currentPtr = 0
         if checkFileExist(path)
         {
-            data = readFile(filename) as! NSMutableData
-            var notes:[Note] = []
+            parseData = readFile(filename+".nt")
+            var notes:[Int:Note] = [Int:Note]()
             
             let length:Int = parseStruct()
-            for _ in 0...length
+            for var i = 0; i < length; ++i
             {
                 let note = Note(title: parseString(), description: parseString(),valueData: parseStruct())
-                notes.append(note)
+                notes[note.value.strokeIndex] = note
             }
+            
+            
             return notes
         }
         else
         {
-            return []
+            return [Int:Note]()
         }
-        */
-        return []
+        
     }
 }

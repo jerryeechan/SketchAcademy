@@ -20,24 +20,13 @@ func snapShotFromView(view:UIView)->UIImage
 }
 extension PaintViewController
 {
-    
-    
-    
-    //Apearance
-    func drawNoteEditTextViewStyle()
+    func enterViewMode()
     {
         
-        noteEditTextView.layer.borderColor = UIColor.lightGrayColor().CGColor
-        noteEditTextView.layer.borderWidth = 1
-        noteEditTextView.layer.cornerRadius = 5
-        noteEditTextView.clipsToBounds = true
         
-    }
-    
-    func enterNoteMode()
-    {
         //PaintReplayer.instance.reloadArtwork()
         mode = AppMode.browsing
+        
         playBackViewState.animateShow(0.2)
         toolViewState.animateHide(0.2)
         toolViewState.isLocked = true
@@ -46,7 +35,12 @@ extension PaintViewController
         //subViewAnimationGestureHandler.hideToolView(0.2)
         //subViewAnimationGestureHandler.isToolPanelLocked = true
         progressSlider.value = 1
-
+        
+        print("----enter View Mode----")
+        viewModeToolBarSetUp()
+        PaintManager.instance.switchToViewMode()
+        
+        
         /*
         UIView.animateWithDuration(0.5, animations: {
             let transform = CATransform3DMakeScale(0.7, 0.7, 1)
@@ -55,44 +49,84 @@ extension PaintViewController
         })
         */
     }
-    
-    func showNoteEditView()
+    func enterDrawMode()
     {
-        paintView.layer.position = CGPointZero
-        paintView.layer.anchorPoint = CGPointZero
-        
-        //noteEditTextView.text = ""
-        //noteEditTitleTextField.text = ""
-        UIView.animateWithDuration(0.5, animations: {
-            let transform = CATransform3DMakeScale(0.5, 0.5, 1)
-            //transform = CATransform3DTranslate(transform,-512, -384, 0)
-            self.paintView.layer.transform = transform
+        mode = AppMode.drawing
+        playBackViewState.animateHide(0.2)
+        noteListViewState.animateHide(0.2)
+        toolViewState.isLocked = false
+        switch(paintMode)
+        {
+        case .Artwork:
+            artworkDrawModeToolBarSetUp()
+            PaintManager.instance.artworkDrawModeSetUp()
             
-            //self.noteEditView.center.y = self.noteEditViewOriginCenter.y
-            self.noteEditViewTopConstraint.constant = 0
-            self.noteEditView.layoutIfNeeded()
+        case .Revision:
+            revisionDrawModeToolBarSetUp()
+            PaintManager.instance.revisionDrawModeSetUp()
             
-        })
+        }
+    }
+    func removeToolBarButton(button:UIBarButtonItem)->Int!
+    {
+        let index = toolBarItems.indexOf(button)
+        if(index != nil)
+        {
+            toolBarItems.removeAtIndex(index!)
+        }
+        return index
+
+    }
+    func addToolBarButton(button:UIBarButtonItem,atIndex:Int)
+    {
+        let index = toolBarItems.indexOf(button)
+        if(index == nil)
+        {
+            toolBarItems.insert(button, atIndex: atIndex)
+        }
         
-        noteEditTextView.becomeFirstResponder()
+    }
+    func viewModeToolBarSetUp()
+    {
+        let index = removeToolBarButton(enterViewModeButton)
         
+        
+        switch(paintMode)
+        {
+        case .Artwork:
+            addToolBarButton(enterDrawModeButton, atIndex: index)
+        case .Revision:
+            removeToolBarButton(reviseDoneButton)
+            removeToolBarButton(enterDrawModeButton)
+            break
+            
+        }
+        
+        addToolBarButton(addNoteButton, atIndex: index)
+        
+        mainToolBar.setItems(toolBarItems, animated: true)
+
+    }
+    func artworkDrawModeToolBarSetUp()
+    {
+        removeToolBarButton(reviseDoneButton)
+        removeToolBarButton(addNoteButton)
+        removeToolBarButton(enterDrawModeButton)
+        addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
+        mainToolBar.setItems(toolBarItems, animated: true)
+    }
+    
+    func revisionDrawModeToolBarSetUp()
+    {
+        //reviseDoneButton.enabled = true
+        addToolBarButton(reviseDoneButton, atIndex: toolBarItems.count)
+        removeToolBarButton(addNoteButton)
+        
+        //toolBarItems.insert(<#T##newElement: Element##Element#>, atIndex: index)
+        mainToolBar.setItems(toolBarItems, animated: true)
     }
     
     
-    func hideNoteEditView()
-    {
-        UIView.animateWithDuration(0.5, animations: {
-            let transform = CATransform3DMakeScale(1, 1, 1)
-            //transform = CATransform3DTranslate(transform,-512, -384, 0)
-            self.paintView.layer.transform = transform
-            
-            //self.noteEditView.center.y = self.noteEditViewOriginCenter.y
-            self.noteEditViewTopConstraint.constant = -384
-            self.noteEditView.layoutIfNeeded()
-            
-            
-        })
-    }
     
     
     
@@ -100,35 +134,49 @@ extension PaintViewController
     func saveFile(fileName:String)
     {
         let img = GLContextBuffer.instance.contextImage()
-        PaintRecorder.instance.saveArtwork(fileName,img:img)
+        PaintManager.instance.saveArtwork(fileName,img:img)
+        
         GLContextBuffer.instance.releaseImgBuffer()
         
     }
     func saveFileIOS9()
     {
-        let saveAlertController = UIAlertController(title: "Save File", message: "type in the file name", preferredStyle: UIAlertControllerStyle.Alert)
-        
-        
-        var inputTextField: UITextField?
-        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+        if fileName != nil
+        {
+            saveFile(fileName)
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+        else
+        {
+            let saveAlertController = UIAlertController(title: "Save File", message: "type in the file name", preferredStyle: UIAlertControllerStyle.Alert)
             
-            self.saveFile(inputTextField!.text!)
-        })
-        
-        
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+            
+            
+            var inputTextField: UITextField?
+            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                self.saveFile(inputTextField!.text!)
+                self.navigationController?.popViewControllerAnimated(true)
+            })
+            
+            
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+            
+            saveAlertController.addTextFieldWithConfigurationHandler{ (textField) -> Void in
+                inputTextField = textField
+                // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
+            }
+            
+            saveAlertController.addAction(ok)
+            saveAlertController.addAction(cancel)
+            
+            presentViewController(saveAlertController, animated: true, completion: nil)
         }
         
-        saveAlertController.addTextFieldWithConfigurationHandler{ (textField) -> Void in
-            inputTextField = textField
-            // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
-        }
         
-        saveAlertController.addAction(ok)
-        saveAlertController.addAction(cancel)
         
-        presentViewController(saveAlertController, animated: true, completion: nil)
     }
 
 }

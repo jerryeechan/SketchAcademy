@@ -103,6 +103,7 @@ class PaintView: GLKView {
         //GLContextBuffer.instance.display()
         
         //Painter.renderLine(Vec2(300,0),end: Vec2(0,300))
+        resizeLayer()
         
         return true
     }
@@ -110,7 +111,7 @@ class PaintView: GLKView {
     override func layoutSubviews() {
         super.layoutSubviews()
         EAGLContext.setCurrentContext(self.glcontext)
-        resizeLayer()
+        //resizeLayer()
         
 //        GLContextBuffer.instance.drawTexture(Texture(filename: "spongebob"))
         

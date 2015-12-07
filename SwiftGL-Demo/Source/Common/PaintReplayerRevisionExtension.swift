@@ -9,7 +9,7 @@
 import Foundation
 extension PaintReplayer
 {
-    
+    /*
     func playRevision(revision:PaintRevision)
     {
         drawStrokeProgress(revision.startAtStrokeIndex)
@@ -20,5 +20,5 @@ extension PaintReplayer
         
     }
     
-    
+    */
 }

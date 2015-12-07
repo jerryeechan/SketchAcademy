@@ -21,8 +21,19 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
-    override func viewDidLoad() {
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillDisappear(animated)
         
+    }
+    var fileName:String!
+    var paintMode = PaintMode.Artwork
+    override func viewDidLoad() {
+        toolBarItems = mainToolBar.items
         //mainView.addSubview(noteEditView)
         //noteEditView.frame.offsetInPlace(dx: noteEditView.frame.width, dy: 0)
         
@@ -53,28 +64,54 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         PaintToolManager.instance.useCurrentTool()
         
         noteEditViewTopConstraint.constant = -384
-        mainView.layoutIfNeeded()
+        
         
         drawNoteEditTextViewStyle()
+        noteListTableView.reloadData()
         
-        PaintReplayer.instance.progressSlider = progressSlider
+        
+        
+        PaintManager.instance.setProgressSlider(progressSlider)
+        
+        
         //noteEditTextView.delegate = self
         
         print("anchor");
         print(paintView.layer.transform)
         print(paintView.layer.anchorPoint)
         print(paintView.layer.position)
-
+        //mainView.layoutIfNeeded()
+        initMode(paintMode)
+        if(fileName != nil)
+        {
+            NoteManager.instance.loadNotes(fileName)
+            PaintManager.instance.loadArtwork(fileName)
+        }
+        else
+        {
+            GLContextBuffer.instance.display()
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         
     }
     
+    func initMode(paintMode:PaintMode)
+    {
+        switch(paintMode)
+        {
+        case .Artwork:
+            print("------Artwork Draw Mode-------")
+            enterDrawMode()
+        case .Revision:
+            print("------Revision View Mode-------")
+            enterViewMode()
+        }
+    }
     
-    /*
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return paintView
-    }*/
     
-    
+    @IBOutlet weak var ToolKnob: UIView!
     
     @IBOutlet weak var imageView: UIImageView!
     
@@ -86,22 +123,12 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     //@IBOutlet weak var brushScaleSlider: UISlider!
     
-    
-    
-    
-    
-    
     var last_ori_pos:CGPoint = CGPoint(x: 0, y: 0)
     
     
     
-
-    
-    
     
     @IBAction func imageViewPanGestureHandler(sender: UIPanGestureRecognizer) {
-        
-        
         
         let dis = sender.translationInView(imageView)
         
@@ -127,108 +154,17 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     @IBOutlet weak var canvasImageView: UIImageView!
     
-    
-    
-    @IBAction func uiPanGestureHandler(sender: UIPanGestureRecognizer) {
-        //let glkView = view as! GLKView
-          //EAGLContext.setCurrentContext(glkView.context)
-        
-        canvasPanGestureHandler.panGestureHandler(sender)
-        
-        
-        
-    }
-    
-    
-    func resetAnchor()
+        func resetAnchor()
     {
         paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
         paintView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         paintView.layer.position = CGPoint(x:512,y:406)
     }
-    @IBAction func uiTapGestureEvent(sender: UITapGestureRecognizer) {
-        
-        switch(mode)
-        {
-        case AppMode.drawing:
-            print("controller double tap")
-            resetAnchor()
-        case AppMode.browsing:
-            //view.addSubview(noteEditView)
-            if isCanvasManipulationEnabled
-            {
-              showNoteEditView()
-            }
-            break
-            
-        }
-        
-    }
+    
 
     var pinchPoint:CGPoint!
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer is UIPanGestureRecognizer || gestureRecognizer is UIPinchGestureRecognizer {
-            return true
-        } else {
-            return false
-        }
-    }
     
-    @IBAction func uiPinchGestrueEvent(sender: UIPinchGestureRecognizer) {
-        
-        var center:CGPoint = CGPointMake(0, 0)
-        for i in 0...sender.numberOfTouches()-1
-        {
-           let p = sender.locationOfTouch(i, inView: paintView)
-            center.x += p.x
-            center.y += p.y
-        }
-        
-        center.x /= CGFloat(sender.numberOfTouches())
-        center.y /= CGFloat(sender.numberOfTouches())
-        
-        setAnchorPoint(CGPointMake(center.x/paintView.bounds.size.width,center.y / paintView.bounds.size.height), forView: paintView)
-        
-        
-        //println("anchor point\(center.x/paintView.bounds.size.width) \(center.y/paintView.bounds.size.height)")
-        
-        switch sender.state
-        {
-            
-            //paintView.layer.anchorPoint = CGPointMake(0.5, 0.5)
-        case UIGestureRecognizerState.Changed:
-            
-            
-            if paintView.layer.transform.m11 * sender.scale > 3
-            {
-                paintView.layer.transform = CATransform3DMakeScale(3, 3, 1)
-            }
-            else
-            {
-                paintView.layer.transform = CATransform3DScale(paintView.layer.transform, sender.scale, sender.scale, 1)
-            }
-            
-            //paintView.layer.transform = CATransform3DMakeScale(sender.scale, sender.scale, 1)
-            //paintView.layer.transform = CGAffineTransformScale(paintView.transform, sender.scale, )
-            sender.scale = 1
-        case .Ended:()
-            if paintView.layer.transform.m11 * sender.scale <= 0.8
-            {
-                UIView.animateWithDuration(0.5, animations: {
-                    self.paintView.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
-                    self.resetAnchor()
-                })
-            }
-            
-            //paintView.layer.anchorPoint = CGPointZero
-         //   paintView.layer.position = CGPointZero
-            
-        default: ()
-        }
-        
-        
-    }
     
     func setAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
         var newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y)
@@ -247,65 +183,18 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         view.layer.position = position
         view.layer.anchorPoint = anchorPoint
     }
+    
+   
+    
+    
     var currentProgressValue:Float = 0
     
     
     @IBOutlet weak var progressSlider: UISlider!
     
     var isCellSelectedSentbySlider:Bool = false
-    @IBAction func artworkProgressSliderDragged(sender: UISlider) {
-        
-        if PaintReplayer.instance.drawProgress(sender.value) == true //success draw
-            {
-                currentProgressValue = sender.value
-
-                let index = NoteManager.instance.getNoteIndexFromStrokeID(PaintReplayer.instance.currentStrokeID)
-
-                print("note index\(index)");
-                if index != -1
-                {
-                    isCellSelectedSentbySlider = true
-                    
-                    noteListTableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
-                    tableView(noteListTableView, didSelectRowAtIndexPath: NSIndexPath(forRow: index, inSection: 0))
-                }
-                else
-                {
-                    noteListTableView.deselectRowAtIndexPath(NSIndexPath(forRow: NoteManager.instance.selectedNoteIndex, inSection: 0), animated: true)
-                }
-            }
-        
-        
-    }
-        
-    @IBAction func colorPicking(sender: UISegmentedControl) {
-        //PaintToolManager.instance. sender.selectedSegmentIndex
-        
-    }
+            
     
-    //@IBOutlet weak var colorPicker: ColorPicker!
-    //@IBOutlet weak var huePicker: HuePicker!
-    //@IBOutlet weak var colorWell: ColorWell!
-    
-    @IBAction func saveButtonTouched(sender: UIButton) {
-        print("PaintViewController: save touch")
-//        for iOS under 7 use default file name
-        //PaintRecorder.instance.saveArtwork("file1.paw")
-        saveFileIOS9();
-    }
-    
-    
-    @IBAction func loadButtonTouched(sender: UIButton) {
-       
-        //resetAnchor()
-        //UIAlertManager.instance.displayloadView(self)
-        let fileTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("fileTableView") as! FileTableViewController
-        
-        fileTableViewController.delegate = self
-        
-        self.presentViewController(fileTableViewController, animated: true, completion: nil)
-        
-    }
     
     
     @IBAction func trashButtonTouched(sender: UIBarButtonItem) {
@@ -314,51 +203,10 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
 
     
-    @IBAction func paintToolSelect(sender: UISegmentedControl) {
-        
-        PaintToolManager.instance.changeTool(sender.selectedSegmentIndex)
-        
-       // brushScaleSlider.value = tool.vInfo.size
-        
-    }
-    
-    @IBAction func brushScaleSegmentControlValueChanged(sender: UISegmentedControl) {
-        var size:Float = 1;
-        switch(sender.selectedSegmentIndex)
-        {
-        case 0:
-            size = 5
-        case 1:
-            size = 10
-            
-        case 2:
-            size = 20
-        default:
-            size = 10
-        }
-        PaintToolManager.instance.changeSize(size)        
-    }
     
     
-    @IBAction func brushScaleSliderValueChanged(sender: UISlider) {
-        let value = sender.value
-        PaintToolManager.instance.changeSize(value);
-    }
-   
-    
-    @IBAction func PlayButtonTouched(sender: UIBarButtonItem) {
-            PaintManager.instance.pauseToggle()
-        
-    }
-    
-    @IBAction func fastForwardButtonTouched(sender: UIBarButtonItem) {
-        PaintManager.instance.doublePlayBackSpeed()
-    }
     
     
-    @IBAction func RewindButtonTouched(sender: UIBarButtonItem) {
-        PaintManager.instance.restart()
-    }
     
     enum AppMode{
         case drawing
@@ -427,21 +275,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         }
     }
 */
-    @IBAction func modeSwitcherValueChanged(sender: UISwitch) {
-        if sender.on
-        {
-            enterNoteMode()
-        }
-        else
-        {
-            mode = AppMode.drawing
-            playBackViewState.animateHide(0.2)
-            noteListViewState.animateHide(0.2)
-            toolViewState.isLocked = false
-            //subViewAnimationGestureHandler.hidePlayBackView(0.2)
-            //subViewAnimationGestureHandler.isToolPanelLocked = false
-        }
-    }
+   
     
     var isCanvasManipulationEnabled:Bool = true
     
@@ -471,69 +305,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     @IBOutlet weak var playBackViewBottomConstraint: NSLayoutConstraint!
     var playBackViewState:SubViewPanelAnimateState!
 
-    func initAnimateState()
-    {
-        toolViewState = SubViewPanelAnimateState(view: toolView, constraint: toolViewLeadingConstraint, hideValue: -240, showValue: 0)
-        
-        noteEditViewState = SubViewPanelAnimateState(view: noteEditView, constraint: noteEditViewTopConstraint, hideValue: -384 , showValue: 0)
-        
-        noteListViewState = SubViewPanelAnimateState(view: noteListView, constraint: noteListViewTrailingConstraint, hideValue: -240, showValue: 0)
-        
-        playBackViewState = SubViewPanelAnimateState(view: playBackView, constraint: playBackViewBottomConstraint, hideValue: 128, showValue: 0)
-        
-        toolViewState.animateHide(0)
-        noteListViewState.animateHide(0)
-        playBackViewState.animateHide(0)
-        
-    }
-    
-    
-    @IBAction func showToolViewButtonTouched(sender: UIBarButtonItem) {
-        toolViewState.animateShow(0.2)
-    }
-    @IBAction func hideToolViewButtonTouched(sender: UIBarButtonItem) {
-        toolViewState.animateHide(0.2)
-    }
-    
-   
-    
-    @IBAction func noteEditButtonTouched(sender: UIBarButtonItem) {
-        
-        showNoteEditView()
-        noteEditTextView.text = ""
-        noteEditTitleTextField.text = ""
-        noteEditMode = .New
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onKeyBoardHide:", name: UIKeyboardWillHideNotification, object: nil)
-    }
-    
-    func onKeyBoardHide(notification:NSNotification)
-    {
-        hideNoteEditView()
-    }
-
-    
-    @IBAction func noteEditViewCompleteButtonTouched(sender: AnyObject) {
-        hideNoteEditView()
-        noteDisplayTextView.text = noteEditTextView.text
-        
-        switch(noteEditMode)
-        {
-        case NoteEditMode.Edit:
-            NoteManager.instance.editNote(noteEditTitleTextField.text!,description: noteEditTextView.text)
-        case NoteEditMode.New:
-                NoteManager.instance.addNote(noteEditTitleTextField.text!, description: noteEditTextView.text
-            )
-        }
-        noteListTableView.reloadData()
-        view.endEditing(true)
-    }
-   
-    @IBAction func noteEditViewCancelButtonTouched(sender: UIBarButtonItem) {
-        hideNoteEditView()
-        view.endEditing(true)
-    }
-    
-    
+      
     
     enum NoteEditMode{
         case Edit
@@ -541,68 +313,15 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     var noteEditMode:NoteEditMode = .New
     
-    
-    //tableViewStart
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteTableCell
-        let note = NoteManager.instance.getNote(indexPath.row)
-        
-        cell.titleLabel.text = note.title
-        cell.editButton.tag = indexPath.row
-        cell.deleteButton.tag = indexPath.row
-        cell.tag = indexPath.row
-        
-        //cell.editButton.addTarget(self, action: "editButtonTouched:", forControlEvents: .TouchUpInside)
-        
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NoteManager.instance.noteCount()
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
-        let note = NoteManager.instance.selectNote(indexPath.row)
-        
-        noteDisplayTextView.text = note.description
-        if isCellSelectedSentbySlider
-        {
-            print("sent by slider")
-            isCellSelectedSentbySlider = false
-        }
-        else
-        {
-            PaintReplayer.instance.drawStrokeProgress(note.value.strokeIndex)
-            progressSlider.value = Float(note.value.strokeIndex)/Float(PaintReplayer.instance.strokeCount())
-            
-        }
-
-    }
+    //var selectedNote:Int = -1
+    //var selectedNoteCell:NoteDetailCell!
+    var selectedPath:NSIndexPath!
     
    
 
-    @IBAction func noteCellEditButtonTouched(sender: UIButton) {
-        let index = sender.tag
-        print(sender.tag)
-        let note = NoteManager.instance.getNote(index)
-        showNoteEditView()
-        noteEditTitleTextField.text = note.title
-        noteEditTextView.text = note.description
-        NoteManager.instance.editingNoteIndex = index
-        noteEditMode = .Edit
-        //noteListTableView.reloadData()
-    }
-    
-    @IBAction func noteCellDeleteButtonTouched(sender: UIButton) {
-        let index = sender.tag
-        NoteManager.instance.deleteNote(index)
-        noteListTableView.reloadData()
-    }
     
     
-    @IBOutlet weak var noteDisplayTextView: UITextView!
+    
     
      @IBOutlet weak var noteEditTextView: UITextView!
     
@@ -610,19 +329,41 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     
     
+    ///////////////////////////////////////////
+    // toolbar buttons
+    ///////////////////////////////////////////
+    
+    @IBOutlet weak var mainToolBar: UIToolbar!
+    
+    //add a note, only in
+    @IBOutlet var addNoteButton: UIBarButtonItem!
+    
+    //結束批改，only in revision mode
+    @IBOutlet var reviseDoneButton: UIBarButtonItem!
+    
+    
+    //進入觀看模式
+    @IBOutlet var enterViewModeButton: UIBarButtonItem!
+    
+    //進入繪圖模式
+    @IBOutlet var enterDrawModeButton: UIBarButtonItem!
+    
    
     
-    @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {
-        GLContextBuffer.instance.release()
+    var toolBarItems:[UIBarButtonItem]!
+    
+    deinit
+    {
+        GLContextBuffer.instance = nil
         colorPicker.onColorChange = nil
         colorPicker = nil
         canvasPanGestureHandler.paintViewController = nil
         
-            presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-        
-        //dismissViewControllerAnimated(true, completion: nil)
-        
-        
+        addNoteButton = nil
+        reviseDoneButton = nil
+        enterViewModeButton = nil
+        enterDrawModeButton = nil
+        print("deinit")
     }
     
     

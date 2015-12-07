@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uBR-xu-8WE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Zhl-Sa-wIJ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -158,7 +158,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uaN-Qa-bYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2354" y="-441"/>
+            <point key="canvasLocation" x="3166" y="-441"/>
         </scene>
         <!--Cut Image Rect-->
         <scene sceneID="V1J-TX-ALj">
@@ -227,7 +227,7 @@
         <!--Paint View Controller-->
         <scene sceneID="PH6-8W-dQf">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" id="CvM-l6-OQ6" customClass="PaintViewController" customModule="SwiftGL_Demo_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="paintview" modalTransitionStyle="crossDissolve" id="CvM-l6-OQ6" customClass="PaintViewController" customModule="SwiftGL_Demo_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gDu-0m-duq"/>
                         <viewControllerLayoutGuide type="bottom" id="x6p-iR-vVk"/>
@@ -270,61 +270,33 @@
                                             <action selector="showToolViewButtonTouched:" destination="CvM-l6-OQ6" id="A6b-Zg-SN9"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" id="Grc-Mx-qmK">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hem-jL-OwS">
-                                            <rect key="frame" x="53" y="7" width="46" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <animations/>
-                                            <state key="normal" title="load">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="loadButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="jdW-dC-9Z0"/>
-                                            </connections>
-                                        </button>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" id="UGW-cG-iRv">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9dj-Wv-LKZ">
-                                            <rect key="frame" x="109" y="7" width="46" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <animations/>
-                                            <state key="normal" title="save"/>
-                                            <connections>
-                                                <action selector="saveButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="m7n-lZ-79i"/>
-                                            </connections>
-                                        </button>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kVn-yW-SW4"/>
-                                    <barButtonItem systemItem="trash" id="nHJ-C3-55d">
-                                        <connections>
-                                            <action selector="trashButtonTouched:" destination="CvM-l6-OQ6" id="gPm-K7-wTo"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem systemItem="action" id="1Ou-gv-d5o" userLabel="action Button">
+                                    <barButtonItem systemItem="stop" id="1Ou-gv-d5o" userLabel="dismiss Button">
                                         <connections>
                                             <action selector="dismissButtonTouched:" destination="CvM-l6-OQ6" id="8Pa-Tu-Q0s"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kVn-yW-SW4"/>
                                     <barButtonItem systemItem="compose" id="u2G-vX-aJn" userLabel="action Button">
                                         <connections>
                                             <action selector="noteEditButtonTouched:" destination="CvM-l6-OQ6" id="LYO-m6-JKR"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" id="hjD-9A-5xI">
-                                        <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="FHg-Qj-KHX">
-                                            <rect key="frame" x="955" y="6.5" width="51" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <animations/>
-                                            <connections>
-                                                <action selector="modeSwitcherValueChanged:" destination="CvM-l6-OQ6" eventType="valueChanged" id="0qU-VT-QmC"/>
-                                            </connections>
-                                        </switch>
+                                    <barButtonItem title="Done" id="o0N-mX-nnA"/>
+                                    <barButtonItem title="Draw" id="MSJ-ij-Vz2">
+                                        <connections>
+                                            <action selector="enterDrawModeButtonTouched:" destination="CvM-l6-OQ6" id="x35-sE-lOW"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="View" id="5Wx-8p-Syv">
+                                        <connections>
+                                            <action selector="enterViewModeButtonTouched:" destination="CvM-l6-OQ6" id="yvU-yw-Zxt"/>
+                                        </connections>
                                     </barButtonItem>
                                 </items>
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
-                            <view contentMode="scaleToFill" misplaced="YES" restorationIdentifier="toolBarView" translatesAutoresizingMaskIntoConstraints="NO" id="AqB-Ps-H0o" userLabel="Tool View">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="812"/>
+                            <view contentMode="scaleToFill" restorationIdentifier="toolBarView" translatesAutoresizingMaskIntoConstraints="NO" id="AqB-Ps-H0o" userLabel="Tool View">
+                                <rect key="frame" x="-240" y="0.0" width="240" height="812"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2CA-XT-VkX" customClass="ColorPicker" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="217" width="240" height="240"/>
@@ -452,12 +424,12 @@
                                 <rect key="frame" x="784" y="44" width="240" height="724"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qvh-wu-zwh" userLabel="NoteListTableView">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="414"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="724"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="573-Pi-qsr"/>
-                                            <constraint firstAttribute="height" constant="414" id="JLo-Om-ljV"/>
+                                            <constraint firstAttribute="height" constant="724" id="JLo-Om-ljV"/>
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="NoteCell" editingAccessoryType="checkmark" id="l1I-y2-rmy" customClass="NoteTableCell" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
@@ -467,22 +439,6 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PEU-qe-pZq">
-                                                            <rect key="frame" x="110" y="7" width="46" height="30"/>
-                                                            <animations/>
-                                                            <state key="normal" title="Edit"/>
-                                                            <connections>
-                                                                <action selector="noteCellEditButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="Srs-7f-f7G"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6o-p9-ldh">
-                                                            <rect key="frame" x="164" y="7" width="45" height="30"/>
-                                                            <animations/>
-                                                            <state key="normal" title="Delete"/>
-                                                            <connections>
-                                                                <action selector="noteCellDeleteButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="FdR-sn-I18"/>
-                                                            </connections>
-                                                        </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKq-Ge-YZO">
                                                             <rect key="frame" x="13" y="11" width="89" height="21"/>
                                                             <animations/>
@@ -495,9 +451,56 @@
                                                 </tableViewCellContentView>
                                                 <animations/>
                                                 <connections>
-                                                    <outlet property="deleteButton" destination="A6o-p9-ldh" id="jbZ-XE-N2P"/>
-                                                    <outlet property="editButton" destination="PEU-qe-pZq" id="tAO-WS-y7D"/>
                                                     <outlet property="titleLabel" destination="NKq-Ge-YZO" id="dD6-3A-kP6"/>
+                                                </connections>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoteDetailCell" rowHeight="240" id="Rfe-GT-LV0" userLabel="NoteDetail" customClass="NoteDetailCell" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="72" width="240" height="240"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rfe-GT-LV0" id="heU-iJ-NvB">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="239.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="T" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIE-lh-TR1">
+                                                            <rect key="frame" x="14" y="12" width="125" height="21"/>
+                                                            <animations/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amh-Zl-oeH">
+                                                            <rect key="frame" x="172" y="8" width="46" height="30"/>
+                                                            <animations/>
+                                                            <state key="normal" title="Delete"/>
+                                                            <connections>
+                                                                <action selector="deleteNoteCellButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="vxc-hC-GdM"/>
+                                                            </connections>
+                                                        </button>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nqJ-jP-KEe">
+                                                            <rect key="frame" x="14" y="41" width="211" height="182.5"/>
+                                                            <animations/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        </textView>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LnU-Yd-uzR">
+                                                            <rect key="frame" x="118" y="8" width="46" height="30"/>
+                                                            <animations/>
+                                                            <state key="normal" title="Edit"/>
+                                                            <connections>
+                                                                <action selector="editNoteCellButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="Sct-6h-Qiz"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <animations/>
+                                                </tableViewCellContentView>
+                                                <animations/>
+                                                <connections>
+                                                    <outlet property="deleteButton" destination="amh-Zl-oeH" id="TCg-Q6-NPn"/>
+                                                    <outlet property="editButton" destination="LnU-Yd-uzR" id="kbY-GN-eNz"/>
+                                                    <outlet property="textView" destination="nqJ-jP-KEe" id="pfB-wZ-ttp"/>
+                                                    <outlet property="title" destination="XIE-lh-TR1" id="cgb-fw-COb"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -507,12 +510,6 @@
                                             <outlet property="delegate" destination="CvM-l6-OQ6" id="AcK-ov-xQo"/>
                                         </connections>
                                     </tableView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gHL-Wl-jAc">
-                                        <rect key="frame" x="0.0" y="422" width="240" height="240"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -522,8 +519,8 @@
                                     <constraint firstItem="qvh-wu-zwh" firstAttribute="top" secondItem="jSW-8m-Ccs" secondAttribute="top" id="aSm-PW-UY1"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" restorationIdentifier="textEdit" translatesAutoresizingMaskIntoConstraints="NO" id="7d5-pR-Ahm">
-                                <rect key="frame" x="512" y="8" width="512" height="384"/>
+                            <view contentMode="scaleToFill" misplaced="YES" restorationIdentifier="textEdit" translatesAutoresizingMaskIntoConstraints="NO" id="7d5-pR-Ahm">
+                                <rect key="frame" x="512" y="-384" width="512" height="384"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evj-YG-dMb">
                                         <rect key="frame" x="0.0" y="0.0" width="512" height="44"/>
@@ -595,6 +592,14 @@
                                     <constraint firstAttribute="height" constant="384" id="XpT-9k-gFX"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="789-Vh-sHe">
+                                <rect key="frame" x="392" y="357" width="93" height="91"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="PD1-HN-mlU" appends="YES" id="4Ve-ZR-YQf"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.26918385849837945" green="0.27169911649214662" blue="0.26782851532653718" alpha="1" colorSpace="calibratedRGB"/>
@@ -615,7 +620,7 @@
                             <constraint firstItem="AqB-Ps-H0o" firstAttribute="bottom" secondItem="x6p-iR-vVk" secondAttribute="top" constant="44" id="oj7-eB-jQM"/>
                             <constraint firstAttribute="trailing" secondItem="7d5-pR-Ahm" secondAttribute="trailing" id="ppb-0k-sJd"/>
                             <constraint firstAttribute="trailing" secondItem="Olf-xl-ZcA" secondAttribute="trailing" id="sKZ-0d-VYX"/>
-                            <constraint firstItem="7d5-pR-Ahm" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" constant="8" symbolic="YES" id="uf2-fD-e2Z"/>
+                            <constraint firstItem="7d5-pR-Ahm" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" id="uf2-fD-e2Z"/>
                             <constraint firstItem="Olf-xl-ZcA" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="xyt-VB-ylK"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="bottom" secondItem="x6p-iR-vVk" secondAttribute="top" constant="44" id="y5P-08-Bj0"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="y6g-I5-qIJ"/>
@@ -630,10 +635,14 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="ToolKnob" destination="789-Vh-sHe" id="nlp-EO-kQp"/>
+                        <outlet property="addNoteButton" destination="u2G-vX-aJn" id="fpQ-NU-ezZ"/>
                         <outlet property="canvasImageView" destination="LH3-gN-Bfw" id="WoF-mi-0eb"/>
                         <outlet property="colorPicker" destination="2CA-XT-VkX" id="Gdy-tV-Sq2"/>
+                        <outlet property="enterDrawModeButton" destination="MSJ-ij-Vz2" id="x5u-n5-VnY"/>
+                        <outlet property="enterViewModeButton" destination="5Wx-8p-Syv" id="lDv-SB-YSh"/>
+                        <outlet property="mainToolBar" destination="Olf-xl-ZcA" id="cfj-rh-NAE"/>
                         <outlet property="mainView" destination="MuV-st-KEp" id="nSJ-pA-k2h"/>
-                        <outlet property="noteDisplayTextView" destination="gHL-Wl-jAc" id="Rgc-mZ-i9O"/>
                         <outlet property="noteEditTextView" destination="Z7S-tx-0Vo" id="gFl-Za-8Px"/>
                         <outlet property="noteEditTitleTextField" destination="q7R-fY-U1G" id="0OZ-om-hjg"/>
                         <outlet property="noteEditView" destination="7d5-pR-Ahm" id="CXR-bk-a42"/>
@@ -646,6 +655,7 @@
                         <outlet property="playBackView" destination="Rwn-CR-aax" id="WJA-8r-C05"/>
                         <outlet property="playBackViewBottomConstraint" destination="B2P-HY-Azq" id="vtF-tg-kCh"/>
                         <outlet property="progressSlider" destination="g7i-S6-hL9" id="g4g-Sm-7og"/>
+                        <outlet property="reviseDoneButton" destination="o0N-mX-nnA" id="LmU-Dp-8K4"/>
                         <outlet property="scrollView" destination="e0Y-7M-m0z" id="g5P-9I-Pt8"/>
                         <outlet property="toolView" destination="AqB-Ps-H0o" id="MtK-RG-SHs"/>
                         <outlet property="toolViewLeadingConstraint" destination="OVD-50-aR8" id="Z10-1N-wge"/>
@@ -675,13 +685,18 @@
                         <action selector="imageViewPanGestureHandler:" destination="CvM-l6-OQ6" id="lWO-2u-Y1w"/>
                     </connections>
                 </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="PD1-HN-mlU" userLabel="Tool Float Pan Gesture Recognizer">
+                    <connections>
+                        <action selector="toolKnobPanGestureRecognized:" destination="CvM-l6-OQ6" id="N40-3C-850"/>
+                    </connections>
+                </panGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="KHm-gJ-Eju" userLabel="note pan gesture">
                     <connections>
                         <action selector="notePanGestureRecognizerHandler:" destination="CvM-l6-OQ6" id="BEL-Lm-y34"/>
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1242" y="714"/>
+            <point key="canvasLocation" x="1182" y="718"/>
         </scene>
         <!--Draw Detail Navigation Controller-->
         <scene sceneID="waB-zp-PVn">
@@ -788,7 +803,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="CvM-l6-OQ6" kind="showDetail" action="showViewController:sender:" id="tB5-9V-O4n"/>
+                                    <segue destination="FhT-vH-qSY" kind="show" id="T6a-9d-GSO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkF-Sy-PDl">
@@ -834,12 +849,13 @@
                             <constraint firstItem="M98-Dz-QZ9" firstAttribute="top" secondItem="0Mr-Ar-AOj" secondAttribute="bottom" constant="33" id="vyx-1f-hsm"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="LYp-Av-PK7"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ccu-I1-RLL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-174" y="-957"/>
+            <point key="canvasLocation" x="638" y="-957"/>
         </scene>
         <!--Learning Menu-->
         <scene sceneID="UWH-5Z-Gol">
@@ -1068,8 +1084,181 @@
             </objects>
             <point key="canvasLocation" x="-495" y="67"/>
         </scene>
+        <!--ArtworkMenu-->
+        <scene sceneID="v20-Ox-Ncl">
+            <objects>
+                <viewController title="ArtworkMenu" modalTransitionStyle="crossDissolve" id="FhT-vH-qSY" customClass="ArtworkMenuViewController" customModule="SwiftGL_Demo_iOS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a3N-mZ-iwX"/>
+                        <viewControllerLayoutGuide type="bottom" id="1yx-Re-Ugg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vtc-qJ-HVP">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Lb-2M-Buv">
+                                <rect key="frame" x="0.0" y="109" width="1024" height="659"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="R2P-dr-zRh">
+                                    <size key="itemSize" width="358" height="280"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="100" minY="100" maxX="100" maxY="100"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="emptyCollectionCell" id="Dxl-EO-3Gv">
+                                        <rect key="frame" x="100" y="150" width="376" height="286"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="286"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8g-cU-tNd">
+                                                    <rect key="frame" x="143" y="105" width="91" height="75"/>
+                                                    <animations/>
+                                                    <state key="normal" image="add-contact-1"/>
+                                                </button>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="customSize" width="376" height="286"/>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="artworkfilecell" id="pBf-y0-L9S" customClass="ArtworkCollectionViewCell" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="486" y="153" width="358" height="280"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="280"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rir-yU-Nen">
+                                                    <rect key="frame" x="0.0" y="0.0" width="358" height="280"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-he-ipK">
+                                                    <rect key="frame" x="156" y="224" width="72" height="30"/>
+                                                    <animations/>
+                                                    <state key="normal" title="Action"/>
+                                                    <connections>
+                                                        <action selector="actionButtonTouched:" destination="FhT-vH-qSY" eventType="touchUpInside" id="HKI-Y0-RDX"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="customSize" width="358" height="280"/>
+                                        <connections>
+                                            <outlet property="actionButton" destination="cfx-he-ipK" id="DPB-uA-UJx"/>
+                                            <outlet property="imageView" destination="Rir-yU-Nen" id="TVC-Hi-nAz"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="J4h-8V-gEu">
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="FhT-vH-qSY" id="igx-f0-bc2"/>
+                                    <outlet property="delegate" destination="FhT-vH-qSY" id="010-OR-xej"/>
+                                </connections>
+                            </collectionView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dbu-4V-2nV">
+                                <rect key="frame" x="0.0" y="65" width="1024" height="44"/>
+                                <animations/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="FhT-vH-qSY" id="AzT-Dm-8jm"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="open" id="PRL-YB-Zvg">
+                        <barButtonItem key="leftBarButtonItem" title="BK" id="CgL-dp-kZp"/>
+                    </navigationItem>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="artworkActionView" destination="joO-G4-RI0" id="aNB-z5-hcY"/>
+                        <outlet property="searchDisplayController" destination="CuV-Di-tRX" id="1eX-qD-Sy8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hkQ-pV-faL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="joO-G4-RI0">
+                    <rect key="frame" x="0.0" y="0.0" width="260" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pdU-TS-ui7">
+                            <rect key="frame" x="174" y="49" width="46" height="30"/>
+                            <animations/>
+                            <state key="normal" title="Delete"/>
+                            <connections>
+                                <action selector="deleteButtonTouched:" destination="FhT-vH-qSY" eventType="touchUpInside" id="xQk-CH-QvZ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Buu-Ea-om1">
+                            <rect key="frame" x="107" y="49" width="46" height="30"/>
+                            <animations/>
+                            <state key="normal" title="Revise"/>
+                            <connections>
+                                <action selector="reviseButtonTouched:" destination="FhT-vH-qSY" eventType="touchUpInside" id="wkf-Gw-G1u"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKh-1N-aTF">
+                            <rect key="frame" x="38" y="49" width="46" height="30"/>
+                            <animations/>
+                            <state key="normal" title="Paint"/>
+                        </button>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <searchDisplayController id="CuV-Di-tRX">
+                    <connections>
+                        <outlet property="delegate" destination="FhT-vH-qSY" id="qqX-yO-f6u"/>
+                        <outlet property="searchBar" destination="dbu-4V-2nV" id="XOg-9R-9fn"/>
+                        <outlet property="searchContentsController" destination="FhT-vH-qSY" id="9Rg-fl-uj7"/>
+                        <outlet property="searchResultsDataSource" destination="FhT-vH-qSY" id="uTS-ak-I4c"/>
+                        <outlet property="searchResultsDelegate" destination="FhT-vH-qSY" id="x46-9L-cP1"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="1817" y="-1038"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jZ0-CI-CTF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Zhl-Sa-wIJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jd4-IR-uKi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FhT-vH-qSY" kind="relationship" relationship="rootViewController" id="Vpe-I4-8ni"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2aN-oX-i28" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-506" y="-889"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="add-contact-1" width="44" height="45"/>
         <image name="angrybird_all" width="1465" height="1392"/>
         <image name="imghint" width="2149" height="1665"/>
         <image name="paintingMode" width="636" height="331"/>
@@ -1081,6 +1270,6 @@
         <image name="tumbler" width="1433" height="1599"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tB5-9V-O4n"/>
+        <segue reference="T6a-9d-GSO"/>
     </inferredMetricsTieBreakers>
 </document>

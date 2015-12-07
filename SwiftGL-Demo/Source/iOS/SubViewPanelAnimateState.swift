@@ -21,6 +21,7 @@ class SubViewPanelAnimateState {
         self.showValue = showValue
         self.constraint = constraint
         self.view = view
+        self.view.hidden = true
     }
     
     enum AnimateDir{
@@ -76,20 +77,24 @@ class SubViewPanelAnimateState {
     
     func animateShow(dur:NSTimeInterval)
     {
-        animate(constraint,value: showValue,duration: dur)
+        self.view.hidden = false
+        animate(constraint,value: showValue,duration: dur,hidden: false)
     }
     
     func animateHide(dur:NSTimeInterval)
     {
-        animate(constraint,value: hideValue,duration: dur)
+        animate(constraint,value: hideValue,duration: dur,hidden: true)
     }
     
-    func animate(constraint:NSLayoutConstraint,value:CGFloat,duration:NSTimeInterval)
+    func animate(constraint:NSLayoutConstraint,value:CGFloat,duration:NSTimeInterval,hidden:Bool = false)
     {
         UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
             constraint.constant = value
             self.view.layoutIfNeeded()
-            }, completion: nil
+            }, completion: {
+            (value: Bool) in
+                self.view.hidden = hidden
+            }
         )
     }
     

@@ -27,20 +27,26 @@ class FileManager {
     {
         return artworkFile.load(filename)
     }
-    func savePaintArtWork(filename:String,artwork:PaintArtwork, img:UIImage,noteList:[Note])
+    func savePaintArtWork(filename:String,artwork:PaintArtwork, img:UIImage,noteDict:[Int:Note])
     {
         artworkFile.save(filename, artwork: artwork)
         imageFile.saveImg(img, filename: filename)
+        noteFile.save(noteDict, filename: filename)
         searchFiles()
     }
-    
+    func deletePaintArtWork(filename:String)
+    {
+        artworkFile.delete(filename)
+        imageFile.delete(filename)
+        searchFiles()
+    }
     
     func loadImg(filename:String)->UIImage
     {
         return imageFile.loadImg(filename)
     }
  
-    func loadNoteList(filename:String)->[Note]
+    func loadNotes(filename:String)->[Int:Note]
     {
         return noteFile.load(filename)
     }
@@ -50,10 +56,17 @@ class FileManager {
 //        dirPath = getDirPath()
         searchFiles()
     }
-    
+    func getFileCount()->Int
+    {
+        return fileNames.count
+    }
     func getFileNames()->[String]
     {
         return fileNames
+    }
+    func getFileName(index:Int)->String
+    {
+        return fileNames[index]
     }
     func searchFiles()
     {
@@ -73,8 +86,15 @@ class FileManager {
         print(dirContents!)
         
         let extPredicate = NSPredicate(format: "self ENDSWITH '\(format)'")
+        var fileNames = (dirContents! as NSArray).filteredArrayUsingPredicate(extPredicate) as! [String]
         
-        return (dirContents! as NSArray).filteredArrayUsingPredicate(extPredicate)
+        for var i = 0;i<fileNames.count;i++
+        {
+            fileNames[i] = NSString(string: fileNames[i]).stringByDeletingPathExtension
+        }
+        
+        self.fileNames = fileNames
+        return fileNames
 
     }
     

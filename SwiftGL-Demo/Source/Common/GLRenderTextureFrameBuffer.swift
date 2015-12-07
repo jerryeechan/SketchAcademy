@@ -11,30 +11,35 @@ import SwiftGL
 
 
 class GLRenderTextureFrameBuffer{
-    var tempLayer:Layer
+    var tempLayer:Layer!
     var layers:[Layer] = []
+    var revisionLayer:Layer!
     var drawBuffers:[GLenum] = [GL_COLOR_ATTACHMENT0]
     var framebuffer:GLuint=0
     var width,height:GLsizei
-    var currentLayer:Layer
-    
+    var currentLayer:Layer!
+    var backgroundLayer:Layer!
+    static var instance:GLRenderTextureFrameBuffer!
     init(w:GLint,h:GLint)
     {
         self.width = w
         self.height = h
         glGenFramebuffers(1,&framebuffer)
         
-        tempLayer = Layer(w: width, h: height)
-        layers.append(Layer(w: width, h: height))
-        currentLayer = layers[0]
-        setBuffer()
+        //tempLayer = Layer(w: width, h: height)
+        revisionLayer = Layer(w: width, h: height)
+        backgroundLayer = Layer(texture:Texture(filename: "paper"))
+        addEmptyLayer()
+        //setBuffer()
         glClearColor(255, 255, 255, 255)
         glClear(GL_COLOR_BUFFER_BIT )
-        addEmptyLayer()
+        GLRenderTextureFrameBuffer.instance = self
+        
     }
     deinit
     {
         layers.removeAll()
+        revisionLayer = nil
     }
     func addEmptyLayer()
     {
@@ -47,11 +52,39 @@ class GLRenderTextureFrameBuffer{
         layers.insert(newLayer, atIndex: 0)
         //currentLayer = layers.last!
     }
+    func selectRevisionLayer()
+    {
+        currentLayer = revisionLayer
+    }
+    func setAllLayerAlpha(alpha:Float)
+    {
+        for layer in layers
+        {
+            layer.alpha = alpha
+        }
+    }
+    func enableAllLayer()
+    {
+        for layer in layers
+        {
+            layer.enabled = true
+        }
+    }
+    func disableAllLayer()
+    {
+        for layer in layers
+        {
+            layer.enabled = false
+        }
+    }
     func selectLayer(index:Int)
     {
         if (index >= 0 && index < layers.count)
         {
             currentLayer = layers[index]
+        }
+        else{
+            
         }
     }
     func setTempBuffer()->Bool

@@ -12,8 +12,6 @@ import SwiftGL
 
 
 class Painter{
-    static var currentBrush:PaintBrush!
-    
     /*
     static let kBrushOpacity:Float	 =	(1.0 / 3.0)
     static let kBrushPixelStep:Float	 =	3
@@ -21,8 +19,14 @@ class Painter{
     
     */
     
-    static var vertextBuffer:[PaintPoint] = []
     static var scale:Float = 1
+    static var layer:Int = 0
+    static var currentBrush:PaintBrush!
+    
+    /**
+        Render an entire stroke
+     */
+    
     static func renderStroke(stroke:PaintStroke)
     {
         /*
@@ -31,12 +35,20 @@ class Painter{
         GLContextBuffer.instance.drawBrushVertex(stroke.points)
         GLContextBuffer.instance.endStroke()
         */
-        GLContextBuffer.instance.drawStroke(stroke)
+        PaintToolManager.instance.changeTool(stroke.stringInfo.toolName)
+        PaintToolManager.instance.loadToolValueInfo(stroke.valueInfo)
+        print(stroke.stringInfo.toolName)
+        PaintToolManager.instance.useCurrentTool()
+        GLContextBuffer.instance.drawStroke(stroke,layer: layer)
     }
+    
+    /**
+        Render point array
+    */
     static func renderLine(vInfo:ToolValueInfo,prev2:PaintPoint,prev1:PaintPoint,cur:PaintPoint)
     {
         GLShaderBinder.instance.bindBrushInfo(vInfo)
-        vertextBuffer = []
+        var vertextBuffer:[PaintPoint] = []
         //smooth line
         
         let midPoint1:Vec4 = (prev1.position+prev2.position)*0.5
@@ -121,7 +133,7 @@ class Painter{
             vertextBuffer.append(v)
         }
 */
-       GLContextBuffer.instance.drawBrushVertex(vertextBuffer)
+       GLContextBuffer.instance.drawBrushVertex(vertextBuffer,layer: layer)
         
     }
     

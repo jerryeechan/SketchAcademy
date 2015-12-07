@@ -20,7 +20,7 @@ class CanvasPanGestureHandler {
         self.paintView = pvController.paintView
         scrollView = pvController.scrollView
         paintViewController = pvController
-        
+        paintRecorder = PaintManager.instance.paintRecorder
     }
     
     var twoTouchSwipeCount:Int = 0;
@@ -65,18 +65,18 @@ class CanvasPanGestureHandler {
         sender.setTranslation(CGPointZero, inView: scrollView)
 
     }
-    
+    var paintRecorder:PaintRecorder!
     func handleDrawingSinglePan(sender:UIPanGestureRecognizer)
     {
         let current_time = CFAbsoluteTimeGetCurrent()
         switch(sender.state)
         {
         case UIGestureRecognizerState.Began:
-            PaintRecorder.instance.startPoint(CGPointToVec2(current_pos) * Float(paintView.contentScaleFactor), velocity: CGPointToVec2(velocity), time: current_time)
+            paintRecorder.startPoint(CGPointToVec2(current_pos) * Float(paintView.contentScaleFactor), velocity: CGPointToVec2(velocity), time: current_time)
         case UIGestureRecognizerState.Changed:
-            PaintRecorder.instance.movePoint(CGPointToVec2(current_pos) * Float(paintView.contentScaleFactor), velocity: CGPointToVec2(velocity), time: current_time)
+            paintRecorder.movePoint(CGPointToVec2(current_pos) * Float(paintView.contentScaleFactor), velocity: CGPointToVec2(velocity), time: current_time)
         case UIGestureRecognizerState.Ended:
-            PaintRecorder.instance.endStroke(current_time)
+            paintRecorder.endStroke(current_time)
             
         default :
             break

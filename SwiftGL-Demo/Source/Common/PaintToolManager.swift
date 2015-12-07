@@ -33,7 +33,7 @@ public class PaintToolManager {
     func load()
     {
         pen = PaintBrush(textureName: "pencil",color: Color(0,0,0,25),size: 5,type:PaintToolType.pen)
-        eraser = PaintBrush(textureName: "Particle", color: Color(255,255,255,255),size: 15,type:PaintToolType.eraser)
+        eraser = PaintBrush(textureName: "Particle", color: Color(255,255,255,0),size: 15,type:PaintToolType.eraser)
         
         currentTool = pen
         Painter.currentBrush = currentTool
@@ -54,7 +54,7 @@ public class PaintToolManager {
             return .pen
         }
     }
-   public func useCurrentTool()
+    public func useCurrentTool()
     {
         useTool(currentTool.toolType)
     }
@@ -72,9 +72,9 @@ public class PaintToolManager {
     }
     func changeTool(name:String)->PaintBrush
     {
+        currentTool = useTool(getTool(name))
         
-        let brush = useTool(getTool(name))
-        return brush
+        return currentTool
     }
     func changeTool(index:Int)->PaintBrush
     {
@@ -84,7 +84,6 @@ public class PaintToolManager {
     }
     func usePen()
     {
-    
         pen.useTool()
         pen.changeColor(colorInPalette)
         glBlendEquation(GLenum(GL_FUNC_ADD))
@@ -95,12 +94,15 @@ public class PaintToolManager {
     
     func useEraser()
     {
-        currentTool = eraser
+        //***blend function as problem
         
+        currentTool = eraser
+//        glBlendEquation(GLenum(GL_FUNC_SUBTRACT))
         glBlendEquation(GLenum(GL_FUNC_REVERSE_SUBTRACT))
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        currentTool.changeColor(Color(rf: 1,gf: 1,bf: 1,af: 1))
-        //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+        //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA)
+        currentTool.changeColor(Color(rf:1,gf: 1,bf: 1,af: 1))
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+        
         eraser.useTool()
         print("use eraser")
     }
@@ -109,16 +111,18 @@ public class PaintToolManager {
     {
         currentTool.changeColor(valueInfo.color)
         currentTool.changeSize(valueInfo.size)
+        colorInPalette = valueInfo.color
     }
     
-    
+    var alpha:Float = 0.5
     func changeColor(color:UIColor)
     {
+        
         let rgb = CGColorGetComponents(color.CGColor)
         let r = Float(rgb[0])
         let g = Float(rgb[1])
         let b = Float(rgb[2])
-        let c = Color(rf: r,gf: g,bf: b,af: 1)
+        let c = Color(rf: r,gf: g,bf: b,af: alpha)
         colorInPalette = c
         
         //don't change the color of eraser
