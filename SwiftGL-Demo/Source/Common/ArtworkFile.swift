@@ -62,14 +62,13 @@ class ArtworkFile:File{
 
         encodeClip(artwork.masterClip)
         encodeStruct(artwork.revisionClips.count)
-        print("Revision clip count:\(artwork.revisionClips.count)")
         for(atStroke,clip) in artwork.revisionClips
         {
             encodeStruct(atStroke)
             encodeClip(clip)
         }
         let path = File.dirpath
-        print(path)
+        
         data.writeToFile(path+"/"+filename+".paw", atomically: true)
         
     }
@@ -103,7 +102,7 @@ class ArtworkFile:File{
     {
         
         let path = createPath(filename+".paw")
-        print(path)
+        
         if checkFileExist(path)
         {
             parseData = readFile(filename+".paw")
@@ -137,7 +136,6 @@ class ArtworkFile:File{
             var tVI:ToolValueInfo
             if(tSI==nil)
             {
-                print("nil tSI")
                 tSI = lastTSI
                 tVI = lastTVI
             }

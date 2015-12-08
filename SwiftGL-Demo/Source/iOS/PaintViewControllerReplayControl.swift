@@ -9,26 +9,26 @@
 extension PaintViewController
 {
     @IBAction func PlayButtonTouched(sender: UIBarButtonItem) {
-        PaintManager.instance.pauseToggle()
+        paintManager.pauseToggle()
         
     }
     
     @IBAction func fastForwardButtonTouched(sender: UIBarButtonItem) {
-        PaintManager.instance.doublePlayBackSpeed()
+        paintManager.doublePlayBackSpeed()
     }
     
     
     @IBAction func RewindButtonTouched(sender: UIBarButtonItem) {
-        PaintManager.instance.restart()
+        paintManager.restart()
     }
     
     @IBAction func artworkProgressSliderDragged(sender: UISlider) {
         
-        if PaintManager.instance.drawProgress(sender.value) == true //success draw
+        if paintManager.drawProgress(sender.value) == true //success draw
         {
             currentProgressValue = sender.value
             
-            let index = NoteManager.instance.getNoteIndexFromStrokeID(PaintManager.instance.getCurrentStrokeID())
+            let index = NoteManager.instance.getNoteIndexFromStrokeID(paintManager.getCurrentStrokeID())
             
             print("note index\(index)");
             if index != -1

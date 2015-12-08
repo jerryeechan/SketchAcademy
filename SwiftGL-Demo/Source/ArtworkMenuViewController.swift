@@ -207,25 +207,6 @@ extension ArtworkMenuViewController: UITextFieldDelegate {
         textField.addSubview(activityIndicator)
         activityIndicator.frame = textField.bounds
         activityIndicator.startAnimating()
-        /*
-        flickr.searchFlickrForTerm(textField.text) {
-            results, error in
-            
-            //2
-            activityIndicator.removeFromSuperview()
-            if error != nil {
-                println("Error searching : \(error)")
-            }
-            
-            if results != nil {
-                //3
-                println("Found \(results!.searchResults.count) matching \(results!.searchTerm)")
-                self.searches.insert(results!, atIndex: 0)
-                
-                //4
-                self.collectionView?.reloadData()
-            }
-        }*/
         
         textField.text = nil
         textField.resignFirstResponder()

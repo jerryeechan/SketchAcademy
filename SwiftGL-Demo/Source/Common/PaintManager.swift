@@ -16,12 +16,6 @@ enum ViewingClipType
 }
 class PaintManager {
     
-    class var instance:PaintManager{
-        struct Singleton{
-            static let instance = PaintManager()
-        }
-        return Singleton.instance
-    }
     
     var openArtworkFileName:String!
     

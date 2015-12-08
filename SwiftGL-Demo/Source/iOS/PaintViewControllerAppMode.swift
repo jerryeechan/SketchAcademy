@@ -32,10 +32,10 @@ extension PaintViewController
         {
         case .Artwork:
             viewModeToolBarSetUp()
-            PaintManager.instance.artworkDrawModeSwitchToViewMode()
+            paintManager.artworkDrawModeSwitchToViewMode()
         case .Revision:
             viewModeToolBarSetUp()
-            PaintManager.instance.revisionDrawModeSwitchToViewMode()
+            paintManager.revisionDrawModeSwitchToViewMode()
         }
     }
     func enterDrawMode()
@@ -48,11 +48,11 @@ extension PaintViewController
         {
         case .Artwork:
             artworkDrawModeToolBarSetUp()
-            PaintManager.instance.artworkDrawModeSetUp()
+            paintManager.artworkDrawModeSetUp()
             
         case .Revision:
             revisionDrawModeToolBarSetUp()
-            PaintManager.instance.revisionDrawModeSetUp()
+            paintManager.revisionDrawModeSetUp()
             
         }
     }
@@ -125,7 +125,7 @@ extension PaintViewController
     func saveFile(fileName:String)
     {
         let img = GLContextBuffer.instance.contextImage()
-        PaintManager.instance.saveArtwork(fileName,img:img)
+        paintManager.saveArtwork(fileName,img:img)
         
         GLContextBuffer.instance.releaseImgBuffer()
         

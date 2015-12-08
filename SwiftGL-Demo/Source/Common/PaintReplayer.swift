@@ -337,7 +337,7 @@ class PaintReplayer:NSObject
     func drawProgress(percentage:Float)->Bool
     {
         //between 0~1
-        print("drawProgress \(percentage)")
+        //print("drawProgress \(percentage)")
         return drawStrokeProgress(Int(percentage*Float(strokes.count)))
     }
     
@@ -351,13 +351,21 @@ class PaintReplayer:NSObject
         {
             Painter.renderStroke(strokes[i])
         }
-        currentStrokeID = strokes.count-1
+        if(strokes.count>0)
+        {
+            currentStrokeID = strokes.count-1
+            
+            GLContextBuffer.instance.display()
+            let end = CFAbsoluteTimeGetCurrent()
+            print("Paint replayer: loading time spent\(end-start)")
+            replayClip.currentTime = (strokes.last?.pointData.last?.timestamps)!
+            progressSlider.value = 1
+        }
+        else
+        {
+            GLContextBuffer.instance.display()
+        }
         
-        GLContextBuffer.instance.display()
-        let end = CFAbsoluteTimeGetCurrent()
-        print("loading time spent\(end-start)")
-        replayClip.currentTime = (strokes.last?.pointData.last?.timestamps)!
-        progressSlider.value = 1
     }
     
 }

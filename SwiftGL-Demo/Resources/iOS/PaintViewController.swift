@@ -32,6 +32,8 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     var fileName:String!
     var paintMode = PaintMode.Artwork
+    var paintManager = PaintManager()
+    
     override func viewDidLoad() {
         toolBarItems = mainToolBar.items
         //mainView.addSubview(noteEditView)
@@ -71,7 +73,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         
         
         
-        PaintManager.instance.setProgressSlider(progressSlider)
+        paintManager.setProgressSlider(progressSlider)
         
         
         //noteEditTextView.delegate = self
@@ -85,7 +87,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         if(fileName != nil)
         {
             NoteManager.instance.loadNotes(fileName)
-            PaintManager.instance.loadArtwork(fileName)
+            paintManager.loadArtwork(fileName)
         }
         else
         {

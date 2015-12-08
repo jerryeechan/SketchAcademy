@@ -171,7 +171,6 @@ public class Shader {
     
     public func uniform(name: String) -> GLuniform {
         let iLoc = glGetUniformLocation(id, UnsafePointer<CChar>(name.cStringUsingEncoding(NSASCIIStringEncoding)!))
-        print("program id:\(id) uniform name: \(name) location\(iLoc)")
         return iLoc
     }
     

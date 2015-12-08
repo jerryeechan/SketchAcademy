@@ -8,6 +8,12 @@
 
 import SwiftGL
 import UIKit
+enum TwoSwipeState{
+    case Unknown
+    case FastSwipe
+    case Dragging
+}
+
 class CanvasPanGestureHandler {
     
     var paintView:PaintView!
@@ -20,16 +26,12 @@ class CanvasPanGestureHandler {
         self.paintView = pvController.paintView
         scrollView = pvController.scrollView
         paintViewController = pvController
-        paintRecorder = PaintManager.instance.paintRecorder
+        paintRecorder = paintViewController.paintManager.paintRecorder
     }
     
     var twoTouchSwipeCount:Int = 0;
     
-    enum TwoSwipeState{
-        case Unknown
-        case FastSwipe
-        case Dragging
-    }
+    
     
     var twoSwipeState:TwoSwipeState = .Unknown
     

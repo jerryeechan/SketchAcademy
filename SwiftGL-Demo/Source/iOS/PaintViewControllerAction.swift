@@ -67,7 +67,7 @@ extension PaintViewController
     }
     
     @IBAction func trashButtonTouched(sender: UIBarButtonItem) {
-        PaintManager.instance.clear()
+        paintManager.clear()
     }
     
     @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {

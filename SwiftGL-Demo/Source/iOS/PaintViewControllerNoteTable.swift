@@ -8,12 +8,14 @@
 
 extension PaintViewController:UITableViewDelegate
 {
+    
+    
     //tableViewStart
     func genNoteCell(tableView: UITableView,indexPath:NSIndexPath)->UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteTableCell
         let note = NoteManager.instance.getOrderedNote(indexPath.row)
-        if PaintManager.instance.artwork.revisionClips[note.value.strokeIndex] != nil
+        if paintManager.artwork.revisionClips[note.value.strokeIndex] != nil
         {
             cell.reviseButton.setImage(UIImage(named: "fountain-pen-head-1.png"), forState: UIControlState.Normal)
         }
@@ -72,8 +74,8 @@ extension PaintViewController:UITableViewDelegate
         }
         else
         {
-            PaintManager.instance.drawStrokeProgress(note.value.strokeIndex)
-            progressSlider.value = Float(note.value.strokeIndex)/Float(PaintManager.instance.currentReplayer.clip.strokes.count)
+            paintManager.drawStrokeProgress(note.value.strokeIndex)
+            progressSlider.value = Float(note.value.strokeIndex)/Float(paintManager.currentReplayer.clip.strokes.count)
             
         }
         
@@ -184,7 +186,7 @@ extension PaintViewController:UITableViewDelegate
             NoteManager.instance.updateOrderedNote(selectedPath.row, title: noteEditTitleTextField.text!,description: noteEditTextView.text)
         case NoteEditMode.New:
             print("New Note")
-            let at = PaintManager.instance.getCurrentStrokeID()
+            let at = paintManager.getCurrentStrokeID()
             NoteManager.instance.addNote(at,title: noteEditTitleTextField.text!, description: noteEditTextView.text
             )
         }
@@ -194,7 +196,7 @@ extension PaintViewController:UITableViewDelegate
         case .Artwork:
             break
         case .Revision:
-            PaintManager.instance.playCurrentRevisionClip()
+            paintManager.playCurrentRevisionClip()
             break
             
         }
