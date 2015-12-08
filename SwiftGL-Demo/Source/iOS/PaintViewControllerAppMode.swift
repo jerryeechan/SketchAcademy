@@ -37,7 +37,6 @@ extension PaintViewController
             viewModeToolBarSetUp()
             PaintManager.instance.revisionDrawModeSwitchToViewMode()
         }
-        
     }
     func enterDrawMode()
     {

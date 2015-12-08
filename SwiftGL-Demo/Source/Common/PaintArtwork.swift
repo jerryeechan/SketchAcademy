@@ -9,7 +9,7 @@
 import Foundation
 class PaintArtwork
 {
-    var masterClip:PaintClip = PaintClip(name: "master",branchAt: 0)
+    var masterClip:PaintClip
     var revisionClips:[Int:PaintClip] = [Int:PaintClip]()
     var currentClip:PaintClip
     
@@ -25,9 +25,12 @@ class PaintArtwork
 
     init()
     {
+        masterClip = PaintClip(name: "master",branchAt: 0)
         masterClip.currentTime = 0
         currentClip = masterClip
+        
     }
+    
     
     func addRevisionClip(atStroke:Int)
     {
