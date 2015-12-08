@@ -22,32 +22,22 @@ extension PaintViewController
 {
     func enterViewMode()
     {
-        
-        
-        //PaintReplayer.instance.reloadArtwork()
         mode = AppMode.browsing
-        
         playBackViewState.animateShow(0.2)
         toolViewState.animateHide(0.2)
         toolViewState.isLocked = true
         noteListViewState.animateShow(0.2)
-        //subViewAnimationGestureHandler.showPlayBackView(0.2)
-        //subViewAnimationGestureHandler.hideToolView(0.2)
-        //subViewAnimationGestureHandler.isToolPanelLocked = true
-        progressSlider.value = 1
-        
         print("----enter View Mode----")
-        viewModeToolBarSetUp()
-        PaintManager.instance.switchToViewMode()
+        switch(paintMode)
+        {
+        case .Artwork:
+            viewModeToolBarSetUp()
+            PaintManager.instance.artworkDrawModeSwitchToViewMode()
+        case .Revision:
+            viewModeToolBarSetUp()
+            PaintManager.instance.revisionDrawModeSwitchToViewMode()
+        }
         
-        
-        /*
-        UIView.animateWithDuration(0.5, animations: {
-            let transform = CATransform3DMakeScale(0.7, 0.7, 1)
-            //transform = CATransform3DTranslate(transform,-512, -384, 0)
-            self.paintView.layer.transform = transform
-        })
-        */
     }
     func enterDrawMode()
     {
@@ -95,14 +85,16 @@ extension PaintViewController
         {
         case .Artwork:
             addToolBarButton(enterDrawModeButton, atIndex: index)
+            addToolBarButton(addNoteButton, atIndex: index)
         case .Revision:
             removeToolBarButton(reviseDoneButton)
             removeToolBarButton(enterDrawModeButton)
+            addToolBarButton(addNoteButton, atIndex: toolBarItems.count)
             break
             
         }
         
-        addToolBarButton(addNoteButton, atIndex: index)
+        
         
         mainToolBar.setItems(toolBarItems, animated: true)
 

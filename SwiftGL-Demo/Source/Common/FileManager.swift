@@ -38,6 +38,7 @@ class FileManager {
     {
         artworkFile.delete(filename)
         imageFile.delete(filename)
+        noteFile.delete(filename)
         searchFiles()
     }
     

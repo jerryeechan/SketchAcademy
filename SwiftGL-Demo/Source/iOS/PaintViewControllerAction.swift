@@ -38,10 +38,9 @@ extension PaintViewController
             noteEditTitleTextField.text = ""
             noteEditMode = .New
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "onKeyBoardHide:", name: UIKeyboardWillHideNotification, object: nil)
+            
         case .Revision:
             enterDrawMode()
-            
         }
         
     }
@@ -53,6 +52,12 @@ extension PaintViewController
     
     
     
+    @IBAction func reviseDoneButtonTouched(sender: UIBarButtonItem) {
+        enterViewMode()
+        showNoteEditView()
+
+    }
+    
     
     @IBAction func showToolViewButtonTouched(sender: UIBarButtonItem) {
         toolViewState.animateShow(0.2)
@@ -61,7 +66,9 @@ extension PaintViewController
         toolViewState.animateHide(0.2)
     }
     
-    
+    @IBAction func trashButtonTouched(sender: UIBarButtonItem) {
+        PaintManager.instance.clear()
+    }
     
     @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {
         saveFileIOS9();

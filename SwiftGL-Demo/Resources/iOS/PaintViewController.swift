@@ -197,9 +197,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     
     
-    @IBAction func trashButtonTouched(sender: UIBarButtonItem) {
-        PaintManager.instance.clear()
-    }
+   
     
 
     
@@ -326,6 +324,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
      @IBOutlet weak var noteEditTextView: UITextView!
     
      @IBOutlet weak var noteEditTitleTextField: UITextField!
+    
     
     
     

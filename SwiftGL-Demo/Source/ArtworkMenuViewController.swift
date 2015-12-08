@@ -119,11 +119,14 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
     var selectedIndexPath:NSIndexPath!
     @IBAction func actionButtonTouched(sender: UIButton) {
         
-        selectedIndexPath = collectionView?.indexPathForItemAtPoint(sender.convertRect(sender.bounds, toView: collectionView).origin)
+        let cell = sender.superview?.superview as! UICollectionViewCell
+        
+        selectedIndexPath = collectionView?.indexPathForCell(cell)
+        
         let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         
         
-        selectIndex = sender.tag
+        //selectIndex = sender.tag
         artworkActionView.frame = CGRectMake(8, 8, artworkActionView.frame.width, artworkActionView.frame.height)
         //artworkActionView.frame.y = 8
         alertController.view.addSubview(artworkActionView)
@@ -137,11 +140,11 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         navigationController!.presentViewController(alertController, animated: true, completion:{})
     }
     
-    var selectIndex:Int!
+    //var selectIndex:Int!
     @IBAction func reviseButtonTouched(sender: UIButton) {
         
         let paintViewController = getViewController("paintview") as! PaintViewController
-        let fileName = FileManager.instance.getFileName(selectIndex)
+        let fileName = FileManager.instance.getFileName(selectedIndexPath.row-1)
         paintViewController.fileName = fileName
         paintViewController.paintMode = .Revision
         
@@ -159,7 +162,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
         
         let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in print("delete")
-            let fileName = FileManager.instance.getFileName(self.selectIndex)
+            let fileName = FileManager.instance.getFileName(self.selectedIndexPath.row-1)
             FileManager.instance.deletePaintArtWork(fileName)
             
             self.collectionView?.performBatchUpdates({()in self.collectionView?.deleteItemsAtIndexPaths([self.selectedIndexPath])}, completion: nil)

@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "add-contact.png",
+      "filename" : "pencil.png",
       "scale" : "1x"
     },
     {
@@ -12,15 +12,6 @@
     {
       "idiom" : "universal",
       "scale" : "3x"
-    },
-    {
-      "idiom" : "ipad",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "ipad",
-      "filename" : "add-contact-1.png",
-      "scale" : "2x"
     }
   ],
   "info" : {

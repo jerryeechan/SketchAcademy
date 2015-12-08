@@ -15,14 +15,15 @@ enum NoteType{
 struct Note{
     var title:String
     var description:String
-    var value:NoteValueData!
+    var value:NoteValueData
     
     init(title:String,description:String,strokeIndex:Int,type:NoteType)
     {
         self.title = title
         self.description = description
-        self.value = NoteValueData(strokeIndex: strokeIndex,timestamps: 0, type:type)
+        self.value = NoteValueData(strokeIndex: strokeIndex,timestamps: 0)
     }
+    
     init(title:String,description:String,valueData:NoteValueData)
     {
         self.title = title
@@ -34,16 +35,16 @@ struct Note{
 struct NoteValueData:Initable {
     var strokeIndex:Int
     var timestamps:NSTimeInterval
-    var type:NoteType
+    //var type:NoteType
     init()
     {
         strokeIndex = 0
         timestamps = 0
-        type = .Note
+        //type = .Note
     }
-    init(strokeIndex:Int,timestamps:NSTimeInterval,type:NoteType){
+    init(strokeIndex:Int,timestamps:NSTimeInterval){
         self.strokeIndex = strokeIndex
         self.timestamps = timestamps
-        self.type = type
+        //self.type = type
     }
 }

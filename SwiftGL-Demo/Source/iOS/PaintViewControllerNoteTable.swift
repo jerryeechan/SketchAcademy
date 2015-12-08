@@ -9,80 +9,94 @@
 extension PaintViewController:UITableViewDelegate
 {
     //tableViewStart
+    func genNoteCell(tableView: UITableView,indexPath:NSIndexPath)->UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteTableCell
+        let note = NoteManager.instance.getOrderedNote(indexPath.row)
+        if PaintManager.instance.artwork.revisionClips[note.value.strokeIndex] != nil
+        {
+            cell.reviseButton.setImage(UIImage(named: "fountain-pen-head-1.png"), forState: UIControlState.Normal)
+        }
+        
+        cell.titleLabel.text = note.title
+        return cell
+    }
+    func genNoteDetailCell(tableView: UITableView,indexPath:NSIndexPath)->UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier("NoteDetailCell", forIndexPath: indexPath) as! NoteDetailCell
+        let note = NoteManager.instance.getOrderedNote(indexPath.row)
+        cell.title.text = note.title
+        cell.textView.text = note.description
+        cell.strokeID = note.value.strokeIndex
+        
+        return cell
+    }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if(selectedPath == nil)
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteTableCell
-            let note = NoteManager.instance.getOrderedNote(indexPath.row)
-            
-            cell.titleLabel.text = note.title
-            return cell
-
+            return genNoteCell(tableView, indexPath: indexPath)
         }
         else
         {
             if(indexPath.row == selectedPath.row)
             {
-                print("detail cell")
-                let cell = tableView.dequeueReusableCellWithIdentifier("NoteDetailCell", forIndexPath: indexPath) as! NoteDetailCell
-                let note = NoteManager.instance.getOrderedNote(indexPath.row)
-                cell.title.text = note.title
-                cell.textView.text = note.description
-                cell.strokeID = note.value.strokeIndex
-                
-                return cell
+                return genNoteDetailCell(tableView, indexPath: indexPath)
             }
             else
             {
-                let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteTableCell
-                let note = NoteManager.instance.getOrderedNote(indexPath.row)
-                
-                cell.titleLabel.text = note.title
-                return cell
+                return genNoteCell(tableView, indexPath: indexPath)
             }
         }
-        
-        
-        
-        //cell.editButton.addTarget(self, action: "editButtonTouched:", forControlEvents: .TouchUpInside)
-        
-        
-        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return NoteManager.instance.noteCount()
     }
     
+    
+    func selectRow(indexPath:NSIndexPath)
+    {
+        let note = NoteManager.instance.getOrderedNote(indexPath.row)
+        var paths:[NSIndexPath] = [indexPath]
+        if(selectedPath != nil)
+        {
+            paths.append(selectedPath)
+        }
+        selectedPath = indexPath
+        noteListTableView.reloadRowsAtIndexPaths(paths, withRowAnimation: UITableViewRowAnimation.Automatic)
+        
+        if isCellSelectedSentbySlider
+        {
+            print("sent by slider")
+            isCellSelectedSentbySlider = false
+        }
+        else
+        {
+            PaintManager.instance.drawStrokeProgress(note.value.strokeIndex)
+            progressSlider.value = Float(note.value.strokeIndex)/Float(PaintManager.instance.currentReplayer.clip.strokes.count)
+            
+        }
+        
+    }
+    
+    
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        //什麼都還沒選
         if(selectedPath == nil)
         {
-            let note = NoteManager.instance.getOrderedNote(indexPath.row)
-            var paths:[NSIndexPath] = [indexPath]
-            if(selectedPath != nil)
-            {
-                paths.append(selectedPath)
-            }
-            
-            tableView.reloadRowsAtIndexPaths(paths, withRowAnimation: UITableViewRowAnimation.Automatic)
-            
-            if isCellSelectedSentbySlider
-            {
-                print("sent by slider")
-                isCellSelectedSentbySlider = false
-            }
-            else
-            {
-                PaintManager.instance.drawStrokeProgress(note.value.strokeIndex)
-                progressSlider.value = Float(note.value.strokeIndex)/Float(PaintManager.instance.currentReplayer.clip.strokes.count)
-                
-            }
-            selectedPath = indexPath
+            selectRow(indexPath)
         }
+        //選到自己, deselect
         else if(indexPath.row == selectedPath.row)
         {
             selectedPath = nil
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+        //選到別人, select and deselect
+        else
+        {
+            selectRow(indexPath)
         }
                 
     }
@@ -117,7 +131,7 @@ extension PaintViewController:UITableViewDelegate
     }
     
     @IBAction func deleteNoteCellButtonTouched(sender: UIButton) {
-        let cell = sender.superview as! NoteDetailCell
+        let cell = sender.superview?.superview as! NoteDetailCell
         NoteManager.instance.deleteNoteAtStroke(cell.strokeID)
         selectedPath = nil
         noteListTableView.reloadData()
@@ -131,8 +145,6 @@ extension PaintViewController:UITableViewDelegate
         paintView.layer.position = CGPointZero
         paintView.layer.anchorPoint = CGPointZero
         
-        //noteEditTextView.text = ""
-        //noteEditTitleTextField.text = ""
         UIView.animateWithDuration(0.5, animations: {
             let transform = CATransform3DMakeScale(0.5, 0.5, 1)
             self.paintView.layer.transform = transform
@@ -143,8 +155,9 @@ extension PaintViewController:UITableViewDelegate
             
         })
         noteEditViewState.animateShow(0.5)
-        noteEditTextView.becomeFirstResponder()
-        
+        noteEditTitleTextField.becomeFirstResponder()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onKeyBoardHide:", name:
+            UIKeyboardWillHideNotification, object: nil)
     }
     
     
@@ -159,7 +172,6 @@ extension PaintViewController:UITableViewDelegate
             self.noteEditViewTopConstraint.constant = -384
             self.noteEditView.layoutIfNeeded()
             
-            
         })
     }
 
@@ -169,13 +181,24 @@ extension PaintViewController:UITableViewDelegate
         switch(noteEditMode)
         {
         case NoteEditMode.Edit:
-            
             NoteManager.instance.updateOrderedNote(selectedPath.row, title: noteEditTitleTextField.text!,description: noteEditTextView.text)
         case NoteEditMode.New:
+            print("New Note")
             let at = PaintManager.instance.getCurrentStrokeID()
             NoteManager.instance.addNote(at,title: noteEditTitleTextField.text!, description: noteEditTextView.text
             )
         }
+        //###go here
+        switch(paintMode)
+        {
+        case .Artwork:
+            break
+        case .Revision:
+            PaintManager.instance.playCurrentRevisionClip()
+            break
+            
+        }
+        
         noteListTableView.reloadData()
         view.endEditing(true)
     }

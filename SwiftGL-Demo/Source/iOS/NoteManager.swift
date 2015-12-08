@@ -22,23 +22,28 @@ class NoteManager {
     func loadNotes(filename:String)
     {
         noteDict = FileManager.instance.loadNotes(filename)
+        getSortedKeys()
     }
     /*
     func getNotes()->[Note]
     {
         return [Int](noteDict.keys)
     }*/
+    func getNoteArray()->[Note]
+    {
+        let sortedArray = Array(noteDict.values).sort({$0.value.strokeIndex < $1.value.strokeIndex})
+        return sortedArray
+    }
     func getSortedKeys()->[Int]
     {
         sortedKeys = Array(noteDict.keys).sort()
         return sortedKeys
     }
-    var sortedKeys:[Int]!
-    func getOrderedNote(index:Int)->Note
+    var sortedKeys:[Int] = []
+    func getOrderedNote(index:Int)->Note!
     {
-        
         let at = sortedKeys[index]
-        return noteDict[at]!
+        return noteDict[at]
     }
     func deleteNoteAtStroke(at:Int)
     {
@@ -78,30 +83,29 @@ class NoteManager {
         return noteDict
     }
     //var selectedNoteIndex:Int = -1
-    /*
+    
     func getNoteIndexFromStrokeID(strokeID:Int)->Int
     {
-        
-        for var i=0; i<noteList.count-1; i++
+        for var i=0; i<sortedKeys.count-1; i++
         {
-
-            if strokeID >= noteList[i].value.strokeIndex && strokeID < noteList[i+1].value.strokeIndex
+            if strokeID >= sortedKeys[i] && strokeID < sortedKeys[i]
             {
-                return i;
+                return i
             }
+            
         }
         if strokeID == 0
         {
             return -1
         }
-        else if noteList.count == 0
+        else if sortedKeys.count == 0
         {return -1}
         else
-        {return noteList.count-1}
+        {return sortedKeys.count-1}
 
         
     }
-*/
+
     /*
     func selectNote(at:Int)->Note
     {

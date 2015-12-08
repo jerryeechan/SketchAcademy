@@ -38,6 +38,7 @@ class PaintReplayer:NSObject
         //--playingArtwork = artwork
         replayClip = clip
         self.strokes = clip.strokes
+        currentStrokeID = clip.strokes.count-1
     }
     func reload()
     {
@@ -344,6 +345,7 @@ class PaintReplayer:NSObject
     
     func drawAll()
     {
+        GLContextBuffer.instance.blank()
         let start = CFAbsoluteTimeGetCurrent()
         for var i=0 ;i < strokes.count ;i++
         {

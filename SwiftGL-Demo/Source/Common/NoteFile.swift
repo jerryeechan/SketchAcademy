@@ -20,13 +20,14 @@ class NoteFile: File {
     {
         data = NSMutableData()
         print(notes)
-        print(notes.count)
-        encodeStruct(notes.count)
+        print("save: Note count\(notes.count)")
+        encodeStruct(notes.count)       //1.note count
+        let notes = NoteManager.instance.getNoteArray()
         if(notes.count>0)
         {
-            
-            for (_,note) in notes
+            for note in notes
             {
+                //print("save: note:\(at) \(note.title)")
                 encodeString(note.title)
                 encodeString(note.description)
                 encodeStruct(note.value)
@@ -36,6 +37,9 @@ class NoteFile: File {
         let path = File.dirpath
         
         data.writeToFile(path+"/"+filename+".nt", atomically: true)
+    }
+    override func delete(filename: String) {
+        super.delete(filename+".nt")
     }
     func load(filename:String)->[Int:Note]
     {
@@ -48,10 +52,21 @@ class NoteFile: File {
             parseData = readFile(filename+".nt")
             var notes:[Int:Note] = [Int:Note]()
             
-            let length:Int = parseStruct()
+            let length:Int = parseStruct() //1.note count
             for var i = 0; i < length; ++i
             {
-                let note = Note(title: parseString(), description: parseString(),valueData: parseStruct())
+                let title = parseString()
+                print("title \(title)")
+                let description = parseString()
+                print("description \(description)")
+                
+                let valueData:NoteValueData = parseStruct()
+                //print("valueData")
+                
+                
+                //print(valueData.strokeIndex)
+                let note = Note(title: title, description: description,valueData: valueData)
+                
                 notes[note.value.strokeIndex] = note
             }
             

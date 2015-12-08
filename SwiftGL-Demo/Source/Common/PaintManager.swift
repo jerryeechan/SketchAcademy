@@ -9,6 +9,11 @@ enum PaintMode{
     case Artwork
     case Revision
 }
+enum ViewingClipType
+{
+    case Artwork
+    case Revision
+}
 class PaintManager {
     
     class var instance:PaintManager{
@@ -24,10 +29,11 @@ class PaintManager {
     let masterReplayer:PaintReplayer = PaintReplayer()
     let revisionReplayer:PaintReplayer = PaintReplayer()
     var artwork:PaintArtwork!
+    var currentRevisionClip:PaintClip!
     
-    
-    var paintMode:PaintMode = .Artwork
+    //var paintMode:PaintMode = .Artwork
     var currentReplayer:PaintReplayer
+    var viewingClipType:ViewingClipType = .Artwork
     
     init()
     {
@@ -101,27 +107,42 @@ class PaintManager {
     
     func playArtworkClip()
     {
+        masterReplayer.loadClip(artwork.masterClip)
+        currentReplayer = masterReplayer
+        
+        
         GLRenderTextureFrameBuffer.instance.revisionLayer.enabled = false
         GLRenderTextureFrameBuffer.instance.selectLayer(0)
         revisionReplayer.stopPlay()
         GLRenderTextureFrameBuffer.instance.setAllLayerAlpha(1)
-        masterReplayer.resume()
+        //masterReplayer.resume()
     }
-    func playRevisionClip(id:Int)
+    func playRevisionClip(clip:PaintClip)
     {
+        revisionReplayer.loadClip(clip)
+        currentReplayer = revisionReplayer
+        
         GLRenderTextureFrameBuffer.instance.revisionLayer.enabled = true
         GLRenderTextureFrameBuffer.instance.setAllLayerAlpha(0.5)
         GLRenderTextureFrameBuffer.instance.selectRevisionLayer()
         masterReplayer.pause()
         GLContextBuffer.instance.display()
-        //revisionReplayer.loadClip(artwork.revisionClips[id]!)
-        //revisionReplayer.restart()
         
+        
+        //revisionReplayer.restart()
+    }
+    func playRevisionClip(id:Int)
+    {
+        playRevisionClip(artwork.revisionClips[id]!)
+    }
+    func playCurrentRevisionClip()
+    {
+        playRevisionClip(currentRevisionClip)
     }
     
     func artworkDrawModeSetUp()
     {
-        self.paintMode = .Artwork
+        //self.paintMode = .Artwork
         paintRecorder.recordClip = artwork.masterClip
         
         
@@ -132,16 +153,18 @@ class PaintManager {
     }
     func revisionDrawModeSetUp()
     {
-        self.paintMode = .Revision
+        //self.paintMode = .Revision
         
         let id = getMasterStrokeID()
         if(artwork.revisionClips[id] == nil){
             let newClip = PaintClip(name: "revision",branchAt: id)
             paintRecorder.recordClip = newClip
+            currentRevisionClip = newClip
         }
         else
         {
             paintRecorder.recordClip = artwork.revisionClips[id]
+            currentRevisionClip = artwork.revisionClips[id]
         }
         //OpenGL setting
         GLRenderTextureFrameBuffer.instance.revisionLayer.enabled = true
@@ -149,11 +172,34 @@ class PaintManager {
         GLRenderTextureFrameBuffer.instance.selectRevisionLayer()
         GLContextBuffer.instance.display()
     }
+    
+    func revisionDrawModeSwitchToViewMode()
+    {
+        switch(viewingClipType)
+        {
+        case .Artwork:
+            playArtworkClip()
+        case .Revision:
+            playCurrentRevisionClip()
+        }
+        
+    }
+    func artworkDrawModeSwitchToViewMode()
+    {
+        playArtworkClip()
+        
+        
+        currentReplayer.drawAll()
+    }
+    /*
     func switchToViewMode()
     {
         currentReplayer.currentStrokeID = artwork.currentClip.strokes.count-1
         masterReplayer.loadClip(artwork.masterClip)
+        currentReplayer.drawAll()
     }
+    */
+    
     
     
     
@@ -191,7 +237,8 @@ class PaintManager {
     }
     func getCurrentStrokeID()->Int
     {
-        return masterReplayer.currentStrokeID
+        print("currentStrokeID: \(currentReplayer.currentStrokeID)")
+        return currentReplayer.currentStrokeID
     }
     
     func setProgressSlider(slider:UISlider)
