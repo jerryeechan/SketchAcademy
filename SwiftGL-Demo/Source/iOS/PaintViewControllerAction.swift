@@ -20,10 +20,30 @@ extension PaintViewController
     }
     
     @IBAction func enterDrawModeButtonTouched(sender: UIBarButtonItem) {
+        
+        switch(paintMode)
+        {
+        case .Artwork:
+            
+            appState = .drawArtwork
+        case .Revision:
+            
+            appState = .drawRevision
+        }
         enterDrawMode()
     }
     
     @IBAction func enterViewModeButtonTouched(sender: UIBarButtonItem) {
+        switch(appState)
+        {
+        case .drawArtwork:
+            appState = .viewArtwork
+        case .drawRevision:
+            appState = .viewRevision
+        default:
+            print("Error")
+            
+        }
         enterViewMode()
     }
     
@@ -37,8 +57,6 @@ extension PaintViewController
             noteEditTextView.text = ""
             noteEditTitleTextField.text = ""
             noteEditMode = .New
-            
-            
         case .Revision:
             enterDrawMode()
         }
@@ -59,7 +77,7 @@ extension PaintViewController
     }
     
     
-    @IBAction func showToolViewButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func showToolViewButtonTouched(sender: UIButton) {
         toolViewState.animateShow(0.2)
     }
     @IBAction func hideToolViewButtonTouched(sender: UIBarButtonItem) {

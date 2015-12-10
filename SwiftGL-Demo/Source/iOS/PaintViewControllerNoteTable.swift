@@ -19,7 +19,6 @@ extension PaintViewController:UITableViewDelegate
         {
             cell.reviseButton.setImage(UIImage(named: "fountain-pen-head-1.png"), forState: UIControlState.Normal)
         }
-        
         cell.titleLabel.text = note.title
         return cell
     }
@@ -56,14 +55,51 @@ extension PaintViewController:UITableViewDelegate
     }
     
     
+
+    
+    func clickOnRow(indexPath:NSIndexPath)
+    {
+        //什麼都還沒選
+        if(selectedPath == nil)
+        {
+            selectRow(indexPath)
+        }
+            //選到自己, deselect
+        else if(indexPath.row == selectedPath.row)
+        {
+            selectedPath = nil
+            noteListTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+            //選到別人, select and deselect
+        else
+        {
+            selectRow(indexPath)
+        }
+    }
+    
     func selectRow(indexPath:NSIndexPath)
     {
         let note = NoteManager.instance.getOrderedNote(indexPath.row)
         var paths:[NSIndexPath] = [indexPath]
         if(selectedPath != nil)
         {
+            
+            if selectedPath == indexPath
+            {
+                //select the same one, do nothing
+                if isCellSelectedSentbySlider
+                {
+                    print("sent by slider")
+                    isCellSelectedSentbySlider = false
+                }
+                return
+            }
+            
+            //add the selectedPaht to deselect it
             paths.append(selectedPath)
+            
         }
+        
         selectedPath = indexPath
         noteListTableView.reloadRowsAtIndexPaths(paths, withRowAnimation: UITableViewRowAnimation.Automatic)
         
@@ -84,22 +120,7 @@ extension PaintViewController:UITableViewDelegate
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //什麼都還沒選
-        if(selectedPath == nil)
-        {
-            selectRow(indexPath)
-        }
-        //選到自己, deselect
-        else if(indexPath.row == selectedPath.row)
-        {
-            selectedPath = nil
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-        }
-        //選到別人, select and deselect
-        else
-        {
-            selectRow(indexPath)
-        }
+        clickOnRow(indexPath)
                 
     }
     
@@ -123,7 +144,7 @@ extension PaintViewController:UITableViewDelegate
     }
     
     @IBAction func editNoteCellButtonTouched(sender: UIButton) {
-        let cell = sender.superview as! NoteDetailCell
+        let cell = sender.superview?.superview as! NoteDetailCell
         let note = NoteManager.instance.getNoteAtStroke(cell.strokeID)
         showNoteEditView()
         noteEditTitleTextField.text = note.title

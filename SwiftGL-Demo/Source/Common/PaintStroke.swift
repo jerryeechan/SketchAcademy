@@ -57,6 +57,16 @@ class PaintStroke
     {
         return points.last!
     }
+    func lastTwo()->[PaintPoint]
+    {
+        if(points.count>1)
+        {
+            let c = points.count
+            let array:[PaintPoint] = [points[c-2],points[c-1]]
+            return array
+        }
+        return []
+    }
     func lastThree()->[PaintPoint]
     {
         if(points.count>2)

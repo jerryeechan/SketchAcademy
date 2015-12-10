@@ -22,39 +22,66 @@ extension PaintViewController
 {
     func enterViewMode()
     {
-        mode = AppMode.browsing
         playBackViewState.animateShow(0.2)
         toolViewState.animateHide(0.2)
         toolViewState.isLocked = true
         noteListViewState.animateShow(0.2)
         print("----enter View Mode----")
+        
+        viewModeToolBarSetUp()
+        switch(appState)
+        {
+        case .viewArtwork:
+            paintManager.playArtworkClip()
+        case .viewRevision:
+            paintManager.playCurrentRevisionClip()
+        default:
+            break
+        }
+        
+        /*
         switch(paintMode)
         {
         case .Artwork:
-            viewModeToolBarSetUp()
-            paintManager.artworkDrawModeSwitchToViewMode()
+            appState = .viewArtwork
+            
+            
+            //paintManager.artworkDrawModeSwitchToViewMode()
         case .Revision:
+            appState = .viewArtwork
             viewModeToolBarSetUp()
-            paintManager.revisionDrawModeSwitchToViewMode()
-        }
+            
+            //paintManager.revisionDrawModeSwitchToViewMode()
+        }*/
     }
+    
+    func viewArtwork()
+    {
+        
+    }
+    func viewRevision()
+    {
+        
+    }
+    
     func enterDrawMode()
     {
-        mode = AppMode.drawing
         playBackViewState.animateHide(0.2)
         noteListViewState.animateHide(0.2)
         toolViewState.isLocked = false
-        switch(paintMode)
+        switch(appState)
         {
-        case .Artwork:
+        case .drawArtwork:
             artworkDrawModeToolBarSetUp()
             paintManager.artworkDrawModeSetUp()
-            
-        case .Revision:
+        case .drawRevision:
             revisionDrawModeToolBarSetUp()
             paintManager.revisionDrawModeSetUp()
-            
+        default:
+            print("Error")
         }
+
+        
     }
     func removeToolBarButton(button:UIBarButtonItem)->Int!
     {

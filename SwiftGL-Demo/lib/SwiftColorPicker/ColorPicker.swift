@@ -25,7 +25,7 @@ class ColorPicker: UIView {
     var percentSaturation: CGFloat = 1.0
     var percentBrightness: CGFloat = 1.0
     
-    var smallestDim: CGFloat = 300.0
+    var smallestDim: CGFloat = 200.0
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -35,9 +35,9 @@ class ColorPicker: UIView {
         // Init the view with a black border
         // Set height and width based on what the dimensions of the view are
         if (self.frame.size.height > self.frame.size.width) {
-            smallestDim = self.frame.size.width
+//            smallestDim = self.frame.size.width
         } else {
-            smallestDim = self.frame.size.height
+//            smallestDim = self.frame.size.height
         }
         
         // Init with default color of red
@@ -67,14 +67,18 @@ class ColorPicker: UIView {
             view.removeFromSuperview()
         }
         
+        /*
         circleHueColorView = AngleGradientBorderView(frame: CGRect(x: 0, y: 0, width: smallestDim, height: smallestDim))
         circleHueColorView.backgroundColor = UIColor.clearColor()
         circleHueColorView.delegate = self
         self.addSubview(circleHueColorView)
-        
+        */
         
         // Init new ColorGradientView subview
-        colorView = ColorGradientView(frame: CGRect(x: smallestDim/4, y: smallestDim/4, width: smallestDim/2, height: smallestDim/2), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
+//        colorView = ColorGradientView(frame: CGRect(x: smallestDim/4, y: smallestDim/4, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
+
+        colorView = ColorGradientView(frame: CGRect(x: 40, y: 0, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
+        
         // Add colorGradientView as a subview of this view
         
         self.addSubview(colorView)
@@ -91,9 +95,9 @@ class ColorPicker: UIView {
         //self.addSubview(crossHairView)
         
         // Init new MainColorView subview
-        //mainColorView = MainColorView(frame: CGRect(x: smallestDim - 30, y: 10, width: 40, height: smallestDim - 20), color: color)
-        //mainColorView.delegate = self
-        //self.addSubview(mainColorView)
+        mainColorView = MainColorView(frame: CGRect(x: 0, y: 0, width: 30, height: smallestDim        + 100.0), color: color)
+        mainColorView.delegate = self
+        self.addSubview(mainColorView)
         
         
         
@@ -116,6 +120,28 @@ class ColorPicker: UIView {
         self.color = color
         self.hue = hue
         notifyViews(UIColor(hue: hue, saturation: percentSaturation, brightness: percentBrightness, alpha: 1.0))
+    }
+    
+    func getNearByColor(color:UIColor)->[UIColor]
+    {
+        var hue:CGFloat = 0
+        var sat:CGFloat = 0
+        var bri:CGFloat = 0
+        var alpha:CGFloat = 0
+        
+        color.getHue(&hue, saturation: &sat, brightness: &bri, alpha: &alpha)
+
+        var nearbyColors:[UIColor] = []
+        for var i = -0.1 ; i<=0.1; i += 0.1
+        {
+            for var j = -0.1 ; j <= 0.1; j += 0.1
+            {
+                let new_bri = bri + CGFloat(i)
+                let new_sat = sat + CGFloat(j)
+                nearbyColors.append(UIColor(hue: hue, saturation: new_bri, brightness: new_sat, alpha: 1))
+            }
+        }
+        return nearbyColors
     }
     
     func colorSaturationAndBrightnessSelected(point: CGPoint) {

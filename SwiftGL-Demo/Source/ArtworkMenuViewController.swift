@@ -184,10 +184,18 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
     }
     
     
+    @IBOutlet weak var paintButton: UIButton!
     
+    @IBOutlet weak var reviseButton: UIButton!
     
+    @IBOutlet weak var deleteButton: UIButton!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        paintButton.setImage(UIImage(named: "Brush-50"), forState: UIControlState.Normal)
+        paintButton.tintColor = UIColor.redColor()
+        
         //self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     

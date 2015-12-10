@@ -22,6 +22,12 @@ extension PaintViewController
         noteListViewState.animateHide(0)
         playBackViewState.animateHide(0)
         noteEditViewState.animateHide(0)
+        
+        drawGreyBorder(noteListTableView)
+        drawGreyBorder(toolView)
+        
+        circleButton(showToolButton)
+        
     }
 
     //Apearance
@@ -33,5 +39,25 @@ extension PaintViewController
         noteEditTextView.layer.cornerRadius = 5
         noteEditTextView.clipsToBounds = true
         
+    }
+    
+    func drawGreyBorder(view:UIView)
+    {
+        view.layer.borderColor = UIColor.lightGrayColor().CGColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 5
+        
+    }
+    
+    func circleButton(button:UIButton)
+    {
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.backgroundColor = UIColor.whiteColor()
+        button.layer.borderColor = UIColor.lightGrayColor().CGColor
+        button.layer.borderWidth = 1
+        //var tintedImage = button.imageForState(UIControlState.Normal)
+        
+        //tintedImage = button. [self tintedImageWithColor:color image:tintedImage];
+        //[self setImage:tintedImage forState:state];
     }
 }

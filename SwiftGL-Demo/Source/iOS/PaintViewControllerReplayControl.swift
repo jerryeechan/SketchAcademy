@@ -35,8 +35,14 @@ extension PaintViewController
             {
                 isCellSelectedSentbySlider = true
                 
-                noteListTableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
-                tableView(noteListTableView, didSelectRowAtIndexPath: NSIndexPath(forRow: index, inSection: 0))
+                
+                
+                //let cell = noteListTableView.cellForRowAtIndexPath(selectedPath)
+                
+                
+                //noteListTableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
+                selectRow(NSIndexPath(forRow: index, inSection: 0))
+                //tableView(noteListTableView, didSelectRowAtIndexPath: NSIndexPath(forRow: index, inSection: 0))
             }
             else
             {

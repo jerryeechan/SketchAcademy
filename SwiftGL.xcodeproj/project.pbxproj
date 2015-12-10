@@ -18,7 +18,6 @@
 		C41805E41B9F2F4000B69EF5 /* NoteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */; };
 		C4235B761C0F406F00C32531 /* ArtworkMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4235B741C0F3C4900C32531 /* ArtworkMenuViewController.swift */; };
 		C42468161B21E0520053CB5B /* AlertViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42468151B21E0520053CB5B /* AlertViewManager.swift */; };
-		C431240A1BBCD1B400E876F4 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C43124091BBCD1B400E876F4 /* opencv2.framework */; };
 		C433EEB51B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */; };
 		C433EEB61B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */; };
 		C433EEB81B5BC13000D5175F /* SliceRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB71B5BC13000D5175F /* SliceRect.swift */; };
@@ -37,8 +36,6 @@
 		C44BB09A1B48E504001B158A /* point.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C44BB0901B48E0EF001B158A /* point.vsh */; };
 		C44BB09D1B48E50E001B158A /* RenderTexture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C44BB0931B48E17D001B158A /* RenderTexture.fsh */; };
 		C44BB09E1B48E50E001B158A /* RenderTexture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C44BB0941B48E17D001B158A /* RenderTexture.vsh */; };
-		C44BB3281BBA82210027D9F1 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C44BB3211BBA80380027D9F1 /* OpenCVWrapper.mm */; };
-		C44BB32B1BBA82A20027D9F1 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = C44BB32A1BBA82A20027D9F1 /* UIImage+OpenCV.mm */; };
 		C44CF0A01B85B86100D6C43E /* ColorGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CF0941B85B84D00D6C43E /* ColorGradientView.swift */; };
 		C44CF0A11B85B86100D6C43E /* ColorLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CF0951B85B84D00D6C43E /* ColorLayer.swift */; };
 		C44CF0A21B85B86100D6C43E /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CF0961B85B84D00D6C43E /* ColorPicker.swift */; };
@@ -435,7 +432,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C431240A1BBCD1B400E876F4 /* opencv2.framework in Frameworks */,
 				D2F664451ADD7633003C1925 /* SwiftGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1399,9 +1395,7 @@
 				C4EB7A7F1B86450F00A33651 /* Dialogue.swift in Sources */,
 				C458F5A31B54A6D500FC1235 /* DotGameScene.swift in Sources */,
 				C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */,
-				C44BB3281BBA82210027D9F1 /* OpenCVWrapper.mm in Sources */,
 				C49E21671B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift in Sources */,
-				C44BB32B1BBA82A20027D9F1 /* UIImage+OpenCV.mm in Sources */,
 				C44747781B83065E0093F019 /* CanvasCropView.swift in Sources */,
 				C491EC701C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */,
 				C458F5DF1B54C93100FC1235 /* DotSet.swift in Sources */,

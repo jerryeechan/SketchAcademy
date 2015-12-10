@@ -40,6 +40,11 @@ extension PaintViewController
         PaintToolManager.instance.changeSize(value);
     }
     
+    func colorButtonClicked(sender:UIButton)
+    {
+        colorPicker.setTheColor(sender.backgroundColor!)
+    }
+    
     
     /////////////////////////////////////////////////////
     //

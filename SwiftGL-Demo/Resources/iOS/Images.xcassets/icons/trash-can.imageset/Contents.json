@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "fountain-pen-head-2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "fountain-pen-head-1.png",
+      "filename" : "trash-can.png",
       "scale" : "2x"
     },
     {

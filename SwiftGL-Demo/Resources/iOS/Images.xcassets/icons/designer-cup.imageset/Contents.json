@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "play-0.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "designer-cup.png",
       "scale" : "2x"
     },
     {

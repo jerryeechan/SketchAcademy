@@ -45,6 +45,76 @@ class Painter{
     /**
         Render point array
     */
+    static func renderStaticLine(points:[PaintPoint])
+    {
+        
+        var vertexBuffer:[PaintPoint] = []
+        let kBrushPixelStep:Float = 10
+        var left:Float = points.last!.position.x
+        var right:Float = points.last!.position.x
+        var top:Float = points.last!.position.y
+        var bottom:Float = points.last!.position.y
+        
+        //srand(0)
+        for var i = 0 ; i < points.count-1 ; i++
+        {
+            if points[i].position.x < left
+            {
+                left = points[i].position.x
+            }
+            else if points[i].position.x > right
+            {
+                right = points[i].position.x
+            }
+            
+            if points[i].position.y < top
+            {
+                top = points[i].position.y
+            }
+            else if points[i].position.y > bottom
+            {
+                bottom = points[i].position.y
+            }
+            
+            let ep = points[i]
+            let sp = points[i+1]
+            
+            var count:Int;
+            
+            // Convert locations from Points to Pixels
+            /* CGFloat scale = self.contentScaleFactor;
+            start.x *= scale;
+            start.y *= scale;
+            end.x *= scale;
+            end.y *= scale;*/
+            
+            //var sp = start*scale
+            //var ep = end*scale
+            
+            
+            let xdis2 = powf((ep.position.x - sp.position.x),2)
+            
+            let ydis2 = powf((ep.position.y - sp.position.y),2)
+            
+            // Add points to the buffer so there are drawing points every X pixels
+            let pnum = ceil(sqrt(xdis2 + ydis2) / kBrushPixelStep)
+            count = max(Int(pnum),1);
+            
+            for var j = 0; j < count; ++j {
+                //let randAngle = Float(arc4random()) / Float(UINT32_MAX) * Pi/2
+                let randAngle = Float(rand() % 360) / 360 * Pi/2
+                let d = Float(j)/Float(count)
+                let px = sp.position.x+(ep.position.x-sp.position.x)*d
+                let py = sp.position.y+(ep.position.y-sp.position.y)*d
+                let v = PaintPoint(position: Vec4(px,py),color: sp.color,size: sp.size, rotation: randAngle)
+                
+                vertexBuffer.append(v)
+            }
+        }
+        
+        GLContextBuffer.instance.drawBrushVertex(vertexBuffer,layer: layer)
+
+    }
     static func renderLine(vInfo:ToolValueInfo,prev2:PaintPoint,prev1:PaintPoint,cur:PaintPoint)
     {
         GLShaderBinder.instance.bindBrushInfo(vInfo)

@@ -71,9 +71,11 @@ class PaintRecorder {
                     stroke.addPoint(newPoint, time: recordClip.currentTime + time - strokeStartTime,vel: velocity)
                     
                     
-                    var points = stroke.lastThree()
+                    //var points = stroke.lastThree()
+                    let points = stroke.lastTwo()
                     if(!points.isEmpty){
-                        Painter.renderLine(stroke.valueInfo, prev2: points[0],prev1: points[1],cur: points[2])
+                        Painter.renderStaticLine(points)
+                      //  Painter.renderLine(stroke.valueInfo, prev2: points[0],prev1: points[1],cur: points[2])
                         GLContextBuffer.instance.display()
                     }
                 }

@@ -33,7 +33,7 @@ class MainColorView: UIView {
         ]
         
         colorLayer.locations = [0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95]
-        colorLayer.frame = CGRect(x: 10, y: 10, width: 10, height: self.frame.size.height - 20)
+        colorLayer.frame = frame
         // Insert the colorLayer into this views layer as a sublayer
         self.layer.insertSublayer(colorLayer, below: layer)
         

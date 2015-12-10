@@ -14,6 +14,12 @@ func getViewController(identifier:String)->UIViewController
     
     return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(identifier)
 }
+
+
+
+
+
+
 class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate
 {
     @IBOutlet weak var colorPicker: ColorPicker!
@@ -30,10 +36,20 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         super.viewWillDisappear(animated)
         
     }
+    enum AppState{
+        case viewArtwork
+        case viewRevision
+        case drawArtwork
+        case drawRevision
+    }
     var fileName:String!
     var paintMode = PaintMode.Artwork
     var paintManager = PaintManager()
+    var appState:AppState = .drawArtwork
     
+    @IBAction func colorButtonTouched(sender: UIButton) {
+
+    }
     override func viewDidLoad() {
         toolBarItems = mainToolBar.items
         //mainView.addSubview(noteEditView)
@@ -50,7 +66,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         //imageView.contentMode = UIViewContentMode.ScaleAspectFit
         //imageView.userInteractionEnabled = true
         
-        colorPicker.setTheColor(UIColor(hue: 0.5, saturation: 0.5, brightness: 0.5, alpha: 1.0))
+        colorPicker.setTheColor(UIColor(hue: 0, saturation: 0.5, brightness: 0.5, alpha: 1.0))
         colorPicker.onColorChange = {(color, finished) in
             if finished {
                 //self.view.backgroundColor = UIColor.whiteColor() // reset background color to white
@@ -105,9 +121,11 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         {
         case .Artwork:
             print("------Artwork Draw Mode-------")
+            appState = .drawArtwork
             enterDrawMode()
         case .Revision:
             print("------Revision View Mode-------")
+            appState = .viewArtwork
             enterViewMode()
         }
     }
@@ -205,15 +223,6 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     
     
-    
-    
-    
-    enum AppMode{
-        case drawing
-        case browsing
-    }
-    
-    var mode:AppMode = .drawing
     
     
     
@@ -366,6 +375,10 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         enterDrawModeButton = nil
         print("deinit")
     }
+    
+    
+    /////// paint tool
+    @IBOutlet weak var showToolButton: UIButton!
     
     
 }

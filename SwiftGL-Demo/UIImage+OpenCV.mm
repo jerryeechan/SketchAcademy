@@ -7,7 +7,7 @@
 //
 
 #import "UIImage+OpenCV.h"
-
+/*
 @implementation UIImage (OpenCV)
 -(cv::Mat)CVMat
 {
@@ -106,3 +106,4 @@
     return self;
 }
 @end
+ */

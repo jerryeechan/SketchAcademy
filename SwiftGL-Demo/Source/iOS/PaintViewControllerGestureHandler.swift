@@ -20,12 +20,12 @@ extension PaintViewController
     }
     @IBAction func uiTapGestureEvent(sender: UITapGestureRecognizer) {
         
-        switch(mode)
+        switch(appState)
         {
-        case AppMode.drawing:
+        case .drawArtwork, .drawRevision:
             print("controller double tap")
             resetAnchor()
-        case AppMode.browsing:
+        case .viewArtwork, .viewRevision:
             //view.addSubview(noteEditView)
             if isCanvasManipulationEnabled
             {

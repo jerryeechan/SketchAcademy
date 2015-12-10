@@ -88,7 +88,7 @@ class NoteManager {
     {
         for var i=0; i<sortedKeys.count-1; i++
         {
-            if strokeID >= sortedKeys[i] && strokeID < sortedKeys[i]
+            if strokeID >= sortedKeys[i] && strokeID < sortedKeys[i+1]
             {
                 return i
             }
