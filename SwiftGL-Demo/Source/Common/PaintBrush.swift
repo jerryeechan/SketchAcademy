@@ -64,6 +64,11 @@ class PaintBrush:NSObject{
         vInfo = ToolValueInfo(color: color, size: size)
         self.toolType = type
     }
+    func changeTexture(name:String)
+    {
+        texture = BrushTextureLoader.instance.getTexture(name)
+        self.name = name
+    }
     func changeColor(color:Color)
     {
         

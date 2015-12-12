@@ -17,8 +17,12 @@ class NoteManager {
     }
     private var noteDict:[Int:Note] = [Int:Note]()
     //private var noteList:[Note] = []
-    private var id:Int = 0
     var editingNoteIndex:Int = -1
+    func empty()
+    {
+        noteDict = [Int:Note]()
+        editingNoteIndex = -1
+    }
     func loadNotes(filename:String)
     {
         noteDict = FileManager.instance.loadNotes(filename)
@@ -112,9 +116,9 @@ class NoteManager {
         //selectedNoteIndex = index
         return getNote(at)
     }*/
-    func getNoteAtStroke(at:Int)->Note
+    func getNoteAtStroke(at:Int)->Note!
     {
-        return noteDict[at]!
+        return noteDict[at]
     }
     func noteCount()->Int
     {

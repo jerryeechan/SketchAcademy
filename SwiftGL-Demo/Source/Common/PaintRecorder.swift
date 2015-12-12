@@ -45,8 +45,9 @@ class PaintRecorder {
     
     func startPoint(location:Vec2,velocity:Vec2,time:CFAbsoluteTime)
     {
-        stroke = PaintStroke(tool: PaintToolManager.instance.currentTool)
         
+        stroke = PaintStroke(tool: PaintToolManager.instance.currentTool)
+        PaintToolManager.instance.useCurrentTool()
         stroke.addPoint(genPaintPoint(location, velocity: velocity), time: recordClip.currentTime,vel: velocity)
         
         strokeStartTime = time
@@ -56,6 +57,7 @@ class PaintRecorder {
     {
         if stroke != nil
         {
+            PaintToolManager.instance.useCurrentTool()
             let lastPoint = stroke.last()
             
             let newPoint = genPaintPoint(location, velocity:velocity)
@@ -107,6 +109,10 @@ func genPaintPoint(location:Vec2,velocity:Vec2)->PaintPoint
     size = clamp(size, min: 2,max: 5);
     size = 40/size
 
-    let randAngle = Float(arc4random() / UINT32_MAX) * Pi
+    var randAngle:Float = 0
+    if PaintToolManager.instance.currentTool.name != "markerTexture"
+    {
+        randAngle = Float(rand() % 360) / 360 * Pi/2
+    }
     return PaintPoint(position:Vec4(location.x,location.y),color: Color(1,1,1,1).vec,size: 5, rotation: randAngle)
 }

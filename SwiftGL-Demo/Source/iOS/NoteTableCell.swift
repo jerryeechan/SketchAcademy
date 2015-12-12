@@ -11,8 +11,7 @@ import UIKit
 class NoteTableCell:UITableViewCell{
     @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var reviseButton: UIButton!
-    
+    @IBOutlet weak var iconButton: UIButton!
     
     override func awakeFromNib() {
         

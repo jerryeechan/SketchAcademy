@@ -16,6 +16,8 @@ class NoteDetailCell:UITableViewCell{
     
     @IBOutlet weak var deleteButton: UIButton!
     
+    @IBOutlet weak var iconButton: UIButton!
+    
     var strokeID:Int!
     override func awakeFromNib() {
         

@@ -29,6 +29,7 @@ extension PaintViewController
         print("----enter View Mode----")
         
         viewModeToolBarSetUp()
+        
         switch(appState)
         {
         case .viewArtwork:
@@ -38,6 +39,7 @@ extension PaintViewController
         default:
             break
         }
+        paintManager.currentReplayer.setProgressSliderAtCurrentStroke()
         
         /*
         switch(paintMode)
@@ -123,6 +125,7 @@ extension PaintViewController
         
         
         mainToolBar.setItems(toolBarItems, animated: true)
+        showToolButton.hidden = true
 
     }
     func artworkDrawModeToolBarSetUp()
@@ -132,6 +135,7 @@ extension PaintViewController
         removeToolBarButton(enterDrawModeButton)
         addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
         mainToolBar.setItems(toolBarItems, animated: true)
+        showToolButton.hidden = false
     }
     
     func revisionDrawModeToolBarSetUp()
@@ -142,6 +146,7 @@ extension PaintViewController
         
         //toolBarItems.insert(<#T##newElement: Element##Element#>, atIndex: index)
         mainToolBar.setItems(toolBarItems, animated: true)
+        showToolButton.hidden = false
     }
     
     

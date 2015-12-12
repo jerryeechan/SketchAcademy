@@ -10,7 +10,7 @@ extension PaintViewController
 {
     @IBAction func paintToolSelect(sender: UISegmentedControl) {
         
-        PaintToolManager.instance.changeTool(sender.selectedSegmentIndex)
+        //PaintToolManager.instance.changeTool(sender.selectedSegmentIndex)
         
         // brushScaleSlider.value = tool.vInfo.size
         
@@ -40,9 +40,23 @@ extension PaintViewController
         PaintToolManager.instance.changeSize(value);
     }
     
-    func colorButtonClicked(sender:UIButton)
+    @IBAction func nearByColorButtonClicked(sender:UIButton)
     {
         colorPicker.setTheColor(sender.backgroundColor!)
+    }
+    
+    @IBAction func paintToolButtonTouched(sender: UIButton) {
+        
+        switch(sender.tag)
+        {
+        case 0:
+            PaintToolManager.instance.changeTool("pen")
+        case 1:
+            PaintToolManager.instance.changeTool("eraser")
+        default:
+            PaintToolManager.instance.changeTool("pen")
+        }
+        
     }
     
     

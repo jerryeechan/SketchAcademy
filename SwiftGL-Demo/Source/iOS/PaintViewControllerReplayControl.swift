@@ -9,12 +9,24 @@
 extension PaintViewController
 {
     @IBAction func PlayButtonTouched(sender: UIBarButtonItem) {
+        
+        
         paintManager.pauseToggle()
+        if paintManager.currentReplayer.isPlaying == true
+        {
+            playPauseButton.image = pauseImage
+        }
+        else
+        {
+            playPauseButton.image = playImage
+        }
         
     }
     
     @IBAction func fastForwardButtonTouched(sender: UIBarButtonItem) {
         paintManager.doublePlayBackSpeed()
+        
+        doublePlayBackButton.title = "\(Int(paintManager.currentReplayer.timeScale))x"
     }
     
     
@@ -26,35 +38,39 @@ extension PaintViewController
         
         if paintManager.drawProgress(sender.value) == true //success draw
         {
+            
             currentProgressValue = sender.value
             
-            let index = NoteManager.instance.getNoteIndexFromStrokeID(paintManager.getCurrentStrokeID())
-            
-            print("note index\(index)");
-            if index != -1
+            if appState == .viewArtwork
             {
-                isCellSelectedSentbySlider = true
+                let index = NoteManager.instance.getNoteIndexFromStrokeID(paintManager.getCurrentStrokeID())
                 
-                
-                
-                //let cell = noteListTableView.cellForRowAtIndexPath(selectedPath)
-                
-                
-                //noteListTableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
-                selectRow(NSIndexPath(forRow: index, inSection: 0))
-                //tableView(noteListTableView, didSelectRowAtIndexPath: NSIndexPath(forRow: index, inSection: 0))
-            }
-            else
-            {
-                //print("wtf")
-                //noteListTableView.deselectRowAtIndexPath(NSIndexPath(forRow: NoteManager.instance.selectedNoteIndex, inSection: 0), animated: true)
-                if selectedPath != nil
+                print("note index\(index)");
+                if index != -1
                 {
-                    let indexPath = selectedPath
-                    selectedPath = nil
-                    noteListTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                    isCellSelectedSentbySlider = true
+                    
+                    
+                    
+                    //let cell = noteListTableView.cellForRowAtIndexPath(selectedPath)
+                    
+                    
+                    //noteListTableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
+                    selectRow(NSIndexPath(forRow: index, inSection: 0))
+                    //tableView(noteListTableView, didSelectRowAtIndexPath: NSIndexPath(forRow: index, inSection: 0))
                 }
-                
+                else
+                {
+                    //print("wtf")
+                    //noteListTableView.deselectRowAtIndexPath(NSIndexPath(forRow: NoteManager.instance.selectedNoteIndex, inSection: 0), animated: true)
+                    if selectedPath != nil
+                    {
+                        let indexPath = selectedPath
+                        selectedPath = nil
+                        noteListTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                    }
+                    
+                }
             }
         }
         

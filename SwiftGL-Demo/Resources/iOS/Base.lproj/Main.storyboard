@@ -235,7 +235,7 @@
                                         </connections>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8j-bc-JHr">
-                                        <rect key="frame" x="20" y="394" width="48" height="48"/>
+                                        <rect key="frame" x="20" y="382" width="48" height="48"/>
                                         <state key="normal" image="designer-cup"/>
                                         <connections>
                                             <action selector="showToolViewButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="TTo-Ss-sdH"/>
@@ -251,6 +251,175 @@
                                     <constraint firstAttribute="trailing" secondItem="UCv-DA-xiU" secondAttribute="trailing" id="mbO-ce-LAL"/>
                                 </constraints>
                             </scrollView>
+                            <view contentMode="scaleToFill" restorationIdentifier="toolBarView" translatesAutoresizingMaskIntoConstraints="NO" id="AqB-Ps-H0o" userLabel="Tool View">
+                                <rect key="frame" x="0.0" y="65" width="240" height="640"/>
+                                <subviews>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CcG-s2-g90">
+                                        <rect key="frame" x="-240" y="0.0" width="480" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="480" id="5f0-1b-ADB"/>
+                                        </constraints>
+                                        <items>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="DIN-0T-m7u"/>
+                                            <barButtonItem systemItem="stop" id="J2c-aU-CTh">
+                                                <connections>
+                                                    <action selector="hideToolViewButtonTouched:" destination="CvM-l6-OQ6" id="vQH-KP-9Vf"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                        <color key="tintColor" red="0.1236101077614533" green="0.10551140645078663" blue="0.31678109217171713" alpha="1" colorSpace="calibratedRGB"/>
+                                    </toolbar>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iV9-oV-7Ad" userLabel="NearColorView">
+                                        <rect key="frame" x="40" y="295" width="200" height="121"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h2E-q5-WLx">
+                                                <rect key="frame" x="0.0" y="78" width="62" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="titleShadowOffset" width="2" height="2"/>
+                                                <connections>
+                                                    <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="xZk-WG-efu"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bv-jj-QNg">
+                                                <rect key="frame" x="69" y="78" width="62" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="titleShadowOffset" width="2" height="2"/>
+                                                <connections>
+                                                    <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="yqf-lX-pfF"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X18-zB-b5a">
+                                                <rect key="frame" x="138" y="78" width="62" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="titleShadowOffset" width="2" height="2"/>
+                                                <connections>
+                                                    <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="5mX-MY-03h"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOm-sy-WEi">
+                                                <rect key="frame" x="0.0" y="0.0" width="62" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="titleShadowOffset" width="2" height="2"/>
+                                                <connections>
+                                                    <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="XNA-tf-ztB"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSM-vs-K00">
+                                                <rect key="frame" x="69" y="0.0" width="62" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="titleShadowOffset" width="2" height="2"/>
+                                                <connections>
+                                                    <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="11z-qy-Kai"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luR-ND-yuq">
+                                                <rect key="frame" x="138" y="0.0" width="62" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="titleShadowOffset" width="2" height="2"/>
+                                                <connections>
+                                                    <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="oKb-1E-aEy"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2J-gR-NUh">
+                                                <rect key="frame" x="69" y="39" width="62" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="titleShadowOffset" width="2" height="2"/>
+                                                <connections>
+                                                    <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="plV-gG-j2x"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVo-KN-iex">
+                                                <rect key="frame" x="138" y="39" width="62" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="titleShadowOffset" width="2" height="2"/>
+                                                <connections>
+                                                    <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="b9N-C1-0mY"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p8G-BQ-pfV">
+                                                <rect key="frame" x="0.0" y="39" width="62" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="titleShadowOffset" width="2" height="2"/>
+                                                <connections>
+                                                    <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="hVk-Xk-4Zz"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0hW-m0-vRJ">
+                                        <rect key="frame" x="-8" y="412" width="240" height="227"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WuA-VC-oMS">
+                                                <rect key="frame" x="96" y="101" width="26" height="148"/>
+                                                <state key="normal" title="Button" image="crayon"/>
+                                                <connections>
+                                                    <action selector="paintToolButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="Imq-g1-hTW"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nvz-Zc-1MR">
+                                                <rect key="frame" x="23" y="96" width="65" height="158"/>
+                                                <state key="normal" title="Button" image="marker"/>
+                                                <connections>
+                                                    <action selector="paintToolButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="GGe-Uc-Z11"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6J-pY-92t">
+                                                <rect key="frame" x="175" y="119" width="51" height="146"/>
+                                                <state key="normal" title="Button" image="eraser"/>
+                                                <connections>
+                                                    <action selector="paintToolButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="tkl-f1-Ryb"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wfk-wO-yV3">
+                                                <rect key="frame" x="135" y="101" width="29" height="169"/>
+                                                <state key="normal" image="pencilTool"/>
+                                                <connections>
+                                                    <action selector="paintToolButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="SlO-wL-yro"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8FZ-T3-cKN">
+                                                <rect key="frame" x="184" y="47" width="42" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="5" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="KR1-Le-Xfu">
+                                                <rect key="frame" x="21" y="43" width="157" height="31"/>
+                                                <connections>
+                                                    <action selector="brushScaleSliderChanged:" destination="CvM-l6-OQ6" eventType="valueChanged" id="ZRG-BR-oz7"/>
+                                                </connections>
+                                            </slider>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2CA-XT-VkX" customClass="ColorPicker" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="88" width="240" height="360"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.96323388612546079" green="0.93844112330559781" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="0hW-m0-vRJ" firstAttribute="top" secondItem="2CA-XT-VkX" secondAttribute="bottom" constant="-36" id="0c4-VF-1DE"/>
+                                    <constraint firstAttribute="bottom" secondItem="2CA-XT-VkX" secondAttribute="bottom" constant="192" id="7BX-fx-seN"/>
+                                    <constraint firstItem="2CA-XT-VkX" firstAttribute="top" secondItem="AqB-Ps-H0o" secondAttribute="top" constant="88" id="RU0-L8-8un"/>
+                                    <constraint firstAttribute="height" constant="640" id="SZz-Av-UJx"/>
+                                    <constraint firstItem="2CA-XT-VkX" firstAttribute="trailing" secondItem="iV9-oV-7Ad" secondAttribute="trailing" id="TO0-n5-zrw"/>
+                                    <constraint firstItem="CcG-s2-g90" firstAttribute="trailing" secondItem="iV9-oV-7Ad" secondAttribute="trailing" id="TaJ-71-W3R"/>
+                                    <constraint firstItem="0hW-m0-vRJ" firstAttribute="leading" secondItem="AqB-Ps-H0o" secondAttribute="leading" constant="-8" id="VoW-6q-vPT"/>
+                                    <constraint firstItem="2CA-XT-VkX" firstAttribute="leading" secondItem="AqB-Ps-H0o" secondAttribute="leading" id="WC0-Qk-CwN"/>
+                                    <constraint firstItem="iV9-oV-7Ad" firstAttribute="top" secondItem="AqB-Ps-H0o" secondAttribute="top" constant="295" id="ceR-mw-eLs"/>
+                                    <constraint firstItem="2CA-XT-VkX" firstAttribute="top" secondItem="CcG-s2-g90" secondAttribute="bottom" constant="44" id="eoq-uZ-8vO"/>
+                                    <constraint firstItem="iV9-oV-7Ad" firstAttribute="leading" secondItem="AqB-Ps-H0o" secondAttribute="leading" constant="40" id="hgo-f4-Gtg"/>
+                                    <constraint firstAttribute="width" constant="240" id="hqz-XM-rbn"/>
+                                    <constraint firstItem="0hW-m0-vRJ" firstAttribute="top" secondItem="iV9-oV-7Ad" secondAttribute="bottom" constant="-4" id="kJa-rX-T0V"/>
+                                    <constraint firstAttribute="bottom" secondItem="0hW-m0-vRJ" secondAttribute="bottom" constant="1" id="lt7-jh-xgr"/>
+                                    <constraint firstItem="0hW-m0-vRJ" firstAttribute="trailing" secondItem="AqB-Ps-H0o" secondAttribute="trailingMargin" id="pn1-Sc-iCd"/>
+                                    <constraint firstAttribute="trailing" secondItem="2CA-XT-VkX" secondAttribute="trailing" id="rN7-wg-eWf"/>
+                                    <constraint firstItem="CcG-s2-g90" firstAttribute="trailing" secondItem="2CA-XT-VkX" secondAttribute="trailing" id="sqU-Sw-yim"/>
+                                </constraints>
+                            </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Olf-xl-ZcA">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
@@ -276,7 +445,7 @@
                                             <action selector="enterDrawModeButtonTouched:" destination="CvM-l6-OQ6" id="x35-sE-lOW"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem image="Film-50" id="5Wx-8p-Syv">
+                                    <barButtonItem image="view" id="5Wx-8p-Syv">
                                         <connections>
                                             <action selector="enterViewModeButtonTouched:" destination="CvM-l6-OQ6" id="yvU-yw-Zxt"/>
                                         </connections>
@@ -285,206 +454,56 @@
                                 <color key="tintColor" red="0.95693260732323226" green="0.58429610144544308" blue="0.15809299782474204" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
-                            <view contentMode="scaleToFill" restorationIdentifier="toolBarView" translatesAutoresizingMaskIntoConstraints="NO" id="AqB-Ps-H0o" userLabel="Tool View">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="812"/>
-                                <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nnu-Jq-q92">
-                                        <rect key="frame" x="59" y="605" width="121" height="29"/>
-                                        <segments>
-                                            <segment title="0.5"/>
-                                            <segment title="1"/>
-                                            <segment title="2"/>
-                                        </segments>
-                                        <connections>
-                                            <action selector="brushScaleSegmentControlValueChanged:" destination="CvM-l6-OQ6" eventType="valueChanged" id="N7R-bj-juu"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iV9-oV-7Ad">
-                                        <rect key="frame" x="60" y="250" width="185" height="121"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOm-sy-WEi">
-                                                <rect key="frame" x="9" y="8" width="50" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <size key="titleShadowOffset" width="2" height="2"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSM-vs-K00">
-                                                <rect key="frame" x="67" y="8" width="50" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <size key="titleShadowOffset" width="2" height="2"/>
-                                                <connections>
-                                                    <action selector="colorButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="edb-mi-efA"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luR-ND-yuq">
-                                                <rect key="frame" x="125" y="8" width="50" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <size key="titleShadowOffset" width="2" height="2"/>
-                                                <connections>
-                                                    <action selector="colorButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="72i-r0-csu"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p8G-BQ-pfV">
-                                                <rect key="frame" x="9" y="46" width="50" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <size key="titleShadowOffset" width="2" height="2"/>
-                                                <connections>
-                                                    <action selector="colorButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="xot-nc-l6k"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2J-gR-NUh">
-                                                <rect key="frame" x="67" y="46" width="50" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <size key="titleShadowOffset" width="2" height="2"/>
-                                                <connections>
-                                                    <action selector="colorButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="gOf-Oc-EVP"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVo-KN-iex">
-                                                <rect key="frame" x="125" y="46" width="50" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <size key="titleShadowOffset" width="2" height="2"/>
-                                                <connections>
-                                                    <action selector="colorButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="tRZ-or-03O"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h2E-q5-WLx">
-                                                <rect key="frame" x="9" y="83" width="50" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <size key="titleShadowOffset" width="2" height="2"/>
-                                                <connections>
-                                                    <action selector="colorButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="Vm5-PI-2td"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bv-jj-QNg">
-                                                <rect key="frame" x="67" y="83" width="50" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <size key="titleShadowOffset" width="2" height="2"/>
-                                                <connections>
-                                                    <action selector="colorButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="H2u-zp-z7E"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X18-zB-b5a">
-                                                <rect key="frame" x="125" y="83" width="50" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <size key="titleShadowOffset" width="2" height="2"/>
-                                                <connections>
-                                                    <action selector="colorButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="9x1-Uk-zi9"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aYA-9E-CX5">
-                                        <rect key="frame" x="59" y="569" width="123" height="29"/>
-                                        <segments>
-                                            <segment title="蠟筆"/>
-                                            <segment title="擦子"/>
-                                        </segments>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="paintToolSelect:" destination="CvM-l6-OQ6" eventType="valueChanged" id="MKM-NM-dHO"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CcG-s2-g90">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
-                                        <items>
-                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="DIN-0T-m7u"/>
-                                            <barButtonItem systemItem="stop" id="J2c-aU-CTh">
-                                                <connections>
-                                                    <action selector="hideToolViewButtonTouched:" destination="CvM-l6-OQ6" id="vQH-KP-9Vf"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </items>
-                                        <color key="tintColor" red="0.1236101077614533" green="0.10551140645078663" blue="0.31678109217171713" alpha="1" colorSpace="calibratedRGB"/>
-                                    </toolbar>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2CA-XT-VkX" customClass="ColorPicker" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44" width="240" height="3600"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSB-vV-hck">
-                                        <rect key="frame" x="-8" y="369" width="181" height="320"/>
-                                        <state key="normal" title="Button" image="brush"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" red="0.96323388612546079" green="0.93844112330559781" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="iV9-oV-7Ad" firstAttribute="centerX" secondItem="2CA-XT-VkX" secondAttribute="centerX" constant="32.5" id="0iY-Ec-A7s"/>
-                                    <constraint firstAttribute="bottom" secondItem="iV9-oV-7Ad" secondAttribute="bottom" constant="411" id="1nx-BD-Xdi"/>
-                                    <constraint firstAttribute="bottom" secondItem="2CA-XT-VkX" secondAttribute="bottom" constant="-2832" id="7BX-fx-seN"/>
-                                    <constraint firstItem="aYA-9E-CX5" firstAttribute="top" secondItem="iV9-oV-7Ad" secondAttribute="bottom" constant="12" id="Bed-bA-lgr"/>
-                                    <constraint firstItem="iV9-oV-7Ad" firstAttribute="top" secondItem="AqB-Ps-H0o" secondAttribute="top" constant="280" id="HXz-YX-fot"/>
-                                    <constraint firstItem="iV9-oV-7Ad" firstAttribute="leading" secondItem="AqB-Ps-H0o" secondAttribute="leading" constant="30" id="I1B-ec-FXQ"/>
-                                    <constraint firstItem="CcG-s2-g90" firstAttribute="centerX" secondItem="aYA-9E-CX5" secondAttribute="centerX" id="Ndm-m8-w9q"/>
-                                    <constraint firstItem="CcG-s2-g90" firstAttribute="centerX" secondItem="nnu-Jq-q92" secondAttribute="centerX" id="QGk-yv-COw"/>
-                                    <constraint firstItem="2CA-XT-VkX" firstAttribute="top" secondItem="AqB-Ps-H0o" secondAttribute="top" constant="44" id="RU0-L8-8un"/>
-                                    <constraint firstItem="2CA-XT-VkX" firstAttribute="leading" secondItem="AqB-Ps-H0o" secondAttribute="leading" id="WC0-Qk-CwN"/>
-                                    <constraint firstItem="2CA-XT-VkX" firstAttribute="top" secondItem="CcG-s2-g90" secondAttribute="bottom" id="eoq-uZ-8vO"/>
-                                    <constraint firstAttribute="width" constant="240" id="hqz-XM-rbn"/>
-                                    <constraint firstAttribute="bottom" secondItem="aYA-9E-CX5" secondAttribute="bottom" constant="263" id="ikP-eW-P75"/>
-                                    <constraint firstItem="nnu-Jq-q92" firstAttribute="leading" secondItem="aYA-9E-CX5" secondAttribute="leading" id="liS-uV-cKc"/>
-                                    <constraint firstAttribute="trailing" secondItem="2CA-XT-VkX" secondAttribute="trailing" id="rN7-wg-eWf"/>
-                                    <constraint firstItem="CcG-s2-g90" firstAttribute="leading" secondItem="AqB-Ps-H0o" secondAttribute="leading" id="s8j-kU-MV4"/>
-                                    <constraint firstItem="aYA-9E-CX5" firstAttribute="leading" secondItem="AqB-Ps-H0o" secondAttribute="leading" constant="59" id="tYO-wB-N0a"/>
-                                    <constraint firstItem="nnu-Jq-q92" firstAttribute="top" secondItem="aYA-9E-CX5" secondAttribute="bottom" constant="8" symbolic="YES" id="u6S-KN-lmE"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Bed-bA-lgr"/>
-                                        <exclude reference="ikP-eW-P75"/>
-                                    </mask>
-                                </variation>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rwn-CR-aax" userLabel="PlayBackView">
-                                <rect key="frame" x="0.0" y="640" width="1024" height="128"/>
+                                <rect key="frame" x="0.0" y="724" width="1024" height="44"/>
                                 <subviews>
                                     <toolbar opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIs-zP-Vg2">
-                                        <rect key="frame" x="0.0" y="84" width="1024" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <items>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="did-Cg-XcY"/>
-                                            <barButtonItem systemItem="rewind" id="1Zu-sv-esa">
+                                            <barButtonItem image="Rewind-50" id="1Zu-sv-esa">
                                                 <color key="tintColor" red="1" green="0.38649180981876319" blue="0.39949423293158903" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="RewindButtonTouched:" destination="CvM-l6-OQ6" id="YT0-Um-eBA"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem systemItem="play" id="EvQ-J5-ScH">
+                                            <barButtonItem image="Play-50" id="EvQ-J5-ScH">
                                                 <color key="tintColor" red="1" green="0.38649180981876319" blue="0.39949423293158903" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="PlayButtonTouched:" destination="CvM-l6-OQ6" id="CPu-eK-Uo9"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem systemItem="fastForward" id="OtO-ZG-NRp">
+                                            <barButtonItem title="1x" id="OtO-ZG-NRp">
                                                 <color key="tintColor" red="1" green="0.38649180981876319" blue="0.39949423293158903" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="fastForwardButtonTouched:" destination="CvM-l6-OQ6" id="ryh-4d-hoV"/>
                                                 </connections>
                                             </barButtonItem>
+                                            <barButtonItem style="plain" id="7TP-VM-gPD">
+                                                <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="g7i-S6-hL9">
+                                                    <rect key="frame" x="196" y="7" width="537" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="533" id="nSc-zz-Xoj"/>
+                                                    </constraints>
+                                                    <color key="minimumTrackTintColor" red="1" green="0.38380069108207604" blue="0.40220115131507628" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <action selector="artworkProgressSliderDragged:" destination="CvM-l6-OQ6" eventType="valueChanged" id="uta-Oc-ju3"/>
+                                                    </connections>
+                                                </slider>
+                                            </barButtonItem>
+                                            <barButtonItem width="192" style="plain" systemItem="fixedSpace" id="ajh-p0-3bD"/>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="ynG-pl-gai"/>
                                         </items>
                                         <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </toolbar>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="g7i-S6-hL9">
-                                        <rect key="frame" x="244" y="49" width="537" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="533" id="nSc-zz-Xoj"/>
-                                        </constraints>
-                                        <color key="minimumTrackTintColor" red="1" green="0.38380069108207604" blue="0.40220115131507628" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="artworkProgressSliderDragged:" destination="CvM-l6-OQ6" eventType="valueChanged" id="uta-Oc-ju3"/>
-                                        </connections>
-                                    </slider>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="PIs-zP-Vg2" secondAttribute="bottom" id="Ub3-Z1-qp9"/>
-                                    <constraint firstAttribute="height" constant="128" id="XcP-RO-RTM"/>
                                     <constraint firstAttribute="trailing" secondItem="PIs-zP-Vg2" secondAttribute="trailing" id="Ym1-WX-wXe"/>
-                                    <constraint firstItem="g7i-S6-hL9" firstAttribute="centerY" secondItem="Rwn-CR-aax" secondAttribute="centerY" id="avp-uF-vBQ"/>
-                                    <constraint firstItem="PIs-zP-Vg2" firstAttribute="top" secondItem="g7i-S6-hL9" secondAttribute="bottom" constant="5" id="b3Z-Pg-Lq5"/>
                                     <constraint firstItem="PIs-zP-Vg2" firstAttribute="leading" secondItem="Rwn-CR-aax" secondAttribute="leading" id="oqB-6p-m6K"/>
-                                    <constraint firstItem="PIs-zP-Vg2" firstAttribute="centerX" secondItem="g7i-S6-hL9" secondAttribute="centerX" id="rwc-ve-H9D"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSW-8m-Ccs" userLabel="Note List View">
@@ -528,7 +547,7 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="reviseButton" destination="zJy-vd-GgX" id="Wfp-AK-edX"/>
+                                                    <outlet property="iconButton" destination="zJy-vd-GgX" id="CAa-Fd-w6c"/>
                                                     <outlet property="titleLabel" destination="NKq-Ge-YZO" id="dD6-3A-kP6"/>
                                                 </connections>
                                             </tableViewCell>
@@ -572,6 +591,9 @@
                                                                 <constraint firstAttribute="width" constant="24" id="Pcz-gM-vgP"/>
                                                             </constraints>
                                                             <state key="normal" image="bubble-chat"/>
+                                                            <connections>
+                                                                <action selector="playRevisionButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="mhQ-ii-ZbA"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIE-lh-TR1">
                                                             <rect key="frame" x="40" y="8" width="105" height="21"/>
@@ -599,6 +621,7 @@
                                                 <connections>
                                                     <outlet property="deleteButton" destination="amh-Zl-oeH" id="TCg-Q6-NPn"/>
                                                     <outlet property="editButton" destination="LnU-Yd-uzR" id="kbY-GN-eNz"/>
+                                                    <outlet property="iconButton" destination="GlX-1U-9xJ" id="3H5-IV-yLE"/>
                                                     <outlet property="textView" destination="nqJ-jP-KEe" id="pfB-wZ-ttp"/>
                                                     <outlet property="title" destination="XIE-lh-TR1" id="cgb-fw-COb"/>
                                                 </connections>
@@ -618,7 +641,7 @@
                                     <constraint firstItem="qvh-wu-zwh" firstAttribute="top" secondItem="jSW-8m-Ccs" secondAttribute="top" id="aSm-PW-UY1"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" restorationIdentifier="textEdit" translatesAutoresizingMaskIntoConstraints="NO" id="7d5-pR-Ahm">
+                            <view contentMode="scaleToFill" restorationIdentifier="textEdit" translatesAutoresizingMaskIntoConstraints="NO" id="7d5-pR-Ahm">
                                 <rect key="frame" x="512" y="-384" width="512" height="384"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evj-YG-dMb">
@@ -682,37 +705,39 @@
                                     <constraint firstAttribute="height" constant="384" id="XpT-9k-gFX"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="789-Vh-sHe">
-                                <rect key="frame" x="392" y="357" width="93" height="91"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="PD1-HN-mlU" appends="YES" id="4Ve-ZR-YQf"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.26918385849837945" green="0.27169911649214662" blue="0.26782851532653718" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="jSW-8m-Ccs" firstAttribute="top" secondItem="Olf-xl-ZcA" secondAttribute="bottom" id="5Rx-pc-8CX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="e0Y-7M-m0z" secondAttribute="trailing" constant="-20" id="6qT-8p-vQB"/>
+                            <constraint firstItem="Rwn-CR-aax" firstAttribute="top" secondItem="AqB-Ps-H0o" secondAttribute="bottom" constant="19" id="9mQ-NR-yGf"/>
                             <constraint firstItem="Rwn-CR-aax" firstAttribute="bottom" secondItem="x6p-iR-vVk" secondAttribute="top" id="B2P-HY-Azq"/>
-                            <constraint firstItem="AqB-Ps-H0o" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" id="D0d-xL-HDo"/>
                             <constraint firstItem="7d5-pR-Ahm" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" constant="512" id="FW3-N0-hXl"/>
                             <constraint firstItem="jSW-8m-Ccs" firstAttribute="bottom" secondItem="MuV-st-KEp" secondAttribute="bottomMargin" id="L7i-Xi-oB0"/>
-                            <constraint firstItem="AqB-Ps-H0o" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="OVD-50-aR8"/>
                             <constraint firstItem="Olf-xl-ZcA" firstAttribute="top" secondItem="e0Y-7M-m0z" secondAttribute="top" id="PDN-1h-2f7"/>
+                            <constraint firstItem="AqB-Ps-H0o" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" constant="65" id="PFC-W1-ide"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="trailing" secondItem="Rwn-CR-aax" secondAttribute="trailing" id="QIR-5r-4xH"/>
                             <constraint firstItem="Rwn-CR-aax" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leadingMargin" constant="-20" id="X4E-8n-LqW"/>
+                            <constraint firstItem="AqB-Ps-H0o" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leadingMargin" id="dNj-Ma-215"/>
                             <constraint firstItem="Olf-xl-ZcA" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" id="dqR-IF-Tmx"/>
                             <constraint firstAttribute="trailing" secondItem="jSW-8m-Ccs" secondAttribute="trailing" id="fw3-zc-TC4"/>
-                            <constraint firstItem="AqB-Ps-H0o" firstAttribute="bottom" secondItem="x6p-iR-vVk" secondAttribute="top" constant="44" id="oj7-eB-jQM"/>
+                            <constraint firstItem="AqB-Ps-H0o" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="o4m-ii-vPj"/>
+                            <constraint firstItem="AqB-Ps-H0o" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="ovp-4l-ABe"/>
                             <constraint firstAttribute="trailing" secondItem="7d5-pR-Ahm" secondAttribute="trailing" id="ppb-0k-sJd"/>
                             <constraint firstAttribute="trailing" secondItem="Olf-xl-ZcA" secondAttribute="trailing" id="sKZ-0d-VYX"/>
-                            <constraint firstItem="7d5-pR-Ahm" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" id="uf2-fD-e2Z"/>
+                            <constraint firstItem="7d5-pR-Ahm" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" constant="-384" id="uf2-fD-e2Z"/>
                             <constraint firstItem="Olf-xl-ZcA" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="xyt-VB-ylK"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="bottom" secondItem="x6p-iR-vVk" secondAttribute="top" constant="44" id="y5P-08-Bj0"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="y6g-I5-qIJ"/>
+                            <constraint firstItem="AqB-Ps-H0o" firstAttribute="centerY" secondItem="MuV-st-KEp" secondAttribute="centerY" id="zwb-UK-xjm"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="dNj-Ma-215"/>
+                                <exclude reference="zwb-UK-xjm"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="H61-HT-vFb" appends="YES" id="Zgi-Wo-ldx"/>
                         </connections>
@@ -723,9 +748,11 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
-                        <outlet property="ToolKnob" destination="789-Vh-sHe" id="nlp-EO-kQp"/>
                         <outlet property="addNoteButton" destination="u2G-vX-aJn" id="fpQ-NU-ezZ"/>
+                        <outlet property="brushScaleSlider" destination="KR1-Le-Xfu" id="dfb-LO-40S"/>
                         <outlet property="colorPicker" destination="2CA-XT-VkX" id="Gdy-tV-Sq2"/>
+                        <outlet property="dismissButton" destination="1Ou-gv-d5o" id="lcX-c7-dEq"/>
+                        <outlet property="doublePlayBackButton" destination="OtO-ZG-NRp" id="n6M-kq-wca"/>
                         <outlet property="enterDrawModeButton" destination="MSJ-ij-Vz2" id="x5u-n5-VnY"/>
                         <outlet property="enterViewModeButton" destination="5Wx-8p-Syv" id="lDv-SB-YSh"/>
                         <outlet property="mainToolBar" destination="Olf-xl-ZcA" id="cfj-rh-NAE"/>
@@ -741,12 +768,22 @@
                         <outlet property="playBackToolbar" destination="PIs-zP-Vg2" id="HLE-o8-8fG"/>
                         <outlet property="playBackView" destination="Rwn-CR-aax" id="WJA-8r-C05"/>
                         <outlet property="playBackViewBottomConstraint" destination="B2P-HY-Azq" id="vtF-tg-kCh"/>
+                        <outlet property="playPauseButton" destination="EvQ-J5-ScH" id="Nd7-lb-Ib5"/>
                         <outlet property="progressSlider" destination="g7i-S6-hL9" id="g4g-Sm-7og"/>
                         <outlet property="reviseDoneButton" destination="o0N-mX-nnA" id="LmU-Dp-8K4"/>
                         <outlet property="scrollView" destination="e0Y-7M-m0z" id="g5P-9I-Pt8"/>
                         <outlet property="showToolButton" destination="L8j-bc-JHr" id="mFg-mr-Ktm"/>
                         <outlet property="toolView" destination="AqB-Ps-H0o" id="MtK-RG-SHs"/>
-                        <outlet property="toolViewLeadingConstraint" destination="OVD-50-aR8" id="Z10-1N-wge"/>
+                        <outlet property="toolViewLeadingConstraint" destination="ovp-4l-ABe" id="UpL-qd-9ra"/>
+                        <outletCollection property="nearbyColorButtons" destination="X18-zB-b5a" collectionClass="NSMutableArray" id="LzU-yQ-3Ke"/>
+                        <outletCollection property="nearbyColorButtons" destination="eSM-vs-K00" collectionClass="NSMutableArray" id="b5R-M3-ubu"/>
+                        <outletCollection property="nearbyColorButtons" destination="YOm-sy-WEi" collectionClass="NSMutableArray" id="ISi-mg-yLT"/>
+                        <outletCollection property="nearbyColorButtons" destination="8bv-jj-QNg" collectionClass="NSMutableArray" id="Wou-xb-yQC"/>
+                        <outletCollection property="nearbyColorButtons" destination="lVo-KN-iex" collectionClass="NSMutableArray" id="ydo-ZE-jak"/>
+                        <outletCollection property="nearbyColorButtons" destination="luR-ND-yuq" collectionClass="NSMutableArray" id="xfa-WO-jZs"/>
+                        <outletCollection property="nearbyColorButtons" destination="f2J-gR-NUh" collectionClass="NSMutableArray" id="t8V-zy-nKV"/>
+                        <outletCollection property="nearbyColorButtons" destination="p8G-BQ-pfV" collectionClass="NSMutableArray" id="Y7o-2M-ChH"/>
+                        <outletCollection property="nearbyColorButtons" destination="h2E-q5-WLx" collectionClass="NSMutableArray" id="R8e-1J-ewa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5l-Ye-bTM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -836,7 +873,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="345" id="hQM-oH-Owr"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="B7251BA4-E5F0-4326-9F4E-87FC4560B721">
+                                <state key="normal" backgroundImage="1B0B326A-60FB-428D-A819-AE48F8CF2334">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -1160,9 +1197,7 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="open" id="PRL-YB-Zvg">
-                        <barButtonItem key="leftBarButtonItem" title="BK" id="CgL-dp-kZp"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="PRL-YB-Zvg"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
@@ -1170,7 +1205,6 @@
                         <outlet property="deleteButton" destination="pdU-TS-ui7" id="d07-Wu-3QI"/>
                         <outlet property="paintButton" destination="WKh-1N-aTF" id="c0L-E0-9Wd"/>
                         <outlet property="reviseButton" destination="Buu-Ea-om1" id="8f0-E9-op3"/>
-                        <outlet property="searchDisplayController" destination="CuV-Di-tRX" id="1eX-qD-Sy8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hkQ-pV-faL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1213,14 +1247,6 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <searchDisplayController id="CuV-Di-tRX">
-                    <connections>
-                        <outlet property="delegate" destination="FhT-vH-qSY" id="qqX-yO-f6u"/>
-                        <outlet property="searchContentsController" destination="FhT-vH-qSY" id="9Rg-fl-uj7"/>
-                        <outlet property="searchResultsDataSource" destination="FhT-vH-qSY" id="uTS-ak-I4c"/>
-                        <outlet property="searchResultsDelegate" destination="FhT-vH-qSY" id="x46-9L-cP1"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1817" y="-1038"/>
         </scene>
@@ -1246,7 +1272,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="B7251BA4-E5F0-4326-9F4E-87FC4560B721" width="636" height="331">
+        <image name="1B0B326A-60FB-428D-A819-AE48F8CF2334" width="636" height="331">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -15337,19 +15363,24 @@ DOPpAAAAAAAABAEAAAAAAAAAQgAAAAAAAAAAAAAAAAAM4+s
         </image>
         <image name="Back-50" width="25" height="25"/>
         <image name="Brush-50" width="25" height="25"/>
-        <image name="Film-50" width="25" height="25"/>
         <image name="Menu-50" width="25" height="25"/>
         <image name="Pen-50" width="25" height="25"/>
+        <image name="Play-50" width="25" height="25"/>
+        <image name="Rewind-50" width="25" height="25"/>
         <image name="add-contact-1" width="44" height="44"/>
         <image name="angrybird_all" width="1465" height="1392"/>
-        <image name="brush" width="152" height="168"/>
         <image name="bubble-chat" width="24" height="24"/>
+        <image name="crayon" width="26" height="123"/>
         <image name="designer-cup" width="24" height="24"/>
+        <image name="eraser" width="46" height="116"/>
         <image name="imghint" width="2149" height="1665"/>
         <image name="mainpencil" width="1560" height="205"/>
         <image name="maintitle" width="1352" height="138"/>
+        <image name="marker" width="61" height="149"/>
+        <image name="pencilTool" width="24" height="148"/>
         <image name="trash-can" width="24" height="24"/>
         <image name="tumbler" width="1433" height="1599"/>
+        <image name="view" width="24" height="16"/>
         <image name="write" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>

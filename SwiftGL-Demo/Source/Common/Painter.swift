@@ -49,7 +49,8 @@ class Painter{
     {
         
         var vertexBuffer:[PaintPoint] = []
-        let kBrushPixelStep:Float = 10
+        let kBrushPixelStep:Float = 2 * points[0].size
+        
         var left:Float = points.last!.position.x
         var right:Float = points.last!.position.x
         var top:Float = points.last!.position.y
@@ -98,7 +99,12 @@ class Painter{
             
             // Add points to the buffer so there are drawing points every X pixels
             let pnum = ceil(sqrt(xdis2 + ydis2) / kBrushPixelStep)
+            
             count = max(Int(pnum),1);
+            if(count == 1)
+            {
+                print("...")
+            }
             
             for var j = 0; j < count; ++j {
                 //let randAngle = Float(arc4random()) / Float(UINT32_MAX) * Pi/2
@@ -150,7 +156,11 @@ class Painter{
             let s3 = (prev1.size+cur.size)*0.5*p3
             let size = s1+s2+s3
             
-            let randAngle = Float(arc4random()) / Float(UINT32_MAX) * Pi/2
+            var randAngle:Float = 0
+            if PaintToolManager.instance.currentTool.name != "markerTexture"
+            {
+                randAngle = Float(rand() % 360) / 360 * Pi/2
+            }
             let newVert:PaintPoint = PaintPoint(position: pos,color: vInfo.color.vec,size: size, rotation: randAngle)
 
                     // 6

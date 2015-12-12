@@ -47,20 +47,22 @@ class CanvasPanGestureHandler {
         current_pos.y = CGFloat(paintView.bounds.height) - current_pos.y
         dis = sender.translationInView(scrollView)
         
-        switch paintViewController.appState
-        {
-        case .drawArtwork:
+        
             if sender.numberOfTouches() == 2
             {
                 handleDrawingTwoPan(sender)
             }
             else
             {
+                switch paintViewController.appState
+                {
+                case .drawArtwork, .drawRevision:
                 //record painting
                 handleDrawingSinglePan(sender)
+                default:break
+                }
             }
-        default:break
-        }
+        
         
         
         

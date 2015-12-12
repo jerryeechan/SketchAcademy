@@ -17,7 +17,11 @@ extension PaintViewController:UITableViewDelegate
         let note = NoteManager.instance.getOrderedNote(indexPath.row)
         if paintManager.artwork.revisionClips[note.value.strokeIndex] != nil
         {
-            cell.reviseButton.setImage(UIImage(named: "fountain-pen-head-1.png"), forState: UIControlState.Normal)
+            cell.iconButton.setImage(UIImage(named: "Pen-50.png"), forState: UIControlState.Normal)
+        }
+        else
+        {
+            cell.iconButton.setImage(UIImage(named: "bubble-chat"), forState: UIControlState.Normal)
         }
         cell.titleLabel.text = note.title
         return cell
@@ -25,11 +29,19 @@ extension PaintViewController:UITableViewDelegate
     func genNoteDetailCell(tableView: UITableView,indexPath:NSIndexPath)->UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("NoteDetailCell", forIndexPath: indexPath) as! NoteDetailCell
+        
         let note = NoteManager.instance.getOrderedNote(indexPath.row)
         cell.title.text = note.title
         cell.textView.text = note.description
         cell.strokeID = note.value.strokeIndex
-        
+        if paintManager.artwork.revisionClips[note.value.strokeIndex] != nil
+        {
+            cell.iconButton.setImage(UIImage(named: "Play-50"), forState: UIControlState.Normal)
+        }
+        else
+        {
+            cell.iconButton.setImage(UIImage(named: "bubble-chat"), forState: UIControlState.Normal)
+        }
         return cell
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -59,6 +71,11 @@ extension PaintViewController:UITableViewDelegate
     
     func clickOnRow(indexPath:NSIndexPath)
     {
+        if appState == .viewRevision
+        {
+            return
+        }
+
         //什麼都還沒選
         if(selectedPath == nil)
         {
@@ -79,11 +96,15 @@ extension PaintViewController:UITableViewDelegate
     
     func selectRow(indexPath:NSIndexPath)
     {
+        print(appState)
+        if appState == .viewRevision
+        {
+            return
+        }
         let note = NoteManager.instance.getOrderedNote(indexPath.row)
         var paths:[NSIndexPath] = [indexPath]
         if(selectedPath != nil)
         {
-            
             if selectedPath == indexPath
             {
                 //select the same one, do nothing
@@ -103,6 +124,10 @@ extension PaintViewController:UITableViewDelegate
         selectedPath = indexPath
         noteListTableView.reloadRowsAtIndexPaths(paths, withRowAnimation: UITableViewRowAnimation.Automatic)
         
+        if appState == .drawRevision
+        {
+            return
+        }
         if isCellSelectedSentbySlider
         {
             print("sent by slider")
@@ -140,6 +165,17 @@ extension PaintViewController:UITableViewDelegate
                 return 44
             }
         }
+        
+    }
+    
+    @IBAction func playRevisionButtonTouched(sender: UIButton) {
+        let cell = sender.superview?.superview as! NoteDetailCell
+        
+        appState = .viewRevision
+        
+        ///here
+        paintManager.playRevisionClip(cell.strokeID)
+        dismissButton.image = UIImage(named: "close-50")
         
     }
     
@@ -181,6 +217,11 @@ extension PaintViewController:UITableViewDelegate
         noteEditTitleTextField.becomeFirstResponder()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onKeyBoardHide:", name:
             UIKeyboardWillHideNotification, object: nil)
+        
+        if appState == .drawRevision
+        {
+            appState = .viewRevision
+        }
     }
     
     
@@ -207,9 +248,20 @@ extension PaintViewController:UITableViewDelegate
             NoteManager.instance.updateOrderedNote(selectedPath.row, title: noteEditTitleTextField.text!,description: noteEditTextView.text)
         case NoteEditMode.New:
             print("New Note")
-            let at = paintManager.getCurrentStrokeID()
-            NoteManager.instance.addNote(at,title: noteEditTitleTextField.text!, description: noteEditTextView.text
-            )
+            let at = paintManager.getMasterStrokeID()
+            let note = NoteManager.instance.getNoteAtStroke(at)
+            if  note != nil
+            {
+                note.value.strokeIndex
+                //if the stroke index has been occupied
+                NoteManager.instance.updateNote(note.value.strokeIndex, title: noteEditTitleTextField.text!, description: noteEditTextView.text)
+            }
+            else
+            {
+                NoteManager.instance.addNote(at,title: noteEditTitleTextField.text!, description: noteEditTextView.text)
+                selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount()-1, inSection: 0)
+                
+            }
         }
         //###go here
         switch(paintMode)
@@ -217,7 +269,10 @@ extension PaintViewController:UITableViewDelegate
         case .Artwork:
             break
         case .Revision:
+            appState = .viewRevision
             paintManager.playCurrentRevisionClip()
+            dismissButton.image = UIImage(named: "close-50")
+            
             break
             
         }

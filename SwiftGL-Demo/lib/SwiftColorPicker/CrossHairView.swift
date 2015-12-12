@@ -48,6 +48,7 @@ class CrossHairView: UIView {
         // Notify delegate of the new new color selection
         delegate?.colorSaturationAndBrightnessSelected(point)
         // Update display when possible
+        //self.layer.backgroundColor =
         setNeedsDisplay()
     }
     
@@ -126,7 +127,10 @@ class CrossHairView: UIView {
         // Set point by inferring it from the color by calling getPointFromColor()
         point = getPointFromColor(self.color)
         // Update display when possible
-        setNeedsDisplay()
+        self.layer.backgroundColor = color.CGColor
+        self.layer.borderColor = UIColor.whiteColor().CGColor
+        self.layer.borderWidth = 2
+        //setNeedsDisplay()
     }
     
     func getCoordinate(coord: CGFloat) -> CGFloat {

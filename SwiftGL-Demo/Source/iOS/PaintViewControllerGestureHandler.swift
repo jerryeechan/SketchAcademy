@@ -71,7 +71,7 @@ extension PaintViewController
             //paintView.layer.transform = CGAffineTransformScale(paintView.transform, sender.scale, )
             sender.scale = 1
         case .Ended:()
-        if paintView.layer.transform.m11 * sender.scale <= 0.8
+        if paintView.layer.transform.m11 * sender.scale <= 0.3
         {
             UIView.animateWithDuration(0.5, animations: {
                 self.paintView.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1)

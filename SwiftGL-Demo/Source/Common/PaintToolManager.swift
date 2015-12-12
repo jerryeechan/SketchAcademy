@@ -14,10 +14,10 @@ import UIKit
 public class PaintToolManager {
     
     class var instance:PaintToolManager{
-    struct Singleton {
-        static let instance = PaintToolManager()
-    }
-    return Singleton.instance
+        struct Singleton {
+            static let instance = PaintToolManager()
+        }
+        return Singleton.instance
     }
     
     var colorInPalette:Color = Color(0,0,0,125)
@@ -46,10 +46,15 @@ public class PaintToolManager {
     func getTool(name:String)->PaintToolType    {
         switch(name)
         {
-            case "pen":
-             return .pen
-            case "eraser":
-             return .eraser
+        case "pen":
+            
+            
+            return .pen
+        case "marker":
+            pen.changeTexture("Particle")
+            return .pen
+        case "eraser":
+            return .eraser
         default :
             return .pen
         }
@@ -76,12 +81,14 @@ public class PaintToolManager {
         
         return currentTool
     }
+    /*
     func changeTool(index:Int)->PaintBrush
     {
         print("change tool")
         let brush = useTool(PaintToolManager.PaintToolType(rawValue:index )!)
-       return brush
+        return brush
     }
+*/
     func usePen()
     {
         pen.useTool()
@@ -97,7 +104,7 @@ public class PaintToolManager {
         //***blend function as problem
         
         currentTool = eraser
-//        glBlendEquation(GLenum(GL_FUNC_SUBTRACT))
+        //        glBlendEquation(GLenum(GL_FUNC_SUBTRACT))
         glBlendEquation(GLenum(GL_FUNC_REVERSE_SUBTRACT))
         //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA)
         currentTool.changeColor(Color(rf:1,gf: 1,bf: 1,af: 1))
@@ -106,7 +113,7 @@ public class PaintToolManager {
         eraser.useTool()
         print("use eraser")
     }
-   // var isToolAttributeChanged:Bool = true
+    // var isToolAttributeChanged:Bool = true
     func loadToolValueInfo(valueInfo:ToolValueInfo)
     {
         currentTool.changeColor(valueInfo.color)
@@ -119,9 +126,9 @@ public class PaintToolManager {
     {
         
         let rgb = CGColorGetComponents(color.CGColor)
-        let r = Float(rgb[0])
-        let g = Float(rgb[1])
-        let b = Float(rgb[2])
+        let r = Float(rgb[0])*alpha
+        let g = Float(rgb[1])*alpha
+        let b = Float(rgb[2])*alpha
         let c = Color(rf: r,gf: g,bf: b,af: alpha)
         colorInPalette = c
         

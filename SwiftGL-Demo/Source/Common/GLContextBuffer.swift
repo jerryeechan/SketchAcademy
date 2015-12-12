@@ -190,7 +190,11 @@ class GLContextBuffer{
             
             for var j = 0; j < count; ++j {
                 //let randAngle = Float(arc4random()) / Float(UINT32_MAX) * Pi/2
-                let randAngle = Float(rand() % 360) / 360 * Pi/2
+                var randAngle:Float = 0
+                if PaintToolManager.instance.currentTool.name != "markerTexture"
+                {
+                    randAngle = Float(rand() % 360) / 360 * Pi/2
+                }
                 let d = Float(j)/Float(count)
                 let px = sp.position.x+(ep.position.x-sp.position.x)*d
                 let py = sp.position.y+(ep.position.y-sp.position.y)*d

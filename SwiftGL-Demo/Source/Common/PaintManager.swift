@@ -103,13 +103,12 @@ class PaintManager {
     {
         masterReplayer.loadClip(artwork.masterClip)
         currentReplayer = masterReplayer
-        
-        
         GLRenderTextureFrameBuffer.instance.revisionLayer.enabled = false
         GLRenderTextureFrameBuffer.instance.selectLayer(0)
         revisionReplayer.stopPlay()
         GLRenderTextureFrameBuffer.instance.setAllLayerAlpha(1)
-        //masterReplayer.resume()
+        GLContextBuffer.instance.display()
+        
     }
     func playRevisionClip(clip:PaintClip)
     {
@@ -153,6 +152,7 @@ class PaintManager {
         if(artwork.revisionClips[id] == nil){
             let newClip = PaintClip(name: "revision",branchAt: id)
             paintRecorder.recordClip = newClip
+            artwork.revisionClips[id] = newClip
             currentRevisionClip = newClip
         }
         else

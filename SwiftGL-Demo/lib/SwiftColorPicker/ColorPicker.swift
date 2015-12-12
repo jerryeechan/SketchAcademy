@@ -88,23 +88,23 @@ class ColorPicker: UIView {
         
         
         // Init new CrossHairView subview
-        //crossHairView = CrossHairView(frame: CGRect(x: smallestDim/4, y: smallestDim/4, width: smallestDim/2, height: smallestDim/2), color: UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0))
+        //crossHairView = CrossHairView(frame: CGRect(x: 40, y: 0, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0))
        
         //crossHairView.delegate = self
         // Add crossHairView as a subview of this view
         //self.addSubview(crossHairView)
         
         // Init new MainColorView subview
-        mainColorView = MainColorView(frame: CGRect(x: 0, y: 0, width: 30, height: smallestDim        + 100.0), color: color)
+        mainColorView = MainColorView(frame: CGRect(x: 0, y: 0, width: 30, height: smallestDim        + 114.0), color: color)
         mainColorView.delegate = self
         self.addSubview(mainColorView)
         
         
         
         // Init new SelectedColorView subview
-        selectedColorView = SelectedColorView(frame: CGRect(x: 20, y: smallestDim - 20, width: smallestDim - 40, height: 20), color: color)
+        //selectedColorView = SelectedColorView(frame: CGRect(x: 20, y: smallestDim - 20, width: smallestDim - 40, height: 20), color: color)
         // Add crossHairView as a subview of this view
-        self.addSubview(selectedColorView)
+        //self.addSubview(selectedColorView)
     }
     
     
@@ -122,27 +122,7 @@ class ColorPicker: UIView {
         notifyViews(UIColor(hue: hue, saturation: percentSaturation, brightness: percentBrightness, alpha: 1.0))
     }
     
-    func getNearByColor(color:UIColor)->[UIColor]
-    {
-        var hue:CGFloat = 0
-        var sat:CGFloat = 0
-        var bri:CGFloat = 0
-        var alpha:CGFloat = 0
-        
-        color.getHue(&hue, saturation: &sat, brightness: &bri, alpha: &alpha)
-
-        var nearbyColors:[UIColor] = []
-        for var i = -0.1 ; i<=0.1; i += 0.1
-        {
-            for var j = -0.1 ; j <= 0.1; j += 0.1
-            {
-                let new_bri = bri + CGFloat(i)
-                let new_sat = sat + CGFloat(j)
-                nearbyColors.append(UIColor(hue: hue, saturation: new_bri, brightness: new_sat, alpha: 1))
-            }
-        }
-        return nearbyColors
-    }
+    
     
     func colorSaturationAndBrightnessSelected(point: CGPoint) {
         
@@ -159,7 +139,7 @@ class ColorPicker: UIView {
         
         colorView.setColor(UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
         //crossHairView.setTheColor(selectedColor)
-        selectedColorView.setTheColor(selectedColor)
+        //selectedColorView.setTheColor(selectedColor)
         handleColorChange(selectedColor, changing: true)
     }
     
@@ -171,4 +151,26 @@ class ColorPicker: UIView {
             setNeedsDisplay()
         }
     }
+}
+
+func getNearByColor(color:UIColor)->[UIColor]
+{
+    var hue:CGFloat = 0
+    var sat:CGFloat = 0
+    var bri:CGFloat = 0
+    var alpha:CGFloat = 0
+    
+    color.getHue(&hue, saturation: &sat, brightness: &bri, alpha: &alpha)
+    
+    var nearbyColors:[UIColor] = []
+    for var i = -0.2 ; i<=0.2; i += 0.2
+    {
+        for var j = -0.2 ; j <= 0.2; j += 0.2
+        {
+            let new_bri = bri + CGFloat(i)
+            let new_sat = sat + CGFloat(j)
+            nearbyColors.append(UIColor(hue: hue, saturation: new_sat, brightness: new_bri, alpha: 1))
+        }
+    }
+    return nearbyColors
 }

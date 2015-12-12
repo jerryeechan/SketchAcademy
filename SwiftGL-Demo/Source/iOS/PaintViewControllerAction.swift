@@ -8,16 +8,6 @@
 
 extension PaintViewController
 {
-    @IBAction func modeSwitcherValueChanged(sender: UISwitch) {
-        if sender.on
-        {
-            
-        }
-        else
-        {
-            enterDrawMode()
-        }
-    }
     
     @IBAction func enterDrawModeButtonTouched(sender: UIBarButtonItem) {
         
@@ -58,6 +48,7 @@ extension PaintViewController
             noteEditTitleTextField.text = ""
             noteEditMode = .New
         case .Revision:
+            appState = .drawRevision
             enterDrawMode()
         }
         
@@ -89,7 +80,16 @@ extension PaintViewController
     }
     
     @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {
-        saveFileIOS9();
+        switch(appState)
+        {
+        case .viewRevision:
+            appState = .viewArtwork
+            paintManager.playArtworkClip()
+            dismissButton.image = UIImage(named: "Back-50")
+        default:
+            saveFileIOS9();
+        }
+        
         //presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
         
         //dismissViewControllerAnimated(true, completion: nil)

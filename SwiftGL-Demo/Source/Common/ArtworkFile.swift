@@ -61,12 +61,15 @@ class ArtworkFile:File{
         data = NSMutableData()
 
         encodeClip(artwork.masterClip)
-        encodeStruct(artwork.revisionClips.count)
+        //encodeStruct(artwork.revisionClips.count)
+        
+        /*
         for(atStroke,clip) in artwork.revisionClips
         {
             encodeStruct(atStroke)
             encodeClip(clip)
         }
+*/
         let path = File.dirpath
         
         data.writeToFile(path+"/"+filename+".paw", atomically: true)
@@ -110,12 +113,15 @@ class ArtworkFile:File{
             
             let artwork =  PaintArtwork()
             parseClip(artwork.masterClip)
+            
+            /*
             let revisionCount:Int = parseStruct()
             for var i = 0;i<revisionCount;i++
             {
                 let clip = PaintClip(name: "new", branchAt: 0)
                 parseClip(clip)
             }
+            */
             
             return artwork
         }

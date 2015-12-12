@@ -47,9 +47,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     var paintManager = PaintManager()
     var appState:AppState = .drawArtwork
     
-    @IBAction func colorButtonTouched(sender: UIButton) {
-
-    }
+   
     override func viewDidLoad() {
         toolBarItems = mainToolBar.items
         //mainView.addSubview(noteEditView)
@@ -72,6 +70,12 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
                 //self.view.backgroundColor = UIColor.whiteColor() // reset background color to white
             } else {
                 //self.view.backgroundColor = color // set background color to current selected color (finger is still down)
+                let colors = getNearByColor(color)
+                for i in 0...8
+                {
+                    self.nearbyColorButtons[i].backgroundColor = colors[i]
+                }
+                
                 PaintToolManager.instance.changeColor(color)
             }
         }
@@ -85,7 +89,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         
         
         drawNoteEditTextViewStyle()
-        noteListTableView.reloadData()
+        
         
         
         
@@ -107,8 +111,10 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         }
         else
         {
+            NoteManager.instance.empty()
             GLContextBuffer.instance.display()
         }
+        noteListTableView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -141,11 +147,14 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     @IBOutlet weak var mainView: UIView!
     
-    //@IBOutlet weak var brushScaleSlider: UISlider!
+    @IBOutlet weak var brushScaleSlider: UISlider!
     
     var last_ori_pos:CGPoint = CGPoint(x: 0, y: 0)
     
     
+    @IBAction func brushScaleSliderChanged(sender: UISlider) {
+        PaintToolManager.instance.changeSize(sender.value)
+    }
     
     
     @IBAction func imageViewPanGestureHandler(sender: UIPanGestureRecognizer) {
@@ -179,6 +188,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
         paintView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         paintView.layer.position = CGPoint(x:512,y:406)
+        
     }
     
 
@@ -209,26 +219,24 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     var currentProgressValue:Float = 0
     
-    
+    //replay control
     @IBOutlet weak var progressSlider: UISlider!
+    @IBOutlet weak var doublePlayBackButton: UIBarButtonItem!
+    
+    @IBOutlet weak var playPauseButton: UIBarButtonItem!
+    let playImage = UIImage(named: "Play-50")
+    let pauseImage = UIImage(named: "Pause-50")
     
     var isCellSelectedSentbySlider:Bool = false
             
     
     
     
-   
-    
-
     
     
     
     
-    
-    
-    
-    
-    var canvasCropView:CanvasCropView!
+    //var canvasCropView:CanvasCropView!
     
     func getView(name:String)->UIView
     {
@@ -358,6 +366,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     //進入繪圖模式
     @IBOutlet var enterDrawModeButton: UIBarButtonItem!
     
+    @IBOutlet weak var dismissButton: UIBarButtonItem!
    
     
     var toolBarItems:[UIBarButtonItem]!
@@ -377,10 +386,14 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     }
     
     
+    
     /////// paint tool
     @IBOutlet weak var showToolButton: UIButton!
+    @IBOutlet var nearbyColorButtons: [UIButton]!
     
     
+    
+    //replay
 }
 
 

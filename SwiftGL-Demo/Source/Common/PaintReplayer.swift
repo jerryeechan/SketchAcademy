@@ -339,9 +339,13 @@ class PaintReplayer:NSObject
         //between 0~1
         //print("drawProgress \(percentage)")
         return drawStrokeProgress(Int(percentage*Float(strokes.count)))
+    
     }
-    
-    
+    func setProgressSliderAtCurrentStroke()
+    {
+        
+        progressSlider.value = Float(currentStrokeID)/Float(strokeCount()-1)
+    }
     
     func drawAll()
     {

@@ -196,6 +196,15 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         paintButton.setImage(UIImage(named: "Brush-50"), forState: UIControlState.Normal)
         paintButton.tintColor = UIColor.redColor()
         
+        /*
+        super.viewDidAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        */
+        self.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+        //self.navigationController?.navigationBar.tintColor = .themeColor
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarPosition: .Any, barMetrics: .Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+
         //self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
