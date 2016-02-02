@@ -19,7 +19,6 @@ class GLShaderBinder{
         return Singleton.instance
     }
     
-    var shader:Shader!
     var drawShader:Shader!
     
     var imageShader:Shader!
@@ -199,7 +198,6 @@ class GLShaderBinder{
     
     func drawImageTexture(texture:Texture,alpha:Float,leftTop:Vec4,rightBottom:Vec4)
     {
-        
         imageShader.bind(iLocImageTexture,texture , index: 2)
         imageShader.bind(iLocImageAlpha, alpha)
         imageShader.useProgram()
@@ -208,7 +206,6 @@ class GLShaderBinder{
         
         imagevao.bind(attribute: iLocImageAttribVertex, type: Vec4.self, vbo: imageVbo, offset: 0)
         imagevao.bind(attribute: iLocImageAttribTexturePosition, type: Vec4.self, vbo: imageVbo, offset: sizeof(Vec4))
-        
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     }
     func drawImageTexture(texture:Texture,alpha:Float)

@@ -23,7 +23,8 @@ extension PaintViewController
         playBackViewState.animateHide(0)
         noteEditViewState.animateHide(0)
         
-        drawGreyBorder(noteListTableView)
+        noteListTableView.separatorStyle = .None
+//        drawGreyBorder(noteListTableView)
         drawGreyBorder(toolView)
         
         circleButton(showToolButton)
@@ -38,6 +39,7 @@ extension PaintViewController
         noteEditTextView.layer.borderWidth = 1
         noteEditTextView.layer.cornerRadius = 5
         noteEditTextView.clipsToBounds = true
+        
         
     }
     

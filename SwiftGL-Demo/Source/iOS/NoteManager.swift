@@ -46,14 +46,21 @@ class NoteManager {
     var sortedKeys:[Int] = []
     func getOrderedNote(index:Int)->Note!
     {
-        let at = sortedKeys[index]
-        return noteDict[at]
+        getSortedKeys()
+        if index < sortedKeys.count
+        {
+            let at = sortedKeys[index]
+            return noteDict[at]
+        }
+        else
+        {
+            return nil
+        }
     }
     func deleteNoteAtStroke(at:Int)
     {
         noteDict[at] = nil
         sortedKeys = getSortedKeys()
-    //    noteList.removeAtIndex(index)
     }
     func updateOrderedNote(index:Int,title:String,description:String)
     {

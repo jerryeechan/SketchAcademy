@@ -43,7 +43,14 @@ extension PaintViewController
             
             if appState == .viewArtwork
             {
-                let index = NoteManager.instance.getNoteIndexFromStrokeID(paintManager.getCurrentStrokeID())
+
+                let currentStrokeID = paintManager.getCurrentStrokeID()
+                if NoteManager.instance.getOrderedNote(currentStrokeID) == nil
+                {
+                    //*TODO*
+                    //allow add button
+                }
+                let index = NoteManager.instance.getNoteIndexFromStrokeID(currentStrokeID)
                 
                 print("note index\(index)");
                 if index != -1

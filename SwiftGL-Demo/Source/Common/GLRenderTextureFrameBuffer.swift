@@ -16,12 +16,15 @@ class GLRenderTextureFrameBuffer{
     var revisionLayer:Layer!
     var drawBuffers:[GLenum] = [GL_COLOR_ATTACHMENT0]
     var framebuffer:GLuint=0
-    var width,height:GLsizei
+    var width,height:GLsizei!
     var currentLayer:Layer!
     var backgroundLayer:Layer!
+    
     static var instance:GLRenderTextureFrameBuffer!
+    
     init(w:GLint,h:GLint)
     {
+        GLRenderTextureFrameBuffer.instance = self
         self.width = w
         self.height = h
         glGenFramebuffers(1,&framebuffer)
@@ -29,11 +32,21 @@ class GLRenderTextureFrameBuffer{
         //tempLayer = Layer(w: width, h: height)
         revisionLayer = Layer(w: width, h: height)
         backgroundLayer = Layer(texture:Texture(filename: "paper"))
-        addEmptyLayer()
+        for i in 0...10
+            {
+                addEmptyLayer()
+            }
+        for i in 0...10
+        {
+            selectLayer(i)
+            blankCurrentLayer()
+            print("error: \(glGetError())")
+        }
+
         //setBuffer()
         glClearColor(255, 255, 255, 255)
         glClear(GL_COLOR_BUFFER_BIT )
-        GLRenderTextureFrameBuffer.instance = self
+       
         
     }
     deinit
@@ -100,12 +113,23 @@ class GLRenderTextureFrameBuffer{
     }
     func blankCurrentLayer()
     {
-        setBuffer(currentLayer)
-        glClearColor(0, 0, 0, 0)
-        glClear(GL_COLOR_BUFFER_BIT )
+        if(setBuffer(currentLayer)==true)
+        {
+            glClearColor(0, 0, 0, 0)
+            glClear(GL_COLOR_BUFFER_BIT )
+            
+        }
+        else
+        {
+            print("dead")
+        }
         
     }
     func genCacheFrame()
+    {
+        
+    }
+    func drawCacheFrame(index:Int)
     {
         
     }

@@ -49,38 +49,36 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
    
     override func viewDidLoad() {
-        toolBarItems = mainToolBar.items
-        //mainView.addSubview(noteEditView)
-        //noteEditView.frame.offsetInPlace(dx: noteEditView.frame.width, dy: 0)
-        
         //the OpenCV
         //print(OpenCVWrapper.calculateImgSimilarity(UIImage(named: "img3"), secondImg: UIImage(named: "img2")))
         
-        initAnimateState()
         
+        toolBarItems = mainToolBar.items
+        initAnimateState()
         playBackToolbar.clipsToBounds = true
         
-        //imageView.image = RefImgManager.instance.refImg
-        //imageView.contentMode = UIViewContentMode.ScaleAspectFit
-        //imageView.userInteractionEnabled = true
+        //weak var paintToolManager = PaintToolManager.instance
         
         colorPicker.setTheColor(UIColor(hue: 0, saturation: 0.5, brightness: 0.5, alpha: 1.0))
-        colorPicker.onColorChange = {(color, finished) in
+        colorPicker.onColorChange = {[weak self](unowned color, finished) in
             if finished {
                 //self.view.backgroundColor = UIColor.whiteColor() // reset background color to white
             } else {
                 //self.view.backgroundColor = color // set background color to current selected color (finger is still down)
                 let colors = getNearByColor(color)
+                
                 for i in 0...8
                 {
-                    self.nearbyColorButtons[i].backgroundColor = colors[i]
+                    unowned let button = self!.nearbyColorButtons[i] as! UIButton
+                    button.backgroundColor = colors[i]
                 }
-                
+
                 PaintToolManager.instance.changeColor(color)
+
             }
         }
-        
-        
+        ////
+
         canvasPanGestureHandler = CanvasPanGestureHandler(pvController: self)
 
         PaintToolManager.instance.useCurrentTool()
@@ -91,7 +89,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         drawNoteEditTextViewStyle()
         
         
-        
+        ////
         
         paintManager.setProgressSlider(progressSlider)
         
@@ -115,6 +113,9 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
             GLContextBuffer.instance.display()
         }
         noteListTableView.reloadData()
+        
+
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -373,15 +374,17 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     deinit
     {
+        /*
         GLContextBuffer.instance = nil
         colorPicker.onColorChange = nil
         colorPicker = nil
-        canvasPanGestureHandler.paintViewController = nil
         
         addNoteButton = nil
         reviseDoneButton = nil
         enterViewModeButton = nil
         enterDrawModeButton = nil
+        nearbyColorButtons = nil
+*/
         print("deinit")
     }
     
@@ -389,7 +392,8 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     /////// paint tool
     @IBOutlet weak var showToolButton: UIButton!
-    @IBOutlet var nearbyColorButtons: [UIButton]!
+    @IBOutlet var nearbyColorButtons: NSArray!//[UIButton]!
+    
     
     
     

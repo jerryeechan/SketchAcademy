@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import OpenGLES.ES2
+import OpenGLES.ES3
 import GLKit
 import SwiftGL
 
@@ -17,7 +17,7 @@ class GLRenderBuffer {
     var eaglLayer:CAEAGLLayer!
     init(view:UIView)
     {
-        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
+        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
         if self.glcontext == nil {
             print("Failed to create ES context")
         }

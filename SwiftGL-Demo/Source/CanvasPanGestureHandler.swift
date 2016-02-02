@@ -16,9 +16,9 @@ enum TwoSwipeState{
 
 class CanvasPanGestureHandler {
     
-    var paintView:PaintView!
-    var scrollView:UIScrollView!
-    var paintViewController:PaintViewController!
+   weak var paintView:PaintView!
+   weak var scrollView:UIScrollView!
+   weak var paintViewController:PaintViewController!
     
     
     init(pvController:PaintViewController)
@@ -69,9 +69,10 @@ class CanvasPanGestureHandler {
         sender.setTranslation(CGPointZero, inView: scrollView)
 
     }
-    var paintRecorder:PaintRecorder!
+    weak var paintRecorder:PaintRecorder!
     func handleDrawingSinglePan(sender:UIPanGestureRecognizer)
     {
+
         let current_time = CFAbsoluteTimeGetCurrent()
         switch(sender.state)
         {

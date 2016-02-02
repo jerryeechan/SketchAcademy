@@ -20,12 +20,13 @@ class GLContextBuffer{
     var backingWidth:GLint = 0
     var backingHeight:GLint = 0
     var renderTexture:GLRenderTextureFrameBuffer!
+    var rectTexture:Texture!
     var layer:CAEAGLLayer!
     init(context:EAGLContext,layer:CAEAGLLayer)
     {
+        GLContextBuffer.instance = self
         self.context = context
         self.layer = layer
-        GLContextBuffer.instance = self
         glGenFramebuffers(1, &viewFramebuffer)
         glGenRenderbuffers(1, &viewRenderbuffer)
         
@@ -41,17 +42,25 @@ class GLContextBuffer{
         //print("inti \(backingWidth) \(backingHeight)")
         
     }
-    var rectTexture:Texture!
-    func resizeLayer(layer:CAEAGLLayer)
+
+    func resizeLayer(layer:CAEAGLLayer,w:GLint,h:GLint)
     {
         // This call associates the storage for the current render buffer with the EAGLDrawable (our CAEAGLLayer)
         // allowing us to draw into a buffer that will later be rendered to screen wherever the layer is (which corresponds with our view).
-        
+
         context.renderbufferStorage(Int(GL_RENDERBUFFER), fromDrawable: layer)
-        glGetRenderbufferParameteriv(GLenum(GL_RENDERBUFFER),GL_RENDERBUFFER_WIDTH, &backingWidth);
+        glGetRenderbufferParameteriv(GLenum(GL_RENDERBUFFER),GL_RENDERBUFFER_WIDTH, &backingWidth)
         glGetRenderbufferParameteriv(GLenum(GL_RENDERBUFFER), GL_RENDERBUFFER_HEIGHT, &backingHeight);
         
+        print("GLCOntextBuffer resize layer");
+        print(backingWidth)
+        print(backingHeight)
+        
+
+        backingHeight = w
+        backingWidth = h
         renderTexture = GLRenderTextureFrameBuffer(w: backingWidth, h: backingHeight)
+
         
         GLShaderBinder.instance.initVertex()
         
@@ -77,10 +86,11 @@ class GLContextBuffer{
         drawTexture(renderTexture.backgroundLayer.texture,alpha: 1)
         //glClearColor(1, 1, 1, 1)
         //glClear(GL_COLOR_BUFFER_BIT )//| GL_DEPTH_BUFFER_BIT)
-
-        for layer in renderTexture.layers
+        
+        for var i = 0;i<2 ;i++
         {
-            
+            let layer = renderTexture.layers[i]
+            print("layer showed")
             if(layer.enabled)
             {
                 
@@ -293,7 +303,8 @@ class GLContextBuffer{
     
     func drawTexture(texture:Texture,alpha:Float)
     {
-        //print("drawTexture\(texture.id)")
+        print("drawTexture\(texture.id)")
+        /*
         glBindFramebuffer(GL_FRAMEBUFFER, viewFramebuffer);
         glBindRenderbuffer(GL_RENDERBUFFER_ENUM, viewRenderbuffer);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
@@ -301,10 +312,15 @@ class GLContextBuffer{
         
         glBlendEquation(GLenum(GL_FUNC_ADD))
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
-        
+        */
         //blank()  //blank to test if texture can be draw
         
         GLShaderBinder.instance.drawImageTexture(texture,alpha:alpha)
+    }
+    func drawNearestCache(index:Int)
+    {
+//        var cacheStrokeIndex:Int
+ //       return cacheStrokeIndex
     }
     
     func display()
@@ -318,7 +334,7 @@ class GLContextBuffer{
         clear()
         drawLayers()
         EAGLContext.setCurrentContext(context)
-
+        print("any error?\(glGetError())")
         context.presentRenderbuffer(Int(GL_RENDERBUFFER));
     }
     func clear()
@@ -397,8 +413,11 @@ class GLContextBuffer{
     
     deinit
     {
+        /*
         context.renderbufferStorage(Int(GL_RENDERBUFFER), fromDrawable: nil)
+        layer = nil
         renderTexture = nil
         context = nil
+*/
     }
 }

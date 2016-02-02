@@ -6,24 +6,25 @@
 //  Copyright (c) 2015年 Scott Bennett. All rights reserved.
 //
 
-import OpenGLES.ES2
+import OpenGLES.ES3
 import GLKit
 import SwiftGL
 class PaintView: GLKView {
     var glcontext:EAGLContext!
     var eaglLayer:CAEAGLLayer!
     
-    var glContextBuffer:GLContextBuffer!
+    weak var glContextBuffer:GLContextBuffer!
     var glTransformation:GLTransformation!
-    var glshaderBinder:GLShaderBinder!
+
     
-    static var instance:PaintView!
     
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
         
-        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
+
+        
+        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
         if self.glcontext == nil {
             print("Failed to create ES context")
         }
@@ -39,7 +40,6 @@ class PaintView: GLKView {
         opaque = false
         
         initGL()
-        PaintView.instance = self
         
     }
     var isInitialized:Bool = false
@@ -66,6 +66,7 @@ class PaintView: GLKView {
         print(dirContents)
         
         EAGLContext.setCurrentContext(self.glcontext)
+
         eaglLayer = layer as! CAEAGLLayer
     
         eaglLayer.opaque = false
@@ -75,7 +76,7 @@ class PaintView: GLKView {
         
         glContextBuffer = GLContextBuffer(context: glcontext, layer: eaglLayer)
         print("PaintView: create context buffer")
-        glshaderBinder = GLShaderBinder.instance
+
         GLShaderBinder.instance.load()
         print("PaintView: create shader")
         glTransformation = GLTransformation(width: glContextBuffer.backingWidth, height: glContextBuffer.backingHeight)
@@ -94,15 +95,7 @@ class PaintView: GLKView {
         //glEnable(GL_DEPTH_TEST)
         
         
-        glshaderBinder.drawShader.useProgram()
-//        glDrawElements(GL_TRIANGLE_STRIP, 34, GL_UNSIGNED_SHORT, nil)
-        
-  //      GLContextBuffer.display()
-        
-       // GLContextBuffer.instance.blank()
-        //GLContextBuffer.instance.display()
-        
-        //Painter.renderLine(Vec2(300,0),end: Vec2(0,300))
+        GLShaderBinder.instance.drawShader.useProgram()
         resizeLayer()
         
         return true
@@ -110,7 +103,7 @@ class PaintView: GLKView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        EAGLContext.setCurrentContext(self.glcontext)
+//        EAGLContext.setCurrentContext(self.glcontext)
         //resizeLayer()
         
 //        GLContextBuffer.instance.drawTexture(Texture(filename: "spongebob"))
@@ -119,11 +112,16 @@ class PaintView: GLKView {
         
         
     }
+    
     func resizeLayer()
     {
         
-        glContextBuffer.resizeLayer(eaglLayer)
-        glTransformation.resize(glContextBuffer.backingWidth, height: glContextBuffer.backingHeight)
+        var width:GLint = 200
+        var height:GLint = 200
+
+        glContextBuffer.resizeLayer(eaglLayer,w: width,h: height)
+        
+        glTransformation.resize(width, height: height)
         print("\(glContextBuffer.backingWidth) \(glContextBuffer.backingHeight)")
         
         GLContextBuffer.instance.blank()

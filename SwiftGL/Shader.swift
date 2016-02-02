@@ -189,6 +189,7 @@ public class Shader {
         glProgramUniform1i(id, location: uniform, x: index)
         glActiveTexture(GL_TEXTURE0 + GLenum(index))
         glBindTexture(GL_TEXTURE_2D, texture.id)
+        
     }
     
     // Bind Uniforms using String
@@ -206,7 +207,10 @@ public class Shader {
         glProgramUniform1i(id, location: self.uniform(uniform), x: index)
         glActiveTexture(GL_TEXTURE0 + GLenum(index))
         glBindTexture(GL_TEXTURE_2D, texture.id)
-        
+        if glIsTexture(texture.id) == 0
+        {
+            print("no texture")
+        }
     }
     
     private class func ptr <T> (ptr: UnsafePointer<T>) -> UnsafePointer<T> {return ptr}

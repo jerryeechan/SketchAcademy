@@ -40,31 +40,5 @@ class GLTransformation{
     }
     var modelview  = Mat4.identity()
     var projection = Mat4.identity()
-    func qubeTest()
-    {
-        
-        let width = Float(600)
-        let height = Float(600)
-        glViewport(0, 0, GLsizei(width), GLsizei(height))
-        
-        //let projectionMatrix = Mat4.ortho(left: 0, right:width, bottom: 0, top:height, near: -1, far: 1 );
-//        /let modelViewMatrix = Mat4.identity(); // this sample uses a constant identity modelView matrix
-        //let MVPMatrix = projectionMatrix * modelViewMatrix
-        
-        //shader.useProgram()
-        // glViewport(0, 0, GLsizei(width),GLsizei(height))
-        //shader.bind("Matrix", MVPMatrix,transpose: GL_FALSE)
-        
-        //projection = projection
-         projection = Mat4.perspective(fovy: radians(45), width: width, height: height, near: 1, far: 9)
-        //projection = projectionMatrix
-        
-        
-        
-        // Bind the updated matrix
-         GLShaderBinder.instance.shader.bind("Matrix", projection * Mat4.translate(x: 0, y: 0, z: -5) * modelview)
-        
-        //shader.bind("MVP", MVPMatrix)
-
-    }
+    
 }

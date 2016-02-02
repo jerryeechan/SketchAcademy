@@ -9,26 +9,26 @@
 import UIKit
 
 class SubViewAnimationGestureHandler:NSObject {
-    var mainView:UIView!
-    var paintView:UIView!
+    weak var mainView:UIView!
+    weak var paintView:UIView!
     
     //播放區域 play back panel
-    var playBackPanel:UIView!
-    var playBackPanelBottomConstraint: NSLayoutConstraint!
+    weak var playBackPanel:UIView!
+    weak var playBackPanelBottomConstraint: NSLayoutConstraint!
     var playBackPanelHideBottomY:CGFloat = 128
     var playBackPanelHeight:CGFloat = 128
-    
+
     //工具列 tool view
-    var toolView:UIView!
-    var toolViewLeadingConstraint: NSLayoutConstraint!
+    weak var toolView:UIView!
+    weak var toolViewLeadingConstraint: NSLayoutConstraint!
     var toolViewHideLeadingX:CGFloat = -240
     var toolViewWidth:CGFloat = 240
     
     var isToolPanelLocked:Bool = false
     
     //註解欄位
-    var noteListView:UIView!
-    var noteListViewTrailingConstraint: NSLayoutConstraint!
+    weak var noteListView:UIView!
+    weak var noteListViewTrailingConstraint: NSLayoutConstraint!
     var noteListViewTrailingX:CGFloat = -240
     var noteListViewWidth:CGFloat = 240
     

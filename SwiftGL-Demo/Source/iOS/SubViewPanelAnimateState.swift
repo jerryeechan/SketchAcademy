@@ -12,7 +12,7 @@ class SubViewPanelAnimateState {
     var hideValue:CGFloat!
     var showValue:CGFloat!
     var constraint:NSLayoutConstraint!
-    var view:UIView
+    weak var view:UIView?
     var isLocked:Bool = false
     
     init(view:UIView,constraint:NSLayoutConstraint,hideValue:CGFloat,showValue:CGFloat)
@@ -21,7 +21,7 @@ class SubViewPanelAnimateState {
         self.showValue = showValue
         self.constraint = constraint
         self.view = view
-        self.view.hidden = true
+        self.view!.hidden = true
     }
     
     enum AnimateDir{
@@ -33,7 +33,7 @@ class SubViewPanelAnimateState {
     {
         animateDir = dir
         let viewPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
-        view.addGestureRecognizer(viewPanGestureRecognizer)
+        view!.addGestureRecognizer(viewPanGestureRecognizer)
         
     }
     
@@ -67,7 +67,7 @@ class SubViewPanelAnimateState {
         default:
             break
         }
-        view.layoutIfNeeded()
+        view!.layoutIfNeeded()
     }
     
     func xPan()
@@ -77,7 +77,7 @@ class SubViewPanelAnimateState {
     
     func animateShow(dur:NSTimeInterval)
     {
-        self.view.hidden = false
+        self.view!.hidden = false
         animate(constraint,value: showValue,duration: dur,hidden: false)
     }
     
@@ -90,10 +90,10 @@ class SubViewPanelAnimateState {
     {
         UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
             constraint.constant = value
-            self.view.layoutIfNeeded()
+            self.view!.layoutIfNeeded()
             }, completion: {
             (value: Bool) in
-                self.view.hidden = hidden
+                self.view!.hidden = hidden
             }
         )
     }

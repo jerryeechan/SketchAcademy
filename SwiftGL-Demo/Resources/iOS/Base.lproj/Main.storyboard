@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Zhl-Sa-wIJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Zhl-Sa-wIJ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -74,7 +74,7 @@
                                     <barButtonItem title="2" width="19" id="x7O-fb-Fom"/>
                                     <barButtonItem style="plain" id="xic-ND-vX1">
                                         <stepper key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="9" id="cT5-eI-P5G">
-                                            <rect key="frame" x="923" y="8" width="94" height="29"/>
+                                            <rect key="frame" x="923" y="7.5" width="94" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <connections>
                                                 <action selector="difficultyStepperValueChanged:" destination="Nu2-Wz-aDe" eventType="valueChanged" id="y9s-B9-RP8"/>
@@ -117,14 +117,14 @@
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FileCell" textLabel="kBY-Os-gxh" style="IBUITableViewCellStyleDefault" id="21y-yb-4Nf">
-                                <rect key="frame" x="0.0" y="50" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="21y-yb-4Nf" id="IkI-cg-arL">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kBY-Os-gxh">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -219,14 +219,14 @@
                         <viewControllerLayoutGuide type="bottom" id="x6p-iR-vVk"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="MuV-st-KEp">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="e0Y-7M-m0z">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1366" height="1068"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UCv-DA-xiU" customClass="PaintView" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="812"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1068"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <connections>
@@ -257,15 +257,18 @@
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CcG-s2-g90">
                                         <rect key="frame" x="-240" y="0.0" width="480" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="480" id="5f0-1b-ADB"/>
+                                            <constraint firstAttribute="width" constant="480" id="5f0-1b-ADB">
+                                                <variation key="heightClass=regular" constant="240"/>
+                                            </constraint>
                                         </constraints>
                                         <items>
-                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="DIN-0T-m7u"/>
-                                            <barButtonItem systemItem="stop" id="J2c-aU-CTh">
+                                            <barButtonItem image="Back-50" id="J2c-aU-CTh">
+                                                <color key="tintColor" red="0.88071518459999998" green="0.57453334730000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="hideToolViewButtonTouched:" destination="CvM-l6-OQ6" id="vQH-KP-9Vf"/>
                                                 </connections>
                                             </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="DIN-0T-m7u"/>
                                         </items>
                                         <color key="tintColor" red="0.1236101077614533" green="0.10551140645078663" blue="0.31678109217171713" alpha="1" colorSpace="calibratedRGB"/>
                                     </toolbar>
@@ -350,16 +353,12 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0hW-m0-vRJ">
                                         <rect key="frame" x="-8" y="412" width="240" height="227"/>
                                         <subviews>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WuA-VC-oMS">
-                                                <rect key="frame" x="96" y="101" width="26" height="148"/>
-                                                <state key="normal" title="Button" image="crayon"/>
-                                                <connections>
-                                                    <action selector="paintToolButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="Imq-g1-hTW"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nvz-Zc-1MR">
                                                 <rect key="frame" x="23" y="96" width="65" height="158"/>
                                                 <state key="normal" title="Button" image="marker"/>
+                                                <variation key="heightClass=regular" fixedFrame="YES">
+                                                    <rect key="frame" x="23" y="152" width="65" height="158"/>
+                                                </variation>
                                                 <connections>
                                                     <action selector="paintToolButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="GGe-Uc-Z11"/>
                                                 </connections>
@@ -367,6 +366,9 @@
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6J-pY-92t">
                                                 <rect key="frame" x="175" y="119" width="51" height="146"/>
                                                 <state key="normal" title="Button" image="eraser"/>
+                                                <variation key="heightClass=regular" fixedFrame="YES">
+                                                    <rect key="frame" x="175" y="140" width="51" height="146"/>
+                                                </variation>
                                                 <connections>
                                                     <action selector="paintToolButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="tkl-f1-Ryb"/>
                                                 </connections>
@@ -374,6 +376,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wfk-wO-yV3">
                                                 <rect key="frame" x="135" y="101" width="29" height="169"/>
                                                 <state key="normal" image="pencilTool"/>
+                                                <variation key="heightClass=regular" fixedFrame="YES">
+                                                    <rect key="frame" x="138" y="146" width="29" height="169"/>
+                                                </variation>
                                                 <connections>
                                                     <action selector="paintToolButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="SlO-wL-yro"/>
                                                 </connections>
@@ -390,6 +395,16 @@
                                                     <action selector="brushScaleSliderChanged:" destination="CvM-l6-OQ6" eventType="valueChanged" id="ZRG-BR-oz7"/>
                                                 </connections>
                                             </slider>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WuA-VC-oMS">
+                                                <rect key="frame" x="96" y="101" width="26" height="148"/>
+                                                <state key="normal" title="Button" image="crayon"/>
+                                                <variation key="heightClass=regular" fixedFrame="YES">
+                                                    <rect key="frame" x="96" y="146" width="26" height="148"/>
+                                                </variation>
+                                                <connections>
+                                                    <action selector="paintToolButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="Imq-g1-hTW"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -421,10 +436,10 @@
                                 </constraints>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Olf-xl-ZcA">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1366" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <barButtonItem image="Back-50" id="1Ou-gv-d5o" userLabel="dismiss Button">
+                                    <barButtonItem title="SketchBook" id="1Ou-gv-d5o" userLabel="dismiss Button">
                                         <connections>
                                             <action selector="dismissButtonTouched:" destination="CvM-l6-OQ6" id="8Pa-Tu-Q0s"/>
                                         </connections>
@@ -455,10 +470,10 @@
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rwn-CR-aax" userLabel="PlayBackView">
-                                <rect key="frame" x="0.0" y="724" width="1024" height="44"/>
+                                <rect key="frame" x="0.0" y="724" width="1366" height="300"/>
                                 <subviews>
                                     <toolbar opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIs-zP-Vg2">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                        <rect key="frame" x="0.0" y="256" width="1366" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <items>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="did-Cg-XcY"/>
@@ -482,7 +497,7 @@
                                             </barButtonItem>
                                             <barButtonItem style="plain" id="7TP-VM-gPD">
                                                 <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="g7i-S6-hL9">
-                                                    <rect key="frame" x="196" y="7" width="537" height="31"/>
+                                                    <rect key="frame" x="367" y="6.5" width="537" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="533" id="nSc-zz-Xoj"/>
@@ -507,21 +522,24 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSW-8m-Ccs" userLabel="Note List View">
-                                <rect key="frame" x="784" y="44" width="240" height="724"/>
+                                <rect key="frame" x="1126" y="44" width="240" height="980"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qvh-wu-zwh" userLabel="NoteListTableView">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="724"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="988"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="573-Pi-qsr"/>
-                                            <constraint firstAttribute="height" constant="724" id="JLo-Om-ljV"/>
+                                            <constraint firstAttribute="height" constant="988" id="JLo-Om-ljV">
+                                                <variation key="heightClass=regular" constant="938"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="944"/>
+                                            </constraint>
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="NoteCell" editingAccessoryType="checkmark" id="l1I-y2-rmy" customClass="NoteTableCell" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="240" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l1I-y2-rmy" id="VCO-VI-2kA">
-                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJy-vd-GgX">
@@ -534,7 +552,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKq-Ge-YZO">
                                                             <rect key="frame" x="40" y="8" width="183" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.88071518456375841" green="0.57453334731543648" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -555,7 +573,7 @@
                                                 <rect key="frame" x="0.0" y="72" width="240" height="240"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rfe-GT-LV0" id="heU-iJ-NvB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="239"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="239.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amh-Zl-oeH">
@@ -568,7 +586,7 @@
                                                                 <action selector="deleteNoteCellButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="vxc-hC-GdM"/>
                                                             </connections>
                                                         </button>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nqJ-jP-KEe">
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nqJ-jP-KEe">
                                                             <rect key="frame" x="14" y="41" width="211" height="183"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -633,19 +651,49 @@
                                             <outlet property="delegate" destination="CvM-l6-OQ6" id="AcK-ov-xQo"/>
                                         </connections>
                                     </tableView>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uCY-Dw-m20">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <items>
+                                            <barButtonItem title="繪畫過程註解" style="plain" id="4mF-fJ-kKB"/>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="OGe-gS-Y2x"/>
+                                            <barButtonItem image="plus79" id="DBI-IO-kf8">
+                                                <connections>
+                                                    <action selector="addNoteButtonTouched:" destination="CvM-l6-OQ6" id="LL0-oN-i4B"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                        <color key="tintColor" red="0.075306482093426413" green="0.88071518456375841" blue="0.73415196249310521" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <variation key="heightClass=regular" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
+                                        </variation>
+                                    </toolbar>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="2kv-4s-M50"/>
                                     <constraint firstAttribute="trailing" secondItem="qvh-wu-zwh" secondAttribute="trailing" id="USh-8H-KMu"/>
-                                    <constraint firstItem="qvh-wu-zwh" firstAttribute="top" secondItem="jSW-8m-Ccs" secondAttribute="top" id="aSm-PW-UY1"/>
+                                    <constraint firstItem="qvh-wu-zwh" firstAttribute="top" secondItem="jSW-8m-Ccs" secondAttribute="top" id="aSm-PW-UY1">
+                                        <variation key="heightClass=regular" constant="50"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="44"/>
+                                    </constraint>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="uCY-Dw-m20"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="subviews">
+                                        <include reference="uCY-Dw-m20"/>
+                                    </mask>
+                                </variation>
                             </view>
-                            <view contentMode="scaleToFill" restorationIdentifier="textEdit" translatesAutoresizingMaskIntoConstraints="NO" id="7d5-pR-Ahm">
-                                <rect key="frame" x="512" y="-384" width="512" height="384"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" restorationIdentifier="textEdit" translatesAutoresizingMaskIntoConstraints="NO" id="7d5-pR-Ahm">
+                                <rect key="frame" x="512" y="-384" width="854" height="384"/>
                                 <subviews>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evj-YG-dMb">
-                                        <rect key="frame" x="0.0" y="0.0" width="512" height="44"/>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="evj-YG-dMb">
+                                        <rect key="frame" x="0.0" y="0.0" width="854" height="44"/>
                                         <items>
                                             <barButtonItem systemItem="cancel" id="CKb-1j-oCm">
                                                 <connections>
@@ -699,10 +747,10 @@
                                 <color key="backgroundColor" red="0.99724799419999999" green="0.99333548599999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="evj-YG-dMb" firstAttribute="leading" secondItem="7d5-pR-Ahm" secondAttribute="leading" id="1p7-vf-dpM"/>
-                                    <constraint firstItem="evj-YG-dMb" firstAttribute="top" secondItem="7d5-pR-Ahm" secondAttribute="top" id="GL7-Mc-fvz"/>
-                                    <constraint firstAttribute="trailing" secondItem="evj-YG-dMb" secondAttribute="trailing" id="JJX-nz-Neh"/>
+                                    <constraint firstItem="evj-YG-dMb" firstAttribute="top" secondItem="7d5-pR-Ahm" secondAttribute="top" id="GL7-Mc-fvz">
+                                        <variation key="heightClass=regular" constant="0.0"/>
+                                    </constraint>
                                     <constraint firstAttribute="trailing" secondItem="evj-YG-dMb" secondAttribute="trailing" id="RBJ-40-ahe"/>
-                                    <constraint firstAttribute="height" constant="384" id="XpT-9k-gFX"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -713,7 +761,12 @@
                             <constraint firstAttribute="trailingMargin" secondItem="e0Y-7M-m0z" secondAttribute="trailing" constant="-20" id="6qT-8p-vQB"/>
                             <constraint firstItem="Rwn-CR-aax" firstAttribute="top" secondItem="AqB-Ps-H0o" secondAttribute="bottom" constant="19" id="9mQ-NR-yGf"/>
                             <constraint firstItem="Rwn-CR-aax" firstAttribute="bottom" secondItem="x6p-iR-vVk" secondAttribute="top" id="B2P-HY-Azq"/>
-                            <constraint firstItem="7d5-pR-Ahm" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" constant="512" id="FW3-N0-hXl"/>
+                            <constraint firstItem="7d5-pR-Ahm" firstAttribute="centerX" secondItem="MuV-st-KEp" secondAttribute="centerX" id="FW3-N0-hXl">
+                                <variation key="heightClass=regular" constant="256"/>
+                            </constraint>
+                            <constraint firstAttribute="bottom" secondItem="7d5-pR-Ahm" secondAttribute="bottom" constant="640" id="GKI-63-kg0">
+                                <variation key="heightClass=regular" constant="1024"/>
+                            </constraint>
                             <constraint firstItem="jSW-8m-Ccs" firstAttribute="bottom" secondItem="MuV-st-KEp" secondAttribute="bottomMargin" id="L7i-Xi-oB0"/>
                             <constraint firstItem="Olf-xl-ZcA" firstAttribute="top" secondItem="e0Y-7M-m0z" secondAttribute="top" id="PDN-1h-2f7"/>
                             <constraint firstItem="AqB-Ps-H0o" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" constant="65" id="PFC-W1-ide"/>
@@ -726,7 +779,9 @@
                             <constraint firstItem="AqB-Ps-H0o" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="ovp-4l-ABe"/>
                             <constraint firstAttribute="trailing" secondItem="7d5-pR-Ahm" secondAttribute="trailing" id="ppb-0k-sJd"/>
                             <constraint firstAttribute="trailing" secondItem="Olf-xl-ZcA" secondAttribute="trailing" id="sKZ-0d-VYX"/>
-                            <constraint firstItem="7d5-pR-Ahm" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" constant="-384" id="uf2-fD-e2Z"/>
+                            <constraint firstItem="7d5-pR-Ahm" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" id="uf2-fD-e2Z">
+                                <variation key="heightClass=regular" constant="-384"/>
+                            </constraint>
                             <constraint firstItem="Olf-xl-ZcA" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="xyt-VB-ylK"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="bottom" secondItem="x6p-iR-vVk" secondAttribute="top" constant="44" id="y5P-08-Bj0"/>
                             <constraint firstItem="e0Y-7M-m0z" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="y6g-I5-qIJ"/>
@@ -736,6 +791,12 @@
                             <mask key="constraints">
                                 <exclude reference="dNj-Ma-215"/>
                                 <exclude reference="zwb-UK-xjm"/>
+                                <exclude reference="GKI-63-kg0"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="constraints">
+                                <include reference="GKI-63-kg0"/>
                             </mask>
                         </variation>
                         <connections>
@@ -746,7 +807,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPadPro"/>
                     <connections>
                         <outlet property="addNoteButton" destination="u2G-vX-aJn" id="fpQ-NU-ezZ"/>
                         <outlet property="brushScaleSlider" destination="KR1-Le-Xfu" id="dfb-LO-40S"/>
@@ -821,7 +882,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1182" y="718"/>
+            <point key="canvasLocation" x="1662" y="462"/>
         </scene>
         <!--Draw Detail Navigation Controller-->
         <scene sceneID="waB-zp-PVn">
@@ -873,7 +934,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="345" id="hQM-oH-Owr"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="1B0B326A-60FB-428D-A819-AE48F8CF2334">
+                                <state key="normal" backgroundImage="E14CA011-F8DC-4D50-A1C6-E1689C973754">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -1030,14 +1091,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spc-Jb-PiB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-437" y="-1823"/>
-        </scene>
-        <!--Page View Controller-->
-        <scene sceneID="JfX-6Y-iHE">
-            <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ADR-8X-xZk" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gsm-8L-I8d" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="219.75000000000003" y="114.37500000000001"/>
         </scene>
         <!--Component Game View Controller-->
         <scene sceneID="BoF-0N-Sd1">
@@ -1272,10 +1325,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1B0B326A-60FB-428D-A819-AE48F8CF2334" width="636" height="331">
+        <image name="Back-50" width="25" height="25"/>
+        <image name="Brush-50" width="25" height="25"/>
+        <image name="E14CA011-F8DC-4D50-A1C6-E1689C973754" width="636" height="331">
             <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
+YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
+GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
 c1dOU0NvbG9ygAKADRIgwAAAgAOAC1p7NjM2LCAzMzF90hUKFhhaTlMub2JqZWN0c6EXgASACtIVChod
 ohscgAWABoAJEADSIAohIl8QFE5TVElGRlJlcHJlc2VudGF0aW9ugAeACE8SAAziJk1NACoADNlYAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -15350,19 +15405,17 @@ RQBHAGUAbgBlAHIAaQBjACAAUgBHAEIAIABQAHIAbwBmAGkAbABldGV4dAAAAABDb3B5cmlnaHQgMjAw
 NyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRzIHJlc2VydmVkLgBYWVogAAAAAAAA81IAAQAAAAEWz1hZWiAA
 AAAAAAB0TQAAPe4AAAPQWFlaIAAAAAAAAFp1AACscwAAFzRYWVogAAAAAAAAKBoAABWfAAC4NmN1cnYA
 AAAAAAAAAQHNAABzZjMyAAAAAAABDEIAAAXe///zJgAAB5IAAP2R///7ov///aMAAAPcAADAbNIlJico
-WiRjbGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VS
-ZXBaTlNJbWFnZVJlcFhOU09iamVjdNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMw
-LSvTMzQKNTY3V05TV2hpdGVcTlNDb2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9
-V05TSW1hZ2WiPCtfEA9OU0tleWVkQXJjaGl2ZXLRQEFUcm9vdIABAAAACAAAABEAAAAaAAAAIwAAAC0A
-AAAyAAAANwAAAEYAAABMAAAAVwAAAF4AAABlAAAAcgAAAHkAAACBAAAAgwAAAIUAAACKAAAAjAAAAI4A
-AACZAAAAngAAAKkAAACrAAAArQAAAK8AAAC0AAAAtwAAALkAAAC7AAAAvQAAAL8AAADEAAAA2wAAAN0A
-AADfAAzjCwAM4xAADOMbAAzjJAAM4zcADOM7AAzjTgAM41kADONiAAzjZwAM428ADONyAAzjdwAM44YA
-DOOKAAzjkQAM45kADOOmAAzjqwAM460ADOOvAAzjtAAM47wADOO/AAzjxAAM48wADOPPAAzj4QAM4+QA
-DOPpAAAAAAAABAEAAAAAAAAAQgAAAAAAAAAAAAAAAAAM4+s
+WiRjbGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdlUmVwoycpKlpOU0ltYWdlUmVwWE5TT2Jq
+ZWN00iUmLC1XTlNBcnJheaIsKtIlJi8wXk5TTXV0YWJsZUFycmF5oy8sKtMyMwo0NTZXTlNXaGl0ZVxO
+U0NvbG9yU3BhY2VEMCAwABADgAzSJSY4OVdOU0NvbG9yojgq0iUmOzxXTlNJbWFnZaI7Kl8QD05TS2V5
+ZWRBcmNoaXZlctE/QFRyb290gAEAAAAIAAAAEQAAABoAAAAjAAAALQAAADIAAAA3AAAARgAAAEwAAABX
+AAAAXgAAAGUAAAByAAAAeQAAAIEAAACDAAAAhQAAAIoAAACMAAAAjgAAAJkAAACeAAAAqQAAAKsAAACt
+AAAArwAAALQAAAC3AAAAuQAAALsAAAC9AAAAvwAAAMQAAADbAAAA3QAAAN8ADOMLAAzjEAAM4xsADOMk
+AAzjNwAM4zsADONGAAzjTwAM41QADONcAAzjXwAM42QADONzAAzjdwAM434ADOOGAAzjkwAM45gADOOa
+AAzjnAAM46EADOOpAAzjrAAM47EADOO5AAzjvAAM484ADOPRAAzj1gAAAAAAAAQBAAAAAAAAAEEAAAAA
+AAAAAAAAAAAADOPYA
 </mutableData>
         </image>
-        <image name="Back-50" width="25" height="25"/>
-        <image name="Brush-50" width="25" height="25"/>
         <image name="Menu-50" width="25" height="25"/>
         <image name="Pen-50" width="25" height="25"/>
         <image name="Play-50" width="25" height="25"/>
@@ -15378,12 +15431,13 @@ DOPpAAAAAAAABAEAAAAAAAAAQgAAAAAAAAAAAAAAAAAM4+s
         <image name="maintitle" width="1352" height="138"/>
         <image name="marker" width="61" height="149"/>
         <image name="pencilTool" width="24" height="148"/>
+        <image name="plus79" width="16" height="16"/>
         <image name="trash-can" width="24" height="24"/>
         <image name="tumbler" width="1433" height="1599"/>
         <image name="view" width="24" height="16"/>
         <image name="write" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="T6a-9d-GSO"/>
+        <segue reference="Vpe-I4-8ni"/>
     </inferredMetricsTieBreakers>
 </document>

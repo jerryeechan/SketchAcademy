@@ -45,6 +45,7 @@ extension PaintViewController:UITableViewDelegate
         return cell
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
         if(selectedPath == nil)
         {
             return genNoteCell(tableView, indexPath: indexPath)
@@ -196,6 +197,21 @@ extension PaintViewController:UITableViewDelegate
         noteListTableView.reloadData()
     }
     
+    
+    @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
+        let at = paintManager.getMasterStrokeID()
+        let note = NoteManager.instance.getNoteAtStroke(at)
+
+            NoteManager.instance.addNote(at,title: "註解1", description: "描述")
+            selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount()-1, inSection: 0)
+        noteListTableView.reloadData()
+        
+        //*TODO*
+        //add button disable, check if note exist at
+        
+        //var btn:UIBarButtonItem!
+        //btn.enabled = false
+    }
     
     
     

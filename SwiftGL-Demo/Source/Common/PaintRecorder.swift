@@ -15,14 +15,6 @@ import UIKit
     record the given input data and save into PaintArtwork
 */
 class PaintRecorder {
-    /*$$
-    class var instance:PaintRecorder{
-        struct Singleton {
-            static let instance = PaintRecorder()
-        }
-        return Singleton.instance
-    }
-    */
     var stroke:PaintStroke!
     var recordClip:PaintClip!
     //var artwork:PaintArtwork!

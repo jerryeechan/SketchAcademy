@@ -39,7 +39,10 @@ class Painter{
         PaintToolManager.instance.loadToolValueInfo(stroke.valueInfo)
         print(stroke.stringInfo.toolName)
         PaintToolManager.instance.useCurrentTool()
-        GLContextBuffer.instance.drawStroke(stroke,layer: layer)
+        for i in 0...10
+        {
+            GLContextBuffer.instance.drawStroke(stroke,layer: i)
+        }
     }
     
     /**

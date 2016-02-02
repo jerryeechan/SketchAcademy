@@ -28,8 +28,7 @@ public class Texture {
         width = 0
         height = 0
         glGenTextures(1, &id)
-        
-        
+        print("gen texture")
     }
     public func check()->Bool
     {
@@ -53,7 +52,6 @@ public class Texture {
         else{
             print("init texture fail")
         }
-        
     }
     public convenience init(image:UIImage)
     {

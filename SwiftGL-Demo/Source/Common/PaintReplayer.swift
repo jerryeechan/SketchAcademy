@@ -14,7 +14,7 @@ class PaintReplayer:NSObject
     //private var artwork:PaintArtwork!
     private var replayClip:PaintClip!
     
-    var playbackTimer:NSTimer!
+var playbackTimer:NSTimer!
     
     
     var branchAt:Int = -1//not used yet
@@ -31,7 +31,7 @@ class PaintReplayer:NSObject
     }
  
     
-    var progressSlider:UISlider!
+    weak var progressSlider:UISlider!
    
     func loadClip(clip:PaintClip)
     {
@@ -283,6 +283,7 @@ class PaintReplayer:NSObject
         //print("draw progress to index:\(index)");
         var startIndex = 0
         let endIndex = index
+        // from start blank
         if index == 0
         {
             GLContextBuffer.instance.blank()
@@ -294,16 +295,25 @@ class PaintReplayer:NSObject
             isDrawProgressed = true
             return true
         }
+        // stroke index did not change
+        // don't do anything
         if startIndex == last_startIndex && endIndex == last_endIndex
         {
             return false
         }
+        
+        //TODO
+        //draw closest cache
+        
+//        index = GLContextBuffer.instance.drawNearestCache(endIndex)
+        
         if index >= currentStrokeID
         {
             startIndex = currentStrokeID
         }
         else
         {
+            
             GLContextBuffer.instance.blank()
         }
         
@@ -371,5 +381,11 @@ class PaintReplayer:NSObject
         }
         
     }
-    
+    func exit()
+    {
+        if playbackTimer != nil
+        {
+            playbackTimer.invalidate()
+        }
+    }
 }
