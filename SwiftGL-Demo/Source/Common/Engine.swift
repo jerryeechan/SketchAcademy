@@ -8,8 +8,6 @@
 
 import Foundation
 
-var viewWidth: Float  = 600
-var viewHeight: Float = 600
 var currentScene: Scene?
 
 class Engine {
@@ -24,7 +22,7 @@ class Engine {
         }
         set {
             currentScene = scene
-            currentScene?.resize(width: viewWidth, height: viewHeight)
+            //currentScene?.resize(width: viewWidth, height: viewHeight)
         }
     }
     
@@ -47,9 +45,9 @@ class Engine {
     }
     
     class func resize(width width: Float, height: Float) {
-        viewWidth  = width
-        viewHeight = height
-        currentScene?.resize(width: viewWidth, height: viewHeight)
+        //viewWidth  = width
+        //viewHeight = height
+        //currentScene?.resize(width: viewWidth, height: viewHeight)
     }
 }
 

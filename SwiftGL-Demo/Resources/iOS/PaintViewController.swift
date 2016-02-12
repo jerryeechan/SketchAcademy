@@ -6,6 +6,14 @@
 //  Copyright (c) 2015年 Scott Bennett. All rights reserved.
 //
 
+func DLog(message: String, filename: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__){
+    #if DEBUG
+         print("\((filename as NSString).lastPathComponent):\(line) \(function):\(message)")
+    #else
+        print("not debug")
+    #endif
+}
+
 import GLKit
 import SwiftGL
 import OpenGLES
@@ -13,6 +21,7 @@ func getViewController(identifier:String)->UIViewController
 {
     
     return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(identifier)
+    
 }
 
 
@@ -22,6 +31,14 @@ func getViewController(identifier:String)->UIViewController
 
 class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate
 {
+    var themeDarkColor:UIColor!
+    var themeLightColor:UIColor!
+    
+    //UI size attributes
+    var viewWidth:CGFloat!
+    
+   
+    
     @IBOutlet weak var colorPicker: ColorPicker!
    
     override func prefersStatusBarHidden() -> Bool {
@@ -46,52 +63,68 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     var paintMode = PaintMode.Artwork
     var paintManager = PaintManager()
     var appState:AppState = .drawArtwork
+    static let canvasWidth:GLint = 1366
     
-   
+    static let canvasHeight:GLint = 1024
+    @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
+    
+    @IBOutlet var singlePanGestureRecognizer: UIPanGestureRecognizer!
+    
+    var currentTouchType:String = "None"
+    
     override func viewDidLoad() {
+
+        paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)))
+        paintView.multipleTouchEnabled = true
+        canvasBGView.addSubview(paintView)
+        paintView.addGestureRecognizer(singlePanGestureRecognizer)
         //the OpenCV
         //print(OpenCVWrapper.calculateImgSimilarity(UIImage(named: "img3"), secondImg: UIImage(named: "img2")))
-        
+
         
         toolBarItems = mainToolBar.items
         initAnimateState()
-        playBackToolbar.clipsToBounds = true
         
         //weak var paintToolManager = PaintToolManager.instance
         
-        colorPicker.setTheColor(UIColor(hue: 0, saturation: 0.5, brightness: 0.5, alpha: 1.0))
+        nearbyColorButtons = nearbyColorButtons.sort({b1,b2 in return b1.tag > b2.tag})
+        
         colorPicker.onColorChange = {[weak self](unowned color, finished) in
             if finished {
                 //self.view.backgroundColor = UIColor.whiteColor() // reset background color to white
+                DLog("finished")
             } else {
                 //self.view.backgroundColor = color // set background color to current selected color (finger is still down)
+                GLContextBuffer.instance.paintToolManager.changeColor(color)
                 let colors = getNearByColor(color)
                 
                 for i in 0...8
                 {
                     unowned let button = self!.nearbyColorButtons[i] as! UIButton
                     button.backgroundColor = colors[i]
+                    
                 }
-
-                PaintToolManager.instance.changeColor(color)
-
             }
         }
-        ////
-
-        canvasPanGestureHandler = CanvasPanGestureHandler(pvController: self)
-
-        PaintToolManager.instance.useCurrentTool()
-        
-        noteEditViewTopConstraint.constant = -384
-        
-        
-        drawNoteEditTextViewStyle()
         
         
         ////
+
+        //canvasPanGestureHandler = CanvasPanGestureHandler(pvController: self)
+
+        GLContextBuffer.instance.paintToolManager.useCurrentTool()
         
-        paintManager.setProgressSlider(progressSlider)
+       // noteEditViewTopConstraint.constant = -384
+        
+        
+       // drawNoteEditTextViewStyle()
+        
+        paintManager.masterReplayer.onProgressValueChanged = {[weak self](value) in
+            self!.replayProgressBar.setProgress(value, animated: false)
+        }
+        ////
+        
+        //paintManager.setProgressSlider(progressSlider)
         
         
         //noteEditTextView.delegate = self
@@ -101,7 +134,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         print(paintView.layer.anchorPoint)
         print(paintView.layer.position)
         //mainView.layoutIfNeeded()
-        initMode(paintMode)
+        
         if(fileName != nil)
         {
             NoteManager.instance.loadNotes(fileName)
@@ -110,15 +143,18 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         else
         {
             NoteManager.instance.empty()
-            GLContextBuffer.instance.display()
+            PaintView.display()
         }
+        viewWidth = view.contentScaleFactor * view.frame.width
         noteListTableView.reloadData()
-        
-
+        setUpNoteProgressButton()
+        initMode(paintMode)
 
     }
     
     override func viewDidAppear(animated: Bool) {
+        colorPicker.setTheColor(UIColor(hue: 0, saturation: 0.5, brightness: 0.5, alpha: 1.0))
+        
         
     }
     
@@ -140,13 +176,17 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     @IBOutlet weak var ToolKnob: UIView!
     
-    @IBOutlet weak var imageView: UIImageView!
     
-    @IBOutlet weak var scrollView: UIScrollView!
+ 
+    @IBOutlet weak var canvasBGView: UIView!
     
-    @IBOutlet weak var paintView: PaintView!
+//    @IBOutlet weak var paintView: PaintView!
+    
+    var paintView: PaintView!
     
     @IBOutlet weak var mainView: UIView!
+    
+   
     
     @IBOutlet weak var brushScaleSlider: UISlider!
     
@@ -154,42 +194,34 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     
     @IBAction func brushScaleSliderChanged(sender: UISlider) {
-        PaintToolManager.instance.changeSize(sender.value)
+        GLContextBuffer.instance.paintToolManager.changeSize(sender.value)
     }
     
+    //note related
+     @IBOutlet weak var noteButtonView: NoteProgressView!
     
-    @IBAction func imageViewPanGestureHandler(sender: UIPanGestureRecognizer) {
-        
-        let dis = sender.translationInView(imageView)
-        
-        print("image view pan")
-        let scale = imageView.layer.transform.m11
-        
-        switch(sender.state)
-        {
-        case UIGestureRecognizerState.Changed:
-            // CATransform3DMakeTranslation(dis.x/scale, dis.y/scale, 0)
-             imageView.layer.transform = CATransform3DTranslate(imageView.layer.transform, dis.x/scale , dis.y/scale, 0)
-        default:
-            print("image view pan")
-        }
-        
-        
-        sender.setTranslation(CGPointZero, inView: imageView)
-    }
+    @IBOutlet weak var noteTitleField: UITextField!
+    
+    @IBOutlet weak var noteDescriptionTextView: UITextView!
+    
+    @IBOutlet weak var noteDetailView: NoteTextView!
     
     var rect:GLRect!
     
-    var canvasPanGestureHandler:CanvasPanGestureHandler!
+    //var canvasPanGestureHandler:CanvasPanGestureHandler!
     
-    @IBOutlet weak var canvasImageView: UIImageView!
+    //@IBOutlet weak var canvasImageView: UIImageView!
     
         func resetAnchor()
     {
+        self.paintView.rotation = 0
+        self.paintView.translation = CGPoint.zero
+        self.paintView.scale = 1
         paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
         paintView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        paintView.layer.position = CGPoint(x:512,y:406)
+        paintView.layer.position = CGPoint(x:mainView.frame.width/2,y:        mainView.frame.height/2)
         
+        imageView.image = GLContextBuffer.instance.image
     }
     
 
@@ -215,12 +247,9 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         view.layer.anchorPoint = anchorPoint
     }
     
-   
-    
-    
-    var currentProgressValue:Float = 0
-    
     //replay control
+    
+    @IBOutlet weak var replayProgressBar: UIProgressView!
     @IBOutlet weak var progressSlider: UISlider!
     @IBOutlet weak var doublePlayBackButton: UIBarButtonItem!
     
@@ -295,6 +324,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
 */
    
     
+    
     var isCanvasManipulationEnabled:Bool = true
     
     //Extra Panels--------------------
@@ -336,8 +366,9 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     var selectedPath:NSIndexPath!
     
    
-
-    
+   
+    //plus button in note table
+    @IBOutlet weak var addNoteButton: UIBarButtonItem!
     
     
     
@@ -355,7 +386,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     @IBOutlet weak var mainToolBar: UIToolbar!
     
     //add a note, only in
-    @IBOutlet var addNoteButton: UIBarButtonItem!
+//    @IBOutlet var addNoteButton: UIBarButtonItem!
     
     //結束批改，only in revision mode
     @IBOutlet var reviseDoneButton: UIBarButtonItem!
@@ -374,17 +405,9 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     deinit
     {
-        /*
         GLContextBuffer.instance = nil
-        colorPicker.onColorChange = nil
-        colorPicker = nil
+        PaintView.instance = nil
         
-        addNoteButton = nil
-        reviseDoneButton = nil
-        enterViewModeButton = nil
-        enterDrawModeButton = nil
-        nearbyColorButtons = nil
-*/
         print("deinit")
     }
     
@@ -394,7 +417,9 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     @IBOutlet weak var showToolButton: UIButton!
     @IBOutlet var nearbyColorButtons: NSArray!//[UIButton]!
     
+    @IBOutlet weak var colorGradientView: UIView!
     
+    @IBOutlet weak var imageView: UIImageView!
     
     
     //replay

@@ -9,31 +9,48 @@
 import Foundation
 import SwiftGL
 import OpenGLES.ES2
-
-class GLShaderBinder{
-    
-    class var instance:GLShaderBinder{
-        struct Singleton{
-            static let instance = GLShaderBinder()
-        }
-        return Singleton.instance
+struct Attribute{
+    var iLoc:GLuint
+    var glType:GLenum
+    var glNormalized:GLboolean
+    var glSize:GLint
+    var offset:Int
+    init<T:GLType>(i:GLuint,t:T.Type)
+    {
+        iLoc = i
+        glType = T.glType
+        glNormalized = T.glNormalized
+        glSize = T.glSize
+        offset = sizeof(T)
     }
-    
+}
+class GLShaderBinder{
+
+    static var instance:GLShaderBinder!
     var drawShader:Shader!
     
     var imageShader:Shader!
     
     //static var instance:GLShaderBinder!
     //binding Attributes
+    /*
     var iLocAttribPosition:GLuint = 0
-    var iLocAttribSize:GLuint = 1
+//    var iLocAttribSize:GLuint = 1
     var iLocAttribAngle:GLuint = 2
+    //apple pencil attributes
+    var iLocAttribPencilForce:GLuint = 3
+    var iLocAttribPencilAltitude:GLuint = 4
+    var iLocAttribPencilAzimuth:GLuint = 5
+    */
     
     var iLocMVP:GLint = 0
     var iLocBrushSize:GLint = 0
     var iLocBrushColor:GLint = 0
     var iLocBrushTexture:GLint = 0
-
+    
+    
+    
+    var paintPointsAttributes=[Attribute]()
     
     enum DrawShader:String
     {
@@ -51,7 +68,12 @@ class GLShaderBinder{
         //shader = Shader()
         //load()
         
-        //GLShaderBinder.instance = self
+        GLShaderBinder.instance = self
+        load()
+    }
+    deinit
+    {
+        
     }
     func load()
     {
@@ -61,22 +83,43 @@ class GLShaderBinder{
     
     func loadBrushShader()
     {
+
         drawShader = Shader()
         if !(drawShader.load( "point.vsh","point.fsh") {
             program in
             // Here we will bind the attibute names to the correct position
             // Doing this will allow us to use the VBO/VAO with more than one shader, ensuring that the right
             // values get passed in to the correct shader variables
+            /*
             glBindAttribLocation(program, self.iLocAttribPosition, "vertexPosition")
             glBindAttribLocation(program, self.iLocAttribAngle, "vertexAngle")
+            glBindAttribLocation(program, self.iLocAttribPencilForce, "pencilForce")
+            glBindAttribLocation(program, self.iLocAttribPencilAltitude, "pencilAltitude")
+            glBindAttribLocation(program, self.iLocAttribPencilAzimuth, "pencilAzimuth")
+            */
+
+
             
-            glBindAttribLocation(program, self.iLocAttribSize, "vertexSize")
             
             }) {
                 // You can take this out after. Useful for debugging
                 print("failed to load shader", terminator: "")
                 glDebug(__FILE__, line: __LINE__)
         }
+        
+        /*
+        self.paintPointsAttributes.append(Attribute(i: self.iLocAttribPosition, t: Vec4.self))
+        self.paintPointsAttributes.append(Attribute(i: self.iLocAttribAngle, t: Float.self))
+        self.paintPointsAttributes.append(Attribute(i: self.iLocAttribPencilForce, t: Float.self))
+        self.paintPointsAttributes.append(Attribute(i: self.iLocAttribPencilAltitude, t: Float.self))
+        
+        self.paintPointsAttributes.append(Attribute(i: self.iLocAttribPencilAzimuth, t: Vec2.self))
+*/
+        addAttribute("vertexPosition", type: Vec4.self)
+        addAttribute("pencilForce", type: Float.self)
+        addAttribute("pencilAltitude", type: Float.self)
+        addAttribute("pencilAzimuth", type: Vec2.self)
+        addAttribute("vertexVelocity", type: Vec2.self)
         
         iLocMVP = glGetUniformLocation(drawShader.id, "MVP")
         iLocBrushColor = glGetUniformLocation(drawShader.id, "brushColor")
@@ -86,6 +129,11 @@ class GLShaderBinder{
 
     }
     
+    func addAttribute<T:GLType>(name:String,type:T.Type)
+    {
+        let iLoc = GLuint(glGetAttribLocation(drawShader.id, name))
+        paintPointsAttributes.append(Attribute(i: iLoc, t: type))
+    }
     func useShader(shader:DrawShader)
     {
         switch(shader)
@@ -201,6 +249,7 @@ class GLShaderBinder{
         imageShader.bind(iLocImageTexture,texture , index: 2)
         imageShader.bind(iLocImageAlpha, alpha)
         imageShader.useProgram()
+        
         genImageVertices(leftTop, rightBottom: rightBottom)
         imageVbo.bind(imageVertices, count: 4)
         
@@ -248,100 +297,19 @@ class GLShaderBinder{
         vbo.bind(vertextBuffer, count: vertextBuffer.count)
         // After binding some data to our VBO, we must bind our VBO's data
         // into our Vertex Array Object (VAO) using the associated Shader attributes
-        vao.bind(attribute:iLocAttribPosition, type: Vec4.self, vbo: vbo, offset: 0)
         
-        vao.bind(attribute:iLocAttribSize,type:Float.self,vbo:vbo,offset:sizeof(Vec4)*2)
-        vao.bind(attribute:iLocAttribAngle,type:Float.self,vbo:vbo,offset:sizeof(Vec4)*2+sizeof(Float))
-        
+        var offset:GLsizeiptr = 0
+        for attrib in paintPointsAttributes
+        {
+            vao.bind(attribute: attrib.iLoc, glType: attrib.glType, glNormalized: attrib.glNormalized, glSize: attrib.glSize, vbo: vbo, offset: offset)
+            offset+=attrib.offset
+        }
         
         //vao.bind(attribute: AttribColor,    type: Vec4.self, vbo: vbo, offset: sizeof(Vec4))
     }
-    
-    
-    /*
-    func qubetest()
+    func bindAttrib<T:GLType>(attrib:GLuint,type:T.Type,offset:GLsizeiptr)
     {
-        // Load the Shader files
-        if !(shader.load("DemoShader1.vsh", "DemoShader1.fsh") {
-            program in
-            // Here we will bind the attibute names to the correct position
-            // Doing this will allow us to use the VBO/VAO with more than one shader, ensuring that the right
-            // values get passed in to the correct shader variables
-            glBindAttribLocation(program, self.AttribPosition, "Position")
-            glBindAttribLocation(program, self.AttribColor,    "Color")
-            
-            }) {
-                // You can take this out after. Useful for debugging
-                glDebug(__FILE__, __LINE__)
-                print("dse")
-        }
-        shader.useProgram()
-        
-        // Bind the vertices into the Vertex Buffer Object (VBO)
-        let vertices: [Vertex] = [
-            // Front Face (+Z) - Yellow
-            Vertex(position: Vec4(x: -0.5, y: -0.5, z: 0.5), color: Vec4(x: 1, y: 1, z: 0, w: 1)),
-            Vertex(position: Vec4(x:  0.5, y: -0.5, z: 0.5), color: Vec4(x: 1, y: 1, z: 0, w: 1)),
-            Vertex(position: Vec4(x: -0.5, y:  0.5, z: 0.5), color: Vec4(x: 1, y: 1, z: 0, w: 1)),
-            Vertex(position: Vec4(x:  0.5, y:  0.5, z: 0.5), color: Vec4(x: 1, y: 1, z: 0, w: 1)),
-            
-            // Back Face (-Z) - Red
-            Vertex(position: Vec4(x:  0.5, y: -0.5, z: -0.5), color: Vec4(x: 1, y: 0, z: 0, w: 1)),
-            Vertex(position: Vec4(x: -0.5, y: -0.5, z: -0.5), color: Vec4(x: 1, y: 0, z: 0, w: 1)),
-            Vertex(position: Vec4(x:  0.5, y:  0.5, z: -0.5), color: Vec4(x: 1, y: 0, z: 0, w: 1)),
-            Vertex(position: Vec4(x: -0.5, y:  0.5, z: -0.5), color: Vec4(x: 1, y: 0, z: 0, w: 1)),
-            
-            // Left Face (-X) - Green
-            Vertex(position: Vec4(x: -0.5, y: -0.5, z: -0.5), color: Vec4(x: 0, y: 1, z: 0, w: 1)),
-            Vertex(position: Vec4(x: -0.5, y: -0.5, z:  0.5), color: Vec4(x: 0, y: 1, z: 0, w: 1)),
-            Vertex(position: Vec4(x: -0.5, y:  0.5, z: -0.5), color: Vec4(x: 0, y: 1, z: 0, w: 1)),
-            Vertex(position: Vec4(x: -0.5, y:  0.5, z:  0.5), color: Vec4(x: 0, y: 1, z: 0, w: 1)),
-            
-            // Right Face (+X) - Blue
-            Vertex(position: Vec4(x:  0.5, y: -0.5, z:  0.5), color: Vec4(x: 0, y: 0, z: 1, w: 1)),
-            Vertex(position: Vec4(x:  0.5, y: -0.5, z: -0.5), color: Vec4(x: 0, y: 0, z: 1, w: 1)),
-            Vertex(position: Vec4(x:  0.5, y:  0.5, z:  0.5), color: Vec4(x: 0, y: 0, z: 1, w: 1)),
-            Vertex(position: Vec4(x:  0.5, y:  0.5, z: -0.5), color: Vec4(x: 0, y: 0, z: 1, w: 1)),
-            
-            // Bottom Face (-Y) - Magenta
-            Vertex(position: Vec4(x: -0.5, y: -0.5, z: -0.5), color: Vec4(x: 1, y: 0, z: 1, w: 1)),
-            Vertex(position: Vec4(x:  0.5, y: -0.5, z: -0.5), color: Vec4(x: 1, y: 0, z: 1, w: 1)),
-            Vertex(position: Vec4(x: -0.5, y: -0.5, z:  0.5), color: Vec4(x: 1, y: 0, z: 1, w: 1)),
-            Vertex(position: Vec4(x:  0.5, y: -0.5, z:  0.5), color: Vec4(x: 1, y: 0, z: 1, w: 1)),
-            
-            // Top Face (+Y) - White
-            Vertex(position: Vec4(x: -0.5, y:  0.5, z:  0.5), color: Vec4(x: 1, y: 1, z: 1, w: 1)),
-            Vertex(position: Vec4(x:  0.5, y:  0.5, z:  0.5), color: Vec4(x: 1, y: 1, z: 1, w: 1)),
-            Vertex(position: Vec4(x: -0.5, y:  0.5, z: -0.5), color: Vec4(x: 1, y: 1, z: 1, w: 1)),
-            Vertex(position: Vec4(x:  0.5, y:  0.5, z: -0.5), color: Vec4(x: 1, y: 1, z: 1, w: 1)),
-        ]
-        vbo.bind(vertices, count: vertices.count)
-        
-        let indices: [GLushort] = [
-            GLushort(0), GLushort(1), GLushort(2), GLushort(3),
-            GLushort(3), GLushort(4),
-            GLushort(4), GLushort(5), GLushort(6), GLushort(7),
-            GLushort(7), GLushort(8),
-            GLushort(8), GLushort(9), GLushort(10), GLushort(11),
-            GLushort(11), GLushort(12),
-            GLushort(12), GLushort(13), GLushort(14), GLushort(15),
-            GLushort(15), GLushort(16),
-            GLushort(16), GLushort(17), GLushort(18), GLushort(19),
-            GLushort(19), GLushort(20),
-            GLushort(20), GLushort(21), GLushort(22), GLushort(23),
-        ]
-        ibo.bindElements(indices, count: indices.count)
-        
-        
-        // After binding some data to our VBO, we must bind our VBO's data
-        // into our Vertex Array Object (VAO) using the associated Shader attributes
-        vao.bind(attribute: AttribPosition, type: Vec4.self, vbo: vbo, offset: 0)
-        vao.bind(attribute: AttribColor,    type: Vec4.self, vbo: vbo, offset: sizeof(Vec4))
-        vao.bindElements(ibo)
-        // Bind the VAO we plan to use
-        vao.bind()
-        
-        
+        vao.bind(attribute:attrib, type: type, vbo: vbo, offset: offset)
     }
-    */
+    
 }

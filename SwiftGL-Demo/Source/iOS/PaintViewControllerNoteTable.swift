@@ -6,7 +6,7 @@
 //  Copyright © 2015年 Jerry Chan. All rights reserved.
 //
 
-extension PaintViewController:UITableViewDelegate
+extension PaintViewController:UITableViewDelegate,UITableViewDataSource
 {
     
     
@@ -67,8 +67,31 @@ extension PaintViewController:UITableViewDelegate
         return NoteManager.instance.noteCount()
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if (selectedPath != nil)
+        {
+           if indexPath == selectedPath
+           {
+            return true
+            }
+        }
+        
+        return false
+    }
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if(editingStyle == .Delete)
+        {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! NoteDetailCell
+            NoteManager.instance.deleteNoteAtStroke(cell.strokeID)
+            selectedPath = nil
+            noteListTableView.reloadData()
+        }
+        
+    }
     
-
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.Delete
+    }
     
     func clickOnRow(indexPath:NSIndexPath)
     {
@@ -137,7 +160,7 @@ extension PaintViewController:UITableViewDelegate
         else
         {
             paintManager.drawStrokeProgress(note.value.strokeIndex)
-            progressSlider.value = Float(note.value.strokeIndex)/Float(paintManager.currentReplayer.clip.strokes.count)
+            //progressSlider.value = Float(note.value.strokeIndex)/Float(paintManager.currentReplayer.clip.strokes.count)
             
         }
         
@@ -183,18 +206,17 @@ extension PaintViewController:UITableViewDelegate
     @IBAction func editNoteCellButtonTouched(sender: UIButton) {
         let cell = sender.superview?.superview as! NoteDetailCell
         let note = NoteManager.instance.getNoteAtStroke(cell.strokeID)
+        /*
         showNoteEditView()
         noteEditTitleTextField.text = note.title
         noteEditTextView.text = note.description
+        */
         NoteManager.instance.editingNoteIndex = cell.strokeID
         noteEditMode = .Edit
     }
     
     @IBAction func deleteNoteCellButtonTouched(sender: UIButton) {
-        let cell = sender.superview?.superview as! NoteDetailCell
-        NoteManager.instance.deleteNoteAtStroke(cell.strokeID)
-        selectedPath = nil
-        noteListTableView.reloadData()
+       
     }
     
     

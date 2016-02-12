@@ -13,26 +13,20 @@ import UIKit
 
 public class PaintToolManager {
     
-    class var instance:PaintToolManager{
-        struct Singleton {
-            static let instance = PaintToolManager()
-        }
-        return Singleton.instance
-    }
     
-    var colorInPalette:Color = Color(0,0,0,125)
+    var colorInPalette:Color = Color(25,25,25,125)
     var pen:PaintBrush!
     var eraser:PaintBrush!
     
     var currentTool:PaintBrush!
-    
+    static var instance:PaintToolManager!
     init()
     {
-        load()
+        PaintToolManager.instance = self
     }
     func load()
     {
-        pen = PaintBrush(textureName: "pencil",color: Color(0,0,0,25),size: 5,type:PaintToolType.pen)
+        pen = PaintBrush(textureName: "pencil",color: Color(25,25,25,25),size: 2,type:PaintToolType.pen)
         eraser = PaintBrush(textureName: "Particle", color: Color(255,255,255,0),size: 15,type:PaintToolType.eraser)
         
         currentTool = pen
@@ -78,7 +72,6 @@ public class PaintToolManager {
     func changeTool(name:String)->PaintBrush
     {
         currentTool = useTool(getTool(name))
-        
         return currentTool
     }
     /*
@@ -91,6 +84,7 @@ public class PaintToolManager {
 */
     func usePen()
     {
+        
         pen.useTool()
         pen.changeColor(colorInPalette)
         glBlendEquation(GLenum(GL_FUNC_ADD))
@@ -136,6 +130,7 @@ public class PaintToolManager {
         if currentTool == eraser
         {
             print("erase change color")
+
             return
         }
         

@@ -12,20 +12,19 @@ extension PaintViewController
     {
         toolViewState = SubViewPanelAnimateState(view: toolView, constraint: toolViewLeadingConstraint, hideValue: -240, showValue: 0)
         
-        noteEditViewState = SubViewPanelAnimateState(view: noteEditView, constraint: noteEditViewTopConstraint, hideValue: -384 , showValue: 0)
+        //noteEditViewState = SubViewPanelAnimateState(view: noteEditView, constraint: noteEditViewTopConstraint, hideValue: -384 , showValue: 0)
         
         noteListViewState = SubViewPanelAnimateState(view: noteListView, constraint: noteListViewTrailingConstraint, hideValue: -240, showValue: 0)
         
-        playBackViewState = SubViewPanelAnimateState(view: playBackView, constraint: playBackViewBottomConstraint, hideValue: 128, showValue: 0)
         
         toolViewState.animateHide(0)
         noteListViewState.animateHide(0)
-        playBackViewState.animateHide(0)
-        noteEditViewState.animateHide(0)
+        
+        //noteEditViewState.animateHide(0)
         
         noteListTableView.separatorStyle = .None
-//        drawGreyBorder(noteListTableView)
-        drawGreyBorder(toolView)
+        //drawGreyBorder(noteListTableView)
+        //drawGreyBorder(toolView)
         
         circleButton(showToolButton)
         
@@ -47,13 +46,14 @@ extension PaintViewController
     {
         view.layer.borderColor = UIColor.lightGrayColor().CGColor
         view.layer.borderWidth = 1
-        view.layer.cornerRadius = 5
+        
+        //view.layer.cornerRadius =
         
     }
     
     func circleButton(button:UIButton)
     {
-        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.layer.cornerRadius = 0.4 * button.frame.width
         button.backgroundColor = UIColor.whiteColor()
         button.layer.borderColor = UIColor.lightGrayColor().CGColor
         button.layer.borderWidth = 1

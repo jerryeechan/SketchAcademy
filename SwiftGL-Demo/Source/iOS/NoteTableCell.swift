@@ -14,6 +14,5 @@ class NoteTableCell:UITableViewCell{
     @IBOutlet weak var iconButton: UIButton!
     
     override func awakeFromNib() {
-        
     }
 }

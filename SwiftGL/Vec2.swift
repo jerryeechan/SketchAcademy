@@ -7,7 +7,7 @@
 //
 
 import Darwin
-
+import CoreGraphics
 public struct Vec2 {
     public var x, y: Float
     
@@ -39,7 +39,16 @@ public struct Vec2 {
         self.x = x
         self.y = 0
     }
-    
+    public init(point:CGPoint)
+    {
+        self.x = Float(point.x)
+        self.y = Float(point.y)
+    }
+    public init(cgVector:CGVector)
+    {
+        self.x = Float(cgVector.dx)
+        self.y = Float(cgVector.dy)
+    }
     public init(_ x: Float, _ y: Float) {
         self.x = x
         self.y = y

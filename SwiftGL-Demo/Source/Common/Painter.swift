@@ -35,97 +35,37 @@ class Painter{
         GLContextBuffer.instance.drawBrushVertex(stroke.points)
         GLContextBuffer.instance.endStroke()
         */
-        PaintToolManager.instance.changeTool(stroke.stringInfo.toolName)
-        PaintToolManager.instance.loadToolValueInfo(stroke.valueInfo)
-        print(stroke.stringInfo.toolName)
-        PaintToolManager.instance.useCurrentTool()
-        for i in 0...10
-        {
-            GLContextBuffer.instance.drawStroke(stroke,layer: i)
-        }
+        GLContextBuffer.instance.paintToolManager.changeTool(stroke.stringInfo.toolName)
+        GLContextBuffer.instance.paintToolManager.loadToolValueInfo(stroke.valueInfo)
+        GLContextBuffer.instance.paintToolManager.useCurrentTool()
+        
+        
+        GLContextBuffer.instance.drawStroke(stroke,layer: layer)
+        
     }
     
     /**
         Render point array
     */
+    
+    //TODO
+    //set the vInfo of the current using when touch event in recorder
+    //need to remove renderStaticLine
     static func renderStaticLine(points:[PaintPoint])
     {
-        
-        var vertexBuffer:[PaintPoint] = []
-        let kBrushPixelStep:Float = 2 * points[0].size
-        
-        var left:Float = points.last!.position.x
-        var right:Float = points.last!.position.x
-        var top:Float = points.last!.position.y
-        var bottom:Float = points.last!.position.y
-        
-        //srand(0)
-        for var i = 0 ; i < points.count-1 ; i++
-        {
-            if points[i].position.x < left
-            {
-                left = points[i].position.x
-            }
-            else if points[i].position.x > right
-            {
-                right = points[i].position.x
-            }
-            
-            if points[i].position.y < top
-            {
-                top = points[i].position.y
-            }
-            else if points[i].position.y > bottom
-            {
-                bottom = points[i].position.y
-            }
-            
-            let ep = points[i]
-            let sp = points[i+1]
-            
-            var count:Int;
-            
-            // Convert locations from Points to Pixels
-            /* CGFloat scale = self.contentScaleFactor;
-            start.x *= scale;
-            start.y *= scale;
-            end.x *= scale;
-            end.y *= scale;*/
-            
-            //var sp = start*scale
-            //var ep = end*scale
-            
-            
-            let xdis2 = powf((ep.position.x - sp.position.x),2)
-            
-            let ydis2 = powf((ep.position.y - sp.position.y),2)
-            
-            // Add points to the buffer so there are drawing points every X pixels
-            let pnum = ceil(sqrt(xdis2 + ydis2) / kBrushPixelStep)
-            
-            count = max(Int(pnum),1);
-            if(count == 1)
-            {
-                print("...")
-            }
-            
-            for var j = 0; j < count; ++j {
-                //let randAngle = Float(arc4random()) / Float(UINT32_MAX) * Pi/2
-                let randAngle = Float(rand() % 360) / 360 * Pi/2
-                let d = Float(j)/Float(count)
-                let px = sp.position.x+(ep.position.x-sp.position.x)*d
-                let py = sp.position.y+(ep.position.y-sp.position.y)*d
-                let v = PaintPoint(position: Vec4(px,py),color: sp.color,size: sp.size, rotation: randAngle)
-                
-                vertexBuffer.append(v)
-            }
-        }
-        
+        let vertexBuffer = GLContextBuffer.instance.interpolatePoints(points)
         GLContextBuffer.instance.drawBrushVertex(vertexBuffer,layer: layer)
-
     }
     static func renderLine(vInfo:ToolValueInfo,prev2:PaintPoint,prev1:PaintPoint,cur:PaintPoint)
     {
+        GLShaderBinder.instance.bindBrushInfo(vInfo)
+        let vertexBuffer = GLContextBuffer.instance.interpolatePoints([prev2,prev1,cur])
+        GLContextBuffer.instance.drawBrushVertex(vertexBuffer,layer: layer)
+    }
+    /*
+    static func renderLine(vInfo:ToolValueInfo,prev2:PaintPoint,prev1:PaintPoint,cur:PaintPoint)
+    {
+        var size:Float = 1
         GLShaderBinder.instance.bindBrushInfo(vInfo)
         var vertextBuffer:[PaintPoint] = []
         //smooth line
@@ -137,7 +77,7 @@ class Painter{
         
         let dis = (midPoint1-midPoint2).length
         
-        let numberOfSegments = max((dis/2/prev1.size),1)//min(128, max(floorf(dis / segmentDistance), 32));
+        let numberOfSegments = max((dis/2/size),1)//min(128, max(floorf(dis / segmentDistance), 32));
         let noS = Int(numberOfSegments)
         var t:Float = 0.0;
         let step:Float = 1.0 / (numberOfSegments-1);
@@ -154,23 +94,20 @@ class Painter{
             let pos = it1+it2+it3
             
             
-            let s1 = (prev1.size + prev2.size) * 0.5 * p1
-            let s2 = prev1.size * p2
-            let s3 = (prev1.size+cur.size)*0.5*p3
-            let size = s1+s2+s3
-            
             var randAngle:Float = 0
             if PaintToolManager.instance.currentTool.name != "markerTexture"
             {
                 randAngle = Float(rand() % 360) / 360 * Pi/2
             }
-            let newVert:PaintPoint = PaintPoint(position: pos,color: vInfo.color.vec,size: size, rotation: randAngle)
+//            let newVert = PaintPoint
+            
+            //PaintPoint(position: pos,color: vInfo.color.vec,size: size, rotation: randAngle)
 
                     // 6
                    // newPoint.pos = ccpAdd(ccpAdd(ccpMult(midPoint1, powf(1 - t, 2)), ccpMult(prev1.pos, 2.0f * (1 - t) * t)), ccpMult(midPoint2, t * t));
                    // newPoint.width = powf(1 - t, 2) * ((prev1.width %2B prev2.width) * 0.5f) %2B 2.0f * (1 - t) * t * prev1.width %2B t * t * ((cur.width %2B prev1.width) * 0.5f);
                     
-            vertextBuffer.append(newVert)
+            vertextBuffer.append(PaintPoint(position: Vec4(px,py), rotation: randAngle, force: force, altitude: altitude, azimuth: azimuth ))
             t+=step
         }
         
@@ -219,6 +156,7 @@ class Painter{
        GLContextBuffer.instance.drawBrushVertex(vertextBuffer,layer: layer)
         
     }
+*/
     
 }
 

@@ -50,14 +50,15 @@ class ColorPicker: UIView {
         var hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
         let ok: Bool = color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         if (!ok) {
-            print("ColorPicker: exception <The color provided to ColorPicker is not convertible to HSB>")
+            DLog("ColorPicker: exception <The color provided to ColorPicker is not convertible to HSB>")
         }
         self.hue = hue
         self.saturation = saturation
         self.brightness = brightness
-        self.color = color
-        handleColorChange(color, changing: true)
-        setup()
+        self.percentSaturation = saturation
+        self.percentBrightness = brightness
+        DLog("\(color)")
+        notifyViews(color)
     }
     
     func setup() {
@@ -95,7 +96,7 @@ class ColorPicker: UIView {
         //self.addSubview(crossHairView)
         
         // Init new MainColorView subview
-        mainColorView = MainColorView(frame: CGRect(x: 0, y: 0, width: 30, height: smallestDim        + 114.0), color: color)
+        mainColorView = MainColorView(frame: CGRect(x: 0, y: 0, width: 32, height: smallestDim + 118.0), color: color)
         mainColorView.delegate = self
         self.addSubview(mainColorView)
         
@@ -127,9 +128,9 @@ class ColorPicker: UIView {
     func colorSaturationAndBrightnessSelected(point: CGPoint) {
         
         // Determine the brightness and saturation of the selected color based upon the selection coordinates and the dimensions of the container
-        print(point)
-        percentBrightness = point.x / (colorView.bounds.width)
-        percentSaturation = 1 - (point.y / (colorView.bounds.height))
+        
+        percentBrightness = 1 - (point.y / (colorView.bounds.height))
+        percentSaturation = point.x / (colorView.bounds.width)
         print("br:\(percentBrightness)")
         print("sa:\(percentSaturation)")
         notifyViews(UIColor(hue: hue, saturation: percentSaturation, brightness: percentBrightness, alpha: 1.0))
@@ -144,10 +145,13 @@ class ColorPicker: UIView {
     }
     
     private func handleColorChange(color:UIColor, changing:Bool) {
-        if color !== self.color {
+        DLog("\(color) \(self.color)")
+        
+        if color != self.color {
             if let handler = onColorChange {
                 handler(color: color, finished:!changing)
             }
+            self.color = color
             setNeedsDisplay()
         }
     }
@@ -163,12 +167,12 @@ func getNearByColor(color:UIColor)->[UIColor]
     color.getHue(&hue, saturation: &sat, brightness: &bri, alpha: &alpha)
     
     var nearbyColors:[UIColor] = []
-    for var i = -0.2 ; i<=0.2; i += 0.2
+    for var i = -1 ; i <= 1; i++
     {
-        for var j = -0.2 ; j <= 0.2; j += 0.2
+        for var j = 1 ; j >= -1; j--
         {
-            let new_bri = bri + CGFloat(i)
-            let new_sat = sat + CGFloat(j)
+            let new_bri = bri + CGFloat(i)*0.15
+            let new_sat = sat + CGFloat(j)*0.15
             nearbyColors.append(UIColor(hue: hue, saturation: new_sat, brightness: new_bri, alpha: 1))
         }
     }

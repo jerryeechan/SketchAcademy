@@ -15,7 +15,19 @@ class NoteManager {
         }
         return Singleton.instance
     }
+    private var noteButtonDict:[Int:NoteProgressButton] = [Int:NoteProgressButton]()
+    var selectedIndex:Int!
     private var noteDict:[Int:Note] = [Int:Note]()
+    func getNoteButton(index:Int)->NoteProgressButton!
+    {
+        return noteButtonDict[index]
+    }
+    func addNoteButton(noteButton:NoteProgressButton,note:Note)
+    {
+        noteButton.note = note
+        noteButtonDict[note.value.strokeIndex] = noteButton
+        DLog("\(note.value.strokeIndex)")
+    }
     //private var noteList:[Note] = []
     var editingNoteIndex:Int = -1
     func empty()
@@ -135,5 +147,6 @@ class NoteManager {
     {
         FileManager.instance
     }
+    
 }
 

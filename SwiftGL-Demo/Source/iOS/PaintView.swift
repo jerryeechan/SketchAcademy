@@ -16,18 +16,25 @@ class PaintView: GLKView {
     weak var glContextBuffer:GLContextBuffer!
     var glTransformation:GLTransformation!
 
+    var translation:CGPoint = CGPoint(x: 0, y: 0)
+    var rotation:CGFloat = 0
+    var scale:CGFloat = 1
     
-    
+    static var instance:PaintView!
+    static func display()
+    {
+        instance.setNeedsDisplay()
+    }
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
-        
-
+       
         
         self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
         if self.glcontext == nil {
             print("Failed to create ES context")
         }
+        context = glcontext
         
         contentScaleFactor = UIScreen.mainScreen().scale;
         Painter.scale = Float(contentScaleFactor)
@@ -37,11 +44,25 @@ class PaintView: GLKView {
         
         // Enable multisampling
         //drawableMultisample = GLKViewDrawableMultisample.Multisample4X;
-        opaque = false
         
         initGL()
         
     }
+    required override init(frame:CGRect)
+    {
+        super.init(frame: frame)
+        PaintView.instance = self
+        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
+        if self.glcontext == nil {
+            print("Failed to create ES context")
+        }
+        context = glcontext
+        contentScaleFactor = UIScreen.mainScreen().scale;
+        Painter.scale = Float(contentScaleFactor)
+        initGL()
+        
+    }
+    
     var isInitialized:Bool = false
     
     func setContext()
@@ -66,24 +87,22 @@ class PaintView: GLKView {
         print(dirContents)
         
         EAGLContext.setCurrentContext(self.glcontext)
-
+        
         eaglLayer = layer as! CAEAGLLayer
-    
-        eaglLayer.opaque = false
         
         eaglLayer.drawableProperties = [kEAGLDrawablePropertyColorFormat:kEAGLColorFormatRGBA8,kEAGLDrawablePropertyRetainedBacking:true]
         
+        print("PaintView: create shader")
         
         glContextBuffer = GLContextBuffer(context: glcontext, layer: eaglLayer)
         print("PaintView: create context buffer")
 
-        GLShaderBinder.instance.load()
-        print("PaintView: create shader")
+        
+        
         glTransformation = GLTransformation(width: glContextBuffer.backingWidth, height: glContextBuffer.backingHeight)
         print("PaintView: create transformation")
         
-        PaintToolManager.instance.load()
-        PaintToolManager.instance.usePen()
+        
         
         
         //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -101,39 +120,28 @@ class PaintView: GLKView {
         return true
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-//        EAGLContext.setCurrentContext(self.glcontext)
-        //resizeLayer()
-        
-//        GLContextBuffer.instance.drawTexture(Texture(filename: "spongebob"))
-        
-        
-        
-        
-    }
     
     func resizeLayer()
     {
         
-        var width:GLint = 200
-        var height:GLint = 200
-
-        glContextBuffer.resizeLayer(eaglLayer,w: width,h: height)
-        
+        glContextBuffer.resizeLayer(eaglLayer)
+        let width:GLint = GLint(frame.width * contentScaleFactor)//GLContextBuffer.instance.backingWidth
+        let height:GLint = GLint(frame.height * contentScaleFactor) //GLContextBuffer.instance.backingHeight
         glTransformation.resize(width, height: height)
-        print("\(glContextBuffer.backingWidth) \(glContextBuffer.backingHeight)")
         
         GLContextBuffer.instance.blank()
-        GLContextBuffer.instance.display()
+        PaintView.display()
 
     }
-    
+    override func drawRect(rect: CGRect) {
+        GLContextBuffer.instance.display()
+    }
     
     /*
     override func drawRect(rect: CGRect) {
         //Engine.render()
     }
+    
 */
 
 }

@@ -10,7 +10,8 @@ import UIKit
 class MainColorView: UIView {
     var color: UIColor!
     var point: CGPoint!
-    
+    var knob:UIView!
+
     weak var delegate: ColorPicker?
     
     init(frame: CGRect, color: UIColor) {
@@ -40,6 +41,16 @@ class MainColorView: UIView {
         self.color = color
         
         point = getPointFromColor(color)
+        
+        knob = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+        knob.layer.cornerRadius = 16
+        knob.layer.borderWidth = 1
+        knob.layer.borderColor = UIColor.whiteColor().CGColor
+        knob.backgroundColor = UIColor.whiteColor()
+        knob.layer.shadowColor = UIColor.blackColor().CGColor
+//        knob.layer.shadowOffset = CGSize(width: 0, height: -3)
+        addSubview(knob)
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -52,8 +63,14 @@ class MainColorView: UIView {
         point.x = 15
         point.y = getYCoordinate(point.y)
         // Notify delegate of the new new color selection
-        delegate?.mainColorSelected(getColorFromPoint(point), point: point)
+        let color = getColorFromPoint(point)
+        delegate?.mainColorSelected(color, point: point)
         // Update display when possible
+        UIView.animateWithDuration(0.5, animations: {
+            self.knob.layer.transform = CATransform3DMakeTranslation(0, self.point.y, 0)
+            self.knob.backgroundColor = color
+        })
+        
         setNeedsDisplay()
         
     }
@@ -64,11 +81,12 @@ class MainColorView: UIView {
         // Set reference to the location of the touchesMoved in member point
         let  touch = touches.first
         point = touch!.locationInView(self)
-        point.x = 15
+        point.x = 16
         point.y = getYCoordinate(point.y)
         // Notify delegate of the new new color selection
         delegate?.mainColorSelected(getColorFromPoint(point), point: point)
         // Update display when possible
+        knob.layer.transform = CATransform3DMakeTranslation(0, point.y-16, 0)
         setNeedsDisplay()
     }
     

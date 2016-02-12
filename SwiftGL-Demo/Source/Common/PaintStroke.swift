@@ -46,7 +46,7 @@ class PaintStroke
         points = []
         for var i = 0; i < pointData.count ;i++
         {
-            points.append(genPaintPoint(pointData[i].position, velocity: pointData[i].velocity))
+            points.append(pointData[i].paintPoint)
         }
     }
     func isPaintingAvalible()->Bool
@@ -77,10 +77,10 @@ class PaintStroke
         }
         return []
     }
-    func addPoint(point:PaintPoint,time:CFAbsoluteTime,vel:Vec2)
+    func addPoint(point:PaintPoint,time:CFAbsoluteTime)
     {
         points+=[point]
-        pointData.append(PointData(p: point.position.xy,t: time,v: vel))
+        pointData.append(PointData(paintPoint: point,t: time))
     }
     
     func draw()
@@ -89,9 +89,9 @@ class PaintStroke
         Painter.renderStroke(self)
         //drawBetween(0, endIndex: pointData.count)
     }
+    /*
     func drawBetween(startIndex:Int,endIndex:Int)
     {
-        
         for var i = startIndex; i<endIndex-2; i++
         {
             
@@ -99,6 +99,7 @@ class PaintStroke
         }
         //
     }
+*/
     func setBrush()
     {
         

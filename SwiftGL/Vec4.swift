@@ -7,7 +7,7 @@
 //
 
 import Darwin
-
+import CoreGraphics
 public struct Vec4 {
     public var x, y, z, w: Float
     
@@ -19,7 +19,13 @@ public struct Vec4 {
     }
     
     // Explicit Initializers
-    
+    public init(point:CGPoint)
+    {
+        self.x = Float(point.x)
+        self.y = Float(point.y)
+        self.z = 0
+        self.w = 0
+    }
     public init(s: Float) {
         self.x = s
         self.y = s

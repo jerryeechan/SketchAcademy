@@ -12,6 +12,18 @@ class ArtworkCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     
+
+    @IBOutlet weak var titleField: UITextField!
+    
+    
+    @IBAction func titleTouched(sender: UIButton) {
+        
+    }
+    
+    
     @IBOutlet weak var actionButton: UIButton!
+    override func awakeFromNib() {
+        
+    }
     
 }

@@ -8,7 +8,24 @@
 
 import Foundation
 import UIKit
-
+extension UIView
+{
+    func animateHide(duration:NSTimeInterval)
+    {
+        UIView.animateWithDuration(duration, animations: {
+            self.alpha = 0
+            }, completion: {finished in
+                self.hidden = true
+        })
+    }
+    func animateShow(duration:NSTimeInterval)
+    {
+        self.hidden = false
+        UIView.animateWithDuration(duration, animations: {
+            self.alpha = 1
+        })
+    }
+}
 
 func snapShotFromView(view:UIView)->UIImage
 {
@@ -20,14 +37,22 @@ func snapShotFromView(view:UIView)->UIImage
 }
 extension PaintViewController
 {
+    
+}
+extension PaintViewController
+{
     func enterViewMode()
     {
-        playBackViewState.animateShow(0.2)
+        singlePanGestureRecognizer.cancelsTouchesInView = true
+        canvasBGView.addGestureRecognizer(singlePanGestureRecognizer)
+        paintView.removeGestureRecognizer(singlePanGestureRecognizer)
+        
         toolViewState.animateHide(0.2)
         toolViewState.isLocked = true
-        noteListViewState.animateShow(0.2)
-        print("----enter View Mode----")
+        //noteListViewState.animateShow(0.2)
+        replayProgressBar.animateShow(0.2)
         
+        print("----enter View Mode----")
         viewModeToolBarSetUp()
         
         switch(appState)
@@ -41,36 +66,16 @@ extension PaintViewController
         }
         paintManager.currentReplayer.setProgressSliderAtCurrentStroke()
         
-        /*
-        switch(paintMode)
-        {
-        case .Artwork:
-            appState = .viewArtwork
-            
-            
-            //paintManager.artworkDrawModeSwitchToViewMode()
-        case .Revision:
-            appState = .viewArtwork
-            viewModeToolBarSetUp()
-            
-            //paintManager.revisionDrawModeSwitchToViewMode()
-        }*/
+        noteButtonView.animateShow(0.2)
     }
-    
-    func viewArtwork()
-    {
-        
-    }
-    func viewRevision()
-    {
-        
-    }
-    
     func enterDrawMode()
     {
-        playBackViewState.animateHide(0.2)
+        paintView.addGestureRecognizer(singlePanGestureRecognizer)
+        canvasBGView.removeGestureRecognizer(singlePanGestureRecognizer)
         noteListViewState.animateHide(0.2)
         toolViewState.isLocked = false
+        replayProgressBar.animateHide(0.2)
+        singlePanGestureRecognizer.cancelsTouchesInView = false
         switch(appState)
         {
         case .drawArtwork:
@@ -82,9 +87,19 @@ extension PaintViewController
         default:
             print("Error")
         }
-
+        noteButtonView.animateHide(0.2)
         
     }
+    func viewArtwork()
+    {
+        
+    }
+    func viewRevision()
+    {
+        
+    }
+    
+    
     func removeToolBarButton(button:UIBarButtonItem)->Int!
     {
         let index = toolBarItems.indexOf(button)
@@ -113,11 +128,11 @@ extension PaintViewController
         {
         case .Artwork:
             addToolBarButton(enterDrawModeButton, atIndex: index)
-            addToolBarButton(addNoteButton, atIndex: index)
+            //addToolBarButton(addNoteButton, atIndex: index)
         case .Revision:
             removeToolBarButton(reviseDoneButton)
             removeToolBarButton(enterDrawModeButton)
-            addToolBarButton(addNoteButton, atIndex: toolBarItems.count)
+            //addToolBarButton(addNoteButton, atIndex: toolBarItems.count)
             break
             
         }
@@ -125,28 +140,28 @@ extension PaintViewController
         
         
         mainToolBar.setItems(toolBarItems, animated: true)
-        showToolButton.hidden = true
+        showToolButton.animateHide(0.2)
 
     }
     func artworkDrawModeToolBarSetUp()
     {
         removeToolBarButton(reviseDoneButton)
-        removeToolBarButton(addNoteButton)
+        //removeToolBarButton(addNoteButton)
         removeToolBarButton(enterDrawModeButton)
         addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
         mainToolBar.setItems(toolBarItems, animated: true)
-        showToolButton.hidden = false
+        showToolButton.animateShow(0.2)
     }
     
     func revisionDrawModeToolBarSetUp()
     {
         //reviseDoneButton.enabled = true
         addToolBarButton(reviseDoneButton, atIndex: toolBarItems.count)
-        removeToolBarButton(addNoteButton)
+        //removeToolBarButton(addNoteButton)
         
         //toolBarItems.insert(<#T##newElement: Element##Element#>, atIndex: index)
         mainToolBar.setItems(toolBarItems, animated: true)
-        showToolButton.hidden = false
+        showToolButton.animateShow(0.2)
     }
     
     

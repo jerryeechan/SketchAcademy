@@ -8,8 +8,10 @@
 
 import UIKit
 class LayerCache:Layer {
-    override init()
+    var atStroke:Int = 0
+    convenience init(atStroke:Int,w: GLsizei, h: GLsizei)
     {
-        
+        self.init(w: w, h: h)
+        self.atStroke = atStroke
     }
 }

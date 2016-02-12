@@ -13,8 +13,9 @@ import SwiftGL
 class GLRenderTextureFrameBuffer{
     var tempLayer:Layer!
     var layers:[Layer] = []
+    var caches:Dictionary<Int,LayerCache> = Dictionary<Int,LayerCache>()
     var revisionLayer:Layer!
-    var drawBuffers:[GLenum] = [GL_COLOR_ATTACHMENT0]
+    //var drawBuffers:[GLenum] = [GL_COLOR_ATTACHMENT0]
     var framebuffer:GLuint=0
     var width,height:GLsizei!
     var currentLayer:Layer!
@@ -31,7 +32,9 @@ class GLRenderTextureFrameBuffer{
         
         //tempLayer = Layer(w: width, h: height)
         revisionLayer = Layer(w: width, h: height)
-        backgroundLayer = Layer(texture:Texture(filename: "paper"))
+        backgroundLayer = Layer(texture:Texture(filename: "paper_sketch"))
+        addEmptyLayer()
+        /*
         for i in 0...10
             {
                 addEmptyLayer()
@@ -46,13 +49,14 @@ class GLRenderTextureFrameBuffer{
         //setBuffer()
         glClearColor(255, 255, 255, 255)
         glClear(GL_COLOR_BUFFER_BIT )
-       
+       */
         
     }
     deinit
     {
         layers.removeAll()
         revisionLayer = nil
+        glDeleteFramebuffers(1, [framebuffer])
     }
     func addEmptyLayer()
     {
@@ -125,12 +129,35 @@ class GLRenderTextureFrameBuffer{
         }
         
     }
-    func genCacheFrame()
+    func genCacheFrame(atStroke:Int)->LayerCache!
     {
-        
+        DLog("gen cache \(atStroke)")
+        //check cache exist
+        if caches[atStroke] == nil
+        {caches[atStroke] = LayerCache(atStroke: atStroke,w: width, h: height)}
+        return caches[atStroke]
     }
-    func drawCacheFrame(index:Int)
+    
+        
+    func getCaches()->[LayerCache]
     {
+        let array = Array(caches.values).sort({$0.atStroke < $1.atStroke})
+        return array
+    }
+    func getNearestCacheIndex(targetIndex:Int)->Int{
+        let array = Array(caches.values).sort({$0.atStroke < $1.atStroke})
+        //the index in Layer Cache arraya
+        
+        if array.count != 0
+        {
+            let atIndex = binarySearch(array, searchIndex: targetIndex)
+            if atIndex == -1 {return 0}
+            else {return array[atIndex].atStroke}
+        }
+        else
+        {
+            return 0
+        }
         
     }
     func cloneLayer(){
@@ -147,4 +174,25 @@ class GLRenderTextureFrameBuffer{
         
         return (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GLenum(GL_FRAMEBUFFER_COMPLETE))
     }
+    
+    private func binarySearch(inputArr:[LayerCache], searchIndex: Int)->Int{
+        var lowerIndex = 0;
+        var upperIndex = inputArr.count - 1
+        
+        while (true) {
+            let currentIndex = (lowerIndex + upperIndex)/2
+            if(inputArr[currentIndex].atStroke == searchIndex) {
+                return currentIndex
+            } else if (lowerIndex > upperIndex) {
+                return upperIndex
+            } else {
+                if (inputArr[currentIndex].atStroke > searchIndex) {
+                    upperIndex = currentIndex - 1
+                } else {
+                    lowerIndex = currentIndex + 1
+                }
+            }
+        }
+    }
 }
+

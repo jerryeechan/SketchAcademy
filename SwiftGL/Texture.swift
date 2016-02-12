@@ -17,6 +17,10 @@ import ImageIO
 import UIKit
 #endif
 
+
+func DLog(message: String, filename: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__){
+        print("\((filename as NSString).lastPathComponent):\(line) \(function):\(message)")
+}
 public class Texture {
     public var id: GLuint
     public var width: GLsizei
@@ -28,7 +32,7 @@ public class Texture {
         width = 0
         height = 0
         glGenTextures(1, &id)
-        print("gen texture")
+        DLog("gen texture \(id)")
     }
     public func check()->Bool
     {

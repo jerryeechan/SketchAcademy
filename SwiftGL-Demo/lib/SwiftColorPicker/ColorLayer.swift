@@ -10,12 +10,14 @@ import UIKit
 
 class ColorLayer {
     let layer: CAGradientLayer!
-    let layerTop: UIColor!
-    let layerBottom: UIColor = UIColor.whiteColor()
+    let layerLeft: UIColor = UIColor.whiteColor()
+    let layerRight: UIColor!
     init(color: UIColor!) {
-        layerTop = color
+        layerRight = color
         layer = CAGradientLayer()
-        layer.colors = [layerTop.CGColor, layerBottom.CGColor]
+        layer.colors = [layerLeft.CGColor, layerRight.CGColor]
         layer.locations = [0.0, 1.0]
+        layer.startPoint = CGPointMake(0.0, 0.5)
+        layer.endPoint = CGPointMake(1.0, 0.5)
     }
 }

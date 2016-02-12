@@ -46,7 +46,6 @@ class PaintManager {
     {
         masterReplayer.stopPlay()
         GLContextBuffer.instance.blank()
-        GLContextBuffer.instance.display()
     }
     func saveArtwork(filename:String,img:UIImage)
     {
@@ -58,7 +57,6 @@ class PaintManager {
     {
         print("Paint Manager loadArtwork")
         GLContextBuffer.instance.blank()
-        //GLContextBuffer.instance.display()
         //call filemanager to load the file to PaintArtwork
         artwork = FileManager.instance.loadPaintArtWork(filename)
         paintRecorder.recordClip = artwork.masterClip
@@ -76,7 +74,6 @@ class PaintManager {
         {
             return false
         }
-        
     }
     
 
@@ -107,7 +104,7 @@ class PaintManager {
         GLRenderTextureFrameBuffer.instance.selectLayer(0)
         revisionReplayer.stopPlay()
         GLRenderTextureFrameBuffer.instance.setAllLayerAlpha(1)
-        GLContextBuffer.instance.display()
+        PaintView.display()
         
     }
     func playRevisionClip(clip:PaintClip)
@@ -119,7 +116,7 @@ class PaintManager {
         GLRenderTextureFrameBuffer.instance.setAllLayerAlpha(0.5)
         GLRenderTextureFrameBuffer.instance.selectRevisionLayer()
         masterReplayer.pause()
-        GLContextBuffer.instance.display()
+        PaintView.display()
         
         
         //revisionReplayer.restart()
@@ -164,7 +161,7 @@ class PaintManager {
         GLRenderTextureFrameBuffer.instance.revisionLayer.enabled = true
         GLRenderTextureFrameBuffer.instance.setAllLayerAlpha(0.5)
         GLRenderTextureFrameBuffer.instance.selectRevisionLayer()
-        GLContextBuffer.instance.display()
+        PaintView.display()
     }
     
     func revisionDrawModeSwitchToViewMode()
@@ -231,14 +228,14 @@ class PaintManager {
     }
     func getCurrentStrokeID()->Int
     {
-        print("currentStrokeID: \(currentReplayer.currentStrokeID)")
+        //print("currentStrokeID: \(currentReplayer.currentStrokeID)")
         return currentReplayer.currentStrokeID
     }
-    
+    /*
     func setProgressSlider(slider:UISlider)
     {
         masterReplayer.progressSlider = slider
         revisionReplayer.progressSlider = slider
     }
-    
+    */
 }

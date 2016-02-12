@@ -65,9 +65,15 @@ public extension Vao {
     public func bind <T: GLType> (attribute attribute: GLuint, type: T.Type, vbo: Vbo, offset: GLsizeiptr) {
         glBindVertexArray(id)
         glEnableVertexAttribArray(attribute)
-        
         glBindBuffer(GL_ARRAY_BUFFER, vbo.id)
         glVertexAttribPointer(attribute, type.glSize, type.glType, type.glNormalized, GLsizei(vbo.stride), UnsafePointer<()>(bitPattern: offset))
+    }
+    public func bind(attribute attribute: GLuint, glType:GLenum,glNormalized: GLboolean,glSize: GLint , vbo: Vbo, offset: GLsizeiptr)
+    {
+        glBindVertexArray(id)
+        glEnableVertexAttribArray(attribute)
+        glBindBuffer(GL_ARRAY_BUFFER, vbo.id)
+        glVertexAttribPointer(attribute, glSize, glType, glNormalized, GLsizei(vbo.stride), UnsafePointer<()>(bitPattern: offset))
     }
 }
 

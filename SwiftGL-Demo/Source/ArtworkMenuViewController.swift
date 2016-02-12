@@ -10,6 +10,8 @@ import UIKit
 class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
     
     weak var delegate:PaintViewController!
+    
+    @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -21,14 +23,11 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         return FileManager.instance.getFileCount()+1
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        
-        
-        if(indexPath.row == 0)
+                if(indexPath.row == 0)
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("emptyCollectionCell", forIndexPath: indexPath)
-            cell.layer.borderWidth = 2
-            cell.layer.borderColor = UIColor.lightGrayColor().CGColor
+            //cell.layer.borderWidth = 2
+            //cell.layer.borderColor = UIColor.lightGrayColor().CGColor
             
             return cell
         }
@@ -38,16 +37,16 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
             
             //cell.backgroundColor = UIColor.blackColor()
             let fName = FileManager.instance.getFileName(indexPath.row-1)
+            
+            cell.titleField.text = fName
             cell.actionButton.tag = indexPath.row-1
             cell.imageView.image = FileManager.instance.loadImg(fName)
             return cell
             // Configure the cell
         }
         
-        
-        
-        
     }
+    
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let paintViewController = getViewController("paintview") as! PaintViewController
@@ -55,7 +54,6 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         if(indexPath.row == 0)
         {
             let cell = collectionView.cellForItemAtIndexPath(indexPath)
-            cell?.backgroundColor = UIColor.lightGrayColor()
         }
         else
         {
@@ -78,7 +76,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         if(indexPath.row==0)
         {
             let cell = collectionView.cellForItemAtIndexPath(indexPath)
-            cell?.backgroundColor = UIColor.lightGrayColor()
+            cell?.alpha = 0.5
         }
         else
         {
@@ -91,7 +89,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         if(indexPath.row==0)
         {
             let cell = collectionView.cellForItemAtIndexPath(indexPath)
-            cell?.backgroundColor = UIColor.whiteColor()
+            cell?.alpha = 1
         }
         else
         {
@@ -104,7 +102,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         if(indexPath.row==0)
         {
             let cell = collectionView.cellForItemAtIndexPath(indexPath)
-            cell?.backgroundColor = UIColor.whiteColor()
+            cell?.alpha = 1
         }
         else
         {
@@ -119,7 +117,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
     var selectedIndexPath:NSIndexPath!
     @IBAction func actionButtonTouched(sender: UIButton) {
         
-        let cell = sender.superview?.superview as! UICollectionViewCell
+        let cell = sender.superview as! UICollectionViewCell
         
         selectedIndexPath = collectionView?.indexPathForCell(cell)
         

@@ -11,7 +11,8 @@ import SwiftGL
 struct PaintPoint{
     //struct to send in OpenGL
     var position: Vec4
-    var color: Vec4 = Vec4(1,1,1,1)
-    var size: Float
-    var rotation:Float
+    var force:Float
+    var altitude:Float
+    var azimuth:Vec2
+    var velocity:Vec2
 }

@@ -38,45 +38,33 @@ extension PaintViewController
         
         if paintManager.drawProgress(sender.value) == true //success draw
         {
-            
-            currentProgressValue = sender.value
-            
             if appState == .viewArtwork
             {
-
                 let currentStrokeID = paintManager.getCurrentStrokeID()
+                /*
                 if NoteManager.instance.getOrderedNote(currentStrokeID) == nil
                 {
-                    //*TODO*
+                    //TODO
                     //allow add button
                 }
+                */
                 let index = NoteManager.instance.getNoteIndexFromStrokeID(currentStrokeID)
                 
-                print("note index\(index)");
+                //print("note index\(index)");
                 if index != -1
                 {
                     isCellSelectedSentbySlider = true
-                    
-                    
-                    
-                    //let cell = noteListTableView.cellForRowAtIndexPath(selectedPath)
-                    
-                    
-                    //noteListTableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
                     selectRow(NSIndexPath(forRow: index, inSection: 0))
                     //tableView(noteListTableView, didSelectRowAtIndexPath: NSIndexPath(forRow: index, inSection: 0))
                 }
                 else
                 {
-                    //print("wtf")
-                    //noteListTableView.deselectRowAtIndexPath(NSIndexPath(forRow: NoteManager.instance.selectedNoteIndex, inSection: 0), animated: true)
                     if selectedPath != nil
                     {
                         let indexPath = selectedPath
                         selectedPath = nil
                         noteListTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
                     }
-                    
                 }
             }
         }

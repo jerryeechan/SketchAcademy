@@ -34,7 +34,7 @@ public struct ToolValueInfo:Initable{
         self.color = color
         self.size = size
     }
-    public var color:Color = Color(0,0,0,255)
+    public var color:Color = Color(25,25,25,255)
     public var size:Float = 0
 }
 
