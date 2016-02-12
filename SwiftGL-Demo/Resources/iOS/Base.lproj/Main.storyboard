@@ -598,7 +598,27 @@
                                                     </mask>
                                                 </variation>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhP-HB-Oyp" userLabel="ColorGradientView">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HM2-rj-SlN" customClass="HueView" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="28" id="X9T-Hx-QCN"/>
+                                                    <constraint firstAttribute="width" constant="200" id="v3C-aD-FA7"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="X9T-Hx-QCN"/>
+                                                        <exclude reference="v3C-aD-FA7"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <mask key="constraints">
+                                                        <include reference="X9T-Hx-QCN"/>
+                                                        <include reference="v3C-aD-FA7"/>
+                                                    </mask>
+                                                </variation>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhP-HB-Oyp" userLabel="ColorGradientView" customClass="ColorGradientView" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -611,8 +631,7 @@
                                                         <exclude reference="mNW-v5-GzB"/>
                                                     </mask>
                                                 </variation>
-                                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                    <rect key="frame" x="40" y="0.0" width="200" height="200"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
                                                     <mask key="constraints">
                                                         <include reference="Fy1-9D-if9"/>
                                                         <include reference="mNW-v5-GzB"/>
@@ -621,8 +640,12 @@
                                             </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="FhP-HB-Oyp" secondAttribute="trailing" constant="8" id="ExD-wc-f2k"/>
-                                            <constraint firstItem="iV9-oV-7Ad" firstAttribute="top" secondItem="2CA-XT-VkX" secondAttribute="top" constant="208" id="GX2-sS-UE9"/>
+                                            <constraint firstAttribute="trailing" secondItem="FhP-HB-Oyp" secondAttribute="trailing" constant="8" id="ExD-wc-f2k">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="HM2-rj-SlN" secondAttribute="trailing" id="FUH-id-uSH"/>
+                                            <constraint firstItem="iV9-oV-7Ad" firstAttribute="top" secondItem="2CA-XT-VkX" secondAttribute="top" constant="244" id="GX2-sS-UE9"/>
+                                            <constraint firstItem="HM2-rj-SlN" firstAttribute="top" secondItem="FhP-HB-Oyp" secondAttribute="bottom" constant="8" id="JZp-Lh-LhP"/>
                                             <constraint firstItem="FhP-HB-Oyp" firstAttribute="top" secondItem="2CA-XT-VkX" secondAttribute="top" id="L8l-sJ-foT"/>
                                             <constraint firstAttribute="height" constant="360" id="goe-hG-geP">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="347"/>
@@ -630,11 +653,14 @@
                                             <constraint firstItem="iV9-oV-7Ad" firstAttribute="leading" secondItem="2CA-XT-VkX" secondAttribute="leading" constant="40" id="hVZ-Hk-3be">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
-                                            <constraint firstAttribute="width" constant="232" id="ouM-Xz-PCL"/>
+                                            <constraint firstAttribute="width" constant="232" id="ouM-Xz-PCL">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="240"/>
+                                            </constraint>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="subviews">
                                                 <exclude reference="iV9-oV-7Ad"/>
+                                                <exclude reference="HM2-rj-SlN"/>
                                                 <exclude reference="FhP-HB-Oyp"/>
                                             </mask>
                                             <mask key="constraints">
@@ -642,6 +668,8 @@
                                                 <exclude reference="ouM-Xz-PCL"/>
                                                 <exclude reference="ExD-wc-f2k"/>
                                                 <exclude reference="L8l-sJ-foT"/>
+                                                <exclude reference="FUH-id-uSH"/>
+                                                <exclude reference="JZp-Lh-LhP"/>
                                                 <exclude reference="GX2-sS-UE9"/>
                                                 <exclude reference="hVZ-Hk-3be"/>
                                             </mask>
@@ -649,6 +677,7 @@
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <mask key="subviews">
                                                 <include reference="iV9-oV-7Ad"/>
+                                                <include reference="HM2-rj-SlN"/>
                                                 <include reference="FhP-HB-Oyp"/>
                                             </mask>
                                             <mask key="constraints">
@@ -656,6 +685,8 @@
                                                 <include reference="ouM-Xz-PCL"/>
                                                 <include reference="ExD-wc-f2k"/>
                                                 <include reference="L8l-sJ-foT"/>
+                                                <include reference="FUH-id-uSH"/>
+                                                <include reference="JZp-Lh-LhP"/>
                                                 <include reference="GX2-sS-UE9"/>
                                                 <include reference="hVZ-Hk-3be"/>
                                             </mask>
@@ -1066,6 +1097,7 @@
                         <outlet property="doublePlayBackButton" destination="OtO-ZG-NRp" id="n6M-kq-wca"/>
                         <outlet property="enterDrawModeButton" destination="MSJ-ij-Vz2" id="x5u-n5-VnY"/>
                         <outlet property="enterViewModeButton" destination="5Wx-8p-Syv" id="lDv-SB-YSh"/>
+                        <outlet property="hueView" destination="HM2-rj-SlN" id="uJG-Nb-tIf"/>
                         <outlet property="imageView" destination="QFq-cn-qe8" id="7Ha-30-CDY"/>
                         <outlet property="mainToolBar" destination="Olf-xl-ZcA" id="cfj-rh-NAE"/>
                         <outlet property="mainView" destination="MuV-st-KEp" id="nSJ-pA-k2h"/>

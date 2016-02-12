@@ -53,6 +53,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         super.viewWillDisappear(animated)
         
     }
+    
     enum AppState{
         case viewArtwork
         case viewRevision
@@ -88,7 +89,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         //weak var paintToolManager = PaintToolManager.instance
         
         nearbyColorButtons = nearbyColorButtons.sort({b1,b2 in return b1.tag > b2.tag})
-        
+        colorPicker.setup(hueView, colorGradientView: colorGradientView)
         colorPicker.onColorChange = {[weak self](unowned color, finished) in
             if finished {
                 //self.view.backgroundColor = UIColor.whiteColor() // reset background color to white
@@ -417,8 +418,9 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     @IBOutlet weak var showToolButton: UIButton!
     @IBOutlet var nearbyColorButtons: NSArray!//[UIButton]!
     
-    @IBOutlet weak var colorGradientView: UIView!
+    @IBOutlet weak var colorGradientView: ColorGradientView!
     
+    @IBOutlet weak var hueView: HueView!
     @IBOutlet weak var imageView: UIImageView!
     
     

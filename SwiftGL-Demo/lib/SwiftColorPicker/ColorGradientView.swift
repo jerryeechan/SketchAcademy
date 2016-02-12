@@ -17,43 +17,75 @@ class ColorGradientView: UIView {
         super.init(coder: aDecoder);
     }
     
+    let knobWidth:CGFloat = 30
+    var hasLayouted = false
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if !hasLayouted
+        {
+            knob = UIView(frame: CGRect(x: 0, y: 0, width: knobWidth, height: knobWidth))
+            knob.layer.cornerRadius = knobWidth/2
+            knob.layer.borderColor = UIColor.lightGrayColor().CGColor
+            knob.backgroundColor = UIColor.whiteColor()
+            hasLayouted = true
+            
+            addSubview(knob)
+            initLayer()
+        }
+
+        
+    }
+    
     init(frame: CGRect, color: UIColor!) {
         super.init(frame: frame)
-        setColor(color)
-        knob = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        knob.layer.cornerRadius = 15
-        knob.layer.borderColor = UIColor.lightGrayColor().CGColor
-        knob.backgroundColor = UIColor.whiteColor()
-        addSubview(knob)
+        //setColor(color)
+        
     }
     var isTouchDown = false;
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        DLog("touched")
         let touch = touches.first
-        point = touch!.locationInView(self)
+        let point = touch!.locationInView(self)
         delegate?.colorSaturationAndBrightnessSelected(point)
         isTouchDown = true
+        
+        //let dis = point-(touch?.previousLocationInView(self))!
+        
+        UIView.animateWithDuration(0.2, animations: {
+            self.knob.center = point+CGPoint(x: 0,y: -30)
+            self.knob.layer.transform = CATransform3DMakeScale(2, 2, 1)
+        })
+        
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if(isTouchDown)
         {
             let touch = touches.first
             point = touch!.locationInView(self)
+            point.x = getLimitXCoordinate(point.x)
+            point.y = getLimitYCoordinate(point.y)
             delegate?.colorSaturationAndBrightnessSelected(point);
-            //UIView.animateWithDuration(<#T##duration: NSTimeInterval##NSTimeInterval#>, animations: <#T##() -> Void#>)
-            knob.layer.transform = CATransform3DMakeTranslation(0, point.y, 0)
-             //= CATransform3DTranslate(knob.layer.transform, 0 , point.y, <#T##tz: CGFloat##CGFloat#>)
+            self.knob.center = point+CGPoint(x: 0,y: -30)
+            
         }
         
     }
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         isTouchDown = false
+        let touch = touches.first
+        var point = touch!.locationInView(self)
+        point.x = getLimitXCoordinate(point.x)
+        point.y = getLimitYCoordinate(point.y)
+        UIView.animateWithDuration(0.5, animations: {
+            self.knob.center = point
+            self.knob.layer.transform = CATransform3DIdentity
+        })
+        
     }
-    func setColor(_color: UIColor!) {
-        // Set member color to the new UIColor coming in
-        colorLayer = ColorLayer(color: _color)
-        // Set colorView sublayers to nil to remove any existing sublayers
-        layer.sublayers = nil;
-        // Use the size and position of this views frame to create a new frame for the color.colorLayer
+    func initLayer()
+    {
+        colorLayer = ColorLayer(color: UIColor.redColor())
         colorLayer.layer.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.width)
         // Insert the color.colorLayer into this views layer as a sublayer
         layer.insertSublayer(colorLayer.layer, atIndex: 0)
@@ -69,5 +101,19 @@ class ColorGradientView: UIView {
         // Insert the grayScaleLayer into this views layer as a sublayer
         self.layer.insertSublayer(grayScaleLayer, atIndex: 1)
     }
+    func setColor(_color: UIColor!) {
+        // Set member color to the new UIColor coming in
+        colorLayer.layer.removeFromSuperlayer()
+        colorLayer = ColorLayer(color: _color)
+        // Set colorView sublayers to nil to remove any existing sublayers
+        //layer.sublayers = nil;
+        // Use the size and position of this views frame to create a new frame for the color.colorLayer
+        colorLayer.layer.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.width)
+        // Insert the color.colorLayer into this views layer as a sublayer
+        layer.insertSublayer(colorLayer.layer, atIndex: 0)
+        // Init new CAGradientLayer to be used as the grayScale overlay
+        
+    }
 }
 
+public func - (a: CGPoint, b: CGPoint) ->CGPoint {return CGPoint(x: a.x-b.x, y: a.y-b.y)}

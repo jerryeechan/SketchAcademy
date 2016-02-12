@@ -13,8 +13,8 @@ import UIKit
 
 class ColorPicker: UIView {
     var crossHairView: CrossHairView!
-    var colorView: ColorGradientView!
-    var mainColorView: MainColorView!
+    weak var colorView: ColorGradientView!
+    weak var hueView: HueView!
     var circleHueColorView:AngleGradientBorderView!
     var selectedColorView: SelectedColorView!
     var onColorChange:((color:UIColor, finished:Bool)->Void)? = nil
@@ -32,18 +32,11 @@ class ColorPicker: UIView {
         super.init(coder: aDecoder)
         opaque = false
         backgroundColor = UIColor.clearColor()
-        // Init the view with a black border
-        // Set height and width based on what the dimensions of the view are
-        if (self.frame.size.height > self.frame.size.width) {
-//            smallestDim = self.frame.size.width
-        } else {
-//            smallestDim = self.frame.size.height
-        }
         
         // Init with default color of red
         color = UIColor.redColor()
         // Call setup method to create the subviews needed for the control
-        setup()
+        
     }
     
     func setTheColor(color: UIColor) {
@@ -61,12 +54,12 @@ class ColorPicker: UIView {
         notifyViews(color)
     }
     
-    func setup() {
+    func setup(hueView:HueView,colorGradientView:ColorGradientView) {
         // Remove all subviews
-        let views = self.subviews
-        for view in views {
-            view.removeFromSuperview()
-        }
+        self.hueView = hueView
+        self.colorView = colorGradientView
+        self.hueView.delegate = self
+        self.colorView.delegate = self
         
         /*
         circleHueColorView = AngleGradientBorderView(frame: CGRect(x: 0, y: 0, width: smallestDim, height: smallestDim))
@@ -78,12 +71,12 @@ class ColorPicker: UIView {
         // Init new ColorGradientView subview
 //        colorView = ColorGradientView(frame: CGRect(x: smallestDim/4, y: smallestDim/4, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
 
-        colorView = ColorGradientView(frame: CGRect(x: 40, y: 0, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
+        //~~colorView = ColorGradientView(frame: CGRect(x: 40, y: 0, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
         
         // Add colorGradientView as a subview of this view
         
-        self.addSubview(colorView)
-        colorView.delegate = self
+        //self.addSubview(colorView)
+        //colorView.delegate = self
         //hueColorView = AngleGradientBorderView(frame: CGRect(x: 0,y: 0,width: 240,height: 240))
         //self.addSubview(hueColorView)
         
@@ -96,9 +89,9 @@ class ColorPicker: UIView {
         //self.addSubview(crossHairView)
         
         // Init new MainColorView subview
-        mainColorView = MainColorView(frame: CGRect(x: 0, y: 0, width: 32, height: smallestDim + 118.0), color: color)
-        mainColorView.delegate = self
-        self.addSubview(mainColorView)
+        //mainColorView = MainColorView(frame: CGRect(x: 0, y: 0, width: 32, height: smallestDim + 118.0), color: color)
+        //mainColorView.delegate = self
+        //self.addSubview(mainColorView)
         
         
         
@@ -152,7 +145,7 @@ class ColorPicker: UIView {
                 handler(color: color, finished:!changing)
             }
             self.color = color
-            setNeedsDisplay()
+            //setNeedsDisplay()
         }
     }
 }
