@@ -29,7 +29,7 @@ func getViewController(identifier:String)->UIViewController
 
 
 
-class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate
+class PaintViewController:UIViewController, UIGestureRecognizerDelegate
 {
     var themeDarkColor:UIColor!
     var themeLightColor:UIColor!
@@ -54,22 +54,34 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         
     }
     
+    
     enum AppState{
         case viewArtwork
         case viewRevision
         case drawArtwork
         case drawRevision
+        case editNote
     }
     var fileName:String!
     var paintMode = PaintMode.Artwork
     var paintManager = PaintManager()
-    var appState:AppState = .drawArtwork
+    var lastAppState:AppState!
+    var appState:AppState = .drawArtwork{
+        willSet{
+         lastAppState = appState
+        }
+        
+    }
     static let canvasWidth:GLint = 1366
     
     static let canvasHeight:GLint = 1024
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
     @IBOutlet var singlePanGestureRecognizer: UIPanGestureRecognizer!
+    
+    @IBOutlet var doubleTapSingleTouchGestureRecognizer: UITapGestureRecognizer!
+    
+    @IBOutlet var singleTapSingleTouchGestureRecognizer: UITapGestureRecognizer!
     
     var currentTouchType:String = "None"
     
@@ -148,7 +160,10 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
         }
         viewWidth = view.contentScaleFactor * view.frame.width
         noteListTableView.reloadData()
-        setUpNoteProgressButton()
+        noteProgressButtonSetUp()
+        noteEditSetUp()
+        gestureHandlerSetUp()
+        
         initMode(paintMode)
 
     }
@@ -201,9 +216,9 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     //note related
      @IBOutlet weak var noteButtonView: NoteProgressView!
     
-    @IBOutlet weak var noteTitleField: UITextField!
+    @IBOutlet weak var noteTitleField: NoteTitleField!
     
-    @IBOutlet weak var noteDescriptionTextView: UITextView!
+    @IBOutlet weak var noteDescriptionTextView: NoteTextArea!
     
     @IBOutlet weak var noteDetailView: NoteTextView!
     
@@ -217,6 +232,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     {
         self.paintView.rotation = 0
         self.paintView.translation = CGPoint.zero
+        
         self.paintView.scale = 1
         paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
         paintView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -401,6 +417,7 @@ class PaintViewController:UIViewController, UITextViewDelegate, UIGestureRecogni
     
     @IBOutlet weak var dismissButton: UIBarButtonItem!
    
+    @IBOutlet weak var modeText: UIBarButtonItem!
     
     var toolBarItems:[UIBarButtonItem]!
     

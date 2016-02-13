@@ -74,7 +74,6 @@ class GLContextBuffer{
 
         for var i = 0;i<1 ;i++
         {
-            DLog("draw layer---\(i)")
             let layer = renderTexture.layers[i]
             if(layer.enabled)
             {

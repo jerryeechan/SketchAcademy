@@ -474,11 +474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "PaintViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -494,9 +494,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "11"
-            endingLineNumber = "11"
-            landmarkName = "+imageWithCVMat:"
-            landmarkType = "4">
+            endingLineNumber = "11">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -778,11 +776,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "initMode(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -826,11 +824,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "PaintViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -938,11 +936,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
+            startingLineNumber = "402"
+            endingLineNumber = "402"
             landmarkName = "PaintViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -954,11 +952,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
+            startingLineNumber = "432"
+            endingLineNumber = "432"
             landmarkName = "PaintViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1146,11 +1144,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "476952474.708679"
+            timestampString = "477055206.033071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "drawLayers()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1162,11 +1160,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/PaintViewControllerGestureHandler.swift"
-            timestampString = "476900397.951112"
+            timestampString = "477055340.0576"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "uiPinchGestrueEvent(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1194,11 +1192,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "PaintViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1528,11 +1526,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
             landmarkName = "PaintViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1544,11 +1542,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/PaintViewControllerGestureHandler.swift"
-            timestampString = "476900397.951112"
+            timestampString = "477055340.0576"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "uiPinchGestrueEvent(_:)"
             landmarkType = "5">
             <Locations>
@@ -1607,11 +1605,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/PaintViewControllerGestureHandler.swift"
-            timestampString = "476900397.951112"
+            timestampString = "477055340.0576"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "uiPinchGestrueEvent(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1623,11 +1621,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/PaintViewControllerGestureHandler.swift"
-            timestampString = "476900397.951112"
+            timestampString = "477055340.0576"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "rotationGestureHandler(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1655,11 +1653,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/lib/SwiftColorPicker/ColorPicker.swift"
-            timestampString = "476983403.198586"
+            timestampString = "477022794.275612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "notifyViews(_:)"
             landmarkType = "5">
             <Locations>
@@ -1808,11 +1806,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/lib/SwiftColorPicker/ColorPicker.swift"
-            timestampString = "476983403.198586"
+            timestampString = "477022794.275612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "notifyViews(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1824,11 +1822,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/lib/SwiftColorPicker/ColorPicker.swift"
-            timestampString = "476983403.198586"
+            timestampString = "477022794.275612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "handleColorChange(_:changing:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1840,11 +1838,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1888,43 +1886,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/lib/SwiftColorPicker/ColorPicker.swift"
-            timestampString = "476983403.198586"
+            timestampString = "477022794.275612"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "handleColorChange(_:changing:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftGL-Demo/lib/SwiftColorPicker/ColorPicker.swift"
+            timestampString = "477022794.275612"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "handleColorChange(_:changing:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftGL-Demo/lib/SwiftColorPicker/ColorPicker.swift"
+            timestampString = "477022794.275612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "144"
             endingLineNumber = "144"
-            landmarkName = "handleColorChange(_:changing:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftGL-Demo/lib/SwiftColorPicker/ColorPicker.swift"
-            timestampString = "476983403.198586"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "handleColorChange(_:changing:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftGL-Demo/lib/SwiftColorPicker/ColorPicker.swift"
-            timestampString = "476983403.198586"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
             landmarkName = "handleColorChange(_:changing:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2000,11 +1998,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/CanvasPanGestureHandler.swift"
-            timestampString = "476946642.546218"
+            timestampString = "477052787.213079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "handleDrawingSinglePan(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2016,11 +2014,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/CanvasPanGestureHandler.swift"
-            timestampString = "476946642.546218"
+            timestampString = "477052787.213079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "handleDrawingSinglePan(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2096,11 +2094,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/PaintViewControllerGestureHandler.swift"
-            timestampString = "476900397.951112"
+            timestampString = "477055340.0576"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "gestureRecognizer(_:shouldRecognizeSimultaneouslyWithGestureRecognizer:)"
             landmarkType = "5">
             <Locations>
@@ -2144,11 +2142,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/PaintViewControllerGestureHandler.swift"
-            timestampString = "476900397.951112"
+            timestampString = "477055340.0576"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "gestureRecognizer(_:shouldRecognizeSimultaneouslyWithGestureRecognizer:)"
             landmarkType = "5">
             <Locations>
@@ -2208,11 +2206,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2256,11 +2254,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/lib/SwiftColorPicker/ColorGradientView.swift"
-            timestampString = "476985417.102362"
+            timestampString = "477030992.140133"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "init(frame:color:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2272,11 +2270,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476977106.979362"
+            timestampString = "477060395.586032"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "PaintViewController"
             landmarkType = "3">
             <Locations>
@@ -2493,11 +2491,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "resetAnchor()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2541,11 +2539,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "476952474.708679"
+            timestampString = "477055206.033071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "419"
-            endingLineNumber = "419"
+            startingLineNumber = "418"
+            endingLineNumber = "418"
             landmarkName = "deinit"
             landmarkType = "5">
          </BreakpointContent>
@@ -2557,11 +2555,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Resources/iOS/PaintViewController.swift"
-            timestampString = "476982064.673155"
+            timestampString = "477060827.758093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "410"
-            endingLineNumber = "410"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
             landmarkName = "deinit"
             landmarkType = "5">
          </BreakpointContent>
@@ -2633,12 +2631,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/lib/SwiftColorPicker/ColorGradientView.swift"
-            timestampString = "476987377.126977"
+            timestampString = "477030992.140133"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "touchesBegan(_:withEvent:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftGL-Demo/Source/iOS/NoteTextArea.swift"
+            timestampString = "477063762.833753"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "gestureRecognizerShouldBegin(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftGL-Demo/Source/iOS/NoteTextArea.swift"
+            timestampString = "477063702.120078"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "gestureRecognizerShouldBegin(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftGL-Demo/Source/iOS/NoteTextArea.swift"
+            timestampString = "477063780.812901"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "gestureRecognizerShouldBegin(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

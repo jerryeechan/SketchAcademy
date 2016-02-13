@@ -118,7 +118,7 @@ class ColorPicker: UIView {
     
     
     
-    func colorSaturationAndBrightnessSelected(point: CGPoint) {
+    func colorSaturationAndBrightnessSelected(point: CGPoint)->UIColor {
         
         // Determine the brightness and saturation of the selected color based upon the selection coordinates and the dimensions of the container
         
@@ -126,12 +126,14 @@ class ColorPicker: UIView {
         percentSaturation = point.x / (colorView.bounds.width)
         print("br:\(percentBrightness)")
         print("sa:\(percentSaturation)")
-        notifyViews(UIColor(hue: hue, saturation: percentSaturation, brightness: percentBrightness, alpha: 1.0))
+        let color = UIColor(hue: hue, saturation: percentSaturation, brightness: percentBrightness, alpha: 1.0)
+        notifyViews(color)
+        return color
     }
     
     func notifyViews(selectedColor: UIColor) {
         
-        colorView.setColor(UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
+        colorView.setColor(selectedColor)
         //crossHairView.setTheColor(selectedColor)
         //selectedColorView.setTheColor(selectedColor)
         handleColorChange(selectedColor, changing: true)

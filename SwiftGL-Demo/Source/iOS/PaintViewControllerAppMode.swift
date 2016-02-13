@@ -128,6 +128,7 @@ extension PaintViewController
         {
         case .Artwork:
             addToolBarButton(enterDrawModeButton, atIndex: index)
+            addToolBarButton(addNoteButton,atIndex: index)
             //addToolBarButton(addNoteButton, atIndex: index)
         case .Revision:
             removeToolBarButton(reviseDoneButton)
@@ -146,6 +147,7 @@ extension PaintViewController
     func artworkDrawModeToolBarSetUp()
     {
         removeToolBarButton(reviseDoneButton)
+        removeToolBarButton(addNoteButton)
         //removeToolBarButton(addNoteButton)
         removeToolBarButton(enterDrawModeButton)
         addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)

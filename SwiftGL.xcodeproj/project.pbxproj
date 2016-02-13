@@ -21,6 +21,7 @@
 		C41805E41B9F2F4000B69EF5 /* NoteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */; };
 		C4235B761C0F406F00C32531 /* ArtworkMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4235B741C0F3C4900C32531 /* ArtworkMenuViewController.swift */; };
 		C42468161B21E0520053CB5B /* AlertViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42468151B21E0520053CB5B /* AlertViewManager.swift */; };
+		C42BB0DA1C6F4A31003F3337 /* NoteTitleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */; };
 		C433EEB51B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */; };
 		C433EEB61B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */; };
 		C433EEB81B5BC13000D5175F /* SliceRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB71B5BC13000D5175F /* SliceRect.swift */; };
@@ -77,8 +78,7 @@
 		C491EC671C129C3C00154CC6 /* PaintViewControllerPaintTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491EC651C129C3C00154CC6 /* PaintViewControllerPaintTools.swift */; };
 		C491EC691C129C9C00154CC6 /* PaintViewControllerReplayControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491EC681C129C9C00154CC6 /* PaintViewControllerReplayControl.swift */; };
 		C491EC6A1C129C9C00154CC6 /* PaintViewControllerReplayControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491EC681C129C9C00154CC6 /* PaintViewControllerReplayControl.swift */; };
-		C491EC6D1C129D6A00154CC6 /* PaintViewControllerGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491EC6B1C129D6A00154CC6 /* PaintViewControllerGestureHandler.swift */; };
-		C491EC6F1C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491EC6E1C129F5D00154CC6 /* PaintViewControllerAction.swift */; };
+		C491EC6D1C129D6A00154CC6 /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491EC6B1C129D6A00154CC6 /* GestureHandler.swift */; };
 		C491EC701C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491EC6E1C129F5D00154CC6 /* PaintViewControllerAction.swift */; };
 		C49404771B2A045600BB975E /* FileBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49404751B2A039500BB975E /* FileBrowseViewController.swift */; };
 		C49404791B2A0D7400BB975E /* SaveFileDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49404781B2A0D7400BB975E /* SaveFileDialogViewController.swift */; };
@@ -99,12 +99,16 @@
 		C4B10D791B0E3FC0001BAAAB /* GLContextBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B10D771B0E3FC0001BAAAB /* GLContextBuffer.swift */; };
 		C4B4D4191B4E3211004B926D /* FileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B4D4171B4E320D004B926D /* FileTableViewController.swift */; };
 		C4B6C76C1B563CD50052BFC3 /* ReferenceImageScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B6C76A1B563C7F0052BFC3 /* ReferenceImageScene.swift */; };
+		C4BBE6B61C6EE7F300E731A1 /* QTouchposeApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BBE6B51C6EE7F300E731A1 /* QTouchposeApplication.m */; };
+		C4BBE6B71C6EE89300E731A1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F664131ADD7607003C1925 /* main.swift */; };
+		C4BBE6BA1C6EFD9600E731A1 /* NoteTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BBE6B91C6EFD9600E731A1 /* NoteTextArea.swift */; };
+		C4BBE6BC1C6F123A00E731A1 /* NoteEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BBE6BB1C6F123A00E731A1 /* NoteEdit.swift */; };
 		C4BD8CA91B274DA0000A20A4 /* TouchClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD8CA71B274CE7000A20A4 /* TouchClassifier.swift */; };
 		C4C5B9B81B0EFB1200D6AD4B /* GLTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5B9B71B0EFB1200D6AD4B /* GLTransformation.swift */; };
 		C4C5B9BA1B0EFB5400D6AD4B /* GLShaderBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5B9B91B0EFB5400D6AD4B /* GLShaderBinder.swift */; };
 		C4C73BD61B5F1EC8008C0D36 /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C73BD51B5F1EC8008C0D36 /* Layer.swift */; };
 		C4CEB91D1B5F7C2E00EEDD9C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F663F71ADD7607003C1925 /* MainMenu.xib */; };
-		C4DD1FCD1C68EC500014E141 /* PaintViewControllerNoteProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FCC1C68EC500014E141 /* PaintViewControllerNoteProgress.swift */; };
+		C4DD1FCD1C68EC500014E141 /* NoteProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FCC1C68EC500014E141 /* NoteProgress.swift */; };
 		C4DD1FCF1C6AD87A0014E141 /* NoteProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FCE1C6AD87A0014E141 /* NoteProgressButton.swift */; };
 		C4DD1FD11C6AE1560014E141 /* NoteProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */; };
 		C4DD1FD41C6B099E0014E141 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */; };
@@ -179,7 +183,6 @@
 		D2F6643D1ADD7607003C1925 /* GLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F664101ADD7607003C1925 /* GLView.swift */; };
 		D2F6643F1ADD7607003C1925 /* GLWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F664111ADD7607003C1925 /* GLWindowController.m */; };
 		D2F664411ADD7607003C1925 /* GLWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F664121ADD7607003C1925 /* GLWindowController.swift */; };
-		D2F664431ADD7607003C1925 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F664131ADD7607003C1925 /* main.swift */; };
 		D2F664451ADD7633003C1925 /* SwiftGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EE432F1953BE91007CC56F /* SwiftGL.framework */; };
 /* End PBXBuildFile section */
 
@@ -243,6 +246,7 @@
 		C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTableCell.swift; sourceTree = "<group>"; };
 		C4235B741C0F3C4900C32531 /* ArtworkMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtworkMenuViewController.swift; sourceTree = "<group>"; };
 		C42468151B21E0520053CB5B /* AlertViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewManager.swift; sourceTree = "<group>"; };
+		C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTitleField.swift; sourceTree = "<group>"; };
 		C43124091BBCD1B400E876F4 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = framework/opencv2.framework; sourceTree = "<group>"; };
 		C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSlicedRectangles.swift; sourceTree = "<group>"; };
 		C433EEB71B5BC13000D5175F /* SliceRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceRect.swift; sourceTree = "<group>"; };
@@ -278,7 +282,7 @@
 		C458F5DE1B54C93100FC1235 /* DotSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotSet.swift; sourceTree = "<group>"; };
 		C458F5E01B54CD7B00FC1235 /* Dot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dot.swift; sourceTree = "<group>"; };
 		C458F5E21B54DE5800FC1235 /* DotStageLevelGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotStageLevelGenerator.swift; sourceTree = "<group>"; };
-		C45BF5E01B9B6CB9000DD389 /* SwiftGL-Demo-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftGL-Demo-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		C45BF5E01B9B6CB9000DD389 /* SwiftGL-Demo-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SwiftGL-Demo-iOS-Bridging-Header.h"; path = "lib/SwiftColorPicker/SwiftGL-Demo-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		C45BF5E11B9B6CB9000DD389 /* AngleGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AngleGradientLayer.h; sourceTree = "<group>"; };
 		C45BF5E21B9B6CB9000DD389 /* AngleGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AngleGradientLayer.m; sourceTree = "<group>"; };
 		C45BF5E51B9B6CF5000DD389 /* AngleGradientBorderLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AngleGradientBorderLayer.swift; sourceTree = "<group>"; };
@@ -299,7 +303,7 @@
 		C491EC621C129C0700154CC6 /* PaintViewControllerInitStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintViewControllerInitStyle.swift; sourceTree = "<group>"; };
 		C491EC651C129C3C00154CC6 /* PaintViewControllerPaintTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintViewControllerPaintTools.swift; sourceTree = "<group>"; };
 		C491EC681C129C9C00154CC6 /* PaintViewControllerReplayControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintViewControllerReplayControl.swift; sourceTree = "<group>"; };
-		C491EC6B1C129D6A00154CC6 /* PaintViewControllerGestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintViewControllerGestureHandler.swift; sourceTree = "<group>"; };
+		C491EC6B1C129D6A00154CC6 /* GestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
 		C491EC6E1C129F5D00154CC6 /* PaintViewControllerAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintViewControllerAction.swift; sourceTree = "<group>"; };
 		C493D38D1B0CEE76001AB262 /* PaintBrush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintBrush.swift; sourceTree = "<group>"; };
 		C49404751B2A039500BB975E /* FileBrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowseViewController.swift; sourceTree = "<group>"; };
@@ -319,12 +323,16 @@
 		C4B10D771B0E3FC0001BAAAB /* GLContextBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLContextBuffer.swift; sourceTree = "<group>"; };
 		C4B4D4171B4E320D004B926D /* FileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTableViewController.swift; sourceTree = "<group>"; };
 		C4B6C76A1B563C7F0052BFC3 /* ReferenceImageScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceImageScene.swift; sourceTree = "<group>"; };
+		C4BBE6B41C6EE7F300E731A1 /* QTouchposeApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QTouchposeApplication.h; path = "../../../../Downloads/Touchpose-master/Touchpose Example/Source/QTouchposeApplication.h"; sourceTree = "<group>"; };
+		C4BBE6B51C6EE7F300E731A1 /* QTouchposeApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QTouchposeApplication.m; path = "../../../../Downloads/Touchpose-master/Touchpose Example/Source/QTouchposeApplication.m"; sourceTree = "<group>"; };
+		C4BBE6B91C6EFD9600E731A1 /* NoteTextArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTextArea.swift; sourceTree = "<group>"; };
+		C4BBE6BB1C6F123A00E731A1 /* NoteEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteEdit.swift; sourceTree = "<group>"; };
 		C4BD8CA71B274CE7000A20A4 /* TouchClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchClassifier.swift; sourceTree = "<group>"; };
 		C4BD8CAC1B28434E000A20A4 /* SwiftGL-Demo-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "SwiftGL-Demo-iOS.entitlements"; sourceTree = "<group>"; };
 		C4C5B9B71B0EFB1200D6AD4B /* GLTransformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLTransformation.swift; sourceTree = "<group>"; };
 		C4C5B9B91B0EFB5400D6AD4B /* GLShaderBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLShaderBinder.swift; sourceTree = "<group>"; };
 		C4C73BD51B5F1EC8008C0D36 /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
-		C4DD1FCC1C68EC500014E141 /* PaintViewControllerNoteProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaintViewControllerNoteProgress.swift; path = ../../../PaintViewControllerNoteProgress.swift; sourceTree = "<group>"; };
+		C4DD1FCC1C68EC500014E141 /* NoteProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteProgress.swift; path = ../../../NoteProgress.swift; sourceTree = "<group>"; };
 		C4DD1FCE1C6AD87A0014E141 /* NoteProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteProgressButton.swift; sourceTree = "<group>"; };
 		C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteProgressView.swift; sourceTree = "<group>"; };
 		C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTextView.swift; sourceTree = "<group>"; };
@@ -504,6 +512,9 @@
 		C44BB31B1BBA7E870027D9F1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C45BF5E01B9B6CB9000DD389 /* SwiftGL-Demo-iOS-Bridging-Header.h */,
+				C4BBE6B41C6EE7F300E731A1 /* QTouchposeApplication.h */,
+				C4BBE6B51C6EE7F300E731A1 /* QTouchposeApplication.m */,
 				C44BB3211BBA80380027D9F1 /* OpenCVWrapper.mm */,
 				C44BB3231BBA804E0027D9F1 /* OpenCVWrapper.h */,
 				C44BB3291BBA82A20027D9F1 /* UIImage+OpenCV.h */,
@@ -525,7 +536,6 @@
 				C44CF0971B85B84D00D6C43E /* CrossHairView.swift */,
 				C44CF0981B85B84D00D6C43E /* HueView.swift */,
 				C44CF0991B85B84D00D6C43E /* SelectedColorView.swift */,
-				C45BF5E01B9B6CB9000DD389 /* SwiftGL-Demo-iOS-Bridging-Header.h */,
 			);
 			name = SwiftColorPicker;
 			path = ../lib/SwiftColorPicker;
@@ -640,15 +650,16 @@
 		C491EC611C129BD500154CC6 /* PaintViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C4DD1FCC1C68EC500014E141 /* PaintViewControllerNoteProgress.swift */,
+				C4DD1FCC1C68EC500014E141 /* NoteProgress.swift */,
 				C46CB8671B0DA8BC008C378B /* PaintViewController.swift */,
 				C47D71031BB59FB7002BFE0A /* PaintViewControllerAppMode.swift */,
 				C4A721381C11B464007B0B2E /* PaintViewControllerNoteTable.swift */,
 				C491EC621C129C0700154CC6 /* PaintViewControllerInitStyle.swift */,
 				C491EC651C129C3C00154CC6 /* PaintViewControllerPaintTools.swift */,
 				C491EC681C129C9C00154CC6 /* PaintViewControllerReplayControl.swift */,
-				C491EC6B1C129D6A00154CC6 /* PaintViewControllerGestureHandler.swift */,
+				C491EC6B1C129D6A00154CC6 /* GestureHandler.swift */,
 				C491EC6E1C129F5D00154CC6 /* PaintViewControllerAction.swift */,
+				C4BBE6BB1C6F123A00E731A1 /* NoteEdit.swift */,
 			);
 			name = PaintViewController;
 			sourceTree = "<group>";
@@ -739,6 +750,8 @@
 				C4DD1FCE1C6AD87A0014E141 /* NoteProgressButton.swift */,
 				C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */,
 				C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */,
+				C4BBE6B91C6EFD9600E731A1 /* NoteTextArea.swift */,
+				C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */,
 			);
 			name = NoteUI;
 			sourceTree = "<group>";
@@ -871,7 +884,7 @@
 			isa = PBXGroup;
 			children = (
 				C44BB31B1BBA7E870027D9F1 /* Supporting Files */,
-				D2F663EE1ADD7607003C1925 /* UI */,
+				D2F663EE1ADD7607003C1925 /* nib */,
 				D2F663FB1ADD7607003C1925 /* Shaders */,
 				D2F664021ADD7607003C1925 /* Source */,
 			);
@@ -879,13 +892,13 @@
 			path = "SwiftGL-Demo";
 			sourceTree = "<group>";
 		};
-		D2F663EE1ADD7607003C1925 /* UI */ = {
+		D2F663EE1ADD7607003C1925 /* nib */ = {
 			isa = PBXGroup;
 			children = (
 				D2F663EF1ADD7607003C1925 /* iOS */,
 				D2F663F61ADD7607003C1925 /* OSX */,
 			);
-			name = UI;
+			name = nib;
 			path = Resources;
 			sourceTree = "<group>";
 		};
@@ -1234,7 +1247,6 @@
 			files = (
 				C4AE3C381B0CF39000C959C2 /* DemoScene.swift in Sources */,
 				D2F6643F1ADD7607003C1925 /* GLWindowController.m in Sources */,
-				D2F664431ADD7607003C1925 /* main.swift in Sources */,
 				D2F664391ADD7607003C1925 /* GLFullscreenWindow.swift in Sources */,
 				D2F6643B1ADD7607003C1925 /* GLView.m in Sources */,
 				D2F6643D1ADD7607003C1925 /* GLView.swift in Sources */,
@@ -1266,7 +1278,6 @@
 				D262B81219663A52004A2997 /* Shader.swift in Sources */,
 				C401FAEC1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */,
 				D262B81319663A52004A2997 /* Vbo.swift in Sources */,
-				C491EC6F1C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */,
 				C42468161B21E0520053CB5B /* AlertViewManager.swift in Sources */,
 				C4EB7A7C1B86018300A33651 /* TypeWriter.swift in Sources */,
 				D262B81419663A52004A2997 /* Vao.swift in Sources */,
@@ -1310,6 +1321,7 @@
 			files = (
 				C433EEB91B5BC13000D5175F /* SliceRect.swift in Sources */,
 				C45BF5E81B9B6CF5000DD389 /* AngleGradientBorderLayer.swift in Sources */,
+				C4BBE6B71C6EE89300E731A1 /* main.swift in Sources */,
 				C4FE45EA1BDFDE6F008CE7D0 /* ArtworkFile.swift in Sources */,
 				C447477D1B8317120093F019 /* Note.swift in Sources */,
 				C48306801B4BFE15006743DC /* UIAlertManager.swift in Sources */,
@@ -1364,14 +1376,16 @@
 				C45222F61C0CA90A00506B82 /* PaintClip.swift in Sources */,
 				C44CF0A31B85B86100D6C43E /* CrossHairView.swift in Sources */,
 				C4C5B9B81B0EFB1200D6AD4B /* GLTransformation.swift in Sources */,
+				C4BBE6BA1C6EFD9600E731A1 /* NoteTextArea.swift in Sources */,
 				C4FEDC0B1BB3D1C900BE7F1C /* LayerCache.swift in Sources */,
 				C4EB7A821B8645D600A33651 /* TypeWriter.swift in Sources */,
 				C4FE45E81BDFDE59008CE7D0 /* NoteFile.swift in Sources */,
 				C4A7213C1C11B700007B0B2E /* NoteDetailCell.swift in Sources */,
+				C4BBE6BC1C6F123A00E731A1 /* NoteEdit.swift in Sources */,
 				C4F1D2CD1B8EB79000634626 /* FaceComponentSet.swift in Sources */,
 				C4EB7A801B8645D200A33651 /* DialogueLine.swift in Sources */,
 				C4FE45EC1BDFDF3D008CE7D0 /* File.swift in Sources */,
-				C491EC6D1C129D6A00154CC6 /* PaintViewControllerGestureHandler.swift in Sources */,
+				C491EC6D1C129D6A00154CC6 /* GestureHandler.swift in Sources */,
 				C404FAA01B1AFB98004C2D8C /* FileManager.swift in Sources */,
 				C4AE3C4D1B0D1E8A00C959C2 /* CanvasInputHandler.swift in Sources */,
 				C404FA951B14601F004C2D8C /* PaintPoint.swift in Sources */,
@@ -1379,6 +1393,7 @@
 				C44CF0A21B85B86100D6C43E /* ColorPicker.swift in Sources */,
 				C404FA9B1B178EBD004C2D8C /* PaintToolManager.swift in Sources */,
 				C4DD1FD11C6AE1560014E141 /* NoteProgressView.swift in Sources */,
+				C4BBE6B61C6EE7F300E731A1 /* QTouchposeApplication.m in Sources */,
 				C4B4D4191B4E3211004B926D /* FileTableViewController.swift in Sources */,
 				C4024B6B1B56CF2E00761BB1 /* DrawDetailNavigationController.swift in Sources */,
 				D2F6642E1ADD7607003C1925 /* Engine.swift in Sources */,
@@ -1389,13 +1404,14 @@
 				C4235B761C0F406F00C32531 /* ArtworkMenuViewController.swift in Sources */,
 				C491EC6A1C129C9C00154CC6 /* PaintViewControllerReplayControl.swift in Sources */,
 				C4F1D2D31B8EB9D200634626 /* GameLevelData.swift in Sources */,
+				C42BB0DA1C6F4A31003F3337 /* NoteTitleField.swift in Sources */,
 				C44747811B8333EC0093F019 /* ShadeView.swift in Sources */,
 				C4A721371C0F6B69007B0B2E /* CollectionViewCell.swift in Sources */,
 				C45222F91C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift in Sources */,
 				C45BF5E91B9B6CF5000DD389 /* AngleGradientBorderView.swift in Sources */,
 				C4EB7A7F1B86450F00A33651 /* Dialogue.swift in Sources */,
 				C458F5A31B54A6D500FC1235 /* DotGameScene.swift in Sources */,
-				C4DD1FCD1C68EC500014E141 /* PaintViewControllerNoteProgress.swift in Sources */,
+				C4DD1FCD1C68EC500014E141 /* NoteProgress.swift in Sources */,
 				C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */,
 				C49E21671B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift in Sources */,
 				C44747781B83065E0093F019 /* CanvasCropView.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  PaintViewControllerNoteProgress.swift
+//  NoteProgress.swift
 //  SwiftGL
 //
 //  Created by jerry on 2016/2/8.
@@ -9,7 +9,7 @@
 import Foundation
 extension PaintViewController
 {
-    func setUpNoteProgressButton()
+    func noteProgressButtonSetUp()
     {
         themeDarkColor = uIntColor(36, green: 53, blue: 62, alpha: 255)
         

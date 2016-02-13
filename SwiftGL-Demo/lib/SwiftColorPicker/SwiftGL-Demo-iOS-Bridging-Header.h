@@ -4,3 +4,4 @@
 
 #import "AngleGradientLayer.h"
 #import "OpenCVWrapper.h"
+#import "QTouchposeApplication.h"

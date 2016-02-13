@@ -6,9 +6,8 @@
 //  Copyright © 2015年 Jerry Chan. All rights reserved.
 //
 
-extension PaintViewController
+extension PaintViewController:UITextFieldDelegate
 {
-    
     @IBAction func enterDrawModeButtonTouched(sender: UIBarButtonItem) {
         
         switch(paintMode)
@@ -37,27 +36,18 @@ extension PaintViewController
         enterViewMode()
     }
     
-    
-    
-    @IBAction func noteEditButtonTouched(sender: UIBarButtonItem) {
-        switch(paintMode)
-        {
-        case .Artwork:
-            showNoteEditView()
-            noteEditTextView.text = ""
-            noteEditTitleTextField.text = ""
-            noteEditMode = .New
-        case .Revision:
-            appState = .drawRevision
-            enterDrawMode()
-        }
+    @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
+        let at = paintManager.getMasterStrokeID()
+        newNote(at)
+        noteTitleField.becomeFirstResponder()
+        //selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount()-1, inSection: 0)
+        //noteListTableView.reloadData()
         
     }
+
     
-    func onKeyBoardHide(notification:NSNotification)
-    {
-        hideNoteEditView()
-    }
+    
+    
     
     
     

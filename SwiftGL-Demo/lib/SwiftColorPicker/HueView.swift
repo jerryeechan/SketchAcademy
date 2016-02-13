@@ -100,6 +100,10 @@ class HueView: UIView {
             
             hasLayouted = true
             addSubview(knob)
+            
+            layer.shadowOffset = CGSize(width: 0, height: 2)
+            layer.shadowOpacity = 0.8
+            
         }
         
     }

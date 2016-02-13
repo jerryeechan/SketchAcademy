@@ -41,6 +41,8 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
             }
         case .viewArtwork, .viewRevision:
             handleReplaySinglePan(sender)
+        case .editNote:
+            break
         }
         
     }

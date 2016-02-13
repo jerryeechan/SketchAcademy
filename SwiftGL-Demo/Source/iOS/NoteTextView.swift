@@ -14,4 +14,5 @@ class NoteTextView:UIVisualEffectView{
             view.layer.cornerRadius = 5
         }
     }
+    
 }

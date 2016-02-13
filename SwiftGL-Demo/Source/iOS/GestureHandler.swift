@@ -8,6 +8,9 @@
 
 extension PaintViewController
 {
+    func gestureHandlerSetUp()
+    {
+    }
     func disableGesture()
     {
         for g in canvasBGView.gestureRecognizers!
@@ -100,11 +103,13 @@ extension PaintViewController
                     {
                         paintManager.paintRecorder.movePoint(touch,view:paintView)
                     }
-                    
+                    paintView.setNeedsDisplay()
                 }
+                
             }
         }
-        paintView.setNeedsDisplay()
+        
+        
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -119,25 +124,6 @@ extension PaintViewController
             return false
         }
     }
-    
-    @IBAction func uiTapGestureEvent(sender: UITapGestureRecognizer) {
-
-        
-        switch(appState)
-        {
-        case .drawArtwork, .drawRevision:
-            print("controller double tap")
-            resetAnchor()
-        case .viewArtwork, .viewRevision:
-            //view.addSubview(noteEditView)
-            if isCanvasManipulationEnabled
-            {
-                showNoteEditView()
-            }
-            break
-        }
-    }
-
     @IBAction func uiPinchGestrueEvent(sender: UIPinchGestureRecognizer) {
 
         var center:CGPoint = CGPointMake(0, 0)
@@ -207,4 +193,51 @@ extension PaintViewController
         default: ()
         }
     }
+    @IBAction func singleTapSingleTouchGestureHandler(sender: UITapGestureRecognizer) {
+        print("single tap")
+        if sender.state == .Ended
+        {
+            DLog("Single tap")
+            switch appState
+            {
+            case AppState.editNote:
+                editNoteDone()
+            default:
+                break
+            }
+        }
+        
+    }
+    
+    @IBAction func doubleTapSingleTouchGestureHandler(sender: UITapGestureRecognizer) {
+        DLog("double tap")
+        if sender.state == .Ended
+        {
+            DLog("\(appState)")
+            switch appState
+            {
+            case .viewArtwork, .viewRevision:
+                //TODO show replay panel
+                let textViews = [noteTitleField, noteDescriptionTextView]
+                for view in textViews
+                {
+                    if sender.view == view
+                    {
+                        editNote(paintManager.getMasterStrokeID())
+                        view.becomeFirstResponder()
+                        return
+                    }
+                }
+                
+                
+                break
+            default:
+                break
+            }
+        }
+        
+        
+        
+    }
+    
 }

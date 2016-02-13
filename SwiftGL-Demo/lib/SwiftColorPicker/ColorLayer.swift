@@ -13,7 +13,11 @@ class ColorLayer {
     let layerLeft: UIColor = UIColor.whiteColor()
     let layerRight: UIColor!
     init(color: UIColor!) {
-        layerRight = color
+        var hue:CGFloat = 0,satu:CGFloat = 0,bright:CGFloat = 0,alpha:CGFloat = 0
+        
+        color.getHue(&hue, saturation: &satu, brightness: &bright, alpha: &alpha)
+        
+        layerRight = UIColor(hue: hue, saturation: 1, brightness: 1, alpha: 1)
         layer = CAGradientLayer()
         layer.colors = [layerLeft.CGColor, layerRight.CGColor]
         layer.locations = [0.0, 1.0]

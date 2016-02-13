@@ -220,20 +220,6 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
     }
     
     
-    @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
-        let at = paintManager.getMasterStrokeID()
-        let note = NoteManager.instance.getNoteAtStroke(at)
-
-            NoteManager.instance.addNote(at,title: "註解1", description: "描述")
-            selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount()-1, inSection: 0)
-        noteListTableView.reloadData()
-        
-        //*TODO*
-        //add button disable, check if note exist at
-        
-        //var btn:UIBarButtonItem!
-        //btn.enabled = false
-    }
     
     
     
@@ -253,8 +239,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         })
         noteEditViewState.animateShow(0.5)
         noteEditTitleTextField.becomeFirstResponder()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onKeyBoardHide:", name:
-            UIKeyboardWillHideNotification, object: nil)
+        
         
         if appState == .drawRevision
         {

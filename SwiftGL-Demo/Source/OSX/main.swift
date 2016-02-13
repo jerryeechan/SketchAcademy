@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Scott Bennett. All rights reserved.
 //
 
-import Cocoa
 
-NSApplicationMain(Process.argc, Process.unsafeArgv)
+
+//NSApplicationMain(Process.argc, Process.unsafeArgv)
+UIApplicationMain(Process.argc, Process.unsafeArgv, NSStringFromClass(QTouchposeApplication.self), NSStringFromClass(AppDelegate.self))
