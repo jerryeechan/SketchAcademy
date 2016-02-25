@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftHttp
 class ImageFile: File {
     func loadImg(filename:String)->UIImage!
     {
@@ -21,7 +22,9 @@ class ImageFile: File {
     func saveImg(img:UIImage,filename:String)
     {
         let imageData:NSData = UIImagePNGRepresentation(img)!;
-        imageData.writeToFile(File.dirpath+"/"+filename+".png", atomically: true)
+        let filePath = File.dirpath+"/"+filename+".png"
+        imageData.writeToFile(filePath, atomically: true)
+        
     }
     override func delete(filename: String) {
         super.delete(filename+".png")

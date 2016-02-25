@@ -19,7 +19,7 @@ class GLRenderBuffer {
     {
         self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
         if self.glcontext == nil {
-            print("Failed to create ES context")
+            print("Failed to create ES context", terminator: "")
         }
         
         EAGLContext.setCurrentContext(self.glcontext)

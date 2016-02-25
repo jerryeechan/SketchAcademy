@@ -8,7 +8,7 @@
 
 import Foundation
 import SwiftGL
-import OpenGLES.ES2
+import OpenGLES.ES3
 struct Attribute{
     var iLoc:GLuint
     var glType:GLenum
@@ -24,24 +24,15 @@ struct Attribute{
         offset = sizeof(T)
     }
 }
+
 class GLShaderBinder{
 
     static var instance:GLShaderBinder!
-    var drawShader:Shader!
-    
+    var pencilShader:Shader!
+    var eraserShader:Shader!
     var imageShader:Shader!
     
-    //static var instance:GLShaderBinder!
-    //binding Attributes
-    /*
-    var iLocAttribPosition:GLuint = 0
-//    var iLocAttribSize:GLuint = 1
-    var iLocAttribAngle:GLuint = 2
-    //apple pencil attributes
-    var iLocAttribPencilForce:GLuint = 3
-    var iLocAttribPencilAltitude:GLuint = 4
-    var iLocAttribPencilAzimuth:GLuint = 5
-    */
+    var uniformDict:[String:GLint] = [String:GLint]()
     
     var iLocMVP:GLint = 0
     var iLocBrushSize:GLint = 0
@@ -49,25 +40,14 @@ class GLShaderBinder{
     var iLocBrushTexture:GLint = 0
     
     
-    
+    //var uniforms:[GLint] = [GLint]()
     var paintPointsAttributes=[Attribute]()
-    
-    enum DrawShader:String
-    {
-        case brush = "brush",image = "image"
-    }
     
     let vao    = Vao()
     let vbo    = Vbo()
-    let ibo    = Vbo()
     
-    let imageVbo = Vbo()
-    let imagevao = Vao()
     init()
     {
-        //shader = Shader()
-        //load()
-        
         GLShaderBinder.instance = self
         load()
     }
@@ -77,72 +57,57 @@ class GLShaderBinder{
     }
     func load()
     {
-        loadBrushShader()
+        loadPencilShader()
+        //loadBrushShader()
         loadImageShader()
     }
     
     func loadBrushShader()
     {
-
-        drawShader = Shader()
-        if !(drawShader.load( "point.vsh","point.fsh") {
+        eraserShader = Shader()
+        if !(eraserShader.load("eraser.vsh","eraser.fsh"){
             program in
-            // Here we will bind the attibute names to the correct position
-            // Doing this will allow us to use the VBO/VAO with more than one shader, ensuring that the right
-            // values get passed in to the correct shader variables
-            /*
-            glBindAttribLocation(program, self.iLocAttribPosition, "vertexPosition")
-            glBindAttribLocation(program, self.iLocAttribAngle, "vertexAngle")
-            glBindAttribLocation(program, self.iLocAttribPencilForce, "pencilForce")
-            glBindAttribLocation(program, self.iLocAttribPencilAltitude, "pencilAltitude")
-            glBindAttribLocation(program, self.iLocAttribPencilAzimuth, "pencilAzimuth")
-            */
-
-
-            
-            
+        }) {
+            print("failed to load shader")
+            glDebug(__FILE__, line: __LINE__)
+        }
+        /*
+        addAttribute(eraserShader, name: "vertexPosition", type: Vec4.self)
+        addAttribute(eraserShader,name: "pencilForce", type: Float.self)
+        addAttribute(eraserShader,name: "pencilAltitude", type: Float.self)
+        
+        */
+        
+    }
+    func loadPencilShader()
+    {
+        pencilShader = Shader()
+        if !(pencilShader.load( "pencil.vsh","pencil.fsh") {
+            program in
             }) {
                 // You can take this out after. Useful for debugging
                 print("failed to load shader", terminator: "")
                 glDebug(__FILE__, line: __LINE__)
         }
         
+        
+        addAttribute(pencilShader,name: "vertexPosition", type: Vec4.self)
+        addAttribute(pencilShader,name: "pencilForce", type: Float.self)
+        addAttribute(pencilShader,name: "pencilAltitude", type: Float.self)
+        addAttribute(pencilShader,name: "pencilAzimuth", type: Vec2.self)
+        addAttribute(pencilShader,name: "vertexVelocity", type: Vec2.self)
+        
+        iLocMVP = glGetUniformLocation(pencilShader.id, "MVP")
+        iLocBrushColor = glGetUniformLocation(pencilShader.id, "brushColor")
+        iLocBrushSize = glGetUniformLocation(pencilShader.id, "brushSize")
+        iLocBrushTexture = glGetUniformLocation(pencilShader.id,"texture")
+        
         /*
-        self.paintPointsAttributes.append(Attribute(i: self.iLocAttribPosition, t: Vec4.self))
-        self.paintPointsAttributes.append(Attribute(i: self.iLocAttribAngle, t: Float.self))
-        self.paintPointsAttributes.append(Attribute(i: self.iLocAttribPencilForce, t: Float.self))
-        self.paintPointsAttributes.append(Attribute(i: self.iLocAttribPencilAltitude, t: Float.self))
-        
-        self.paintPointsAttributes.append(Attribute(i: self.iLocAttribPencilAzimuth, t: Vec2.self))
-*/
-        addAttribute("vertexPosition", type: Vec4.self)
-        addAttribute("pencilForce", type: Float.self)
-        addAttribute("pencilAltitude", type: Float.self)
-        addAttribute("pencilAzimuth", type: Vec2.self)
-        addAttribute("vertexVelocity", type: Vec2.self)
-        
-        iLocMVP = glGetUniformLocation(drawShader.id, "MVP")
-        iLocBrushColor = glGetUniformLocation(drawShader.id, "brushColor")
-        iLocBrushSize = glGetUniformLocation(drawShader.id, "brushSize")
-        iLocBrushTexture = glGetUniformLocation(drawShader.id,"texture")
-        
-
-    }
-    
-    func addAttribute<T:GLType>(name:String,type:T.Type)
-    {
-        let iLoc = GLuint(glGetAttribLocation(drawShader.id, name))
-        paintPointsAttributes.append(Attribute(i: iLoc, t: type))
-    }
-    func useShader(shader:DrawShader)
-    {
-        switch(shader)
-        {
-        case .brush:
-            drawShader.useProgram()
-        case .image:
-            imageShader.useProgram()
-        }
+        addUniform(pencilShader,key:"pencilMVP", uniformName: "MVP")
+        addUniform(pencilShader, key: "pencilBrushColor", uniformName: "brushColor")
+        addUniform(pencilShader, key: "pencilBrushSize", uniformName: "brushSize")
+        addUniform(pencilShader, key: "pencilTexture", uniformName: "texture")
+        */
     }
     func loadImageShader()
     {
@@ -154,17 +119,43 @@ class GLShaderBinder{
             
             glBindAttribLocation(program, self.iLocImageAttribTexturePosition, "inputTextureCoordinate")
             
-        
+            
             }){}
+        //addUniform(imageShader, key: "imageMVP", uniformName: "MVP")
+        //addUniform(imageShader, key: "imageMVP", uniformName: "MVP")
         
         iLocImageMVP = glGetUniformLocation(imageShader.id, "MVP")
         iLocImageTexture = glGetUniformLocation(imageShader.id, "imageTexture")
         
         iLocImageAlpha = glGetUniformLocation(imageShader.id, "alpha")
-            
+        
         glEnableVertexAttribArray(iLocImageAttribVertex)
         glEnableVertexAttribArray(iLocImageAttribTexturePosition)
     }
+    func addUniform(shader:Shader,key:String,uniformName:String)
+    {
+        uniformDict[key] = glGetUniformLocation(shader.id, uniformName)
+    }
+    func addAttribute<T:GLType>(shader:Shader,name:String,type:T.Type)
+    {
+        let iLoc = GLuint(glGetAttribLocation(shader.id, name))
+        paintPointsAttributes.append(Attribute(i: iLoc, t: type))
+    }
+    enum ShaderType:String
+    {
+        case brush = "brush",image = "image"
+    }
+    func useShader(shader:ShaderType)
+    {
+        switch(shader)
+        {
+        case .brush:
+            pencilShader.useProgram()
+        case .image:
+            imageShader.useProgram()
+        }
+    }
+    
     
     struct ImageVertice{
         var position:Vec4
@@ -246,15 +237,17 @@ class GLShaderBinder{
     
     func drawImageTexture(texture:Texture,alpha:Float,leftTop:Vec4,rightBottom:Vec4)
     {
+        //imageShader.bind(uniformDict["imageTexture"]!,texture, index: 2)
+        //imageShader.bind(uniformDict["imageAlpha"]!, alpha)
+        
         imageShader.bind(iLocImageTexture,texture , index: 2)
         imageShader.bind(iLocImageAlpha, alpha)
         imageShader.useProgram()
         
         genImageVertices(leftTop, rightBottom: rightBottom)
-        imageVbo.bind(imageVertices, count: 4)
-        
-        imagevao.bind(attribute: iLocImageAttribVertex, type: Vec4.self, vbo: imageVbo, offset: 0)
-        imagevao.bind(attribute: iLocImageAttribTexturePosition, type: Vec4.self, vbo: imageVbo, offset: sizeof(Vec4))
+        vbo.bind(imageVertices, count: 4)
+        vao.bind(attribute: iLocImageAttribVertex, type: Vec4.self, vbo: vbo, offset: 0)
+        vao.bind(attribute: iLocImageAttribTexturePosition, type: Vec4.self, vbo: vbo, offset: sizeof(Vec4))
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     }
     func drawImageTexture(texture:Texture,alpha:Float)
@@ -263,50 +256,48 @@ class GLShaderBinder{
     }
     func bindBrush()
     {
-        drawShader.bind(iLocBrushTexture, brushTexture,index: 0)
+        pencilShader.bind(iLocBrushTexture, brushTexture,index: 0)
     }
     var brushTexture:Texture!
     func bindBrushTexture(texture:Texture)
     {
         brushTexture = texture
-        drawShader.bind(iLocBrushTexture, texture,index: 0)
+        pencilShader.bind(iLocBrushTexture, texture,index: 0)
     }
     func bindMVP(mvp:Mat4)
     {
-        drawShader.bind(iLocMVP, mvp)
+        pencilShader.bind(iLocMVP, mvp)
         imageShader.bind(iLocImageMVP,mvp)
         
     }
     func bindBrushInfo(vInfo:ToolValueInfo)
     {
-        drawShader.bind(iLocBrushColor,vInfo.color.vec)
-        drawShader.bind(iLocBrushSize,vInfo.size)
+        pencilShader.bind(iLocBrushColor,vInfo.color.vec)
+        pencilShader.bind(iLocBrushSize,vInfo.size)
     }
     func bindBrushColor(color:Vec4)
     {
-        drawShader.bind(iLocBrushColor,color)
+        pencilShader.bind(iLocBrushColor,color)
     }
     func bindBrushSize(size:Float)
     {
-        self.drawShader.bind(iLocBrushSize, size)
+        self.pencilShader.bind(iLocBrushSize, size)
     }
 
     func bindVertexs(vertextBuffer:[PaintPoint])
     {
-        // Load data to the Vertex Buffer Object
+        //bind vertex buffer to vertex buffer object
         vbo.bind(vertextBuffer, count: vertextBuffer.count)
-        // After binding some data to our VBO, we must bind our VBO's data
-        // into our Vertex Array Object (VAO) using the associated Shader attributes
         
+        //bind attribute to vertex attribute object
         var offset:GLsizeiptr = 0
         for attrib in paintPointsAttributes
         {
             vao.bind(attribute: attrib.iLoc, glType: attrib.glType, glNormalized: attrib.glNormalized, glSize: attrib.glSize, vbo: vbo, offset: offset)
             offset+=attrib.offset
         }
-        
-        //vao.bind(attribute: AttribColor,    type: Vec4.self, vbo: vbo, offset: sizeof(Vec4))
     }
+    
     func bindAttrib<T:GLType>(attrib:GLuint,type:T.Type,offset:GLsizeiptr)
     {
         vao.bind(attribute:attrib, type: type, vbo: vbo, offset: offset)

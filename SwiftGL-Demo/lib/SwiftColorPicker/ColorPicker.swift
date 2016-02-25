@@ -15,7 +15,6 @@ class ColorPicker: UIView {
     var crossHairView: CrossHairView!
     weak var colorView: ColorGradientView!
     weak var hueView: HueView!
-    var circleHueColorView:AngleGradientBorderView!
     var selectedColorView: SelectedColorView!
     var onColorChange:((color:UIColor, finished:Bool)->Void)? = nil
     var color: UIColor!
@@ -27,16 +26,12 @@ class ColorPicker: UIView {
     
     var smallestDim: CGFloat = 200.0
     
-    required init?(coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)
+    override func awakeFromNib() {
         opaque = false
         backgroundColor = UIColor.clearColor()
         
         // Init with default color of red
         color = UIColor.redColor()
-        // Call setup method to create the subviews needed for the control
-        
     }
     
     func setTheColor(color: UIColor) {
@@ -51,7 +46,7 @@ class ColorPicker: UIView {
         self.percentSaturation = saturation
         self.percentBrightness = brightness
         DLog("\(color)")
-        notifyViews(color)
+        notifyViews(color,hue:hue)
     }
     
     func setup(hueView:HueView,colorGradientView:ColorGradientView) {
@@ -113,7 +108,7 @@ class ColorPicker: UIView {
 
         self.color = color
         self.hue = hue
-        notifyViews(UIColor(hue: hue, saturation: percentSaturation, brightness: percentBrightness, alpha: 1.0))
+        notifyViews(UIColor(hue: hue, saturation: percentSaturation, brightness: percentBrightness, alpha: 1.0),hue:hue)
     }
     
     
@@ -124,16 +119,18 @@ class ColorPicker: UIView {
         
         percentBrightness = 1 - (point.y / (colorView.bounds.height))
         percentSaturation = point.x / (colorView.bounds.width)
-        print("br:\(percentBrightness)")
-        print("sa:\(percentSaturation)")
+        print("br:\(percentBrightness)", terminator: "")
+        print("sa:\(percentSaturation)", terminator: "")
         let color = UIColor(hue: hue, saturation: percentSaturation, brightness: percentBrightness, alpha: 1.0)
-        notifyViews(color)
+        
+        
+        notifyViews(color,hue:hue)
         return color
     }
     
-    func notifyViews(selectedColor: UIColor) {
+    func notifyViews(selectedColor: UIColor,hue:CGFloat) {
         
-        colorView.setColor(selectedColor)
+        colorView.setColor(selectedColor,hue:hue)
         //crossHairView.setTheColor(selectedColor)
         //selectedColorView.setTheColor(selectedColor)
         handleColorChange(selectedColor, changing: true)

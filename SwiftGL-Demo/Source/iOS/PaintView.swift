@@ -102,7 +102,7 @@ class PaintView: GLKView {
         glTransformation = GLTransformation(width: glContextBuffer.backingWidth, height: glContextBuffer.backingHeight)
         print("PaintView: create transformation")
         
-        
+        layer.magnificationFilter = kCAFilterNearest
         
         
         //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -114,7 +114,7 @@ class PaintView: GLKView {
         //glEnable(GL_DEPTH_TEST)
         
         
-        GLShaderBinder.instance.drawShader.useProgram()
+        GLShaderBinder.instance.pencilShader.useProgram()
         resizeLayer()
         
         return true
@@ -129,8 +129,8 @@ class PaintView: GLKView {
         let height:GLint = GLint(frame.height * contentScaleFactor) //GLContextBuffer.instance.backingHeight
         glTransformation.resize(width, height: height)
         
-        GLContextBuffer.instance.blank()
-        PaintView.display()
+        //GLContextBuffer.instance.blank()
+        //PaintView.display()
 
     }
     override func drawRect(rect: CGRect) {

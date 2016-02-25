@@ -69,15 +69,10 @@ class NoteTextArea: UITextView ,UITextViewDelegate,UIGestureRecognizerDelegate{
     
     
     
-    
-    
-    
-    
-    
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer is UITapGestureRecognizer && (gestureRecognizer as! UITapGestureRecognizer).numberOfTapsRequired == 2
         {
-            if gestureRecognizer == editTapRecognizer
+            if gestureRecognizer == editTapRecognizer && editable == false
             {
                 return true
             }

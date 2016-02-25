@@ -82,9 +82,12 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         if(editingStyle == .Delete)
         {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! NoteDetailCell
+            deleteNote(cell.strokeID)
+            /*
             NoteManager.instance.deleteNoteAtStroke(cell.strokeID)
             selectedPath = nil
             noteListTableView.reloadData()
+            */
         }
         
     }
@@ -120,7 +123,6 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
     
     func selectRow(indexPath:NSIndexPath)
     {
-        print(appState)
         if appState == .viewRevision
         {
             return
@@ -134,7 +136,6 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
                 //select the same one, do nothing
                 if isCellSelectedSentbySlider
                 {
-                    print("sent by slider")
                     isCellSelectedSentbySlider = false
                 }
                 return
@@ -154,7 +155,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         }
         if isCellSelectedSentbySlider
         {
-            print("sent by slider")
+            print("sent by slider", terminator: "")
             isCellSelectedSentbySlider = false
         }
         else
@@ -270,7 +271,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         case NoteEditMode.Edit:
             NoteManager.instance.updateOrderedNote(selectedPath.row, title: noteEditTitleTextField.text!,description: noteEditTextView.text)
         case NoteEditMode.New:
-            print("New Note")
+            print("New Note", terminator: "")
             let at = paintManager.getMasterStrokeID()
             let note = NoteManager.instance.getNoteAtStroke(at)
             if  note != nil

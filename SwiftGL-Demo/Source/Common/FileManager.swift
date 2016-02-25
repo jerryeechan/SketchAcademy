@@ -9,6 +9,7 @@
 import Foundation
 import SwiftGL
 import UIKit
+import SwiftHttp
 class FileManager {
     
     class var instance:FileManager{
@@ -29,10 +30,46 @@ class FileManager {
     }
     func savePaintArtWork(filename:String,artwork:PaintArtwork, img:UIImage,noteDict:[Int:Note])
     {
+        let path = File.dirpath+"/"+filename
+        
         artworkFile.save(filename, artwork: artwork)
         imageFile.saveImg(img, filename: filename)
+        //upload(path+".png")
+        //upload(path+".paw")
         noteFile.save(noteDict, filename: filename)
+        
         searchFiles()
+    }
+    func upload(img:UIImage)
+    {
+        let imageData:NSData = UIImagePNGRepresentation(img)!;
+        let fileUrl = NSURL(dataRepresentation: imageData, relativeToURL: nil)
+        upload(fileUrl)
+    }
+    
+    func upload(filePath:String)
+    {
+        
+        let fileUrl = NSURL(fileURLWithPath: filePath)
+        upload(fileUrl)
+    }
+    func upload(fileUrl:NSURL)
+    {
+        do {
+            let opt = try HTTP.POST("http://140.114.217.36:3000/artworks/upload", parameters: ["name": "test", "file": Upload(fileUrl: fileUrl)])
+            opt.start { response in
+                //do things...
+                if let err = response.error {
+                    DLog("error: \(err.localizedDescription)")
+                    
+                    return //also notify app of failure as needed
+                }
+                DLog("opt finished: \(response.description)")
+                
+            }
+        } catch let error {
+            print("got an error creating the request: \(error)")
+        }
     }
     func deletePaintArtWork(filename:String)
     {

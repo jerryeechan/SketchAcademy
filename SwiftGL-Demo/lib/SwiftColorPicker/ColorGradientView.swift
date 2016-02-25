@@ -48,6 +48,8 @@ class ColorGradientView: UIView {
         //setColor(color)
         
     }
+
+    
     var isTouchDown = false;
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         DLog("touched")
@@ -90,7 +92,7 @@ class ColorGradientView: UIView {
     }
     func initLayer()
     {
-        colorLayer = ColorLayer(color: UIColor.redColor())
+        colorLayer = ColorLayer(color: UIColor.redColor(),hue:0)
         colorLayer.layer.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.width)
         // Insert the color.colorLayer into this views layer as a sublayer
         layer.insertSublayer(colorLayer.layer, atIndex: 0)
@@ -106,11 +108,12 @@ class ColorGradientView: UIView {
         // Insert the grayScaleLayer into this views layer as a sublayer
         self.layer.insertSublayer(grayScaleLayer, atIndex: 1)
     }
-    func setColor(_color: UIColor!) {
+    func setColor(_color: UIColor!,hue:CGFloat) {
         // Set member color to the new UIColor coming in
         
         colorLayer.layer.removeFromSuperlayer()
-        colorLayer = ColorLayer(color: _color)
+        
+        colorLayer = ColorLayer(color: _color,hue:hue)
         // Set colorView sublayers to nil to remove any existing sublayers
         //layer.sublayers = nil;
         // Use the size and position of this views frame to create a new frame for the color.colorLayer

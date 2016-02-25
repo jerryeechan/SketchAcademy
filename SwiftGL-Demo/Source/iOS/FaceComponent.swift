@@ -63,7 +63,7 @@ class FaceComponent : SKNode {
     {
         //let touch = touches.first as UITouch?
         //let loc = touch!.locationInNode(self)
-        print(filename)
+        print(filename, terminator: "")
         
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)

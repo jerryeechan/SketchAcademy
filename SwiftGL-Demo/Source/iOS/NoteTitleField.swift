@@ -7,9 +7,22 @@
 //
 
 import UIKit
-class NoteTitleField:UITextField,UITextFieldDelegate{
-    
+class NoteTitleField:UITextField,UITextFieldDelegate,UIGestureRecognizerDelegate{
+    var editTapRecognizer:UITapGestureRecognizer!
     var editable = false
     
     
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer is UITapGestureRecognizer && (gestureRecognizer as! UITapGestureRecognizer).numberOfTapsRequired == 2
+        {
+            if gestureRecognizer == editTapRecognizer && editable == false
+            {
+                return true
+            }
+            return false
+            
+        }
+        return true
+    }
+
 }

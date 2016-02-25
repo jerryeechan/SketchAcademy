@@ -187,7 +187,7 @@ class HueView: UIView {
         var hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
         let ok: Bool = color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         if (!ok) {
-            print("ColorPicker: exception <The color provided to ColorPicker is not convertible to HSB>")
+            print("ColorPicker: exception <The color provided to ColorPicker is not convertible to HSB>", terminator: "")
         }
         return CGPoint(x: 15, y: frame.height - (hue * frame.height))
     }

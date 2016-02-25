@@ -101,7 +101,7 @@ class SubViewAnimationGestureHandler:NSObject {
         switch sender.state
         {
         case UIGestureRecognizerState.Changed:
-            print("tool view pan")
+            print("tool view pan", terminator: "")
             toolViewLeadingConstraint.constant = delta.x
             if toolViewLeadingConstraint.constant > 0
             {
@@ -110,12 +110,12 @@ class SubViewAnimationGestureHandler:NSObject {
         case .Ended:
             if vel.x < -100
             {
-                print("hide")
+                print("hide", terminator: "")
                 hideToolView(0.2)
             }
             else
             {
-                print("show")
+                print("show", terminator: "")
                 showToolView(0.2)
             }
         default:

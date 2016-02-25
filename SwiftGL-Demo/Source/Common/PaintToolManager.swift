@@ -11,6 +11,9 @@ import OpenGLES.ES2
 import SwiftGL
 import UIKit
 
+enum PaintToolType:Int{
+    case pen = 0,eraser,smudge
+}
 public class PaintToolManager {
     
     
@@ -27,16 +30,13 @@ public class PaintToolManager {
     func load()
     {
         pen = PaintBrush(textureName: "pencil",color: Color(25,25,25,25),size: 2,type:PaintToolType.pen)
-        eraser = PaintBrush(textureName: "Particle", color: Color(255,255,255,0),size: 15,type:PaintToolType.eraser)
+        eraser = PaintBrush(textureName: "circleTexture", color: Color(255,255,255,0),size: 10,type:PaintToolType.eraser)
         
         currentTool = pen
         Painter.currentBrush = currentTool
         //pen.useTool()
     }
-    
-    enum PaintToolType:Int{
-        case pen = 0,eraser
-    }
+
     func getTool(name:String)->PaintToolType    {
         switch(name)
         {
@@ -59,6 +59,7 @@ public class PaintToolManager {
     }
     private func useTool(type:PaintToolType)->PaintBrush!
     {
+        GLContextBuffer.instance.setBrushDrawSetting(type)
         switch(type)
         {
         case .pen:
@@ -67,7 +68,11 @@ public class PaintToolManager {
         case .eraser:
             useEraser()
             return eraser
+        default:
+            return pen
         }
+        
+        
     }
     func changeTool(name:String)->PaintBrush
     {
@@ -101,11 +106,12 @@ public class PaintToolManager {
         //        glBlendEquation(GLenum(GL_FUNC_SUBTRACT))
         glBlendEquation(GLenum(GL_FUNC_REVERSE_SUBTRACT))
         //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA)
-        currentTool.changeColor(Color(rf:1,gf: 1,bf: 1,af: 1))
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+        currentTool.changeColor(Color(rf:0,gf: 0,bf: 0,af: 0.5))
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         
+        GLContextBuffer.instance.setReplayDrawSetting()
         eraser.useTool()
-        print("use eraser")
+        print("use eraser", terminator: "")
     }
     // var isToolAttributeChanged:Bool = true
     func loadToolValueInfo(valueInfo:ToolValueInfo)
@@ -129,7 +135,7 @@ public class PaintToolManager {
         //don't change the color of eraser
         if currentTool == eraser
         {
-            print("erase change color")
+            print("erase change color", terminator: "")
 
             return
         }

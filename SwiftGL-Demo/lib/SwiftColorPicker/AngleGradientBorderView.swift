@@ -41,6 +41,7 @@ class AngleGradientBorderView: UIView {
     super.init(frame: frame)
     setupGradientLayer(borderColors: gradientBorderColors, borderWidth: gradientBorderWidth)
   }
+
     
     var isTouchDown = false
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

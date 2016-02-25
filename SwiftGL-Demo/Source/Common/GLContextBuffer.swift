@@ -20,6 +20,9 @@ class GLContextBuffer{
     var renderTexture:GLRenderTextureFrameBuffer!
     var rectTexture:Texture!
     var layer:CAEAGLLayer!
+    
+    let createCacheInterval = 200
+    var lastCacheIndex = 0
     init(context:EAGLContext,layer:CAEAGLLayer)
     {
         GLContextBuffer.instance = self
@@ -43,7 +46,7 @@ class GLContextBuffer{
         
         backingWidth = GLint(layer.frame.width*layer.contentsScale)
         backingHeight =  GLint(layer.frame.height*layer.contentsScale)
-        print(layer.frame)
+        print(layer.frame, terminator: "")
         renderTexture = GLRenderTextureFrameBuffer(w:backingWidth, h:backingHeight)
 
         
@@ -52,25 +55,26 @@ class GLContextBuffer{
         glBlendEquation(GLenum(GL_FUNC_ADD))
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
         
-        /*
-        if glCheckFramebufferStatus(GL_FRAMEBUFFER) != GLenum(GL_FRAMEBUFFER_COMPLETE)
-        {
-            print("failed to make complete framebuffer object\(glCheckFramebufferStatus(GL_FRAMEBUFFER))");
-        }
-        blank()
-       */
     }
     
     /**
         draw all layers
      */
     
+    
     func drawLayers(){
-        DLog("display start---")
-        drawTexture(renderTexture.backgroundLayer.texture,alpha: 1)
         
-        //glClearColor(1, 1, 1, 1)
-        //glClear(GL_COLOR_BUFFER_BIT )//| GL_DEPTH_BUFFER_BIT)
+        //background
+        if(renderTexture.backgroundLayer != nil)
+        {
+            drawTexture(renderTexture.backgroundLayer.texture,alpha: 1)
+        }
+        else
+        {
+            //white background
+            glClearColor(1, 1, 1, 1)
+            glClear(GL_COLOR_BUFFER_BIT )
+        }
 
         for var i = 0;i<1 ;i++
         {
@@ -79,12 +83,14 @@ class GLContextBuffer{
             {
                 drawTexture(layer.texture,alpha: layer.alpha)
             }
-            /*
-            if layer == renderTexture.currentLayer
-            {
-                drawTexture(renderTexture.tempLayer.texture,alpha: 1)
-            }*/
         }
+        
+        if renderTexture.renderMode == .drawing
+        {
+            drawTexture(renderTexture.tempLayer.texture,alpha: 1)
+        }
+
+        
         if(renderTexture.revisionLayer.enabled)
         {
             DLog("draw revision---")
@@ -95,11 +101,44 @@ class GLContextBuffer{
         draw the points
      */
     var drawVertexCount:Int = 0;
+    func setReplayDrawSetting()
+    {
+        renderTexture.renderMode = RenderMode.direct
+    }
+    
+    func setBrushDrawSetting(toolType:PaintToolType)
+    {
+        switch(toolType)
+        {
+        case .pen:
+                renderTexture.renderMode = RenderMode.drawing
+        case .eraser:
+                renderTexture.renderMode = RenderMode.direct
+        case .smudge:
+                renderTexture.renderMode = RenderMode.direct
+        }
+        
+    }
+    var renderMode:RenderMode{
+        get{
+            return renderTexture.renderMode
+        }
+    }
     
     func drawBrushVertex(vertexBuffer:[PaintPoint],layer:Int)
     {
-        if renderTexture.setBuffer() == false{
-            print("Framebuffer fail")
+        //renderTexture.renderMode = RenderMode.direct
+        if renderTexture.renderMode == RenderMode.direct
+        {
+            if renderTexture.setBuffer() == false{
+                print("Framebuffer fail", terminator: "")
+            }
+        }
+        else if renderTexture.renderMode == RenderMode.drawing
+        {
+            if renderTexture.setTempBuffer() == false{
+                print("Framebuffer fail", terminator: "")
+            }
         }
         renderVertex(vertexBuffer)
     }
@@ -108,7 +147,7 @@ class GLContextBuffer{
     {
         GLShaderBinder.instance.bindBrush()
         GLShaderBinder.instance.bindVertexs(vertexBuffer)
-        GLShaderBinder.instance.drawShader.useProgram()
+        GLShaderBinder.instance.pencilShader.useProgram()
         paintToolManager.useCurrentTool()
         glDrawArrays(GL_POINTS, 0, Int32(vertexBuffer.count));
         drawVertexCount += vertexBuffer.count
@@ -125,12 +164,12 @@ class GLContextBuffer{
         drawVertexCount += stroke.points.count;
         
         GLShaderBinder.instance.bindVertexs(vertexBuffer)
-        GLShaderBinder.instance.drawShader.useProgram()
+        GLShaderBinder.instance.pencilShader.useProgram()
         
         
         //renderTexture.selectLayer(layer)
         if renderTexture.setBuffer()==false{
-            print("Framebuffer fail")
+            print("Framebuffer fail", terminator: "")
         }
         
         /*
@@ -147,20 +186,24 @@ class GLContextBuffer{
     */
     func endStroke()
     {
-        drawTextureOnRenderTexture(renderTexture.tempLayer.texture, alpha: 1)
-        //renderTexture.blankTempLayer()
+        drawTextureOnCurrentLayer(renderTexture.tempLayer.texture, alpha: 1)
+        renderTexture.blankTempLayer()
     }
     func endStroke(leftTop:Vec4,rightBottom:Vec4)
     {
-        drawTextureOnRenderTexture(renderTexture.tempLayer.texture,alpha: 1,leftTop:leftTop,rightBottom:rightBottom)
+        drawTextureOnCurrentLayer(renderTexture.tempLayer.texture,alpha: 1,leftTop:leftTop,rightBottom:rightBottom)
         renderTexture.blankTempLayer()
         
+    }
+    func cleanTemp()
+    {
+        renderTexture.blankTempLayer()
     }
     func interpolatePoints(points:[PaintPoint])->[PaintPoint]
     {
         let size:Float = 1
         var vertexBuffer:[PaintPoint] = []
-        let kBrushPixelStep:Float =  size*2
+        let kBrushPixelStep:Float =  size*3
         /*
         var left:Float = points.last!.position.x
         var right:Float = points.last!.position.x
@@ -222,7 +265,7 @@ class GLContextBuffer{
                 
             }
             
-                        let force = (ep.force+sp.force)/2
+            let force = (ep.force+sp.force)/2
             let altitude = (ep.altitude+sp.altitude)/2
             let azimuth = (ep.azimuth+sp.azimuth)/2
             let velocity = (ep.velocity+sp.velocity)/2
@@ -247,13 +290,12 @@ class GLContextBuffer{
     func loadCacheFrame(atStroke:Int)
     {
         if renderTexture.setBuffer()==false{
-            print("Framebuffer fail")
+            print("Framebuffer fail", terminator: "")
         }
         clear()
         drawTexture(renderTexture.caches[atStroke]!.texture,alpha:1)
     }
-    let createCacheInterval = 50
-    var lastCacheIndex = 0
+    
     func checkCache(strokeNum:Int)
     {
         
@@ -270,11 +312,9 @@ class GLContextBuffer{
         
         let layer = renderTexture.genCacheFrame(atStroke)
         if renderTexture.setBuffer(layer)==false{
-            print("Framebuffer fail")
+            print("Framebuffer fail", terminator: "")
         }
         clear()
-        
-        
         drawTexture(renderTexture.currentLayer.texture, alpha: 1)
         
     }
@@ -283,22 +323,22 @@ class GLContextBuffer{
         
     }
    
-    func drawTextureOnRenderTexture(texture:Texture,alpha:Float)
+    func drawTextureOnCurrentLayer(texture:Texture,alpha:Float)
     {
         if renderTexture.setBuffer() == false{
-            print("Framebuffer fail")
+            print("Framebuffer fail", terminator: "")
         }
         
         drawTexture(texture, alpha: alpha)
     }
-    func drawTextureOnRenderTexture(texture:Texture,alpha:Float,leftTop:Vec4,rightBottom:Vec4)
+    func drawTextureOnCurrentLayer(texture:Texture,alpha:Float,leftTop:Vec4,rightBottom:Vec4)
     {
         glEnable(GL_BLEND);
         glBlendEquation(GLenum(GL_FUNC_ADD))
         glBlendFunc (GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         
         if renderTexture.setBuffer() == false{
-            print("Framebuffer fail")
+            print("Framebuffer fail", terminator: "")
         }
         GLShaderBinder.instance.drawImageTexture(texture,alpha:alpha,leftTop:leftTop,rightBottom:rightBottom)
     }
@@ -360,22 +400,40 @@ class GLContextBuffer{
     func contextImage()->UIImage!
     {
         let tick = CFAbsoluteTimeGetCurrent()
-        let backingWidth = Int(self.backingWidth)
-        let backingHeight = Int(self.backingHeight)
+        let width = Int(self.backingWidth)
+        let height = Int(self.backingHeight)
         
-        let buffer = UnsafeMutablePointer<GLubyte>(malloc(backingWidth * backingHeight * 4))
-        imgBuffer  = UnsafeMutablePointer<GLubyte>(malloc(backingWidth * backingHeight * 4))
+        //let buffer = UnsafeMutablePointer<GLubyte>(malloc(backingWidth * backingHeight * 4))
+        //imgBuffer  = UnsafeMutablePointer<GLubyte>(malloc(backingWidth * backingHeight * 4))
         //GLvoid *pixel_data = nil;
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        
+        
+        let cgBitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.Last.rawValue)
+        
+        // RGBA.
+        let componentsPerPixel = 4
+        
+        // 8-bit.
+        let bitsPerComponent = 8
+        
+        let imageBits = NSMutableData(length: width * height * componentsPerPixel)!
+        
+        let dataProvider = CGDataProviderCreateWithCFData(imageBits)
         
         glReadPixels(0, 0, GLsizei(backingWidth), GLsizei(backingHeight), GLenum(GL_RGBA), SwiftGL.GL_UNSIGNED_BYTE,
-            buffer)
-        
+            imageBits.mutableBytes)
+        /*
         for var y=0; y<backingHeight; y++ {
             for var x=0; x<backingWidth*4; x++ {
                 imgBuffer[y * 4 * backingWidth + x] =
                     buffer[(backingHeight - y - 1) * backingWidth * 4 + x];
             }
         }
+        */
+        let imageRef = CGImageCreate(width, height, bitsPerComponent, componentsPerPixel * bitsPerComponent, width * componentsPerPixel, colorSpace, cgBitmapInfo, dataProvider, nil, false, .RenderingIntentDefault)!
+        
+        /*
         
         
         let provider:CGDataProviderRef = CGDataProviderCreateWithData(nil, imgBuffer,
@@ -384,7 +442,6 @@ class GLContextBuffer{
         
         
         // set up for CGImage creation
-        let bitsPerComponent = 8;
         let bitsPerPixel = 32;
         let bytesPerRow = 4 * backingWidth;
         
@@ -393,14 +450,41 @@ class GLContextBuffer{
         // Use this to retain alpha
         //CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast;
         let imageRef = CGImageCreate(backingWidth, backingHeight, bitsPerComponent, bitsPerPixel, bytesPerRow, CGColorSpaceCreateDeviceRGB(),bitmapInfo, provider, nil, false, CGColorRenderingIntent.RenderingIntentDefault)
-        
+        */
         // this contains our final image.
-        let img = UIImage(CGImage: imageRef!)
-        free(buffer)
+        
+        //let img = UIImage(CGImage: imageRef, scale: 0.1, orientation: UIImageOrientation.Down)
+        
+        let img = scaleImage(UIImage(CGImage: imageRef), scale: 0.1)
+        
+       
+        //free(buffer)
         let tock = CFAbsoluteTimeGetCurrent()
         DLog("save image duration\(tock-tick)")
         return img
     }
+    func scaleImage(image:UIImage,scale:CGFloat)->UIImage{
+        //let flipImage =
+        let newSize = CGSize(width: Int(image.size.width * scale), height: Int(image.size.height * scale))
+        
+        UIGraphicsBeginImageContext(newSize)
+        
+        let context = UIGraphicsGetCurrentContext();
+        CGContextScaleCTM(context, 1, -1)
+        CGContextTranslateCTM(context, 0, -newSize.height);
+        
+        //CGContextDrawImage(flipedContext, CGRect(origin: CGPoint.zero, size: newSize), image.CGImage);
+        //let flippedImage = CGBitmapContextCreateImage(flipedContext)
+        
+        
+        
+        image.drawInRect(CGRect(origin: CGPoint.zero, size: newSize))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage;
+    }
+
     func releaseImgBuffer()
     {
         free(imgBuffer)

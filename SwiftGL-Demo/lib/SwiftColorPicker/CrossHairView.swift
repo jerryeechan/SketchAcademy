@@ -25,6 +25,7 @@ class CrossHairView: UIView {
         // Call setColor passing it the color that this view was init with
         setTheColor(color);
     }
+
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
@@ -32,7 +33,7 @@ class CrossHairView: UIView {
         // Set reference to the location of the touch in member point
         let touch = touches.first
         point = touch!.locationInView(self)
-        print(point)
+        print(point, terminator: "")
         
         // Notify delegate of the new new color selection
         delegate?.colorSaturationAndBrightnessSelected(point)
@@ -106,7 +107,7 @@ class CrossHairView: UIView {
             // Draw selected color circle
             // Set the coordinates for the circle origin
             let p = CGPoint(x: point.x , y: point.y)
-            print(p)
+            print(p, terminator: "")
             
             let rect = CGRect(origin: p, size: CGSize(width: circleRadius * 2, height: circleRadius * 2))
             // Add a circle to the previously defined rect
@@ -148,7 +149,7 @@ class CrossHairView: UIView {
         var hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
         let ok: Bool = color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         if (!ok) {
-            print("ColorPicker: exception <The color provided to ColorPicker is not convertible to HSB>")
+            print("ColorPicker: exception <The color provided to ColorPicker is not convertible to HSB>", terminator: "")
         }
         return CGPoint(x: brightness * frame.height, y: frame.height - (saturation * frame.height))
     }

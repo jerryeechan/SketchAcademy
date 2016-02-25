@@ -19,8 +19,8 @@ class NoteFile: File {
     func save(notes:[Int:Note],filename:String)
     {
         data = NSMutableData()
-        print(notes)
-        print("save: Note count\(notes.count)")
+        print(notes, terminator: "")
+        print("save: Note count\(notes.count)", terminator: "")
         encodeStruct(notes.count)       //1.note count
         let notes = NoteManager.instance.getNoteArray()
         if(notes.count>0)
@@ -56,9 +56,9 @@ class NoteFile: File {
             for var i = 0; i < length; ++i
             {
                 let title = parseString()
-                print("title \(title)")
+                print("title \(title)", terminator: "")
                 let description = parseString()
-                print("description \(description)")
+                print("description \(description)", terminator: "")
                 
                 let valueData:NoteValueData = parseStruct()
                 //print("valueData")

@@ -11,7 +11,7 @@ class SubViewPanelAnimateState {
     
     var hideValue:CGFloat!
     var showValue:CGFloat!
-    var constraint:NSLayoutConstraint!
+    weak var constraint:NSLayoutConstraint!
     weak var view:UIView?
     var isLocked:Bool = false
     
@@ -56,12 +56,12 @@ class SubViewPanelAnimateState {
         case .Ended:
             if vel.x < -100
             {
-                print("hide")
+                print("hide", terminator: "")
                 animateHide(0.2)
             }
             else
             {
-                print("show")
+                print("show", terminator: "")
                 animateShow(0.2)
             }
         default:

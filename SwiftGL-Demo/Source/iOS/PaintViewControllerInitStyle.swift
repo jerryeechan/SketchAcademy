@@ -62,4 +62,5 @@ extension PaintViewController
         //tintedImage = button. [self tintedImageWithColor:color image:tintedImage];
         //[self setImage:tintedImage forState:state];
     }
+    
 }

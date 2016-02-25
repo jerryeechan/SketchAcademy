@@ -7,9 +7,14 @@
 		<key>SwiftGL-Demo-iOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>1</integer>
 		</dict>
 		<key>SwiftGL-iOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>SwiftHttp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
@@ -17,6 +22,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>C4C391071C7B5BB70018A1C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D2A18FDE1997F8E000830CA4</key>
 		<dict>
 			<key>primary</key>

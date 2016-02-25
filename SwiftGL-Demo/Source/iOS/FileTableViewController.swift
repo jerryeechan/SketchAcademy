@@ -21,7 +21,7 @@ class FileTableViewController: UITableViewController {
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        print("file counts:\(FileManager.instance.getFileNames().count)")
+        print("file counts:\(FileManager.instance.getFileNames().count)", terminator: "")
         
         return FileManager.instance.getFileNames().count
     }

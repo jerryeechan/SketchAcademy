@@ -83,24 +83,38 @@ void main()
 {
     
     float speed = length(vertexVelocity);
-    
+    float mapping = (500.0-speed)/500.0;
+    float speedfade = easein(0.5,1.0,mapping);
     float randNum = rand(vertexPosition);
-    float randNum2 = rand(vertexPosition+vec4(1,1,0,0));
+    float randNum2 = rand(vertexPosition+vec4(1.26,4.39,0,0));
+    float randNum3 = rand(vertexPosition+vec4(3.16,6.11,0,0));
     float altitude;
-    if (pencilAltitude > Altitude_Limit)
-        altitude = M_PI_2;
-    else
-        altitude = pencilAltitude/Altitude_Limit * M_PI_2;
+    altitude = float(pencilAltitude < Altitude_Limit) * (pencilAltitude/Altitude_Limit * M_PI_2 - M_PI_2) + M_PI_2;
+    
+    
+    
+    
+    //if (pencilAltitude > Altitude_Limit)
+    //    altitude = M_PI_2;
+    //else
+    //    altitude = pencilAltitude/Altitude_Limit * M_PI_2;
     
     float tiltValue = easein(0.0,1.0,-(altitude-M_PI_2));
-    vec2 tiltVec = tiltValue*pencilAzimuth*20.0;
-    float disx = randNum-0.5+tiltVec.x*easeout(1.0,-1.0,randNum2);
-    float disy = randNum2-0.5-tiltVec.y*easeout(1.0,-1.0,randNum);
+    vec2 tiltVec = tiltValue*pencilAzimuth*5.0;
+    float centerx = randNum-0.5;
+    float centery = randNum2-0.5;
+    
+    float disx = centerx+tiltVec.x*easeout(1.0,-1.0,randNum2);
+    float disy = centery-tiltVec.y*easeout(1.0,-1.0,randNum);
     //
 	gl_Position = MVP * (vertexPosition+vec4(disx,disy,0,0)*2.0);
-    gl_PointSize = brushSize*float(4);
-    angle = randNum * M_PI;
-    color = brushColor*easeout(0.0,1.0,pencilForce);
+    gl_PointSize = brushSize*float(4)*(1.0+tiltValue/2.0);
+    angle = floor(randNum3*4.0)/4.0 * M_PI;
+    //angle = randNum*M_PI;
+    
+    //speed fade may be remove
+    
+    color = brushColor*easeout(0.0,1.0,pencilForce);//*(0.5-centerx*centerx+centery*centery);;//speedfade;
     
 }
 

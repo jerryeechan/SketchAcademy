@@ -16,13 +16,13 @@ class ReferenceImageScene: SKScene {
         refImg = SKSpriteNode(imageNamed: "spongebob.png")
         refImg.position = CGPointMake(self.size.width/2, self.size.height/2)
         addChild(refImg)
-        print("2- didMoveToView")
+        print("2- didMoveToView", terminator: "")
         
     }
     func removeRefImg()
     {
         refImg.removeFromParent()
-        print("remove from parent")
+        print("remove from parent", terminator: "")
     }
     func putBackRefImg()
     {
@@ -105,7 +105,7 @@ class ReferenceImageScene: SKScene {
             
             ImageSlicedRectangles.instance.addRect(rectData)
         default:
-            print("nothing")
+            print("nothing", terminator: "")
         }
         
         

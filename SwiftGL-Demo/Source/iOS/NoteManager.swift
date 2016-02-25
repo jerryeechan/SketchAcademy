@@ -15,19 +15,20 @@ class NoteManager {
         }
         return Singleton.instance
     }
-    private var noteButtonDict:[Int:NoteProgressButton] = [Int:NoteProgressButton]()
-    var selectedIndex:Int!
+    var noteButtonDict:[Int:NoteButton] = [Int:NoteButton]()
+    var selectedButtonIndex:Int!
     private var noteDict:[Int:Note] = [Int:Note]()
-    func getNoteButton(index:Int)->NoteProgressButton!
+    func getNoteButton(atStroke:Int)->NoteButton!
     {
-        return noteButtonDict[index]
+        return noteButtonDict[atStroke]
     }
-    func addNoteButton(noteButton:NoteProgressButton,note:Note)
+    func addNoteButton(noteButton:NoteButton,note:Note)
     {
         noteButton.note = note
         noteButtonDict[note.value.strokeIndex] = noteButton
         DLog("\(note.value.strokeIndex)")
     }
+    
     //private var noteList:[Note] = []
     var editingNoteIndex:Int = -1
     func empty()
@@ -45,6 +46,13 @@ class NoteManager {
     {
         return [Int](noteDict.keys)
     }*/
+    func removeAllButton()
+    {
+        for button in noteButtonDict.values
+        {
+            button.removeFromSuperview()
+        }
+    }
     func getNoteArray()->[Note]
     {
         let sortedArray = Array(noteDict.values).sort({$0.value.strokeIndex < $1.value.strokeIndex})
@@ -71,6 +79,10 @@ class NoteManager {
     }
     func deleteNoteAtStroke(at:Int)
     {
+        selectedButtonIndex = nil
+        let noteButton = getNoteButton(at)
+        noteButtonDict[at] = nil
+        noteButton.removeFromSuperview()
         noteDict[at] = nil
         sortedKeys = getSortedKeys()
     }
@@ -95,10 +107,11 @@ class NoteManager {
         editingNoteIndex = -1
 */
     }
-    func addNote(at:Int,title:String,description:String)
+    func addNote(at:Int,title:String,description:String)->Note
     {
         noteDict[at] = Note(title: "\(title)", description: description, strokeIndex: at,type: NoteType.Note)
         sortedKeys = getSortedKeys()
+        return noteDict[at]!
         //noteList.sortInPlace({$0.value.strokeIndex < $1.value.strokeIndex})
     }
     func getNotes()->[Int:Note]
@@ -107,16 +120,28 @@ class NoteManager {
     }
     //var selectedNoteIndex:Int = -1
     
-    func getNoteIndexFromStrokeID(strokeID:Int)->Int
+    //the array index of the floor strokeID
+    func getFloorNoteIndexFromStrokeID(strokeID:Int)->Int
     {
-        for var i=0; i<sortedKeys.count-1; i++
+        getSortedKeys()
+        DLog("\(sortedKeys)")
+        for var i=0; i<sortedKeys.count; i++
         {
-            if strokeID >= sortedKeys[i] && strokeID < sortedKeys[i+1]
+            if strokeID < sortedKeys[i]
             {
-                return i
+                if i==0
+                {
+                    return -1
+                }
+                else
+                {
+                    return i-1
+                }
+                
             }
-            
         }
+        return sortedKeys.count-1
+        /*
         if strokeID == 0
         {
             return -1
@@ -125,7 +150,7 @@ class NoteManager {
         {return -1}
         else
         {return sortedKeys.count-1}
-
+        */
         
     }
 

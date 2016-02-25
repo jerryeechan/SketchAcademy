@@ -9,6 +9,10 @@
 import OpenGLES.ES2
 import SwiftGL
 
+enum RenderMode{
+    case direct
+    case drawing
+}
 
 class GLRenderTextureFrameBuffer{
     var tempLayer:Layer!
@@ -20,6 +24,8 @@ class GLRenderTextureFrameBuffer{
     var width,height:GLsizei!
     var currentLayer:Layer!
     var backgroundLayer:Layer!
+    var renderMode:RenderMode = .drawing
+    
     
     static var instance:GLRenderTextureFrameBuffer!
     
@@ -29,10 +35,9 @@ class GLRenderTextureFrameBuffer{
         self.width = w
         self.height = h
         glGenFramebuffers(1,&framebuffer)
-        
-        //tempLayer = Layer(w: width, h: height)
+        tempLayer = Layer(w: width, h: height)
         revisionLayer = Layer(w: width, h: height)
-        backgroundLayer = Layer(texture:Texture(filename: "paper_sketch"))
+        changeBackground("paper_sketch")
         addEmptyLayer()
         /*
         for i in 0...10
@@ -57,6 +62,18 @@ class GLRenderTextureFrameBuffer{
         layers.removeAll()
         revisionLayer = nil
         glDeleteFramebuffers(1, [framebuffer])
+    }
+    func changeBackground(filename:String)
+    {
+        if(filename != "none")
+        {
+            backgroundLayer = Layer(texture: Texture(filename: filename))
+        }
+        else
+        {
+            backgroundLayer = nil
+        }
+        
     }
     func addEmptyLayer()
     {
@@ -110,7 +127,6 @@ class GLRenderTextureFrameBuffer{
     }
     func blankTempLayer()
     {
-        
         setTempBuffer()
         glClearColor(0, 0, 0, 0)
         glClear(GL_COLOR_BUFFER_BIT )
@@ -125,7 +141,7 @@ class GLRenderTextureFrameBuffer{
         }
         else
         {
-            print("dead")
+            print("dead", terminator: "")
         }
         
     }

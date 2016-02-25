@@ -46,9 +46,9 @@ class PaintBrush:NSObject{
     var sInfo:ToolStringInfo
     var vInfo:ToolValueInfo
     
-    var toolType:PaintToolManager.PaintToolType
+    var toolType:PaintToolType
     
-    init(textureName:String,color:Color,size:Float = 5,type:PaintToolManager.PaintToolType)
+    init(textureName:String,color:Color,size:Float = 5,type:PaintToolType)
     {
         texture = BrushTextureLoader.instance.getTexture(textureName)
         name = textureName
@@ -59,6 +59,8 @@ class PaintBrush:NSObject{
             sInfo = ToolStringInfo(tool: "pen",texture: textureName)
         case .eraser:
             sInfo = ToolStringInfo(tool: "eraser",texture: textureName)
+        default:
+            sInfo = ToolStringInfo(tool: "pen",texture: textureName)
         }
         
         vInfo = ToolValueInfo(color: color, size: size)

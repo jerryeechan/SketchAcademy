@@ -40,13 +40,14 @@ extension PaintViewController
         }
         guard let touchRaw = touches.first else { return }
         if #available(iOS 9.1, *) {
-            
+            DLog(currentTouchType)
             if currentTouchType == "None"
             {
+                
                 if touchRaw.type == .Stylus
                 {
                     currentTouchType = "Stylus"
-                    disableGesture()
+                    //disableGesture()
                     paintManager.paintRecorder.startPoint(touchRaw, view: paintView)
                 }
                 else
@@ -58,7 +59,11 @@ extension PaintViewController
             {
                 if touchRaw.type == .Stylus
                 {
-                    DLog("interfere")
+                    paintManager.paintRecorder.disruptFingerStroke()
+                    
+                    currentTouchType = "Stylus"
+                    //disableGesture()
+                    paintManager.paintRecorder.startPoint(touchRaw, view: paintView)
                 }
             }
         }
@@ -67,42 +72,42 @@ extension PaintViewController
                 currentTouchType = "Finger"
         }
     }
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        guard let touchRaw = touches.first else { return }
-        if #available(iOS 9.1, *) {
-            if touchRaw.type == .Stylus
-            {
-                paintManager.paintRecorder.endStroke()
-                paintView.addGestureRecognizer(singlePanGestureRecognizer)
-                enableGesture()
-            }
-            currentTouchType = "None"
-            
-        }
-    }
+    
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        //DLog(currentTouchType)
         if appState == AppState.viewArtwork || appState == AppState.viewRevision
         {
             return
         }
-        //        print("touchMoved")
-        print(touches.count)
         for touchRaw in touches
         {
             var toucharray = [UITouch]()
             if #available(iOS 9.1, *) {
                 
-                if currentTouchType == "Stylus" && touchRaw.type == .Stylus
+                if touchRaw.type == .Stylus
                 {
                     
                     if let coalescedTouches = event?.coalescedTouchesForTouch(touchRaw) {
                         toucharray = coalescedTouches
                     }
+                    /*
                     for touch in toucharray
                     {
                         paintManager.paintRecorder.movePoint(touch,view:paintView)
+                    }*/
+                    
+                    paintManager.paintRecorder.movePoints(toucharray, view: paintView)
+                    /*
+                    let predictTouchs = event?.predictedTouchesForTouch(touchRaw)
+                    DLog("\(predictTouchs?.count)")
+                    for touch in predictTouchs!
+                    {
+                        paintManager.paintRecorder.movePoint(touch,view:paintView)
                     }
+                    
+                    */
+                    
                     paintView.setNeedsDisplay()
                 }
                 
@@ -110,6 +115,20 @@ extension PaintViewController
         }
         
         
+    }
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        guard let touchRaw = touches.first else { return }
+        if #available(iOS 9.1, *) {
+            if touchRaw.type == .Stylus
+            {
+                paintManager.paintRecorder.endStroke()
+                paintView.addGestureRecognizer(singlePanGestureRecognizer)
+                //enableGesture()
+                currentTouchType = "None"
+            }
+            
+            
+        }
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -127,7 +146,7 @@ extension PaintViewController
     @IBAction func uiPinchGestrueEvent(sender: UIPinchGestureRecognizer) {
 
         var center:CGPoint = CGPointMake(0, 0)
-        for i in 0...sender.numberOfTouches()-1
+        for var i = 0; i < sender.numberOfTouches(); i++
         {
             let p = sender.locationOfTouch(i, inView: paintView)
             center.x += p.x
@@ -194,14 +213,16 @@ extension PaintViewController
         }
     }
     @IBAction func singleTapSingleTouchGestureHandler(sender: UITapGestureRecognizer) {
-        print("single tap")
         if sender.state == .Ended
         {
-            DLog("Single tap")
+            //DLog("Single tap")
             switch appState
             {
             case AppState.editNote:
-                editNoteDone()
+                noteTitleField.resignFirstResponder()
+                noteDescriptionTextView.resignFirstResponder()
+            case .viewArtwork, .viewRevision:
+                playbackControlPanel.toggle()
             default:
                 break
             }
@@ -221,9 +242,12 @@ extension PaintViewController
                 let textViews = [noteTitleField, noteDescriptionTextView]
                 for view in textViews
                 {
-                    if sender.view == view
+                    let point = sender.locationInView(view)
+                    
+                    //if sender.view == view
+                    if view.pointInside(point, withEvent: nil)
                     {
-                        editNote(paintManager.getMasterStrokeID())
+                        editNote()
                         view.becomeFirstResponder()
                         return
                     }
@@ -235,9 +259,6 @@ extension PaintViewController
                 break
             }
         }
-        
-        
-        
     }
     
 }

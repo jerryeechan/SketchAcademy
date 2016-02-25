@@ -5,23 +5,31 @@
 //  Created by jerry on 2016/2/13.
 //  Copyright © 2016年 Jerry Chan. All rights reserved.
 //
-
 extension PaintViewController:UITextViewDelegate
 {
     func noteEditSetUp()
     {
-        noteDescriptionTextView.editable = false
+        
         noteTitleField.editable = false
         noteTitleField.delegate = self
+        //noteTitleField.addGestureRecognizer(doubleTapSingleTouchGestureRecognizer)
+        noteTitleField.editTapRecognizer = doubleTapSingleTouchGestureRecognizer
+        
+        
+        noteDescriptionTextView.editable = false
         noteDescriptionTextView.delegate = self
         noteDescriptionTextView.addGestureRecognizer(doubleTapSingleTouchGestureRecognizer)
         noteDescriptionTextView.editTapRecognizer = doubleTapSingleTouchGestureRecognizer
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onKeyBoardHide:", name:
             UIKeyboardWillHideNotification, object: nil)
     }
     func onKeyBoardHide(notification:NSNotification)
     {
-        editNoteDone()
+        if appState == AppState.editNote
+        {
+            editNoteDone()
+        }
     }
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         if let t = textField as? NoteTitleField
@@ -39,22 +47,29 @@ extension PaintViewController:UITextViewDelegate
         return true
     }
     
-     func newNote(atStroke:Int){
-        
+     func newNote(atStroke:Int)->Note
+     {
         noteTitleField.text = ""
         noteDescriptionTextView.clear()
-        NoteManager.instance.addNote(atStroke,title: "", description: "")
-        
+        let note = NoteManager.instance.addNote(atStroke,title: "", description: "")
         enterEditMode()
+        return note
     }
-    func editNote(atStroke:Int)
+    func editNote()
     {
         enterEditMode()
+    }
+    func deleteNote(at:Int)
+    {
+        NoteManager.instance.deleteNoteAtStroke(at)
+        selectedPath = nil
+        noteListTableView.reloadData()
+        onProgressValueChanged(replayProgressBar.progress)
+        
     }
     private func enterEditMode()
     {
         appState = AppState.editNote
-        modeText.title = "編輯註解"
         noteDescriptionTextView.editable = true
         noteTitleField.editable = true
     }
@@ -63,14 +78,13 @@ extension PaintViewController:UITextViewDelegate
     {
         if appState == .editNote
         {
-            noteTitleField.resignFirstResponder()
-            noteDescriptionTextView.resignFirstResponder()
             noteDescriptionTextView.editable = false
             noteTitleField.editable = false
             
             NoteManager.instance.updateNote(paintManager.getMasterStrokeID(), title: noteTitleField.text!, description: noteDescriptionTextView.text)
-            DLog("\(appState) \(lastAppState)")
+            
             appState = lastAppState
+            
         }
         
         

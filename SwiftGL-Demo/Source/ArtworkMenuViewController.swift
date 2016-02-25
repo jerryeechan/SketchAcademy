@@ -117,7 +117,10 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
     var selectedIndexPath:NSIndexPath!
     @IBAction func actionButtonTouched(sender: UIButton) {
         
-        let cell = sender.superview as! UICollectionViewCell
+        
+        DLog("\(sender.superview)")
+        DLog("\(sender.superview?.superview)")
+        let cell = sender.superview?.superview as! ArtworkCollectionViewCell
         
         selectedIndexPath = collectionView?.indexPathForCell(cell)
         
@@ -130,7 +133,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         alertController.view.addSubview(artworkActionView)
         
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(alert: UIAlertAction) in print("cancel", terminator: "")})
         
         //alertController.addAction(somethingAction)
         alertController.addAction(cancelAction)
@@ -157,9 +160,9 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         
         let alertController = UIAlertController(title: "Delete", message: "Are you sure to delete?", preferredStyle: UIAlertControllerStyle.Alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(alert: UIAlertAction) in print("cancel", terminator: "")})
         
-        let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in print("delete")
+        let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction) in print("delete", terminator: "")
             let fileName = FileManager.instance.getFileName(self.selectedIndexPath.row-1)
             FileManager.instance.deletePaintArtWork(fileName)
             

@@ -93,7 +93,7 @@ class FaceGameScene: SKScene {
     {
         //ansComponents.sortComponents()
         for component in ansComponents.components {
-            print("CGPoint(x:\(component.position.x),y:\(component.position.y)),")
+            print("CGPoint(x:\(component.position.x),y:\(component.position.y)),", terminator: "")
         }
     }
     

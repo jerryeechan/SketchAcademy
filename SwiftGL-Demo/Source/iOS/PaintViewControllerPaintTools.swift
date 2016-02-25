@@ -77,7 +77,7 @@ extension PaintViewController
         //print(ToolKnob.layer.anchorPoint)
         
         ToolKnob.layer.position = CGPoint(x:ToolKnob.layer.position.x + dis.x , y:ToolKnob.layer.position.y + dis.y)
-        print(ToolKnob.layer.position)
+        print(ToolKnob.layer.position, terminator: "")
         sender.setTranslation(CGPointZero, inView: view)
     }
 }

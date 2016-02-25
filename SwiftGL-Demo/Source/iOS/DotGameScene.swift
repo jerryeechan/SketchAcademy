@@ -46,7 +46,7 @@ class DotGameScene: SKScene {
     var scoreLabel:SKLabelNode = SKLabelNode(text:"");
     func calScore()->Float
     {
-        print(quesDots.compareSet(ansDots))
+        print(quesDots.compareSet(ansDots), terminator: "")
         
         var score = 1-quesDots.compareSet(ansDots) / Float(200 * difficulty)
         if score < 0

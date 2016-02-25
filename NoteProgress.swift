@@ -9,95 +9,80 @@
 import Foundation
 extension PaintViewController
 {
+    
     func noteProgressButtonSetUp()
     {
-        themeDarkColor = uIntColor(36, green: 53, blue: 62, alpha: 255)
-        
-        themeLightColor = uIntColor(244, green: 149, blue: 40, alpha: 255)
-        
         let notes = NoteManager.instance.getNoteArray()
         for note in notes
         {
-            addNoteButton(note)
+            createNoteButton(note)
         }
-        
     }
-    func addNoteButton(note:Note)
+    
+    func createNoteButton(note:Note)
     {
-        let btnWidth:CGFloat = 40
-        let noteButton = NoteProgressButton(type: UIButtonType.System)
-        //44
-        noteButton.frame  = CGRectMake(0,-8,btnWidth,40)
-        
-        noteButton.setImage(UIImage(named: "chat-up"), forState: UIControlState.Normal)
-        
-        
-        noteButton.layer.cornerRadius = 0.25 * btnWidth
-        noteButton.backgroundColor = UIColor.whiteColor()
-        noteButton.tintColor = themeDarkColor
-        DLog("\(themeDarkColor)")
-        
-        noteButton.layer.borderColor = UIColor.lightGrayColor().CGColor
-        noteButton.layer.borderWidth = 1
-        
-        updateNoteButton(noteButton, note: note)
+        let noteButton = NoteButton(type: UIButtonType.System)
         
         noteButton.addTarget(self, action: Selector("noteButtonTouchUpInside:"), forControlEvents: UIControlEvents.TouchUpInside)
+        noteButton.note = note
         noteButton.tag = note.value.strokeIndex
+        
+        updateNoteButton(noteButton)
         
         //add to noteButtonView
         noteButtonView.addSubview(noteButton)
         noteButtonView.setNeedsDisplay()
         NoteManager.instance.addNoteButton(noteButton, note: note)
     }
+    
+    func selectNoteButton(atStroke:Int)
+    {
+        let lastIndex = NoteManager.instance.selectedButtonIndex
+        
+        if lastIndex != nil
+        {
+            //selected does not change, don't do anything
+            if lastIndex == atStroke
+            {
+                return
+            }
+            
+            //deselect last Button
+            let lastButton = NoteManager.instance.getNoteButton(lastIndex)
+            lastButton.deSelectStyle()
+        }
+
+        let selectedButton = NoteManager.instance.getNoteButton(atStroke)
+        //select current Button
+        if selectedButton != nil{
+            UIView.animateWithDuration(1, animations: {
+                selectedButton.layer.borderWidth = 4
+                selectedButton.layer.borderColor = themeLightColor.CGColor
+            })
+            NoteManager.instance.selectedButtonIndex = atStroke
+        }
+        else
+        {
+            NoteManager.instance.selectedButtonIndex = nil
+        }
+        
+    }
     func noteButtonTouchUpInside(sender: UIButton!)
     {
-        let selected = NoteManager.instance.selectedIndex
-        if selected != nil
-        {
-            let lastButton = NoteManager.instance.getNoteButton(selected)
-            UIView.animateWithDuration(1, animations: {
-                lastButton.layer.borderWidth = 1
-                lastButton.layer.borderColor = UIColor.lightGrayColor().CGColor
-            })
-            
-        }
-        
-        let note = NoteManager.instance.getNoteAtStroke(sender.tag)
-        UIView.animateWithDuration(1, animations: {
-            sender.layer.borderWidth = 4
-            sender.layer.borderColor = self.themeLightColor.CGColor
-        })
-        NoteManager.instance.selectedIndex = sender.tag
-        
-        paintManager.drawStrokeProgress(note.value.strokeIndex)
+        paintManager.drawStrokeProgress(sender.tag)
     }
-    
-    func updateNoteButton(noteButton:UIButton,note:Note)
+    func updateAllNoteButton()
     {
-        let offset:CGFloat = 10
-        let percentage = CGFloat(note.value.strokeIndex)/CGFloat(paintManager.masterReplayer.strokeCount())
-        noteButton.layer.transform = CATransform3DMakeTranslation(floor(percentage * viewWidth) - offset, 0, 0)
-        
-    }
-    func updateNoteButtons()
-    {
-        let notes = NoteManager.instance.getNoteArray()
-        for note in notes
+        for button in NoteManager.instance.noteButtonDict.values
         {
-            let noteButton = NoteManager.instance.getNoteButton(note.value.strokeIndex)
-            
-            //new note, create the button
-            if noteButton == nil
-            {
-                addNoteButton(note)
-            }
-            else
-            {
-                updateNoteButton(noteButton, note: note)
-            }
-            
+            updateNoteButton(button)
         }
+    }
+    func updateNoteButton(noteButton:NoteButton)
+    {
+        let percentage = CGFloat(noteButton.note.value.strokeIndex)/CGFloat(paintManager.currentReplayer.strokeCount())
+        
+        noteButton.setPosition(floor(percentage * viewWidth))
     }
         
 }

@@ -20,6 +20,8 @@ extension PaintViewController:UITextFieldDelegate
             appState = .drawRevision
         }
         enterDrawMode()
+        //@@ if clean the progress
+        paintManager.masterReplayer.cleanRewind()
     }
     
     @IBAction func enterViewModeButtonTouched(sender: UIBarButtonItem) {
@@ -30,7 +32,7 @@ extension PaintViewController:UITextFieldDelegate
         case .drawRevision:
             appState = .viewRevision
         default:
-            print("Error")
+            print("Error", terminator: "")
             
         }
         enterViewMode()
@@ -38,19 +40,16 @@ extension PaintViewController:UITextFieldDelegate
     
     @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
         let at = paintManager.getMasterStrokeID()
-        newNote(at)
+        let note = newNote(at)
         noteTitleField.becomeFirstResponder()
-        //selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount()-1, inSection: 0)
-        //noteListTableView.reloadData()
+        noteDetailView.animateShow(0.2)
+        createNoteButton(note)
+        
+        selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount()-1, inSection: 0)
+        noteListTableView.reloadData()
         
     }
 
-    
-    
-    
-    
-    
-    
     @IBAction func reviseDoneButtonTouched(sender: UIBarButtonItem) {
         enterViewMode()
         showNoteEditView()
@@ -84,5 +83,73 @@ extension PaintViewController:UITextFieldDelegate
         
         //dismissViewControllerAnimated(true, completion: nil)
         
+    }
+    func screenShotMethod() {
+        //Create the UIImage
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
+        view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        /*
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+*/
+        
+        let imageData:NSData = UIImagePNGRepresentation(image)!;
+        let filePath = File.dirpath+"/screen.png"
+        imageData.writeToFile(filePath, atomically: true)
+        
+        FileManager.instance.upload(filePath)
+        //Save it to the camera roll
+        //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+    }
+    
+    //Save file
+    func saveFile(fileName:String)
+    {
+        let img = GLContextBuffer.instance.contextImage()
+        paintManager.saveArtwork(fileName,img:img)
+        //screenShotMethod()
+        //GLContextBuffer.instance.releaseImgBuffer()
+        
+    }
+    func saveFileIOS9()
+    {
+        if fileName != nil
+        {
+            saveFile(fileName)
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+        else
+        {
+            let saveAlertController = UIAlertController(title: "Save File", message: "type in the file name", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            
+            
+            var inputTextField: UITextField?
+            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                self.saveFile(inputTextField!.text!)
+                self.navigationController?.popViewControllerAnimated(true)
+            })
+            
+            
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+            
+            saveAlertController.addTextFieldWithConfigurationHandler{ (textField) -> Void in
+                inputTextField = textField
+                // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
+            }
+            
+            saveAlertController.addAction(ok)
+            saveAlertController.addAction(cancel)
+            
+            presentViewController(saveAlertController, animated: true, completion: nil)
+        }
     }
 }

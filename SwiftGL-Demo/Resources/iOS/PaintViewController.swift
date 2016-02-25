@@ -8,7 +8,7 @@
 
 func DLog(message: String, filename: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__){
     #if DEBUG
-         print("\((filename as NSString).lastPathComponent):\(line) \(function):\(message)")
+         print("\((filename as NSString).lastPathComponent):\(line):\(message)")
     #else
         print("not debug")
     #endif
@@ -19,7 +19,6 @@ import SwiftGL
 import OpenGLES
 func getViewController(identifier:String)->UIViewController
 {
-    
     return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(identifier)
     
 }
@@ -27,17 +26,15 @@ func getViewController(identifier:String)->UIViewController
 
 
 
-
+var themeDarkColor = uIntColor(36, green: 53, blue: 62, alpha: 255)
+var themeLightColor = uIntColor(244, green: 149, blue: 40, alpha: 255)
 
 class PaintViewController:UIViewController, UIGestureRecognizerDelegate
 {
-    var themeDarkColor:UIColor!
-    var themeLightColor:UIColor!
+    
     
     //UI size attributes
     var viewWidth:CGFloat!
-    
-   
     
     @IBOutlet weak var colorPicker: ColorPicker!
    
@@ -68,8 +65,26 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     var lastAppState:AppState!
     var appState:AppState = .drawArtwork{
         willSet{
+            
          lastAppState = appState
+        
+            
         }
+        didSet
+        {
+            switch appState
+            {
+            case .drawArtwork:
+                modeText.title = "繪畫模式"
+            case .editNote:
+                modeText.title = "編輯註解"
+            case .viewArtwork:
+                modeText.title = "觀看模式"
+            default:
+                break
+            }
+        }
+        
         
     }
     static let canvasWidth:GLint = 1366
@@ -120,38 +135,18 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             }
         }
         
-        
-        ////
-
-        //canvasPanGestureHandler = CanvasPanGestureHandler(pvController: self)
-
         GLContextBuffer.instance.paintToolManager.useCurrentTool()
-        
-       // noteEditViewTopConstraint.constant = -384
-        
-        
-       // drawNoteEditTextViewStyle()
-        
-        paintManager.masterReplayer.onProgressValueChanged = {[weak self](value) in
-            self!.replayProgressBar.setProgress(value, animated: false)
-        }
-        ////
-        
-        //paintManager.setProgressSlider(progressSlider)
-        
-        
-        //noteEditTextView.delegate = self
-        
-        print("anchor");
-        print(paintView.layer.transform)
-        print(paintView.layer.anchorPoint)
-        print(paintView.layer.position)
-        //mainView.layoutIfNeeded()
         
         if(fileName != nil)
         {
             NoteManager.instance.loadNotes(fileName)
-            paintManager.loadArtwork(fileName)
+            dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)) { // 1
+                
+                dispatch_async(dispatch_get_main_queue()) { // 2
+                        self.paintManager.loadArtwork(self.fileName)
+                }
+            }
+            
         }
         else
         {
@@ -162,16 +157,16 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         noteListTableView.reloadData()
         noteProgressButtonSetUp()
         noteEditSetUp()
+        replayControlSetup()
         gestureHandlerSetUp()
-        
         initMode(paintMode)
 
     }
     
     override func viewDidAppear(animated: Bool) {
-        colorPicker.setTheColor(UIColor(hue: 0, saturation: 0.5, brightness: 0.5, alpha: 1.0))
+        colorPicker.setTheColor(UIColor(hue: 0, saturation: 0.0, brightness: 0.2, alpha: 1.0))
         
-        
+        //paintManager.playArtworkClip()
     }
     
     func initMode(paintMode:PaintMode)
@@ -222,6 +217,23 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     @IBOutlet weak var noteDetailView: NoteTextView!
     
+    @IBOutlet weak var editNoteButton: UIBarButtonItem!
+    
+    @IBAction func editNoteButtonTouched(sender: UIBarButtonItem) {
+        editNote()
+        noteTitleField.becomeFirstResponder()
+    }
+    
+    @IBAction func deleteNoteButtonTouched(sender: UIBarButtonItem) {
+        deleteNote(NoteManager.instance.selectedButtonIndex)
+        
+    }
+    
+    
+    var disx:CGFloat = 0
+    
+    
+    
     var rect:GLRect!
     
     //var canvasPanGestureHandler:CanvasPanGestureHandler!
@@ -268,20 +280,18 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     @IBOutlet weak var replayProgressBar: UIProgressView!
     @IBOutlet weak var progressSlider: UISlider!
-    @IBOutlet weak var doublePlayBackButton: UIBarButtonItem!
+    @IBOutlet weak var doublePlayBackButton: UIButton!
     
-    @IBOutlet weak var playPauseButton: UIBarButtonItem!
+    @IBOutlet weak var playbackControlPanel: PlayBackControlPanel!
+    
+    @IBOutlet weak var playPauseButton: PlayPauseButton!
+    
+    
     let playImage = UIImage(named: "Play-50")
     let pauseImage = UIImage(named: "Pause-50")
     
     var isCellSelectedSentbySlider:Bool = false
             
-    
-    
-    
-    
-    
-    
     
     //var canvasCropView:CanvasCropView!
     
@@ -291,55 +301,6 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     }
     
     
-    
-    
-    /*
-    @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
-    displayCropView()
-    }
-    
-    func displayCropView()
-    {
-    if !isEditingRectangle
-    {
-    
-    let viewRect = CGRectMake(0, 0, paintView.bounds.size.width,paintView.bounds.size.height);
-    canvasCropView = CanvasCropView(frame: viewRect)
-    mainView.addSubview(canvasCropView)
-    isEditingRectangle = true
-    }
-    else
-    {
-    canvasCropView.removeFromSuperview()
-    isEditingRectangle = false
-    }
-    
-    
-    }
-
-    
-    @IBOutlet weak var reviseNoteView: UIView!
-    var reviseNoteStartPoint:CGPoint!
-    var isEditingRectangle:Bool = false
-    @IBAction func notePanGestureRecognizerHandler(sender: UIPanGestureRecognizer) {
-        
-        switch(sender.state)
-        {
-        case UIGestureRecognizerState.Began:
-            reviseNoteStartPoint = reviseNoteView.center
-        case UIGestureRecognizerState.Changed:
-            let dis = sender.translationInView(reviseNoteView)
-            //reviseNote.center = CGPoint(x: reviseNoteStartPoint.x + dis.x, y: reviseNoteStartPoint.y + dis.y)
-            reviseNoteView.frame = CGRectOffset(reviseNoteView.frame, dis.x,dis.y)
-            
-            sender.setTranslation(CGPoint(x: 0,y: 0), inView: reviseNoteView
-            )
-        default:
-            return
-        }
-    }
-*/
-   
     
     
     var isCanvasManipulationEnabled:Bool = true
@@ -426,7 +387,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         GLContextBuffer.instance = nil
         PaintView.instance = nil
         
-        print("deinit")
+        print("deinit", terminator: "")
     }
     
     

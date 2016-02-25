@@ -8,7 +8,7 @@
 
 import Foundation
 class NoteProgressButton:UIButton {
-    var note:Note!
+    
     override func awakeFromNib() {
     }
 }

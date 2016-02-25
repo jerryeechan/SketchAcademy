@@ -34,7 +34,7 @@ class File {
     func parseString()->String!
     {
         let length:Int = parseStruct()
-        print("parse string \(length)")
+        //print("parse string \(length)")
         if(length == -1)
         {
             return nil
@@ -47,10 +47,10 @@ class File {
     }
     func parseStruct<T:Initable>()->T{
         var t:T = T()
-        print("currentPtr \(currentPtr) parse struct \(strideof(T))")
+        //print("currentPtr \(currentPtr) parse struct \(strideof(T))")
         parseData.getBytes(&t, range: NSMakeRange(currentPtr, strideof(T)))
         currentPtr += sizeof(T)
-        print(t)
+        //print(t)
         return t
     }
     
@@ -71,13 +71,13 @@ class File {
     {
         
         let length = str.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
-        print("encode String \(length)")
+//        print("encode String \(length)")
         data.appendBytes([length], length: sizeof(Int))
         data.appendData(str.dataUsingEncoding(NSUTF8StringEncoding)!)
     }
     func encodeStruct<T>(value:T)
     {
-        print("encode Struct \(value):\(strideof(T))")
+     //   print("encode Struct \(value):\(strideof(T))")
         data.appendBytes([value], length: strideof(T))
     }
     func encodeStructArray<T>(t:[T])

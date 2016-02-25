@@ -22,6 +22,7 @@ class SelectedColorView: UIView {
         
         setTheColor(color);
     }
+
     
     func setTheColor(_color: UIColor) {
         self.color = _color

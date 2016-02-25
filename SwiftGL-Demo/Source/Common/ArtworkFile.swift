@@ -75,6 +75,7 @@ class ArtworkFile:File{
         data.writeToFile(path+"/"+filename+".paw", atomically: true)
         
     }
+    
     func encodeClip(clip:PaintClip)
     {
         let strokes = clip.strokes

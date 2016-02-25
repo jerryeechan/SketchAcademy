@@ -55,8 +55,8 @@ class PaintManager {
     }
     func loadArtwork(filename:String)->Bool
     {
-        print("Paint Manager loadArtwork")
-        GLContextBuffer.instance.blank()
+        print("Paint Manager loadArtwork", terminator: "")
+        //GLContextBuffer.instance.blank()
         //call filemanager to load the file to PaintArtwork
         artwork = FileManager.instance.loadPaintArtWork(filename)
         paintRecorder.recordClip = artwork.masterClip
@@ -66,7 +66,7 @@ class PaintManager {
         {
             
             masterReplayer.loadClip(artwork.masterClip)
-            drawAll()
+            masterReplayer.drawAll()
             //playRevisionClip(0)
             return true
         }
@@ -75,23 +75,6 @@ class PaintManager {
             return false
         }
     }
-    
-
-    
-    
-    /*
-    func enterViewMode(paintMode:PaintMode)
-    {
-        switch(paintMode)
-        {
-        case .Artwork:
-            paintRecorder.recordClip = artwork.masterClip
-            
-        case .Revision:
-            paintRecorder.recordClip = artwork.revisionClips[0]
-        }
-    }
-*/
     
     // view mode can watch both revision or play
     // draw 'Main' or 'Revision' have to decide before enter the canvas
@@ -173,7 +156,6 @@ class PaintManager {
         case .Revision:
             playCurrentRevisionClip()
         }
-        
     }
     func artworkDrawModeSwitchToViewMode()
     {
@@ -217,11 +199,7 @@ class PaintManager {
     {
         return currentReplayer.drawProgress(percentage)
     }
-    func drawAll()
-    {
-        print("Paint Manager draw all")
-        masterReplayer.drawAll()
-    }
+    
     func getMasterStrokeID()->Int
     {
         return masterReplayer.currentStrokeID
@@ -231,11 +209,4 @@ class PaintManager {
         //print("currentStrokeID: \(currentReplayer.currentStrokeID)")
         return currentReplayer.currentStrokeID
     }
-    /*
-    func setProgressSlider(slider:UISlider)
-    {
-        masterReplayer.progressSlider = slider
-        revisionReplayer.progressSlider = slider
-    }
-    */
 }
