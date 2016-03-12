@@ -13,7 +13,12 @@ class PaintReplayer:NSObject
     private var strokes:[PaintStroke] = []
     //private var artwork:PaintArtwork!
     private var replayClip:PaintClip!
-    
+    weak var context:GLContextBuffer!
+    weak var paintView:PaintView!
+    init(paintView:PaintView) {
+        self.paintView = paintView
+        self.context = paintView.glContextBuffer
+    }
     var playbackTimer:NSTimer!
     
     
@@ -24,7 +29,23 @@ class PaintReplayer:NSObject
             return replayClip
         }
     }
+    var currentPointID:Int = 0
+    var currentPoints:[PaintPoint]!
+    var c_PointData:[PointData]!
+    var timeCounter:Double = 0
+    var firstTimeStamps:CFAbsoluteTime = 0
     
+    var timeScale:Double = 1
+    var id = 0
+    var playProgress:Float = 1
+    var currentStrokeID:Int = 0
+        {
+        didSet{
+            
+            handleProgressValueChanged()
+        }
+    }
+
     func strokeCount()->Int
     {
         return strokes.count
@@ -38,7 +59,10 @@ class PaintReplayer:NSObject
         //--playingArtwork = artwork
         replayClip = clip
         self.strokes = clip.strokes
-        currentStrokeID = clip.strokes.count-1
+        if playProgress == 1
+        {
+            currentStrokeID = clip.strokes.count-1
+        }
         
     }
     func cleanRewind()
@@ -111,7 +135,7 @@ class PaintReplayer:NSObject
     }
     func restart()
     {
-        GLContextBuffer.instance.blank()
+        context.blank()
         stopPlay()
         print("PaintReplayer: start replay", terminator: "")
         startReplayAtStroke(0)
@@ -146,20 +170,6 @@ class PaintReplayer:NSObject
         firstTimeStamps = c_PointData[0].timestamps
         timeCounter = c_PointData[0].timestamps
     }
-    var id = 0
-    var currentStrokeID:Int = 0
-    {
-        didSet{
-             handleProgressValueChanged()
-        }
-    }
-    var currentPointID:Int = 0
-    var currentPoints:[PaintPoint]!
-    var c_PointData:[PointData]!
-    var timeCounter:Double = 0
-    var firstTimeStamps:CFAbsoluteTime = 0
-    
-    var timeScale:Double = 1
     
     func timerUpdate()
     {
@@ -189,7 +199,7 @@ class PaintReplayer:NSObject
                 }
                 
             }
-            PaintView.display()
+            paintView.glDraw()
             timeCounter += (playbackTimer.timeInterval*timeScale)
            // print("replayer: \(playbackTimer.timeInterval*timeScale) \(playbackTimer.timeInterval)")
         }
@@ -232,8 +242,8 @@ class PaintReplayer:NSObject
         {
             return false
         }
-        PaintToolManager.instance.changeTool(strokes[currentStrokeID].stringInfo.toolName)
-        PaintToolManager.instance.loadToolValueInfo(strokes[currentStrokeID].valueInfo)
+        context.paintToolManager.changeTool(strokes[currentStrokeID].stringInfo.toolName)
+        context.paintToolManager.loadToolValueInfo(strokes[currentStrokeID].valueInfo)
         
         
         c_PointData = strokes[currentStrokeID].pointData
@@ -247,7 +257,9 @@ class PaintReplayer:NSObject
         //Painter.renderLine(PaintToolManager.instance.currentTool.vInfo, prev2: p1,prev1: p2,cur: p3)
 
         // draw the recorded data
-        Painter.renderLine(stroke.valueInfo, prev2: p1,prev1: p2,cur: p3)
+        GLShaderBinder.instance.bindBrushInfo(stroke.valueInfo)
+        context.renderStaticLine([p1,p2,p3])
+        //Painter.renderLine(stroke.valueInfo, prev2: p1,prev1: p2,cur: p3)
     }
     
     
@@ -300,8 +312,8 @@ class PaintReplayer:NSObject
         // from start blank
         if index == 0
         {
-            GLContextBuffer.instance.blank()
-            PaintView.display()
+            context.blank()
+            //paintView.display()
             currentStrokeID = 0
             last_startIndex = 0
             last_endIndex = 0
@@ -318,7 +330,7 @@ class PaintReplayer:NSObject
         //TODO
         //draw closest cache
         
-        let cacheIndex = GLContextBuffer.instance.renderTexture.getNearestCacheIndex(endIndex)
+        let cacheIndex = context.renderTexture.getNearestCacheIndex(endIndex)
         
         if endIndex > currentStrokeID && cacheIndex < currentStrokeID
         {
@@ -326,17 +338,17 @@ class PaintReplayer:NSObject
         }
         else if cacheIndex == 0
         {
-            GLContextBuffer.instance.blank()
+            context.blank()
             startIndex = 0
         }
         else
         {
             startIndex = cacheIndex
-            GLContextBuffer.instance.loadCacheFrame(cacheIndex)
+            context.loadCacheFrame(cacheIndex)
             if startIndex == endIndex
             {
                 replayClip.currentTime = (strokes[endIndex-1].pointData.last?.timestamps)!
-                PaintView.display()
+                paintView.display()
                 last_startIndex = startIndex
                 last_endIndex = endIndex
                 
@@ -367,11 +379,11 @@ class PaintReplayer:NSObject
             
             for i in startIndex...endIndex-1
             {
-                Painter.renderStroke(strokes[i])
+                context.renderStroke(strokes[i])
             }
             
             replayClip.currentTime = (strokes[endIndex-1].pointData.last?.timestamps)!
-            PaintView.display()
+            paintView.display()
             last_startIndex = startIndex
             last_endIndex = endIndex
             
@@ -408,7 +420,7 @@ class PaintReplayer:NSObject
     func handleProgressValueChanged()
     {
         let value = Float(currentStrokeID+1)/Float(strokes.count)
-        
+        playProgress = value
         if let handler = onProgressValueChanged{
             handler(progressValue: value)
         }
@@ -417,13 +429,13 @@ class PaintReplayer:NSObject
         func drawAll()
     {
         
-        GLContextBuffer.instance.setReplayDrawSetting()
-        GLContextBuffer.instance.blank()
+        context.setReplayDrawSetting()
+        context.blank()
         let start = CFAbsoluteTimeGetCurrent()
         for var i=0 ;i < strokes.count ;i++
         {
-            Painter.renderStroke(strokes[i])
-            GLContextBuffer.instance.checkCache(i)
+            context.renderStroke(strokes[i])
+            context.checkCache(i)
         }
         if(strokes.count>0)
         {
@@ -434,7 +446,7 @@ class PaintReplayer:NSObject
             print("Paint replayer: loading time spent\(end-start)", terminator: "")
             replayClip.currentTime = (strokes.last?.pointData.last?.timestamps)!
         }
-        PaintView.display()
+        paintView.glDraw()
     }
     
     var onProgressValueChanged:((progressValue:Float)->Void)? = nil

@@ -33,6 +33,7 @@ extension PaintViewController
         noteButtonView.addSubview(noteButton)
         noteButtonView.setNeedsDisplay()
         NoteManager.instance.addNoteButton(noteButton, note: note)
+        selectNoteButton(note.value.strokeIndex)
     }
     
     func selectNoteButton(atStroke:Int)

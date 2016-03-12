@@ -12,22 +12,46 @@ import OpenGLES.ES3
 import GLKit
 
 class GLContextBuffer{
-    static var instance:GLContextBuffer!
+    //static var instance:GLContextBuffer!
     var paintToolManager:PaintToolManager!
-    var shaderBinder:GLShaderBinder!
+    //var shaderBinder:GLShaderBinder!
     var backingWidth:GLint = 0
     var backingHeight:GLint = 0
+    
     var renderTexture:GLRenderTextureFrameBuffer!
     var rectTexture:Texture!
     var layer:CAEAGLLayer!
-    
-    let createCacheInterval = 200
+    var shaderBinder:GLShaderBinder!
+    let createCacheInterval = 400
     var lastCacheIndex = 0
-    init(context:EAGLContext,layer:CAEAGLLayer)
+    
+    var viewFramebuffer:GLuint = 0
+    var viewRenderbuffer:GLuint = 0
+    var context:EAGLContext
+    init(context:EAGLContext)
     {
-        GLContextBuffer.instance = self
+        //GLContextBuffer.instance = self
         paintToolManager = PaintToolManager()
-        shaderBinder = GLShaderBinder()
+        if GLShaderBinder.instance != nil
+        {
+            shaderBinder = GLShaderBinder.instance
+            shaderBinder.pencilShader.useProgram()
+        }
+        else
+        {
+            shaderBinder = GLShaderBinder()
+            DLog("no shader..")
+        }
+        
+        ////viewFramebuffer = GLShaderBinder.instance.getFrameBuffer()
+        glGenFramebuffers(1,&viewFramebuffer)
+        glGenRenderbuffers(1, &viewRenderbuffer)
+        
+        //use context as render buffer storage
+        context.renderbufferStorage(Int(GL_RENDERBUFFER), fromDrawable: layer)
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER_ENUM, viewRenderbuffer);
+        
+        self.context = context
     }
 
     func resizeLayer(layer:CAEAGLLayer)
@@ -36,21 +60,21 @@ class GLContextBuffer{
         paintToolManager.usePen()
         // This call associates the storage for the current render buffer with the EAGLDrawable (our CAEAGLLayer)
         // allowing us to draw into a buffer that will later be rendered to screen wherever the layer is (which corresponds with our view).
-        /*
+        
         context.renderbufferStorage(Int(GL_RENDERBUFFER), fromDrawable: layer)
-        glGetRenderbufferParameteriv(GLenum(GL_RENDERBUFFER),GL_RENDERBUFFER_WIDTH, &backingWidth)
-        glGetRenderbufferParameteriv(GLenum(GL_RENDERBUFFER), GL_RENDERBUFFER_HEIGHT, &backingHeight);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER_ENUM, viewRenderbuffer);
+        //glGetRenderbufferParameteriv(GLenum(GL_RENDERBUFFER),GL_RENDERBUFFER_WIDTH, &backingWidth)
+        //glGetRenderbufferParameteriv(GLenum(GL_RENDERBUFFER), GL_RENDERBUFFER_HEIGHT, &backingHeight);
         
         print("GLCOntextBuffer resize layer");
-        */
+        
         
         backingWidth = GLint(layer.frame.width*layer.contentsScale)
         backingHeight =  GLint(layer.frame.height*layer.contentsScale)
-        print(layer.frame, terminator: "")
         renderTexture = GLRenderTextureFrameBuffer(w:backingWidth, h:backingHeight)
-
         
-        GLShaderBinder.instance.initVertex()
+        GLShaderBinder.instance.initVertex(GLfloat(backingWidth),height: GLfloat(backingHeight))
+        
         glEnable(GL_BLEND);
         glBlendEquation(GLenum(GL_FUNC_ADD))
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
@@ -61,9 +85,8 @@ class GLContextBuffer{
         draw all layers
      */
     
-    
+    var flipflop = 0
     func drawLayers(){
-        
         //background
         if(renderTexture.backgroundLayer != nil)
         {
@@ -75,7 +98,17 @@ class GLContextBuffer{
             glClearColor(1, 1, 1, 1)
             glClear(GL_COLOR_BUFFER_BIT )
         }
-
+        
+        if flipflop == 1
+        {
+            glClearColor(1, 1, 1, 1)
+            glClear(GL_COLOR_BUFFER_BIT )
+            flipflop = 0
+        }
+        else
+        {
+            flipflop = 1
+        }
         for var i = 0;i<1 ;i++
         {
             let layer = renderTexture.layers[i]
@@ -96,6 +129,7 @@ class GLContextBuffer{
             DLog("draw revision---")
             drawTexture(renderTexture.revisionLayer.texture, alpha: 1)
         }
+        
     }
     /**
         draw the points
@@ -131,52 +165,63 @@ class GLContextBuffer{
         if renderTexture.renderMode == RenderMode.direct
         {
             if renderTexture.setBuffer() == false{
-                print("Framebuffer fail", terminator: "")
+                DLog("Framebuffer fail")
             }
         }
         else if renderTexture.renderMode == RenderMode.drawing
         {
             if renderTexture.setTempBuffer() == false{
-                print("Framebuffer fail", terminator: "")
+                DLog("Framebuffer fail")
             }
         }
         renderVertex(vertexBuffer)
     }
-    
+    var currentLayer = 0
+    func renderStaticLine(points:[PaintPoint])
+    {
+        let vertexBuffer = interpolatePoints(points)
+        drawBrushVertex(vertexBuffer,layer: currentLayer)
+    }
+    func renderLine(points:[PaintPoint])
+    {
+        
+    }
     func renderVertex(vertexBuffer:[PaintPoint])
     {
-        GLShaderBinder.instance.bindBrush()
-        GLShaderBinder.instance.bindVertexs(vertexBuffer)
-        GLShaderBinder.instance.pencilShader.useProgram()
+        let shaderBinder = GLShaderBinder.instance
+        shaderBinder.bindBrush()
+        shaderBinder.bindVertexs(vertexBuffer)
+        shaderBinder.pencilShader.useProgram()
         paintToolManager.useCurrentTool()
         glDrawArrays(GL_POINTS, 0, Int32(vertexBuffer.count));
         drawVertexCount += vertexBuffer.count
 
     }
-    
+    func renderStroke(stroke:PaintStroke)
+    {
+        drawStroke(stroke, layer: currentLayer)
+    }
     /**
      draw a stroke into rendertexture
      */
     func drawStroke(stroke:PaintStroke,layer:Int)
     {
+        paintToolManager.changeTool(stroke.stringInfo.toolName)
+        paintToolManager.loadToolValueInfo(stroke.valueInfo)
+        paintToolManager.useCurrentTool()
         //glBlendFunc(GL_ONE, GL_ZERO)
         let vertexBuffer = interpolatePoints(stroke.points)//stroke.points
         drawVertexCount += stroke.points.count;
         
-        GLShaderBinder.instance.bindVertexs(vertexBuffer)
-        GLShaderBinder.instance.pencilShader.useProgram()
+        shaderBinder.bindVertexs(vertexBuffer)
+        shaderBinder.pencilShader.useProgram()
         
         
         //renderTexture.selectLayer(layer)
         if renderTexture.setBuffer()==false{
-            print("Framebuffer fail", terminator: "")
+            DLog("Framebuffer fail")
         }
         
-        /*
-        if renderTexture.setTempBuffer() == false{
-        print("Framebuffer fail")
-        }
-        */
         
         glDrawArrays(GL_POINTS, 0, Int32(vertexBuffer.count));
     }
@@ -290,7 +335,7 @@ class GLContextBuffer{
     func loadCacheFrame(atStroke:Int)
     {
         if renderTexture.setBuffer()==false{
-            print("Framebuffer fail", terminator: "")
+            DLog("Framebuffer fail")
         }
         clear()
         drawTexture(renderTexture.caches[atStroke]!.texture,alpha:1)
@@ -312,7 +357,7 @@ class GLContextBuffer{
         
         let layer = renderTexture.genCacheFrame(atStroke)
         if renderTexture.setBuffer(layer)==false{
-            print("Framebuffer fail", terminator: "")
+            DLog("Framebuffer fail")
         }
         clear()
         drawTexture(renderTexture.currentLayer.texture, alpha: 1)
@@ -326,7 +371,7 @@ class GLContextBuffer{
     func drawTextureOnCurrentLayer(texture:Texture,alpha:Float)
     {
         if renderTexture.setBuffer() == false{
-            print("Framebuffer fail", terminator: "")
+            DLog("Framebuffer fail")
         }
         
         drawTexture(texture, alpha: alpha)
@@ -338,9 +383,9 @@ class GLContextBuffer{
         glBlendFunc (GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         
         if renderTexture.setBuffer() == false{
-            print("Framebuffer fail", terminator: "")
+            DLog("Framebuffer fail")
         }
-        GLShaderBinder.instance.drawImageTexture(texture,alpha:alpha,leftTop:leftTop,rightBottom:rightBottom)
+        shaderBinder.drawImageTexture(texture,alpha:alpha,leftTop:leftTop,rightBottom:rightBottom)
     }
    
     func drawTexture(texture:Texture,alpha:Float)
@@ -348,21 +393,22 @@ class GLContextBuffer{
         glEnable(GL_BLEND);
         glBlendEquation(GLenum(GL_FUNC_ADD))
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
-        GLShaderBinder.instance.drawImageTexture(texture,alpha:alpha)
+        shaderBinder.drawImageTexture(texture,alpha:alpha)
     }
         
     func setRenderBufferToTarget()
     {
-        /*
+        
         glBindFramebuffer(GL_FRAMEBUFFER, viewFramebuffer);
         glBindRenderbuffer(GL_RENDERBUFFER_ENUM, viewRenderbuffer);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER_ENUM, viewRenderbuffer);
-        */
+
 
     }
     func display()
     {
-        //setRenderBufferToTarget()
+        
+        setRenderBufferToTarget()
         glEnable(GL_BLEND);
         glBlendEquation(GLenum(GL_FUNC_ADD))
         glBlendFunc (GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
@@ -373,8 +419,8 @@ class GLContextBuffer{
         drawLayers()
         
         //present to context
-        //EAGLContext.setCurrentContext(context)
-        //context.presentRenderbuffer(Int(GL_RENDERBUFFER));
+        EAGLContext.setCurrentContext(context)
+        context.presentRenderbuffer(Int(GL_RENDERBUFFER));
         
         
         //DLog("vertex drawn:\(drawVertexCount)")
@@ -388,6 +434,19 @@ class GLContextBuffer{
     func blank()
     {
         renderTexture.blankCurrentLayer()    
+    }
+    
+    func setArtworkMode()
+    {
+        renderTexture.revisionLayer.enabled = false
+        renderTexture.selectLayer(0)
+        renderTexture.setAllLayerAlpha(1)
+    }
+    func setRevisionMode()
+    {
+        renderTexture.revisionLayer.enabled = true
+        renderTexture.setAllLayerAlpha(0.5)
+        renderTexture.selectRevisionLayer()
     }
     func getPixelColor(x:GLint,y:GLint)->UIColor
     {
@@ -492,14 +551,14 @@ class GLContextBuffer{
     
     deinit
     {
+        GLShaderBinder.instance = nil
         /*
         context.renderbufferStorage(Int(GL_RENDERBUFFER), fromDrawable: nil)
         layer = nil
         renderTexture = nil
         context = nil
 */
-        PaintToolManager.instance = nil
-        GLRenderTextureFrameBuffer.instance = nil
-        GLShaderBinder.instance = nil
+//        PaintToolManager.instance = nil
+        //GLRenderTextureFrameBuffer.instance = nil
     }
 }

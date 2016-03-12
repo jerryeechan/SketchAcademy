@@ -104,8 +104,8 @@ void main()
     float centerx = randNum-0.5;
     float centery = randNum2-0.5;
     
-    float disx = centerx+tiltVec.x*easeout(1.0,-1.0,randNum2);
-    float disy = centery-tiltVec.y*easeout(1.0,-1.0,randNum);
+    float disx = centerx*0.5+tiltVec.x*easeout(1.0,-1.0,randNum2);
+    float disy = centery*0.5-tiltVec.y*easeout(1.0,-1.0,randNum);
     //
 	gl_Position = MVP * (vertexPosition+vec4(disx,disy,0,0)*2.0);
     gl_PointSize = brushSize*float(4)*(1.0+tiltValue/2.0);

@@ -51,12 +51,12 @@ extension PaintViewController
         toolViewState.isLocked = true
         //noteListViewState.animateShow(0.2)
         replayProgressBar.animateShow(0.2)
+        
         playbackControlPanel.show()
-       
+        
         
         print("----enter View Mode----")
         viewModeToolBarSetUp()
-        
         switch(appState)
         {
         case .viewArtwork:
@@ -66,8 +66,11 @@ extension PaintViewController
         default:
             break
         }
+        //replayProgressBar.setProgress(paintManager.currentReplayer.playProgress, animated: false)
+        
         updateAllNoteButton()
         //paintManager.currentReplayer.handleProgressValueChanged()
+        onProgressValueChanged(paintManager.currentReplayer.playProgress)
         
         noteButtonView.animateShow(0.2)
     }
@@ -82,7 +85,7 @@ extension PaintViewController
         noteDetailView.animateHide(0.2)
         
         //paintManager.masterReplayer.drawAll()
-        PaintToolManager.instance.usePen()
+        paintView.glContextBuffer.paintToolManager.usePen()
         singlePanGestureRecognizer.cancelsTouchesInView = false
         switch(appState)
         {

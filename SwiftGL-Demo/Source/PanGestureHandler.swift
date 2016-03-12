@@ -82,7 +82,7 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
             paintManager.paintRecorder.startPoint(sender, view: paintView)
         case UIGestureRecognizerState.Changed:
             paintManager.paintRecorder.movePoint(sender, view: paintView)
-            PaintView.display()
+            paintView.glDraw()
         case UIGestureRecognizerState.Ended:
             paintManager.paintRecorder.endStroke()
             currentTouchType = "None"
@@ -159,32 +159,67 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
             
             sender.setTranslation(CGPoint.zero, inView: canvasBGView)
             
-            if disx < 0
-            {
-                if disx > -10
-                {
-                    return
-                }
-            }
+            
             DLog("\(replayProgressBar.progress)")
             DLog("\(Float(disx/viewWidth))")
             var progress = replayProgressBar.progress + Float(disx/viewWidth)
             if progress < 0
             {
                 progress = 0.0
-                
+                disx = 0
             }
             else if progress > 1
             {
                 progress = 1.0
-            }
-            
-            
-            DLog("\(progress)")
-            if paintManager.drawProgress(progress)
-            {
                 disx = 0
             }
+            /*
+            if self.isDrawDone == true
+            {
+            dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INTERACTIVE.rawValue), 0)) { // 1
+            
+            self.isDrawDone = false
+            let success = self.paintManager.drawProgress(progress)
+            
+            dispatch_async(dispatch_get_main_queue()) { // 2
+            DLog("\(progress)")
+            if success {
+            self.replayProgressBar.setProgress(progress, animated: false)
+            self.disx = 0
+            
+            self.paintView.display()
+            }
+            self.isDrawDone = true
+            }
+            
+            }
+            }
+            */
+            dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INTERACTIVE.rawValue), 0)) { // 1
+                
+                if self.isDrawDone == true
+                {
+                    self.isDrawDone = false
+                    dispatch_async(dispatch_get_main_queue()) { // 2
+                        DLog("\(progress)")
+                        if self.paintManager.drawProgress(progress)
+                        {
+                            self.replayProgressBar.setProgress(progress, animated: false)
+                            self.paintView.display()
+                            self.disx = 0
+                        }
+                        self.isDrawDone = true
+                    }
+                }
+                else
+                {
+                    DLog("not draw done")
+                    self.replayProgressBar.setProgress(progress, animated: false)
+                }
+                
+            }
+
+            
             
             return
         default :

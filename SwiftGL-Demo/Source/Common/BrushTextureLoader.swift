@@ -53,7 +53,7 @@ class BrushTextureLoader {
         }
         if t.check() == false
         {
-            print("texture dead")
+            DLog("texture dead:\(name)")
         }
         return textureDic[name]!
     }

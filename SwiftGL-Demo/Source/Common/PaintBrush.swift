@@ -95,7 +95,7 @@ class PaintBrush:NSObject{
         GLShaderBinder.instance.bindBrushTexture(texture)
         // initialize brush color
         GLShaderBinder.instance.bindBrushColor(vInfo.color.vec)
-        Painter.currentBrush = self
+       // Painter.currentBrush = self
         
     }
 }

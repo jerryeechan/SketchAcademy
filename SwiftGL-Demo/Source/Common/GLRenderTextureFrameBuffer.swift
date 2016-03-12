@@ -20,21 +20,23 @@ class GLRenderTextureFrameBuffer{
     var caches:Dictionary<Int,LayerCache> = Dictionary<Int,LayerCache>()
     var revisionLayer:Layer!
     //var drawBuffers:[GLenum] = [GL_COLOR_ATTACHMENT0]
-    var framebuffer:GLuint=0
+    var framebuffer:GLuint = 0
     var width,height:GLsizei!
     var currentLayer:Layer!
     var backgroundLayer:Layer!
     var renderMode:RenderMode = .drawing
     
     
-    static var instance:GLRenderTextureFrameBuffer!
+    //static var instance:GLRenderTextureFrameBuffer!
     
     init(w:GLint,h:GLint)
     {
-        GLRenderTextureFrameBuffer.instance = self
+        //GLRenderTextureFrameBuffer.instance = self
         self.width = w
         self.height = h
         glGenFramebuffers(1,&framebuffer)
+        //framebuffer = GLShaderBinder.instance.getFrameBuffer()
+        DLog("The FrameBuffer:\(framebuffer)")
         tempLayer = Layer(w: width, h: height)
         revisionLayer = Layer(w: width, h: height)
         changeBackground("paper_sketch")

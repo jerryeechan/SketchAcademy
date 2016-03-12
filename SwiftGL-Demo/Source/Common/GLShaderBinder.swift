@@ -15,6 +15,7 @@ struct Attribute{
     var glNormalized:GLboolean
     var glSize:GLint
     var offset:Int
+    
     init<T:GLType>(i:GLuint,t:T.Type)
     {
         iLoc = i
@@ -27,7 +28,7 @@ struct Attribute{
 
 class GLShaderBinder{
 
-    static var instance:GLShaderBinder!
+    static var instance:GLShaderBinder!   // static var instance:GLShaderBinder!
     var pencilShader:Shader!
     var eraserShader:Shader!
     var imageShader:Shader!
@@ -38,18 +39,23 @@ class GLShaderBinder{
     var iLocBrushSize:GLint = 0
     var iLocBrushColor:GLint = 0
     var iLocBrushTexture:GLint = 0
-    
+    var framebuffers:[GLuint] = [0,0]
     
     //var uniforms:[GLint] = [GLint]()
     var paintPointsAttributes=[Attribute]()
     
     let vao    = Vao()
     let vbo    = Vbo()
-    
+    let eaglContext:EAGLContext
     init()
     {
-        GLShaderBinder.instance = self
+        // Change the working directory so that we can use C code to grab resource files
+        
+        
+        eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
+        genFrameBuffer()
         load()
+        GLShaderBinder.instance = self
     }
     deinit
     {
@@ -68,7 +74,7 @@ class GLShaderBinder{
         if !(eraserShader.load("eraser.vsh","eraser.fsh"){
             program in
         }) {
-            print("failed to load shader")
+            print("failed to load brush shader")
             glDebug(__FILE__, line: __LINE__)
         }
         /*
@@ -86,7 +92,7 @@ class GLShaderBinder{
             program in
             }) {
                 // You can take this out after. Useful for debugging
-                print("failed to load shader", terminator: "")
+                print("failed to load pencil shader")
                 glDebug(__FILE__, line: __LINE__)
         }
         
@@ -180,11 +186,8 @@ class GLShaderBinder{
     var imageVertices:[ImageVertice] = []
     var imgWidth:Float!
     var imgHeight:Float!
-    func initVertex()
+    func initVertex(width:GLfloat,height:GLfloat)
     {
-        let width:GLfloat = GLfloat(GLContextBuffer.instance.backingWidth)
-        let height:GLfloat = GLfloat(GLContextBuffer.instance.backingHeight)
-        
         imgWidth = width
         imgHeight = height
         
@@ -301,6 +304,16 @@ class GLShaderBinder{
     func bindAttrib<T:GLType>(attrib:GLuint,type:T.Type,offset:GLsizeiptr)
     {
         vao.bind(attribute:attrib, type: type, vbo: vbo, offset: offset)
+    }
+    
+    let bufferNum:GLsizei = 2
+    func genFrameBuffer()
+    {
+        glGenFramebuffers(bufferNum,&framebuffers)
+    }
+    var bufferCount = 0
+    func getFrameBuffer()->GLuint{
+        return framebuffers[bufferCount]
     }
     
 }

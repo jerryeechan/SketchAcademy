@@ -9,7 +9,7 @@
 extension PaintViewController:UITextFieldDelegate
 {
     @IBAction func enterDrawModeButtonTouched(sender: UIBarButtonItem) {
-        
+        /*
         switch(paintMode)
         {
         case .Artwork:
@@ -19,9 +19,20 @@ extension PaintViewController:UITextFieldDelegate
             
             appState = .drawRevision
         }
+        */
+        switch(appState)
+        {
+        case .viewArtwork:
+            appState = .drawArtwork
+        case .viewRevision:
+            appState = .drawRevision
+        default:
+            DLog("Wrong")
+            
+        }
         enterDrawMode()
         //@@ if clean the progress
-        paintManager.masterReplayer.cleanRewind()
+        //paintManager.masterReplayer.cleanRewind()
     }
     
     @IBAction func enterViewModeButtonTouched(sender: UIBarButtonItem) {
@@ -51,9 +62,8 @@ extension PaintViewController:UITextFieldDelegate
     }
 
     @IBAction func reviseDoneButtonTouched(sender: UIBarButtonItem) {
+        appState = .viewArtwork
         enterViewMode()
-        showNoteEditView()
-
     }
     
     
@@ -110,7 +120,7 @@ extension PaintViewController:UITextFieldDelegate
     //Save file
     func saveFile(fileName:String)
     {
-        let img = GLContextBuffer.instance.contextImage()
+        let img = paintView.glContextBuffer.contextImage()
         paintManager.saveArtwork(fileName,img:img)
         //screenShotMethod()
         //GLContextBuffer.instance.releaseImgBuffer()

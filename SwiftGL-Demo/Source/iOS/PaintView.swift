@@ -10,34 +10,42 @@ import OpenGLES.ES3
 import GLKit
 import SwiftGL
 class PaintView: GLKView {
-    var glcontext:EAGLContext!
+//    var glcontext:EAGLContext!
     var eaglLayer:CAEAGLLayer!
     
-    weak var glContextBuffer:GLContextBuffer!
+    var glContextBuffer:GLContextBuffer!
     var glTransformation:GLTransformation!
 
     var translation:CGPoint = CGPoint(x: 0, y: 0)
     var rotation:CGFloat = 0
     var scale:CGFloat = 1
     
-    static var instance:PaintView!
+
+    /*
     static func display()
     {
-        instance.setNeedsDisplay()
+        paintView.setNeedsDisplay()
+    }
+*/
+    func glDraw()
+    {
+        //setNeedsDisplay()
+        //display()
+        glContextBuffer.display()
     }
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
        
         
-        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
-        if self.glcontext == nil {
-            print("Failed to create ES context")
-        }
-        context = glcontext
+//        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
+//        if self.glcontext == nil {
+//            print("Failed to create ES context")
+//        }
+//        context = glcontext
         
         contentScaleFactor = UIScreen.mainScreen().scale;
-        Painter.scale = Float(contentScaleFactor)
+        //Painter.scale = Float(contentScaleFactor)
         
         //drawableDepthFormat = GLKViewDrawableDepthFormat.Format24;
         //drawableStencilFormat = GLKViewDrawableStencilFormat.Format8;
@@ -48,45 +56,30 @@ class PaintView: GLKView {
         initGL()
         
     }
-    required override init(frame:CGRect)
+    required override init(frame:CGRect,context:EAGLContext)
     {
-        super.init(frame: frame)
-        PaintView.instance = self
-        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
-        if self.glcontext == nil {
-            print("Failed to create ES context")
-        }
-        context = glcontext
-        contentScaleFactor = UIScreen.mainScreen().scale;
-        Painter.scale = Float(contentScaleFactor)
-        initGL()
+        super.init(frame: frame, context: context)
         
+        
+        
+//        if self.glcontext == nil {
+//            print("Failed to create ES context")
+//        }
+//        context = glcontext
+        contentScaleFactor = UIScreen.mainScreen().scale;
+      //  Painter.scale = Float(contentScaleFactor)
+        
+        //self.context = context//EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
+        initGL()
     }
     
     var isInitialized:Bool = false
     
-    func setContext()
-    {
-        EAGLContext.setCurrentContext(self.glcontext)
-    }
     func initGL()->Bool{
         
-        // Change the working directory so that we can use C code to grab resource files
-        if let path = NSBundle.mainBundle().resourcePath {
-            NSFileManager.defaultManager().changeCurrentDirectoryPath(path)
-        }
-        let path = NSBundle.mainBundle().bundlePath
-        let fm = NSFileManager.defaultManager()
         
-        let dirContents: [AnyObject]?
-        do {
-            dirContents = try fm.contentsOfDirectoryAtPath(path)
-        } catch _ {
-            dirContents = nil
-        }
-        print(dirContents)
         
-        EAGLContext.setCurrentContext(self.glcontext)
+        EAGLContext.setCurrentContext(context)
         
         eaglLayer = layer as! CAEAGLLayer
         
@@ -94,7 +87,7 @@ class PaintView: GLKView {
         
         print("PaintView: create shader")
         
-        glContextBuffer = GLContextBuffer(context: glcontext, layer: eaglLayer)
+        glContextBuffer = GLContextBuffer(context: context)
         print("PaintView: create context buffer")
 
         
@@ -105,6 +98,7 @@ class PaintView: GLKView {
         layer.magnificationFilter = kCAFilterNearest
         
         
+        
         //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         //glBlendFunc (GL_ONE, GL_ZERO);
         
@@ -113,8 +107,6 @@ class PaintView: GLKView {
         //glDepthFunc(GL_LESS)
         //glEnable(GL_DEPTH_TEST)
         
-        
-        GLShaderBinder.instance.pencilShader.useProgram()
         resizeLayer()
         
         return true
@@ -128,15 +120,19 @@ class PaintView: GLKView {
         let width:GLint = GLint(frame.width * contentScaleFactor)//GLContextBuffer.instance.backingWidth
         let height:GLint = GLint(frame.height * contentScaleFactor) //GLContextBuffer.instance.backingHeight
         glTransformation.resize(width, height: height)
-        
-        //GLContextBuffer.instance.blank()
-        //PaintView.display()
 
     }
+    /*
     override func drawRect(rect: CGRect) {
-        GLContextBuffer.instance.display()
+        display()
+        //glFlush();
     }
-    
+
+    override func display() {
+        
+        
+    }
+    */
     /*
     override func drawRect(rect: CGRect) {
         //Engine.render()

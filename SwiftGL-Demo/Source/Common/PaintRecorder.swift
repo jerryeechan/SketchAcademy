@@ -24,6 +24,11 @@ class PaintRecorder {
         
     
     */
+    weak var context:GLContextBuffer!
+    init(canvas:GLContextBuffer)
+    {
+        self.context = canvas
+    }
     func setRecordClip(clip:PaintClip)
     {
         recordClip = clip
@@ -33,15 +38,16 @@ class PaintRecorder {
     
     func startPoint(sender:UIPanGestureRecognizer,view:PaintView)
     {
-        stroke = PaintStroke(tool: PaintToolManager.instance.currentTool)
-        PaintToolManager.instance.useCurrentTool()
+        
+        stroke = PaintStroke(tool: context.paintToolManager.currentTool)
+        context.paintToolManager.useCurrentTool()
         stroke.addPoint(genPaintPoint(sender, view: view), time: recordClip.currentTime)
         strokeStartTime = CFAbsoluteTimeGetCurrent()
     }
     func startPoint(touch:UITouch,view:PaintView)
     {
-        stroke = PaintStroke(tool: PaintToolManager.instance.currentTool)
-        PaintToolManager.instance.useCurrentTool()
+        stroke = PaintStroke(tool: context.paintToolManager.currentTool)
+        context.paintToolManager.useCurrentTool()
         stroke.addPoint(genPaintPoint(touch, view: view), time: recordClip.currentTime)
         strokeStartTime = CFAbsoluteTimeGetCurrent()
     }
@@ -53,7 +59,7 @@ class PaintRecorder {
         let time = CFAbsoluteTimeGetCurrent()
         if stroke != nil
         {
-            PaintToolManager.instance.useCurrentTool()
+            context.paintToolManager.useCurrentTool()
             let lastPoint = stroke.last()!
             let newPoint = point
             
@@ -70,7 +76,7 @@ class PaintRecorder {
                 //var points = stroke.lastThree()
                 let points = [lastPoint,newPoint]
                 if(!points.isEmpty){
-                    Painter.renderStaticLine(points)
+                    context.renderStaticLine(points)
                 }
                 
             }
@@ -101,7 +107,7 @@ class PaintRecorder {
         }
         //PaintToolManager.instance.useCurrentTool()
         if(!points.isEmpty){
-            Painter.renderStaticLine(points)
+            context.renderStaticLine(points)
         }
     }
     func movePoint(touch:UITouch,view:PaintView)
@@ -113,7 +119,8 @@ class PaintRecorder {
     func disruptFingerStroke()
     {
         stroke = nil
-        GLContextBuffer.instance.cleanTemp()
+        
+        context.cleanTemp()
     }
     
     func endStroke()
@@ -123,9 +130,9 @@ class PaintRecorder {
         {
             strokeEndTime = time
             recordClip.currentTime += strokeEndTime - strokeStartTime
-            GLContextBuffer.instance.endStroke()
+            context.endStroke()
             recordClip.addPaintStroke(stroke)
-            GLContextBuffer.instance.checkCache(recordClip.strokes.count)
+            context.checkCache(recordClip.strokes.count)
             stroke = nil
             //PaintView.display()
         }

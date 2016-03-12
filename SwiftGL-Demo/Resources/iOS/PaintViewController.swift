@@ -61,14 +61,11 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     }
     var fileName:String!
     var paintMode = PaintMode.Artwork
-    var paintManager = PaintManager()
+    var paintManager:PaintManager!
     var lastAppState:AppState!
     var appState:AppState = .drawArtwork{
         willSet{
-            
          lastAppState = appState
-        
-            
         }
         didSet
         {
@@ -80,6 +77,8 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
                 modeText.title = "編輯註解"
             case .viewArtwork:
                 modeText.title = "觀看模式"
+            case .drawRevision:
+                modeText.title = "批改模式"
             default:
                 break
             }
@@ -88,7 +87,6 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         
     }
     static let canvasWidth:GLint = 1366
-    
     static let canvasHeight:GLint = 1024
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
@@ -98,14 +96,60 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     @IBOutlet var singleTapSingleTouchGestureRecognizer: UITapGestureRecognizer!
     
-    var currentTouchType:String = "None"
+    @IBAction func dragBoundGestureHandler(sender: UIPanGestureRecognizer) {
+        let dis = sender.translationInView(boundBorderView)
+        canvasBGLeadingConstraint.constant+=dis.x
+            boundBorderViewLeadingConstraint.constant += dis.x
+    }
     
-    override func viewDidLoad() {
+    
+    var currentTouchType:String = "None"
+    var isDrawDone = true
+    var eaglContext:EAGLContext!
+    var eaglContext2:EAGLContext!
+    func changeDir()
+    {
+        if let path = NSBundle.mainBundle().resourcePath {
+            NSFileManager.defaultManager().changeCurrentDirectoryPath(path)
+        }
+        let path = NSBundle.mainBundle().bundlePath
+        let fm = NSFileManager.defaultManager()
+        
+        let dirContents: [AnyObject]?
+        do {
+            dirContents = try fm.contentsOfDirectoryAtPath(path)
+        } catch _ {
+            dirContents = nil
+        }
+        print(dirContents)
 
-        paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)))
+    }
+    override func viewDidLoad() {
+        changeDir()
+        
+        eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
+        
+        //eaglContext2 = EAGLContext(API: eaglContext.API, sharegroup: eaglContext.sharegroup)
+        /*1*/
+        //paintView init
+        paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)),context: eaglContext)
+
         paintView.multipleTouchEnabled = true
         canvasBGView.addSubview(paintView)
         paintView.addGestureRecognizer(singlePanGestureRecognizer)
+        
+        /*2*/
+        //instructionView init
+//        /instructionView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)),context: eaglContext2)
+        //instructionBGView.addSubview(instructionView)
+        //instructionView.removeFromSuperview()
+        
+        /*3*/
+        //  paintManager init
+        
+        paintManager = PaintManager(paintView:paintView)
+        
+        //paintManager = PaintManager(paintView: paintView, instructionView: instructionView)
         //the OpenCV
         //print(OpenCVWrapper.calculateImgSimilarity(UIImage(named: "img3"), secondImg: UIImage(named: "img2")))
 
@@ -123,7 +167,8 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
                 DLog("finished")
             } else {
                 //self.view.backgroundColor = color // set background color to current selected color (finger is still down)
-                GLContextBuffer.instance.paintToolManager.changeColor(color)
+                
+                self!.paintView.glContextBuffer.paintToolManager.changeColor(color)
                 let colors = getNearByColor(color)
                 
                 for i in 0...8
@@ -135,15 +180,19 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             }
         }
         
-        GLContextBuffer.instance.paintToolManager.useCurrentTool()
+        paintView.glContextBuffer.paintToolManager.useCurrentTool()
         
         if(fileName != nil)
         {
             NoteManager.instance.loadNotes(fileName)
             dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)) { // 1
-                
-                dispatch_async(dispatch_get_main_queue()) { // 2
+                if self.isDrawDone == true
+                {
+                    self.isDrawDone = false
+                    dispatch_async(dispatch_get_main_queue()) { // 2
                         self.paintManager.loadArtwork(self.fileName)
+                        self.isDrawDone = true
+                    }
                 }
             }
             
@@ -151,7 +200,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         else
         {
             NoteManager.instance.empty()
-            PaintView.display()
+            paintView.display()
         }
         viewWidth = view.contentScaleFactor * view.frame.width
         noteListTableView.reloadData()
@@ -191,8 +240,9 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
  
     @IBOutlet weak var canvasBGView: UIView!
     
+    @IBOutlet weak var instructionBGView: UIView!
 //    @IBOutlet weak var paintView: PaintView!
-    
+    var instructionView:PaintView!
     var paintView: PaintView!
     
     @IBOutlet weak var mainView: UIView!
@@ -205,7 +255,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     
     @IBAction func brushScaleSliderChanged(sender: UISlider) {
-        GLContextBuffer.instance.paintToolManager.changeSize(sender.value)
+        paintView.glContextBuffer.paintToolManager.changeSize(sender.value)
     }
     
     //note related
@@ -240,17 +290,19 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     //@IBOutlet weak var canvasImageView: UIImageView!
     
-        func resetAnchor()
+    func resetAnchor(targetPaintView:PaintView)
     {
-        self.paintView.rotation = 0
-        self.paintView.translation = CGPoint.zero
+        targetPaintView.rotation = 0
+        targetPaintView.translation = CGPoint.zero
         
-        self.paintView.scale = 1
-        paintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
-        paintView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        paintView.layer.position = CGPoint(x:mainView.frame.width/2,y:        mainView.frame.height/2)
+        targetPaintView.scale = 1
+        targetPaintView.layer.transform = CATransform3DMakeScale(1, 1, 1)
+        targetPaintView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        imageView.image = GLContextBuffer.instance.image
+        //*TODO position needs to change
+        targetPaintView.layer.position = CGPoint(x:mainView.frame.width/2,y:        mainView.frame.height/2)
+        
+        //imageView.image = GLContextBuffer.instance.image
     }
     
 
@@ -300,8 +352,14 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         return NSBundle.mainBundle().loadNibNamed(name, owner: self, options: nil)![0] as! UIView
     }
     
+    @IBAction func closeToolButtonTouched(sender: AnyObject) {
+        toolViewState.animateHide(0.2)
+    }
     
-    
+    @IBAction func doubleTapEraserHandler(sender: UIButton) {
+        paintView.glContextBuffer.blank()
+        paintView.display()
+    }
     
     var isCanvasManipulationEnabled:Bool = true
     
@@ -314,7 +372,10 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var toolViewLeadingConstraint: NSLayoutConstraint!
     var toolViewState:SubViewPanelAnimateState!
     
+    @IBOutlet weak var boundBorderView: UIView!
+    @IBOutlet weak var boundBorderViewLeadingConstraint:NSLayoutConstraint!
     
+    @IBOutlet weak var canvasBGLeadingConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var noteEditView: UIView!
     @IBOutlet weak var noteEditViewTopConstraint: NSLayoutConstraint!
@@ -376,17 +437,17 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     //進入繪圖模式
     @IBOutlet var enterDrawModeButton: UIBarButtonItem!
     
-    @IBOutlet weak var dismissButton: UIBarButtonItem!
+    @IBOutlet var dismissButton: UIBarButtonItem!
    
     @IBOutlet weak var modeText: UIBarButtonItem!
     
     var toolBarItems:[UIBarButtonItem]!
     
     deinit
-    {
-        GLContextBuffer.instance = nil
-        PaintView.instance = nil
-        
+    {   
+        //PaintView.instance = nil
+        //reviseDoneButton = nil
+        //enterViewModeButton = nil
         print("deinit", terminator: "")
     }
     

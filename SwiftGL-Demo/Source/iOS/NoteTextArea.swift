@@ -65,9 +65,22 @@ class NoteTextArea: UITextView ,UITextViewDelegate,UIGestureRecognizerDelegate{
             textColor = UIColor.blackColor()
             emptyFlag = false
         }
+        
     }
-    
-    
+    func changeText(text:String)
+    {
+        if(text == "" || text == placeholderText)
+        {
+            clear()
+        }
+        else
+        {
+            self.text = text
+            textColor = UIColor.blackColor()
+            emptyFlag = false
+        }
+
+    }
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer is UITapGestureRecognizer && (gestureRecognizer as! UITapGestureRecognizer).numberOfTapsRequired == 2

@@ -37,10 +37,14 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
             
             //cell.backgroundColor = UIColor.blackColor()
             let fName = FileManager.instance.getFileName(indexPath.row-1)
+            if fName != ""
+            {
+                print(fName)
+                cell.titleField.text = fName
+                cell.actionButton.tag = indexPath.row-1
+                cell.imageView.image = FileManager.instance.loadImg(fName)
+            }
             
-            cell.titleField.text = fName
-            cell.actionButton.tag = indexPath.row-1
-            cell.imageView.image = FileManager.instance.loadImg(fName)
             return cell
             // Configure the cell
         }

@@ -121,6 +121,7 @@ class FileManager {
             dirContents = nil
         }
         print("Get file names----------------")
+        
         print(dirContents!)
         
         let extPredicate = NSPredicate(format: "self ENDSWITH '\(format)'")

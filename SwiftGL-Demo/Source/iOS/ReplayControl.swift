@@ -46,7 +46,7 @@ extension PaintViewController
     
     func onProgressValueChanged(progress:Float)
     {
-        if appState == .viewArtwork
+        if appState == .viewArtwork || appState == AppState.editNote
         {
             replayProgressBar.setProgress(progress, animated: false)
             
@@ -79,7 +79,7 @@ extension PaintViewController
                 
                 noteTitleField.text = note.title
                 
-                noteDescriptionTextView.text = note.description
+                noteDescriptionTextView.changeText(note.description)
                 selectNoteButton(atStroke)
             }
             else
@@ -92,6 +92,7 @@ extension PaintViewController
                     selectedPath = nil
                     noteListTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
                 }
+                
             }
         }
     }

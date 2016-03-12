@@ -28,7 +28,7 @@ class FileTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let fileName = FileManager.instance.getFileNames()[indexPath.row]
-        self.delegate.resetAnchor()
+        //self.delegate.resetAnchor()
        // paintManager.loadArtwork(fileName)
         //FileManager.instance.loadPaintArtWork(fileName).replayAll()
         delegate.noteListTableView.reloadData()

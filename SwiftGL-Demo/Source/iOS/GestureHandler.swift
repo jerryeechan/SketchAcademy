@@ -40,7 +40,6 @@ extension PaintViewController
         }
         guard let touchRaw = touches.first else { return }
         if #available(iOS 9.1, *) {
-            DLog(currentTouchType)
             if currentTouchType == "None"
             {
                 
@@ -108,7 +107,7 @@ extension PaintViewController
                     
                     */
                     
-                    paintView.setNeedsDisplay()
+                    paintView.glDraw()
                 }
                 
             }
@@ -139,23 +138,22 @@ extension PaintViewController
         else if gestureRecognizer is UIPanGestureRecognizer || gestureRecognizer is UIPinchGestureRecognizer || gestureRecognizer is UIRotationGestureRecognizer {
             return true
         } else {
-            
             return false
         }
     }
-    @IBAction func uiPinchGestrueEvent(sender: UIPinchGestureRecognizer) {
-
+    func viewPinchHandler(targetPaintView:PaintView,sender:UIPinchGestureRecognizer)
+    {
         var center:CGPoint = CGPointMake(0, 0)
         for var i = 0; i < sender.numberOfTouches(); i++
         {
-            let p = sender.locationOfTouch(i, inView: paintView)
+            let p = sender.locationOfTouch(i, inView: targetPaintView)
             center.x += p.x
             center.y += p.y
         }
         center.x /= CGFloat(sender.numberOfTouches())
         center.y /= CGFloat(sender.numberOfTouches())
         
-        setAnchorPoint(CGPointMake(center.x/paintView.bounds.size.width,center.y / paintView.bounds.size.height), forView: paintView)
+        setAnchorPoint(CGPointMake(center.x/targetPaintView.bounds.size.width,center.y / targetPaintView.bounds.size.height), forView: targetPaintView)
         
         
         switch sender.state
@@ -164,16 +162,16 @@ extension PaintViewController
             //paintView.layer.anchorPoint = CGPointMake(0.5, 0.5)
             
         case UIGestureRecognizerState.Changed:
-            paintView.scale *= sender.scale
+            targetPaintView.scale *= sender.scale
             //print("scale: \(paintView.layer.transform.m11 * sender.scale)")
-            if paintView.scale >= 3
+            if targetPaintView.scale >= 3
             {
-                paintView.scale = 3
+                targetPaintView.scale = 3
                 //paintView.layer.transform = CATransform3DMakeScale(3, 3, 1)
             }
-            else if paintView.scale <= 0.2
+            else if targetPaintView.scale <= 0.2
             {
-                paintView.scale = 0.2
+                targetPaintView.scale = 0.2
                 //paintView.layer.transform = CATransform3DMakeScale(0.2, 0.2, 1)
             }
             applyCATransform()
@@ -182,14 +180,14 @@ extension PaintViewController
             //paintView.layer.transform = CGAffineTransformScale(paintView.transform, sender.scale, )
             sender.scale = 1
         case .Ended:()
-            print(sender.velocity)
-            if sender.velocity < -2 || sender.velocity > 4
-            {
-                UIView.animateWithDuration(0.5, animations: {
-                    //self.paintView.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
-                    
-                    self.resetAnchor()
-                })
+        print(sender.velocity)
+        if sender.velocity < -2 || sender.velocity > 4
+        {
+            UIView.animateWithDuration(0.5, animations: {
+                //self.paintView.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
+                
+                self.resetAnchor(targetPaintView)
+            })
             }
             
             //paintView.layer.anchorPoint = CGPointZero
@@ -197,6 +195,12 @@ extension PaintViewController
             
         default: ()
         }
+
+    }
+    
+    @IBAction func uiPinchGestrueEvent(sender: UIPinchGestureRecognizer) {
+        viewPinchHandler(paintView, sender: sender)
+        
     }
     @IBAction func rotationGestureHandler(sender: UIRotationGestureRecognizer) {
         switch sender.state
@@ -219,8 +223,7 @@ extension PaintViewController
             switch appState
             {
             case AppState.editNote:
-                noteTitleField.resignFirstResponder()
-                noteDescriptionTextView.resignFirstResponder()
+                hideKeyBoard()
             case .viewArtwork, .viewRevision:
                 playbackControlPanel.toggle()
             default:

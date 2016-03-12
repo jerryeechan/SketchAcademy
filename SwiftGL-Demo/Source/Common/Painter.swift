@@ -19,30 +19,15 @@ class Painter{
     
     */
     
-    static var scale:Float = 1
-    static var layer:Int = 0
-    static var currentBrush:PaintBrush!
+    //static var scale:Float = 1
+    //static var layer:Int = 0
+    //static var currentBrush:PaintBrush!
     
     /**
         Render an entire stroke
      */
     
-    static func renderStroke(stroke:PaintStroke)
-    {
-        /*
-        GLShaderBinder.instance.bindBrushColor(stroke.valueInfo.color.vec)
-        GLShaderBinder.instance.bindBrushSize(stroke.valueInfo.size)
-        GLContextBuffer.instance.drawBrushVertex(stroke.points)
-        GLContextBuffer.instance.endStroke()
-        */
-        GLContextBuffer.instance.paintToolManager.changeTool(stroke.stringInfo.toolName)
-        GLContextBuffer.instance.paintToolManager.loadToolValueInfo(stroke.valueInfo)
-        GLContextBuffer.instance.paintToolManager.useCurrentTool()
-        
-        
-        GLContextBuffer.instance.drawStroke(stroke,layer: layer)
-        
-    }
+    
     
     /**
         Render point array
@@ -51,17 +36,15 @@ class Painter{
     //TODO
     //set the vInfo of the current using when touch event in recorder
     //need to remove renderStaticLine
-    static func renderStaticLine(points:[PaintPoint])
-    {
-        let vertexBuffer = GLContextBuffer.instance.interpolatePoints(points)
-        GLContextBuffer.instance.drawBrushVertex(vertexBuffer,layer: layer)
-    }
+    
+   /*
     static func renderLine(vInfo:ToolValueInfo,prev2:PaintPoint,prev1:PaintPoint,cur:PaintPoint)
     {
         GLShaderBinder.instance.bindBrushInfo(vInfo)
         let vertexBuffer = GLContextBuffer.instance.interpolatePoints([prev2,prev1,cur])
         GLContextBuffer.instance.drawBrushVertex(vertexBuffer,layer: layer)
     }
+*/
     /*
     static func renderLine(vInfo:ToolValueInfo,prev2:PaintPoint,prev1:PaintPoint,cur:PaintPoint)
     {

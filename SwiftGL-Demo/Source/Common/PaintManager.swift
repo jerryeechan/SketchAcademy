@@ -16,12 +16,13 @@ enum ViewingClipType
 }
 class PaintManager {
     
-    
+    weak var paintView:PaintView!
+    weak var instructionView:PaintView!
     var openArtworkFileName:String!
     
-    let paintRecorder:PaintRecorder = PaintRecorder()
-    let masterReplayer:PaintReplayer = PaintReplayer()
-    let revisionReplayer:PaintReplayer = PaintReplayer()
+    let paintRecorder:PaintRecorder
+    let masterReplayer:PaintReplayer
+    let revisionReplayer:PaintReplayer
     var artwork:PaintArtwork!
     var currentRevisionClip:PaintClip!
     
@@ -29,8 +30,22 @@ class PaintManager {
     var currentReplayer:PaintReplayer
     var viewingClipType:ViewingClipType = .Artwork
     
-    init()
+    init(paintView:PaintView)
     {
+        self.paintView = paintView
+        masterReplayer = PaintReplayer(paintView: paintView)
+        paintRecorder = PaintRecorder(canvas: paintView.glContextBuffer)
+        revisionReplayer = PaintReplayer(paintView: paintView)
+        currentReplayer = masterReplayer
+        newArtwork()
+    }
+    init(paintView:PaintView,instructionView:PaintView)
+    {
+        self.paintView = paintView
+        self.instructionView = instructionView
+        paintRecorder = PaintRecorder(canvas: paintView.glContextBuffer)
+        masterReplayer = PaintReplayer(paintView: instructionView)
+        revisionReplayer = PaintReplayer(paintView: instructionView)
         currentReplayer = masterReplayer
         newArtwork()
     }
@@ -39,13 +54,12 @@ class PaintManager {
         artwork = nil
         artwork = PaintArtwork()
         paintRecorder.recordClip = artwork.masterClip
-        
     }
     
     func clear()
     {
         masterReplayer.stopPlay()
-        GLContextBuffer.instance.blank()
+        paintView.glContextBuffer.blank()
     }
     func saveArtwork(filename:String,img:UIImage)
     {
@@ -82,25 +96,20 @@ class PaintManager {
     func playArtworkClip()
     {
         masterReplayer.loadClip(artwork.masterClip)
-        currentReplayer = masterReplayer
-        GLRenderTextureFrameBuffer.instance.revisionLayer.enabled = false
-        GLRenderTextureFrameBuffer.instance.selectLayer(0)
         revisionReplayer.stopPlay()
-        GLRenderTextureFrameBuffer.instance.setAllLayerAlpha(1)
-        PaintView.display()
+        currentReplayer = masterReplayer
+        
+        paintView.glContextBuffer.setArtworkMode()
+        paintView.display()
         
     }
     func playRevisionClip(clip:PaintClip)
     {
         revisionReplayer.loadClip(clip)
         currentReplayer = revisionReplayer
-        
-        GLRenderTextureFrameBuffer.instance.revisionLayer.enabled = true
-        GLRenderTextureFrameBuffer.instance.setAllLayerAlpha(0.5)
-        GLRenderTextureFrameBuffer.instance.selectRevisionLayer()
         masterReplayer.pause()
-        PaintView.display()
-        
+        paintView.glContextBuffer.setRevisionMode()
+        paintView.display()
         
         //revisionReplayer.restart()
     }
@@ -120,31 +129,34 @@ class PaintManager {
         
         
         //OpenGL setting
-        GLRenderTextureFrameBuffer.instance.revisionLayer.enabled = false
-        GLRenderTextureFrameBuffer.instance.selectLayer(0)
-        GLRenderTextureFrameBuffer.instance.setAllLayerAlpha(1)
+        paintView.glContextBuffer.setArtworkMode()
     }
     func revisionDrawModeSetUp()
     {
         //self.paintMode = .Revision
         
-        let id = getMasterStrokeID()
+        let id = NoteManager.instance.selectedButtonIndex
         if(artwork.revisionClips[id] == nil){
+            DLog("Revision Clip Branch at \(id) created")
             let newClip = PaintClip(name: "revision",branchAt: id)
             paintRecorder.recordClip = newClip
             artwork.revisionClips[id] = newClip
             currentRevisionClip = newClip
+            revisionReplayer.loadClip(newClip)
         }
         else
         {
-            paintRecorder.recordClip = artwork.revisionClips[id]
-            currentRevisionClip = artwork.revisionClips[id]
+            DLog("Revision Clip Branch at \(id) exist")
+            let clip = artwork.revisionClips[id]
+            paintRecorder.recordClip = clip
+            currentRevisionClip = clip
+            revisionReplayer.loadClip(clip!)
         }
+        
         //OpenGL setting
-        GLRenderTextureFrameBuffer.instance.revisionLayer.enabled = true
-        GLRenderTextureFrameBuffer.instance.setAllLayerAlpha(0.5)
-        GLRenderTextureFrameBuffer.instance.selectRevisionLayer()
-        PaintView.display()
+        paintView.glContextBuffer.setRevisionMode()
+        revisionReplayer.drawAll()
+        paintView.display()
     }
     
     func revisionDrawModeSwitchToViewMode()

@@ -53,7 +53,7 @@ extension PaintViewController
     
     func circleButton(button:UIButton)
     {
-        button.layer.cornerRadius = 0.4 * button.frame.width
+        button.layer.cornerRadius = 0.5 * button.frame.width
         button.backgroundColor = UIColor.whiteColor()
         button.layer.borderColor = UIColor.lightGrayColor().CGColor
         button.layer.borderWidth = 1

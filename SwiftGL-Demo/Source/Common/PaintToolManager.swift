@@ -22,10 +22,10 @@ public class PaintToolManager {
     var eraser:PaintBrush!
     
     var currentTool:PaintBrush!
-    static var instance:PaintToolManager!
+//    static var instance:PaintToolManager!
     init()
     {
-        PaintToolManager.instance = self
+//        PaintToolManager.instance = self
     }
     func load()
     {
@@ -33,8 +33,8 @@ public class PaintToolManager {
         eraser = PaintBrush(textureName: "circleTexture", color: Color(255,255,255,0),size: 10,type:PaintToolType.eraser)
         
         currentTool = pen
-        Painter.currentBrush = currentTool
-        //pen.useTool()
+        //Painter.currentBrush = currentTool
+        pen.useTool()
     }
 
     func getTool(name:String)->PaintToolType    {
@@ -59,7 +59,7 @@ public class PaintToolManager {
     }
     private func useTool(type:PaintToolType)->PaintBrush!
     {
-        GLContextBuffer.instance.setBrushDrawSetting(type)
+        //GLContextBuffer.instance.setBrushDrawSetting(type)
         switch(type)
         {
         case .pen:
@@ -109,7 +109,7 @@ public class PaintToolManager {
         currentTool.changeColor(Color(rf:0,gf: 0,bf: 0,af: 0.5))
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         
-        GLContextBuffer.instance.setReplayDrawSetting()
+        //GLContextBuffer.instance.setReplayDrawSetting()
         eraser.useTool()
         print("use eraser", terminator: "")
     }

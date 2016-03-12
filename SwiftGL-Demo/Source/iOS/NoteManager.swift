@@ -60,7 +60,7 @@ class NoteManager {
     }
     func getSortedKeys()->[Int]
     {
-        sortedKeys = Array(noteDict.keys).sort()
+        sortedKeys = Array(noteDict.keys).sort()        
         return sortedKeys
     }
     var sortedKeys:[Int] = []
@@ -77,14 +77,15 @@ class NoteManager {
             return nil
         }
     }
-    func deleteNoteAtStroke(at:Int)
+    func deleteNoteAtStroke(at:Int)->Int
     {
         selectedButtonIndex = nil
         let noteButton = getNoteButton(at)
         noteButtonDict[at] = nil
         noteButton.removeFromSuperview()
-        noteDict[at] = nil
+        noteDict.removeValueForKey(at)
         sortedKeys = getSortedKeys()
+        return sortedKeys.count
     }
     func updateOrderedNote(index:Int,title:String,description:String)
     {

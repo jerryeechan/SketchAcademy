@@ -82,13 +82,6 @@ class PaintStroke
         points+=[point]
         pointData.append(PointData(paintPoint: point,t: time))
     }
-    
-    func draw()
-    {
-        //genPointsFromPointData()
-        Painter.renderStroke(self)
-        //drawBetween(0, endIndex: pointData.count)
-    }
     /*
     func drawBetween(startIndex:Int,endIndex:Int)
     {

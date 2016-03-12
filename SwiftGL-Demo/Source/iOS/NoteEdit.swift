@@ -24,6 +24,11 @@ extension PaintViewController:UITextViewDelegate
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onKeyBoardHide:", name:
             UIKeyboardWillHideNotification, object: nil)
     }
+    func hideKeyBoard()
+    {
+        noteTitleField.resignFirstResponder()
+        noteDescriptionTextView.resignFirstResponder()
+    }
     func onKeyBoardHide(notification:NSNotification)
     {
         if appState == AppState.editNote
@@ -52,7 +57,10 @@ extension PaintViewController:UITextViewDelegate
         noteTitleField.text = ""
         noteDescriptionTextView.clear()
         let note = NoteManager.instance.addNote(atStroke,title: "", description: "")
+        addNoteButton.enabled = false
+        
         enterEditMode()
+        
         return note
     }
     func editNote()
@@ -61,9 +69,12 @@ extension PaintViewController:UITextViewDelegate
     }
     func deleteNote(at:Int)
     {
+        hideKeyBoard()
         NoteManager.instance.deleteNoteAtStroke(at)
+        
         selectedPath = nil
         noteListTableView.reloadData()
+        
         onProgressValueChanged(replayProgressBar.progress)
         
     }
@@ -81,7 +92,7 @@ extension PaintViewController:UITextViewDelegate
             noteDescriptionTextView.editable = false
             noteTitleField.editable = false
             
-            NoteManager.instance.updateNote(paintManager.getMasterStrokeID(), title: noteTitleField.text!, description: noteDescriptionTextView.text)
+            NoteManager.instance.updateNote(NoteManager.instance.selectedButtonIndex, title: noteTitleField.text!, description: noteDescriptionTextView.text)
             
             appState = lastAppState
             
