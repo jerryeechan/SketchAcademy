@@ -10,7 +10,7 @@ import OpenGLES.ES3
 import GLKit
 import SwiftGL
 class PaintView: GLKView {
-//    var glcontext:EAGLContext!
+    var glcontext:EAGLContext!
     var eaglLayer:CAEAGLLayer!
     
     var glContextBuffer:GLContextBuffer!
@@ -29,20 +29,18 @@ class PaintView: GLKView {
 */
     func glDraw()
     {
-        //setNeedsDisplay()
-        //display()
-        glContextBuffer.display()
+        setNeedsDisplay()
     }
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
        
         
-//        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
-//        if self.glcontext == nil {
-//            print("Failed to create ES context")
-//        }
-//        context = glcontext
+        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
+        if self.glcontext == nil {
+            print("Failed to create ES context")
+        }
+        context = glcontext
         
         contentScaleFactor = UIScreen.mainScreen().scale;
         //Painter.scale = Float(contentScaleFactor)
@@ -56,30 +54,45 @@ class PaintView: GLKView {
         initGL()
         
     }
-    required override init(frame:CGRect,context:EAGLContext)
+    required override init(frame:CGRect)
     {
-        super.init(frame: frame, context: context)
+        super.init(frame: frame)
         
-        
-        
-//        if self.glcontext == nil {
-//            print("Failed to create ES context")
-//        }
-//        context = glcontext
+        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
+        if self.glcontext == nil {
+            print("Failed to create ES context")
+        }
+        context = glcontext
         contentScaleFactor = UIScreen.mainScreen().scale;
       //  Painter.scale = Float(contentScaleFactor)
-        
-        //self.context = context//EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
         initGL()
+        
     }
     
     var isInitialized:Bool = false
     
+    func setContext()
+    {
+        EAGLContext.setCurrentContext(self.glcontext)
+    }
     func initGL()->Bool{
         
+        // Change the working directory so that we can use C code to grab resource files
+        if let path = NSBundle.mainBundle().resourcePath {
+            NSFileManager.defaultManager().changeCurrentDirectoryPath(path)
+        }
+        let path = NSBundle.mainBundle().bundlePath
+        let fm = NSFileManager.defaultManager()
         
+        let dirContents: [AnyObject]?
+        do {
+            dirContents = try fm.contentsOfDirectoryAtPath(path)
+        } catch _ {
+            dirContents = nil
+        }
+        print(dirContents)
         
-        EAGLContext.setCurrentContext(context)
+        EAGLContext.setCurrentContext(self.glcontext)
         
         eaglLayer = layer as! CAEAGLLayer
         
@@ -87,7 +100,7 @@ class PaintView: GLKView {
         
         print("PaintView: create shader")
         
-        glContextBuffer = GLContextBuffer(context: context)
+        glContextBuffer = GLContextBuffer()
         print("PaintView: create context buffer")
 
         
@@ -96,7 +109,6 @@ class PaintView: GLKView {
         print("PaintView: create transformation")
         
         layer.magnificationFilter = kCAFilterNearest
-        
         
         
         //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -120,19 +132,15 @@ class PaintView: GLKView {
         let width:GLint = GLint(frame.width * contentScaleFactor)//GLContextBuffer.instance.backingWidth
         let height:GLint = GLint(frame.height * contentScaleFactor) //GLContextBuffer.instance.backingHeight
         glTransformation.resize(width, height: height)
+        
+        //GLContextBuffer.instance.blank()
+        //PaintView.display()
 
     }
-    /*
     override func drawRect(rect: CGRect) {
-        display()
-        //glFlush();
+        glContextBuffer.display()
     }
-
-    override func display() {
-        
-        
-    }
-    */
+    
     /*
     override func drawRect(rect: CGRect) {
         //Engine.render()

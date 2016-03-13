@@ -127,22 +127,15 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         changeDir()
         
-        eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
-        
-        //eaglContext2 = EAGLContext(API: eaglContext.API, sharegroup: eaglContext.sharegroup)
+       
         /*1*/
         //paintView init
-        paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)),context: eaglContext)
+        paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)))
 
         paintView.multipleTouchEnabled = true
         canvasBGView.addSubview(paintView)
         paintView.addGestureRecognizer(singlePanGestureRecognizer)
         
-        /*2*/
-        //instructionView init
-//        /instructionView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)),context: eaglContext2)
-        //instructionBGView.addSubview(instructionView)
-        //instructionView.removeFromSuperview()
         
         /*3*/
         //  paintManager init
@@ -200,7 +193,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         else
         {
             NoteManager.instance.empty()
-            paintView.display()
+            paintView.glDraw()
         }
         viewWidth = view.contentScaleFactor * view.frame.width
         noteListTableView.reloadData()
@@ -358,7 +351,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     @IBAction func doubleTapEraserHandler(sender: UIButton) {
         paintView.glContextBuffer.blank()
-        paintView.display()
+        paintView.glDraw()
     }
     
     var isCanvasManipulationEnabled:Bool = true

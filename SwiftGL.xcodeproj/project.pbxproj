@@ -22,6 +22,10 @@
 		C40FB5C21C663234004A7731 /* SwiftGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EE432F1953BE91007CC56F /* SwiftGL.framework */; };
 		C40FB5C31C663234004A7731 /* SwiftGL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2EE432F1953BE91007CC56F /* SwiftGL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C41805E41B9F2F4000B69EF5 /* NoteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */; };
+		C41AD53C1C95A29500317E41 /* GLPrimitiveRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD53B1C95A29400317E41 /* GLPrimitiveRenderer.swift */; };
+		C41AD5401C95A52B00317E41 /* GLShaderWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD53F1C95A52B00317E41 /* GLShaderWrapper.swift */; };
+		C41AD5431C95A62500317E41 /* PencilShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD5421C95A62500317E41 /* PencilShader.swift */; };
+		C41AD5451C95A99400317E41 /* TextureShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD5441C95A99300317E41 /* TextureShader.swift */; };
 		C4235B761C0F406F00C32531 /* ArtworkMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4235B741C0F3C4900C32531 /* ArtworkMenuViewController.swift */; };
 		C42468161B21E0520053CB5B /* AlertViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42468151B21E0520053CB5B /* AlertViewManager.swift */; };
 		C42BB0DA1C6F4A31003F3337 /* NoteTitleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */; };
@@ -33,8 +37,8 @@
 		C433EEB91B5BC13000D5175F /* SliceRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB71B5BC13000D5175F /* SliceRect.swift */; };
 		C433EEBB1B5D332F00D5175F /* GLLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEBA1B5D332F00D5175F /* GLLine.swift */; };
 		C433EEBC1B5D332F00D5175F /* GLLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEBA1B5D332F00D5175F /* GLLine.swift */; };
-		C442A8931B7B3B75000BB98F /* rect.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8921B7B3B75000BB98F /* rect.vsh */; };
-		C442A8951B7B3B87000BB98F /* rect.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8941B7B3B87000BB98F /* rect.fsh */; };
+		C442A8931B7B3B75000BB98F /* primitive.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8921B7B3B75000BB98F /* primitive.vsh */; };
+		C442A8951B7B3B87000BB98F /* primitive.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8941B7B3B87000BB98F /* primitive.fsh */; };
 		C44609271B7A571A00C34D04 /* GLRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44609261B7A571A00C34D04 /* GLRect.swift */; };
 		C44747781B83065E0093F019 /* CanvasCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F49F401B83014B001E62AD /* CanvasCropView.swift */; };
 		C447477D1B8317120093F019 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447477C1B8317120093F019 /* Note.swift */; };
@@ -264,6 +268,10 @@
 		C40C2E601C711D5B006A165F /* NoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteButton.swift; sourceTree = "<group>"; };
 		C40C2E621C723760006A165F /* eraser.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = eraser.vsh; sourceTree = "<group>"; };
 		C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTableCell.swift; sourceTree = "<group>"; };
+		C41AD53B1C95A29400317E41 /* GLPrimitiveRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLPrimitiveRenderer.swift; sourceTree = "<group>"; };
+		C41AD53F1C95A52B00317E41 /* GLShaderWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLShaderWrapper.swift; sourceTree = "<group>"; };
+		C41AD5421C95A62500317E41 /* PencilShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PencilShader.swift; sourceTree = "<group>"; };
+		C41AD5441C95A99300317E41 /* TextureShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextureShader.swift; sourceTree = "<group>"; };
 		C4235B741C0F3C4900C32531 /* ArtworkMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtworkMenuViewController.swift; sourceTree = "<group>"; };
 		C42468151B21E0520053CB5B /* AlertViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewManager.swift; sourceTree = "<group>"; };
 		C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTitleField.swift; sourceTree = "<group>"; };
@@ -273,8 +281,8 @@
 		C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSlicedRectangles.swift; sourceTree = "<group>"; };
 		C433EEB71B5BC13000D5175F /* SliceRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceRect.swift; sourceTree = "<group>"; };
 		C433EEBA1B5D332F00D5175F /* GLLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLLine.swift; sourceTree = "<group>"; };
-		C442A8921B7B3B75000BB98F /* rect.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = rect.vsh; sourceTree = "<group>"; };
-		C442A8941B7B3B87000BB98F /* rect.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = rect.fsh; sourceTree = "<group>"; };
+		C442A8921B7B3B75000BB98F /* primitive.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = primitive.vsh; sourceTree = "<group>"; };
+		C442A8941B7B3B87000BB98F /* primitive.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = primitive.fsh; sourceTree = "<group>"; };
 		C44609261B7A571A00C34D04 /* GLRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRect.swift; sourceTree = "<group>"; };
 		C447477C1B8317120093F019 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		C44747801B8333EC0093F019 /* ShadeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadeView.swift; sourceTree = "<group>"; };
@@ -514,6 +522,47 @@
 				C491EC681C129C9C00154CC6 /* ReplayControl.swift */,
 			);
 			name = Progress;
+			sourceTree = "<group>";
+		};
+		C41AD5381C95287A00317E41 /* Course */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Course;
+			sourceTree = "<group>";
+		};
+		C41AD53A1C9528D000317E41 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		C41AD53D1C95A4F600317E41 /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				C41AD5411C95A57400317E41 /* CustomShader */,
+				C4C5B9B91B0EFB5400D6AD4B /* GLShaderBinder.swift */,
+				C41AD53F1C95A52B00317E41 /* GLShaderWrapper.swift */,
+			);
+			name = Shader;
+			sourceTree = "<group>";
+		};
+		C41AD53E1C95A4FF00317E41 /* CanvasRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				C41AD53B1C95A29400317E41 /* GLPrimitiveRenderer.swift */,
+			);
+			name = CanvasRenderer;
+			sourceTree = "<group>";
+		};
+		C41AD5411C95A57400317E41 /* CustomShader */ = {
+			isa = PBXGroup;
+			children = (
+				C41AD5421C95A62500317E41 /* PencilShader.swift */,
+				C41AD5441C95A99300317E41 /* TextureShader.swift */,
+			);
+			name = CustomShader;
 			sourceTree = "<group>";
 		};
 		C42468141B21E0250053CB5B /* UI */ = {
@@ -782,10 +831,11 @@
 		C4C5B9B61B0EFAC500D6AD4B /* GLFramework */ = {
 			isa = PBXGroup;
 			children = (
+				C41AD53E1C95A4FF00317E41 /* CanvasRenderer */,
+				C41AD53D1C95A4F600317E41 /* Shader */,
 				C4C73BD41B5F1E98008C0D36 /* Painting Software */,
 				C4B10D771B0E3FC0001BAAAB /* GLContextBuffer.swift */,
 				C4C5B9B71B0EFB1200D6AD4B /* GLTransformation.swift */,
-				C4C5B9B91B0EFB5400D6AD4B /* GLShaderBinder.swift */,
 				C433EEBA1B5D332F00D5175F /* GLLine.swift */,
 				C49E21661B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift */,
 				C44609261B7A571A00C34D04 /* GLRect.swift */,
@@ -1003,8 +1053,8 @@
 				C44BB0901B48E0EF001B158A /* pencil.vsh */,
 				D2F663FE1ADD7607003C1925 /* DemoShader1.vsh */,
 				D2F663FD1ADD7607003C1925 /* DemoShader1.fsh */,
-				C442A8941B7B3B87000BB98F /* rect.fsh */,
-				C442A8921B7B3B75000BB98F /* rect.vsh */,
+				C442A8941B7B3B87000BB98F /* primitive.fsh */,
+				C442A8921B7B3B75000BB98F /* primitive.vsh */,
 				C40C2E621C723760006A165F /* eraser.vsh */,
 				C4626BD71C7254F800C62586 /* eraser.fsh */,
 			);
@@ -1044,6 +1094,8 @@
 		D2F664081ADD7607003C1925 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C41AD53A1C9528D000317E41 /* Setting */,
+				C41AD5381C95287A00317E41 /* Course */,
 				C491EC611C129BD500154CC6 /* PaintViewController */,
 				C46DCD241BA476650038014F /* SubViewPanels */,
 				C4F1D2C51B8EB74B00634626 /* componentPlacementGame */,
@@ -1329,8 +1381,8 @@
 				D2F664161ADD7607003C1925 /* LaunchScreen.xib in Resources */,
 				C44BB09A1B48E504001B158A /* pencil.vsh in Resources */,
 				D2F664181ADD7607003C1925 /* Main.storyboard in Resources */,
-				C442A8951B7B3B87000BB98F /* rect.fsh in Resources */,
-				C442A8931B7B3B75000BB98F /* rect.vsh in Resources */,
+				C442A8951B7B3B87000BB98F /* primitive.fsh in Resources */,
+				C442A8931B7B3B75000BB98F /* primitive.vsh in Resources */,
 				D2F6641A1ADD7607003C1925 /* Images.xcassets in Resources */,
 				C478D8531B1F4C3A00FFF3D9 /* brush2.png in Resources */,
 				C478D8521B1F4C3A00FFF3D9 /* brush1.png in Resources */,
@@ -1445,6 +1497,7 @@
 				C4EB7A851B86483A00A33651 /* PanGestureHandler.swift in Sources */,
 				D2F6642C1ADD7607003C1925 /* DemoScene.swift in Sources */,
 				C458F5E11B54CD7B00FC1235 /* Dot.swift in Sources */,
+				C41AD53C1C95A29500317E41 /* GLPrimitiveRenderer.swift in Sources */,
 				C46DCD271BA477110038014F /* SubViewPanelAnimateState.swift in Sources */,
 				C4F1D2CF1B8EB79000634626 /* FaceGameStageLevelGenerator.swift in Sources */,
 				C48F98AA1C0F38B200D6CE60 /* MenuViewController.swift in Sources */,
@@ -1478,6 +1531,7 @@
 				C491EC641C129C0700154CC6 /* PaintViewControllerInitStyle.swift in Sources */,
 				C42BB0DD1C6F8770003F3337 /* CleanToolBar.swift in Sources */,
 				C49404791B2A0D7400BB975E /* SaveFileDialogViewController.swift in Sources */,
+				C41AD5401C95A52B00317E41 /* GLShaderWrapper.swift in Sources */,
 				C45222FC1C0D6D6100506B82 /* PaintManager.swift in Sources */,
 				C404FAA31B1AFE01004C2D8C /* BrushTextureLoader.swift in Sources */,
 				C46CB8661B0D9F33008C378B /* PaintView.swift in Sources */,
@@ -1525,6 +1579,8 @@
 				C4EB7A7F1B86450F00A33651 /* Dialogue.swift in Sources */,
 				C458F5A31B54A6D500FC1235 /* DotGameScene.swift in Sources */,
 				C4DD1FCD1C68EC500014E141 /* NoteProgress.swift in Sources */,
+				C41AD5451C95A99400317E41 /* TextureShader.swift in Sources */,
+				C41AD5431C95A62500317E41 /* PencilShader.swift in Sources */,
 				C40C2E5C1C703195006A165F /* PlayPauseButton.swift in Sources */,
 				C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */,
 				C49E21671B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift in Sources */,

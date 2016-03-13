@@ -58,6 +58,7 @@ varying lowp vec4 color;
 
 void main()
 {
+    
     lowp vec4 destColor = gl_LastFragData[0];
     float vRotation = angle;
     float mid = 0.5;

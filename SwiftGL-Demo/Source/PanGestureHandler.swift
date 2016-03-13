@@ -75,21 +75,23 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
     
     func handleDrawingSinglePan(sender:UIPanGestureRecognizer)
     {
-        
-        switch(sender.state)
+        if sender.locationInView(paintView).x > 800
         {
-        case UIGestureRecognizerState.Began:
-            paintManager.paintRecorder.startPoint(sender, view: paintView)
-        case UIGestureRecognizerState.Changed:
-            paintManager.paintRecorder.movePoint(sender, view: paintView)
-            paintView.glDraw()
-        case UIGestureRecognizerState.Ended:
-            paintManager.paintRecorder.endStroke()
-            currentTouchType = "None"
-        default :
-            break
+        
+            switch(sender.state)
+            {
+            case UIGestureRecognizerState.Began:
+                paintManager.paintRecorder.startPoint(sender, view: paintView)
+            case UIGestureRecognizerState.Changed:
+                paintManager.paintRecorder.movePoint(sender, view: paintView)
+                paintView.glDraw()
+            case UIGestureRecognizerState.Ended:
+                paintManager.paintRecorder.endStroke()
+                currentTouchType = "None"
+            default :
+                break
+            }
         }
-
         //print("pan single")
 
     }

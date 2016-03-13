@@ -46,13 +46,11 @@
  */
 
 attribute vec4 vertexPosition;
-attribute float vertexSize;
 uniform mat4 MVP;
-varying lowp float angle;
 
 void main()
 {
     gl_Position = MVP * vertexPosition;
-    gl_PointSize = vertexSize;
+    //gl_PointSize = vertexSize;
     
 }
