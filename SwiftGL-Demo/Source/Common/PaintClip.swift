@@ -19,7 +19,7 @@ class PaintClip{
     var currentTime:CFAbsoluteTime = 0
     var currentPointID:Int = 0
     var current_vInfo:ToolValueInfo!
-    
+    var currentStrokeID:Int = 0
     
     //    branch related
 
@@ -44,7 +44,6 @@ class PaintClip{
     {
         branchClip[branchName] = PaintClip(name: branchName,branchAt: branchAt)
         branchClip[branchName]?.parentClip = self
-        
     }
     func switchToBranch(branchName:String)
     {

@@ -26,7 +26,7 @@ class GLRenderTextureFrameBuffer{
     var backgroundLayer:Layer!
     var renderMode:RenderMode = .drawing
     
-    
+    var primitiveLayer:Layer
     //static var instance:GLRenderTextureFrameBuffer!
     
     init(w:GLint,h:GLint)
@@ -35,10 +35,9 @@ class GLRenderTextureFrameBuffer{
         self.width = w
         self.height = h
         glGenFramebuffers(1,&framebuffer)
-        //framebuffer = GLShaderBinder.instance.getFrameBuffer()
-        DLog("The FrameBuffer:\(framebuffer)")
-        tempLayer = Layer(w: width, h: height)
-        revisionLayer = Layer(w: width, h: height)
+        tempLayer = Layer(w:width, h:height)
+        revisionLayer = Layer(w:width, h:height)
+        primitiveLayer = Layer(w:width, h:height)
         changeBackground("paper_sketch")
         addEmptyLayer()
         /*
@@ -59,6 +58,7 @@ class GLRenderTextureFrameBuffer{
        */
         
     }
+    
     deinit
     {
         layers.removeAll()
@@ -122,6 +122,10 @@ class GLRenderTextureFrameBuffer{
         else{
             
         }
+    }
+    func setPrimitiveBuffer()->Bool
+    {
+        return setBuffer(primitiveLayer)
     }
     func setTempBuffer()->Bool
     {

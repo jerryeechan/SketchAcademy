@@ -752,6 +752,16 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="kVn-yW-SW4"/>
                                     <barButtonItem title="繪圖模式" style="done" id="eNY-I8-B4Y"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="dNj-Nm-anc"/>
+                                    <barButtonItem image="undo-fill" id="Aqm-8d-eya" userLabel="Undo Button">
+                                        <connections>
+                                            <action selector="undoButtonTouched:" destination="CvM-l6-OQ6" id="TIp-MI-pBv"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem image="redo-fill" id="yWL-BD-cWc" userLabel="Redo Button">
+                                        <connections>
+                                            <action selector="redoButtonTouched:" destination="CvM-l6-OQ6" id="rMj-Iw-Fi6"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem image="Brush-50" id="MSJ-ij-Vz2">
                                         <connections>
                                             <action selector="enterDrawModeButtonTouched:" destination="CvM-l6-OQ6" id="x35-sE-lOW"/>
@@ -1551,9 +1561,11 @@
         <image name="maintitle" width="1352" height="138"/>
         <image name="pencilTool" width="160" height="25"/>
         <image name="play-arrow" width="22" height="24"/>
+        <image name="redo-fill" width="24" height="24"/>
         <image name="replay" width="19" height="24"/>
         <image name="trash-can" width="24" height="24"/>
         <image name="tumbler" width="1433" height="1599"/>
+        <image name="undo-fill" width="24" height="24"/>
         <image name="view" width="24" height="16"/>
         <image name="write" width="24" height="24"/>
     </resources>

@@ -244,8 +244,7 @@ class PaintReplayer:NSObject
         }
         context.paintToolManager.changeTool(strokes[currentStrokeID].stringInfo.toolName)
         context.paintToolManager.loadToolValueInfo(strokes[currentStrokeID].valueInfo)
-        
-        
+                
         c_PointData = strokes[currentStrokeID].pointData
         currentPoints = strokes[currentStrokeID].points
         
@@ -257,7 +256,7 @@ class PaintReplayer:NSObject
         //Painter.renderLine(PaintToolManager.instance.currentTool.vInfo, prev2: p1,prev1: p2,cur: p3)
 
         // draw the recorded data
-        GLShaderBinder.instance.bindBrushInfo(stroke.valueInfo)
+        GLShaderBinder.instance.currentBrushShader.bindBrushInfo(stroke.valueInfo)
         context.renderStaticLine([p1,p2,p3])
         //Painter.renderLine(stroke.valueInfo, prev2: p1,prev1: p2,cur: p3)
     }

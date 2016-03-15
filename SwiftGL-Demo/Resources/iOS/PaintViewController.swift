@@ -107,7 +107,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     var isDrawDone = true
     var eaglContext:EAGLContext!
     var eaglContext2:EAGLContext!
-    func changeDir()
+    func pathSetUp()
     {
         if let path = NSBundle.mainBundle().resourcePath {
             NSFileManager.defaultManager().changeCurrentDirectoryPath(path)
@@ -122,12 +122,10 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             dirContents = nil
         }
         print(dirContents)
-
     }
     override func viewDidLoad() {
-        changeDir()
+        pathSetUp()
         
-       
         /*1*/
         //paintView init
         paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)))
@@ -150,8 +148,6 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         toolBarItems = mainToolBar.items
         initAnimateState()
         
-        //weak var paintToolManager = PaintToolManager.instance
-        
         nearbyColorButtons = nearbyColorButtons.sort({b1,b2 in return b1.tag > b2.tag})
         colorPicker.setup(hueView, colorGradientView: colorGradientView)
         colorPicker.onColorChange = {[weak self](unowned color, finished) in
@@ -160,7 +156,6 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
                 DLog("finished")
             } else {
                 //self.view.backgroundColor = color // set background color to current selected color (finger is still down)
-                
                 self!.paintView.glContextBuffer.paintToolManager.changeColor(color)
                 let colors = getNearByColor(color)
                 
@@ -349,6 +344,20 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         toolViewState.animateHide(0.2)
     }
     
+    @IBAction func undoButtonTouched(sender: UIBarButtonItem) {
+        if appState == .drawArtwork
+        {
+            
+            paintManager.currentReplayer.drawStrokeProgress(paintManager.currentReplayer.currentStrokeID-1)
+        }
+    }
+    
+    @IBAction func redoButtonTouched(sender: UIBarButtonItem) {
+        if appState == .drawArtwork
+        {
+            paintManager.currentReplayer.drawStrokeProgress(paintManager.currentReplayer.currentStrokeID+1)
+        }
+    }
     @IBAction func doubleTapEraserHandler(sender: UIButton) {
         paintView.glContextBuffer.blank()
         paintView.glDraw()

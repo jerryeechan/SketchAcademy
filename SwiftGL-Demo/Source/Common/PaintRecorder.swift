@@ -16,7 +16,7 @@ import UIKit
 */
 class PaintRecorder {
     var stroke:PaintStroke!
-    var recordClip:PaintClip!
+    private var recordClip:PaintClip!
     //var artwork:PaintArtwork!
     /**
     * 

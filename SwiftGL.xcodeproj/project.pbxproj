@@ -26,6 +26,9 @@
 		C41AD5401C95A52B00317E41 /* GLShaderWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD53F1C95A52B00317E41 /* GLShaderWrapper.swift */; };
 		C41AD5431C95A62500317E41 /* PencilShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD5421C95A62500317E41 /* PencilShader.swift */; };
 		C41AD5451C95A99400317E41 /* TextureShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD5441C95A99300317E41 /* TextureShader.swift */; };
+		C41AD5471C964A3400317E41 /* PrimitiveShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD5461C964A3400317E41 /* PrimitiveShader.swift */; };
+		C41AD5491C96519C00317E41 /* BrushShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD5481C96519B00317E41 /* BrushShader.swift */; };
+		C41AD54B1C97AE9C00317E41 /* ModelViewProjectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD54A1C97AE9C00317E41 /* ModelViewProjectionProtocol.swift */; };
 		C4235B761C0F406F00C32531 /* ArtworkMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4235B741C0F3C4900C32531 /* ArtworkMenuViewController.swift */; };
 		C42468161B21E0520053CB5B /* AlertViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42468151B21E0520053CB5B /* AlertViewManager.swift */; };
 		C42BB0DA1C6F4A31003F3337 /* NoteTitleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */; };
@@ -55,7 +58,6 @@
 		C44CF0A31B85B86100D6C43E /* CrossHairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CF0971B85B84D00D6C43E /* CrossHairView.swift */; };
 		C44CF0A41B85B86100D6C43E /* HueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CF0981B85B84D00D6C43E /* HueView.swift */; };
 		C44CF0A51B85B86100D6C43E /* SelectedColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44CF0991B85B84D00D6C43E /* SelectedColorView.swift */; };
-		C45222F51C0CA90A00506B82 /* PaintClip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222F41C0CA90A00506B82 /* PaintClip.swift */; };
 		C45222F61C0CA90A00506B82 /* PaintClip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222F41C0CA90A00506B82 /* PaintClip.swift */; };
 		C45222F91C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222F71C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift */; };
 		C45222FC1C0D6D6100506B82 /* PaintManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222FA1C0D6D6100506B82 /* PaintManager.swift */; };
@@ -272,6 +274,9 @@
 		C41AD53F1C95A52B00317E41 /* GLShaderWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLShaderWrapper.swift; sourceTree = "<group>"; };
 		C41AD5421C95A62500317E41 /* PencilShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PencilShader.swift; sourceTree = "<group>"; };
 		C41AD5441C95A99300317E41 /* TextureShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextureShader.swift; sourceTree = "<group>"; };
+		C41AD5461C964A3400317E41 /* PrimitiveShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveShader.swift; sourceTree = "<group>"; };
+		C41AD5481C96519B00317E41 /* BrushShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrushShader.swift; sourceTree = "<group>"; };
+		C41AD54A1C97AE9C00317E41 /* ModelViewProjectionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelViewProjectionProtocol.swift; sourceTree = "<group>"; };
 		C4235B741C0F3C4900C32531 /* ArtworkMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtworkMenuViewController.swift; sourceTree = "<group>"; };
 		C42468151B21E0520053CB5B /* AlertViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewManager.swift; sourceTree = "<group>"; };
 		C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTitleField.swift; sourceTree = "<group>"; };
@@ -544,6 +549,7 @@
 				C41AD5411C95A57400317E41 /* CustomShader */,
 				C4C5B9B91B0EFB5400D6AD4B /* GLShaderBinder.swift */,
 				C41AD53F1C95A52B00317E41 /* GLShaderWrapper.swift */,
+				C41AD54A1C97AE9C00317E41 /* ModelViewProjectionProtocol.swift */,
 			);
 			name = Shader;
 			sourceTree = "<group>";
@@ -561,6 +567,8 @@
 			children = (
 				C41AD5421C95A62500317E41 /* PencilShader.swift */,
 				C41AD5441C95A99300317E41 /* TextureShader.swift */,
+				C41AD5461C964A3400317E41 /* PrimitiveShader.swift */,
+				C41AD5481C96519B00317E41 /* BrushShader.swift */,
 			);
 			name = CustomShader;
 			sourceTree = "<group>";
@@ -1430,7 +1438,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D262B80B19663A52004A2997 /* Constants.swift in Sources */,
-				C45222F51C0CA90A00506B82 /* PaintClip.swift in Sources */,
 				D262B80C19663A52004A2997 /* Float.swift in Sources */,
 				D262B80D19663A52004A2997 /* Vec2.swift in Sources */,
 				C433EEB51B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */,
@@ -1556,6 +1563,7 @@
 				C4FE45EC1BDFDF3D008CE7D0 /* File.swift in Sources */,
 				C491EC6D1C129D6A00154CC6 /* GestureHandler.swift in Sources */,
 				C404FAA01B1AFB98004C2D8C /* FileManager.swift in Sources */,
+				C41AD5471C964A3400317E41 /* PrimitiveShader.swift in Sources */,
 				C404FA951B14601F004C2D8C /* PaintPoint.swift in Sources */,
 				C4F1D2D01B8EB79000634626 /* FaceGameViewController.swift in Sources */,
 				C44CF0A21B85B86100D6C43E /* ColorPicker.swift in Sources */,
@@ -1582,6 +1590,7 @@
 				C41AD5451C95A99400317E41 /* TextureShader.swift in Sources */,
 				C41AD5431C95A62500317E41 /* PencilShader.swift in Sources */,
 				C40C2E5C1C703195006A165F /* PlayPauseButton.swift in Sources */,
+				C41AD54B1C97AE9C00317E41 /* ModelViewProjectionProtocol.swift in Sources */,
 				C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */,
 				C49E21671B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift in Sources */,
 				C44747781B83065E0093F019 /* CanvasCropView.swift in Sources */,
@@ -1591,6 +1600,7 @@
 				C44CF0A51B85B86100D6C43E /* SelectedColorView.swift in Sources */,
 				C4BD8CA91B274DA0000A20A4 /* TouchClassifier.swift in Sources */,
 				C4AE3C4A1B0D1DF200C959C2 /* PaintStroke.swift in Sources */,
+				C41AD5491C96519C00317E41 /* BrushShader.swift in Sources */,
 				C45BF5E31B9B6CB9000DD389 /* AngleGradientLayer.m in Sources */,
 				C40C2E611C711D5B006A165F /* NoteButton.swift in Sources */,
 				D2F664301ADD7607003C1925 /* Scene.swift in Sources */,

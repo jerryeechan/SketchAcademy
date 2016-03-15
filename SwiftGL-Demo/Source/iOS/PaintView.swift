@@ -105,7 +105,7 @@ class PaintView: GLKView {
 
         
         
-        glTransformation = GLTransformation(width: glContextBuffer.backingWidth, height: glContextBuffer.backingHeight)
+        glTransformation = GLTransformation(width: glContextBuffer.imgWidth, height: glContextBuffer.imgHeight)
         print("PaintView: create transformation")
         
         layer.magnificationFilter = kCAFilterNearest

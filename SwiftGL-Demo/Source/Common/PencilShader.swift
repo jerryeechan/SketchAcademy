@@ -7,19 +7,10 @@
 //
 
 import SwiftGL
-class PencilShader: GLShaderWrapper {
+class PencilShader: BrushShader {
     init() {
         super.init(name:"pencil")
-        addAttribute( "vertexPosition", type: Vec4.self)
-        addAttribute("pencilForce", type: Float.self)
-        addAttribute("pencilAltitude", type: Float.self)
-        addAttribute( "pencilAzimuth", type: Vec2.self)
-        addAttribute( "vertexVelocity", type: Vec2.self)
         
-        addUniform("MVP")
-        addUniform("brushColor")
-        addUniform("brushSize")
-        addUniform("texture")
     }
     
     

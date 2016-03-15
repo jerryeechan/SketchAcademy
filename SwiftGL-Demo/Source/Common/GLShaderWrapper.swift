@@ -22,7 +22,7 @@ struct Attribute{
         offset = sizeof(T)
     }
 }
-class GLShaderWrapper {
+class GLShaderWrapper:ModelViewProjectionProtocol{
     var shader:Shader!
     var uniformDict:[String:GLint] = [String:GLint]()
     var attributes = [Attribute]()
@@ -46,6 +46,7 @@ class GLShaderWrapper {
     func addAttribute<T:GLType>(name:String,type:T.Type)
     {
         let iLoc = GLuint(glGetAttribLocation(shader.id, name))
+        glEnableVertexAttribArray(iLoc)
         attributes.append(Attribute(i: iLoc, t: type))
     }
     func getUniform(name:String)->GLint!
@@ -58,5 +59,36 @@ class GLShaderWrapper {
         
         return uniform
     }
-
+    func bindVertexs<T>(vertextBuffer:[T])
+    {
+        //bind vertex buffer to vertex buffer object
+        let vao = GLShaderBinder.instance.vao
+        let vbo = GLShaderBinder.instance.vbo
+        
+        vbo.bind(vertextBuffer, count: vertextBuffer.count)
+        
+        //bind attribute to vertex attribute object
+        var offset:GLsizeiptr = 0
+        for attrib in attributes
+        {
+            vao.bind(attribute: attrib.iLoc, glType: attrib.glType, glNormalized: attrib.glNormalized, glSize: attrib.glSize, vbo: vbo, offset: offset)
+            offset+=attrib.offset
+        }
+    }
+    func useShader()
+    {
+        shader.useProgram()
+    }
+    func bindMVP(mat4:Mat4)
+    {
+        shader.bind(getUniform("MVP"), mat4)
+    }
+    /*
+    func bindAttrib<T:GLType>(attrib:GLuint,type:T.Type,offset:GLsizeiptr)
+    {
+        let vao = GLShaderBinder.instance.vao
+        let vbo = GLShaderBinder.instance.vbo
+        vao.bind(attribute:attrib, type: type, vbo: vbo, offset: offset)
+    }
+*/
 }

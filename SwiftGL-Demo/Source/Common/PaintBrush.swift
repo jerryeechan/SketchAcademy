@@ -75,13 +75,13 @@ class PaintBrush:NSObject{
     {
         
         vInfo.color = color
-        GLShaderBinder.instance.bindBrushColor(vInfo.color.vec)
+        GLShaderBinder.instance.currentBrushShader.bindBrushColor(vInfo.color.vec)
     }
 
     func changeSize(size:Float)
     {
         vInfo.size = size
-        GLShaderBinder.instance.bindBrushSize(vInfo.size)
+        GLShaderBinder.instance.currentBrushShader.bindBrushSize(vInfo.size)
     }
     
     func useTool()
@@ -91,10 +91,10 @@ class PaintBrush:NSObject{
         //print(vInfo.size)
         
        // texture = Texture(filename:name)
-        GLShaderBinder.instance.bindBrushSize(vInfo.size)
-        GLShaderBinder.instance.bindBrushTexture(texture)
+        GLShaderBinder.instance.currentBrushShader.bindBrushSize(vInfo.size)
+        GLShaderBinder.instance.currentBrushShader.bindBrushTexture(texture)
         // initialize brush color
-        GLShaderBinder.instance.bindBrushColor(vInfo.color.vec)
+        GLShaderBinder.instance.currentBrushShader.bindBrushColor(vInfo.color.vec)
        // Painter.currentBrush = self
         
     }

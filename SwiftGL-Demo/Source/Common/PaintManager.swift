@@ -53,7 +53,8 @@ class PaintManager {
     {
         artwork = nil
         artwork = PaintArtwork()
-        paintRecorder.recordClip = artwork.masterClip
+        paintRecorder.setRecordClip(artwork.masterClip)
+        masterReplayer.loadClip(artwork.masterClip)
     }
     
     func clear()
@@ -73,7 +74,8 @@ class PaintManager {
         //GLContextBuffer.instance.blank()
         //call filemanager to load the file to PaintArtwork
         artwork = FileManager.instance.loadPaintArtWork(filename)
-        paintRecorder.recordClip = artwork.masterClip
+        paintRecorder.setRecordClip(artwork.masterClip)
+        masterReplayer.loadClip(artwork.masterClip)
         NoteManager.instance.loadNotes(filename)
         
         if(artwork != nil)
@@ -125,8 +127,8 @@ class PaintManager {
     func artworkDrawModeSetUp()
     {
         //self.paintMode = .Artwork
-        paintRecorder.recordClip = artwork.masterClip
-        
+        paintRecorder.setRecordClip(artwork.masterClip)
+        masterReplayer.loadClip(artwork.masterClip)
         
         //OpenGL setting
         paintView.glContextBuffer.setArtworkMode()
@@ -139,7 +141,7 @@ class PaintManager {
         if(artwork.revisionClips[id] == nil){
             DLog("Revision Clip Branch at \(id) created")
             let newClip = PaintClip(name: "revision",branchAt: id)
-            paintRecorder.recordClip = newClip
+            paintRecorder.setRecordClip(newClip)
             artwork.revisionClips[id] = newClip
             currentRevisionClip = newClip
             revisionReplayer.loadClip(newClip)
@@ -148,7 +150,7 @@ class PaintManager {
         {
             DLog("Revision Clip Branch at \(id) exist")
             let clip = artwork.revisionClips[id]
-            paintRecorder.recordClip = clip
+            paintRecorder.setRecordClip(clip!)
             currentRevisionClip = clip
             revisionReplayer.loadClip(clip!)
         }
