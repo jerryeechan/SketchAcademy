@@ -144,7 +144,7 @@ extension PaintViewController
     func viewPinchHandler(targetPaintView:PaintView,sender:UIPinchGestureRecognizer)
     {
         var center:CGPoint = CGPointMake(0, 0)
-        for var i = 0; i < sender.numberOfTouches(); i++
+        for i in 0 ..< sender.numberOfTouches()
         {
             let p = sender.locationOfTouch(i, inView: targetPaintView)
             center.x += p.x

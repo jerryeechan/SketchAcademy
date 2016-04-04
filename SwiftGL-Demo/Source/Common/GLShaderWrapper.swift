@@ -36,7 +36,7 @@ class GLShaderWrapper:ModelViewProjectionProtocol{
             }) {
                 // You can take this out after. Useful for debugging
                 print("failed to load pencil shader")
-                glDebug(__FILE__, line: __LINE__)
+                glDebug(#file, line: __LINE__)
         }
     }
     func addUniform(uniformName:String)

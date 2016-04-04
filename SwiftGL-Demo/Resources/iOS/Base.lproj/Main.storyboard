@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Zhl-Sa-wIJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Zhl-Sa-wIJ">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -277,7 +277,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SN7-H1-MBs">
-                                <rect key="frame" x="683" y="0.0" width="683" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QFq-cn-qe8">
                                         <rect key="frame" x="563" y="333" width="240" height="243"/>
@@ -301,6 +301,44 @@
                                     <outletCollection property="gestureRecognizers" destination="eUK-89-mT0" appends="YES" id="LcL-XD-76Q"/>
                                 </connections>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Olf-xl-ZcA">
+                                <rect key="frame" x="0.0" y="0.0" width="1366" height="44"/>
+                                <color key="backgroundColor" red="0.96271519749468282" green="1" blue="0.95315351208149379" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="y6V-Mq-Xhw"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="SketchBook" id="1Ou-gv-d5o" userLabel="dismiss Button">
+                                        <connections>
+                                            <action selector="dismissButtonTouched:" destination="CvM-l6-OQ6" id="8Pa-Tu-Q0s"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Done" id="o0N-mX-nnA">
+                                        <connections>
+                                            <action selector="reviseDoneButtonTouched:" destination="CvM-l6-OQ6" id="3VO-Kx-23e"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kVn-yW-SW4"/>
+                                    <barButtonItem title="示範區" style="done" id="Ksf-ht-7aZ"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="z5h-VP-KfA"/>
+                                    <barButtonItem title="繪圖模式" style="done" id="eNY-I8-B4Y"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="9YD-Kj-fU2"/>
+                                    <barButtonItem title="練習區" style="done" id="hs4-SP-eVU"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="dNj-Nm-anc"/>
+                                    <barButtonItem image="Brush-50" id="MSJ-ij-Vz2">
+                                        <connections>
+                                            <action selector="enterDrawModeButtonTouched:" destination="CvM-l6-OQ6" id="x35-sE-lOW"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem image="view" id="5Wx-8p-Syv">
+                                        <connections>
+                                            <action selector="enterViewModeButtonTouched:" destination="CvM-l6-OQ6" id="yvU-yw-Zxt"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="tintColor" red="0.95693260732323226" green="0.58429610144544308" blue="0.15809299782474204" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" red="0.14117647058823529" green="0.20784313725490197" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
+                            </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gUm-BN-wQb" userLabel="InstructionBGView">
                                 <rect key="frame" x="0.0" y="0.0" width="683" height="1024"/>
                                 <subviews>
@@ -451,8 +489,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="20S-7H-Kwg">
+                                        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20S-7H-Kwg">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="HCE-do-zSu"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="cP9-ns-MJY"/>
@@ -476,7 +515,7 @@
                                                 </barButtonItem>
                                             </items>
                                             <color key="tintColor" red="1" green="0.65132568069999996" blue="0.0032251161040000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="barTintColor" red="0.14117647059999999" green="0.20784313730000001" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="barTintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </toolbar>
                                     </subviews>
                                     <constraints>
@@ -703,6 +742,18 @@
                                             <constraint firstAttribute="height" constant="44" id="rR4-0x-5ZT"/>
                                         </constraints>
                                         <items>
+                                            <barButtonItem image="undo-fill" id="jZd-qP-tyT" userLabel="Undo Button">
+                                                <connections>
+                                                    <action selector="undoButtonTouched:" destination="CvM-l6-OQ6" id="HCl-2Y-uhw"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem width="19" style="plain" systemItem="fixedSpace" id="nug-nz-4Tz"/>
+                                            <barButtonItem image="redo-fill" id="dTA-xn-bxy" userLabel="Redo Button">
+                                                <connections>
+                                                    <action selector="redoButtonTouched:" destination="CvM-l6-OQ6" id="wEg-pi-oCu"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="WXO-sJ-Yv0"/>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="QlW-nP-WF3"/>
                                             <barButtonItem systemItem="stop" id="4ip-TV-twB">
                                                 <connections>
@@ -731,51 +782,13 @@
                                     <constraint firstAttribute="trailing" secondItem="ndH-XX-CfN" secondAttribute="trailing" id="yHO-Z7-gMm"/>
                                 </constraints>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Olf-xl-ZcA">
-                                <rect key="frame" x="0.0" y="0.0" width="1366" height="44"/>
-                                <color key="backgroundColor" red="0.96271519749468282" green="1" blue="0.95315351208149379" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDQ-w3-f15" userLabel="note tag button view" customClass="NoteProgressView" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="1366" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="y6V-Mq-Xhw"/>
+                                    <constraint firstAttribute="height" id="IbQ-nT-mSJ"/>
                                 </constraints>
-                                <items>
-                                    <barButtonItem title="SketchBook" id="1Ou-gv-d5o" userLabel="dismiss Button">
-                                        <connections>
-                                            <action selector="dismissButtonTouched:" destination="CvM-l6-OQ6" id="8Pa-Tu-Q0s"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Done" id="o0N-mX-nnA">
-                                        <connections>
-                                            <action selector="reviseDoneButtonTouched:" destination="CvM-l6-OQ6" id="3VO-Kx-23e"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="utf-Xc-0cl"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kVn-yW-SW4"/>
-                                    <barButtonItem title="繪圖模式" style="done" id="eNY-I8-B4Y"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="dNj-Nm-anc"/>
-                                    <barButtonItem image="undo-fill" id="Aqm-8d-eya" userLabel="Undo Button">
-                                        <connections>
-                                            <action selector="undoButtonTouched:" destination="CvM-l6-OQ6" id="TIp-MI-pBv"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem image="redo-fill" id="yWL-BD-cWc" userLabel="Redo Button">
-                                        <connections>
-                                            <action selector="redoButtonTouched:" destination="CvM-l6-OQ6" id="rMj-Iw-Fi6"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem image="Brush-50" id="MSJ-ij-Vz2">
-                                        <connections>
-                                            <action selector="enterDrawModeButtonTouched:" destination="CvM-l6-OQ6" id="x35-sE-lOW"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem image="view" id="5Wx-8p-Syv">
-                                        <connections>
-                                            <action selector="enterViewModeButtonTouched:" destination="CvM-l6-OQ6" id="yvU-yw-Zxt"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                                <color key="tintColor" red="0.95693260732323226" green="0.58429610144544308" blue="0.15809299782474204" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="barTintColor" red="0.14117647058823529" green="0.20784313725490197" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
-                            </toolbar>
+                            </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progressViewStyle="bar" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="1Hh-pd-Rdh">
                                 <rect key="frame" x="0.0" y="44" width="1366" height="7"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -784,13 +797,6 @@
                                     <constraint firstAttribute="height" constant="6" id="BLO-1o-BIr"/>
                                 </constraints>
                             </progressView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDQ-w3-f15" userLabel="note tag button view" customClass="NoteProgressView" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="1366" height="0.0"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" id="IbQ-nT-mSJ"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSW-8m-Ccs" userLabel="Note List View">
                                 <rect key="frame" x="1366" y="44" width="240" height="684"/>
                                 <subviews>
@@ -818,7 +824,7 @@
                                                             <state key="normal" image="bubble-chat"/>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKq-Ge-YZO">
-                                                            <rect key="frame" x="40" y="8" width="183" height="20.5"/>
+                                                            <rect key="frame" x="40" y="8" width="183" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -863,7 +869,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIE-lh-TR1">
-                                                            <rect key="frame" x="40" y="8" width="105" height="20.5"/>
+                                                            <rect key="frame" x="40" y="8" width="105" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="1" green="0.65132568065910368" blue="0.0032251161040897092" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -941,13 +947,59 @@
                                     <constraint firstItem="qvh-wu-zwh" firstAttribute="top" secondItem="jSW-8m-Ccs" secondAttribute="top" constant="44" id="aSm-PW-UY1"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etH-Cc-n2H" userLabel="TutorialControlPanel">
+                                <rect key="frame" x="443" y="468" width="480" height="88"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ldY-xu-0RO">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="88"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.60000002384185791" contentMode="center" id="JwF-dJ-LGt">
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="88"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ot-v2-E6x" customClass="CleanToolBar" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="22" width="480" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="yD4-1A-m3B"/>
+                                                    </constraints>
+                                                    <items>
+                                                        <barButtonItem title="上一步" id="QCT-27-t4K" userLabel="Replay Button "/>
+                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="bdo-zK-sed"/>
+                                                        <barButtonItem image="replay" width="48" id="eTu-qR-Pph" customClass="PlayPauseButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target"/>
+                                                        <barButtonItem width="24" style="plain" systemItem="fixedSpace" id="4RO-6J-TjW"/>
+                                                        <barButtonItem image="play-arrow" width="48" id="wT9-ai-wfv" userLabel="Replay Button "/>
+                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="oBa-wj-zUm"/>
+                                                        <barButtonItem title="下一步" id="AGX-T0-CMS" customClass="PlayPauseButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target"/>
+                                                    </items>
+                                                    <color key="tintColor" red="0.1333333333" green="0.1843137255" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </toolbar>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="8ot-v2-E6x" firstAttribute="leading" secondItem="JwF-dJ-LGt" secondAttribute="leading" id="8Vp-uB-sX0"/>
+                                                <constraint firstItem="8ot-v2-E6x" firstAttribute="centerY" secondItem="JwF-dJ-LGt" secondAttribute="centerY" id="UR9-jU-xHW"/>
+                                                <constraint firstAttribute="trailing" secondItem="8ot-v2-E6x" secondAttribute="trailing" id="iA5-em-ubX"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="light"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="5CS-8G-hL5"/>
+                                    <constraint firstAttribute="width" constant="480" id="5UM-37-pHU"/>
+                                    <constraint firstAttribute="bottom" secondItem="ldY-xu-0RO" secondAttribute="bottom" id="JIs-em-hQg"/>
+                                    <constraint firstItem="ldY-xu-0RO" firstAttribute="top" secondItem="etH-Cc-n2H" secondAttribute="top" id="SHw-X9-d0H"/>
+                                    <constraint firstItem="ldY-xu-0RO" firstAttribute="leading" secondItem="etH-Cc-n2H" secondAttribute="leading" id="Xza-Sr-0RY"/>
+                                    <constraint firstAttribute="trailing" secondItem="ldY-xu-0RO" secondAttribute="trailing" id="b5K-Hy-sR7"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.26918385849837945" green="0.27169911649214662" blue="0.26782851532653718" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="1Hh-pd-Rdh" firstAttribute="top" secondItem="Olf-xl-ZcA" secondAttribute="bottom" id="4dp-t8-wPe"/>
                             <constraint firstItem="jSW-8m-Ccs" firstAttribute="top" secondItem="MuV-st-KEp" secondAttribute="topMargin" constant="44" id="5I8-H2-D4K"/>
-                            <constraint firstItem="SN7-H1-MBs" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" constant="683" id="5M1-51-bYc"/>
+                            <constraint firstItem="SN7-H1-MBs" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="5M1-51-bYc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Sqb-ps-IXx" secondAttribute="trailing" constant="100" id="7Mz-Bm-gaN"/>
                             <constraint firstAttribute="trailing" secondItem="fDQ-w3-f15" secondAttribute="trailing" id="8lS-X5-5Sx"/>
                             <constraint firstItem="AqB-Ps-H0o" firstAttribute="centerY" secondItem="MuV-st-KEp" secondAttribute="centerY" constant="-110" id="GYh-G1-9TF"/>
@@ -957,29 +1009,39 @@
                             <constraint firstItem="fDQ-w3-f15" firstAttribute="top" secondItem="1Hh-pd-Rdh" secondAttribute="bottom" id="K3D-hX-kxe"/>
                             <constraint firstItem="gUm-BN-wQb" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="KCF-d6-U5f"/>
                             <constraint firstItem="jSW-8m-Ccs" firstAttribute="bottom" secondItem="MuV-st-KEp" secondAttribute="bottomMargin" constant="-296" id="L7i-Xi-oB0"/>
+                            <constraint firstItem="etH-Cc-n2H" firstAttribute="centerY" secondItem="MuV-st-KEp" secondAttribute="centerY" id="Ld2-bQ-rb7"/>
+                            <constraint firstItem="1Hh-pd-Rdh" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leadingMargin" constant="20" id="MQU-eZ-Hxe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1Hh-pd-Rdh" secondAttribute="trailing" constant="20" id="Qx1-QP-OgP"/>
                             <constraint firstItem="SN7-H1-MBs" firstAttribute="leading" secondItem="gUm-BN-wQb" secondAttribute="trailing" id="RIt-GP-NUk"/>
                             <constraint firstItem="x6p-iR-vVk" firstAttribute="top" secondItem="kJ8-DN-Lbb" secondAttribute="bottom" constant="100" id="Wg8-ms-swT"/>
+                            <constraint firstItem="etH-Cc-n2H" firstAttribute="centerX" secondItem="MuV-st-KEp" secondAttribute="centerX" id="YiE-MA-tow"/>
                             <constraint firstItem="x6p-iR-vVk" firstAttribute="top" secondItem="uDh-fp-jmM" secondAttribute="bottom" id="bA1-4j-Xas"/>
                             <constraint firstItem="1Hh-pd-Rdh" firstAttribute="top" secondItem="jSW-8m-Ccs" secondAttribute="top" id="bWr-Rh-1tw"/>
-                            <constraint firstItem="Olf-xl-ZcA" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" id="dqR-IF-Tmx"/>
                             <constraint firstItem="fDQ-w3-f15" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="eKD-TV-gfR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SN7-H1-MBs" secondAttribute="trailing" constant="-20" id="eTx-FZ-Pdl"/>
+                            <constraint firstItem="Olf-xl-ZcA" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="fLY-5M-qtJ"/>
                             <constraint firstAttribute="trailing" secondItem="jSW-8m-Ccs" secondAttribute="trailing" constant="-240" id="fw3-zc-TC4"/>
                             <constraint firstItem="SN7-H1-MBs" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" id="g08-3J-7Ae"/>
-                            <constraint firstItem="SN7-H1-MBs" firstAttribute="top" secondItem="Olf-xl-ZcA" secondAttribute="top" id="hTV-fg-cTk"/>
                             <constraint firstItem="uDh-fp-jmM" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" id="ipR-1F-LQd"/>
+                            <constraint firstItem="Olf-xl-ZcA" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" id="jaN-SK-y90"/>
                             <constraint firstAttribute="trailing" secondItem="1Hh-pd-Rdh" secondAttribute="trailing" id="kTT-aJ-kMa"/>
                             <constraint firstItem="1Hh-pd-Rdh" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="mun-Bo-ARe"/>
                             <constraint firstItem="AqB-Ps-H0o" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="orb-6L-jHd"/>
                             <constraint firstItem="L8j-bc-JHr" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leadingMargin" constant="10" id="pnq-Qe-Tof"/>
                             <constraint firstItem="x6p-iR-vVk" firstAttribute="top" secondItem="SN7-H1-MBs" secondAttribute="bottom" id="qho-96-1eR"/>
                             <constraint firstItem="Sqb-ps-IXx" firstAttribute="top" secondItem="1Hh-pd-Rdh" secondAttribute="bottom" constant="94" id="r7j-Y5-UbC"/>
-                            <constraint firstAttribute="trailing" secondItem="Olf-xl-ZcA" secondAttribute="trailing" id="sKZ-0d-VYX"/>
                             <constraint firstItem="gUm-BN-wQb" firstAttribute="top" secondItem="MuV-st-KEp" secondAttribute="topMargin" id="u17-BG-DwD"/>
-                            <constraint firstItem="Olf-xl-ZcA" firstAttribute="leading" secondItem="MuV-st-KEp" secondAttribute="leading" id="xyt-VB-ylK"/>
+                            <constraint firstAttribute="trailing" secondItem="Olf-xl-ZcA" secondAttribute="trailing" id="x7l-9C-aJZ"/>
+                            <constraint firstItem="1Hh-pd-Rdh" firstAttribute="top" secondItem="gDu-0m-duq" secondAttribute="bottom" constant="44" id="xqR-nR-Ahf"/>
                         </constraints>
                         <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="gUm-BN-wQb"/>
+                                <exclude reference="uDh-fp-jmM"/>
+                            </mask>
                             <mask key="constraints">
+                                <exclude reference="MQU-eZ-Hxe"/>
+                                <exclude reference="Qx1-QP-OgP"/>
                                 <exclude reference="bWr-Rh-1tw"/>
                             </mask>
                         </variation>
@@ -1002,7 +1064,7 @@
                         <outlet property="doublePlayBackButton" destination="ZLT-D1-yer" id="XIo-oz-B4b"/>
                         <outlet property="doubleTapSingleTouchGestureRecognizer" destination="eUK-89-mT0" id="HTL-Zd-SkP"/>
                         <outlet property="editNoteButton" destination="Phw-cx-3Rf" id="Ac5-ET-aTK"/>
-                        <outlet property="enterDrawModeButton" destination="MSJ-ij-Vz2" id="x5u-n5-VnY"/>
+                        <outlet property="enterDrawModeButton" destination="MSJ-ij-Vz2" id="Qf4-MV-3UR"/>
                         <outlet property="enterViewModeButton" destination="5Wx-8p-Syv" id="lDv-SB-YSh"/>
                         <outlet property="hueView" destination="HM2-rj-SlN" id="uJG-Nb-tIf"/>
                         <outlet property="imageView" destination="QFq-cn-qe8" id="7Ha-30-CDY"/>
@@ -1020,6 +1082,7 @@
                         <outlet property="panGestureRecognizer" destination="pUw-RS-vpk" id="BKk-DE-GOa"/>
                         <outlet property="playPauseButton" destination="EvQ-J5-ScH" id="Nd7-lb-Ib5"/>
                         <outlet property="playbackControlPanel" destination="kJ8-DN-Lbb" id="Wxm-UU-k7R"/>
+                        <outlet property="redoButton" destination="dTA-xn-bxy" id="0U8-Bz-cMl"/>
                         <outlet property="replayProgressBar" destination="1Hh-pd-Rdh" id="gg5-SC-0Yx"/>
                         <outlet property="reviseDoneButton" destination="o0N-mX-nnA" id="LmU-Dp-8K4"/>
                         <outlet property="showToolButton" destination="L8j-bc-JHr" id="mFg-mr-Ktm"/>
@@ -1027,6 +1090,7 @@
                         <outlet property="singleTapSingleTouchGestureRecognizer" destination="Cee-G3-rlP" id="Hln-8O-yPc"/>
                         <outlet property="toolView" destination="AqB-Ps-H0o" id="MtK-RG-SHs"/>
                         <outlet property="toolViewLeadingConstraint" destination="orb-6L-jHd" id="qxA-1B-lNB"/>
+                        <outlet property="undoButton" destination="jZd-qP-tyT" id="Ztg-PQ-RNj"/>
                         <outletCollection property="nearbyColorButtons" destination="f2J-gR-NUh" collectionClass="NSMutableArray" id="t8V-zy-nKV"/>
                         <outletCollection property="nearbyColorButtons" destination="8bv-jj-QNg" collectionClass="NSMutableArray" id="Wou-xb-yQC"/>
                         <outletCollection property="nearbyColorButtons" destination="eSM-vs-K00" collectionClass="NSMutableArray" id="b5R-M3-ubu"/>
@@ -1038,7 +1102,6 @@
                         <outletCollection property="nearbyColorButtons" destination="X18-zB-b5a" collectionClass="NSMutableArray" id="LzU-yQ-3Ke"/>
                     </connections>
                 </viewController>
-                <barButtonItem width="22" style="plain" systemItem="fixedSpace" id="Vvk-Sq-IbY"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5l-Ye-bTM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pinchGestureRecognizer id="H61-HT-vFb">
                     <connections>
@@ -1077,6 +1140,7 @@
                         <action selector="dragBoundGestureHandler:" destination="CvM-l6-OQ6" id="XUe-nb-5QZ"/>
                     </connections>
                 </panGestureRecognizer>
+                <barButtonItem width="22" style="plain" systemItem="fixedSpace" id="Vvk-Sq-IbY"/>
             </objects>
             <point key="canvasLocation" x="1662" y="451"/>
         </scene>

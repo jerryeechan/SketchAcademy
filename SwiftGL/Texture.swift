@@ -18,7 +18,7 @@ import UIKit
 #endif
 
 
-func DLog(message: String, filename: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__){
+func DLog(message: String, filename: String = #file, line: Int = #line, function: String = #function){
         print("\((filename as NSString).lastPathComponent):\(line) \(function):\(message)")
 }
 public class Texture {

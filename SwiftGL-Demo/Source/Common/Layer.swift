@@ -30,10 +30,6 @@ class Layer:NSObject{
     {
         super.init()
     }
-    deinit
-    {
-        glDeleteTextures(1,[texture.id])
-    }
     
     func clean()
     {

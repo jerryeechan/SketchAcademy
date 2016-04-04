@@ -126,7 +126,7 @@ class NoteManager {
     {
         getSortedKeys()
         DLog("\(sortedKeys)")
-        for var i=0; i<sortedKeys.count; i++
+        for i in 0 ..< sortedKeys.count
         {
             if strokeID < sortedKeys[i]
             {

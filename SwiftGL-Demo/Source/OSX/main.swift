@@ -2,8 +2,8 @@
 //  main.swift
 //  SwiftGL-Demo
 //
-//  Created by Scott Bennett on 2014-06-09.
-//  Copyright (c) 2014 Scott Bennett. All rights reserved.
+//  Created by Jerry Chan on 2015-02-23.
+//  Copyright (c) 2015 Jerry Chan. All rights reserved.
 //
 
 

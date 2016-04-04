@@ -13,7 +13,8 @@ class PaintView: GLKView {
     var glcontext:EAGLContext!
     var eaglLayer:CAEAGLLayer!
     
-    var glContextBuffer:GLContextBuffer!
+    var paintBuffer:GLContextBuffer!
+    var tutorialBuffer:GLContextBuffer!
     var glTransformation:GLTransformation!
 
     var translation:CGPoint = CGPoint(x: 0, y: 0)
@@ -93,23 +94,22 @@ class PaintView: GLKView {
         print(dirContents)
         
         EAGLContext.setCurrentContext(self.glcontext)
-        
+        glcontext.multiThreaded = true
         eaglLayer = layer as! CAEAGLLayer
         
         eaglLayer.drawableProperties = [kEAGLDrawablePropertyColorFormat:kEAGLColorFormatRGBA8,kEAGLDrawablePropertyRetainedBacking:true]
         
         print("PaintView: create shader")
         
-        glContextBuffer = GLContextBuffer()
+        paintBuffer = GLContextBuffer()
         print("PaintView: create context buffer")
 
         
         
-        glTransformation = GLTransformation(width: glContextBuffer.imgWidth, height: glContextBuffer.imgHeight)
+        glTransformation = GLTransformation()
         print("PaintView: create transformation")
         
-        layer.magnificationFilter = kCAFilterNearest
-        
+        //layer.magnificationFilter = kCAFilterNearest
         
         //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         //glBlendFunc (GL_ONE, GL_ZERO);
@@ -123,24 +123,54 @@ class PaintView: GLKView {
         
         return true
     }
-    
+    var canvasWidth:Float!
+    var canvasHeight:Float!
     
     func resizeLayer()
     {
-        
-        glContextBuffer.resizeLayer(eaglLayer)
         let width:GLint = GLint(frame.width * contentScaleFactor)//GLContextBuffer.instance.backingWidth
         let height:GLint = GLint(frame.height * contentScaleFactor) //GLContextBuffer.instance.backingHeight
+        canvasWidth = Float(width)
+        canvasHeight = Float(height)
         glTransformation.resize(width, height: height)
-        
+        switch PaintViewController.appMode
+        {
+        case .InstructionTutorial:
+            paintBuffer.resizeLayer(width/2,height: height,offsetX: Float(width/2))
+            tutorialBuffer = GLContextBuffer()
+            tutorialBuffer.resizeLayer(width/2, height: height, offsetX: 0)
+            GLShaderBinder.instance.setSize(Float(width/2), height: Float(height))
+            
+        default:
+            paintBuffer.resizeLayer(width,height: height,offsetX: 0)
+            GLShaderBinder.instance.setSize(Float(width), height: Float(height))
+        }
         //GLContextBuffer.instance.blank()
         //PaintView.display()
 
     }
-    override func drawRect(rect: CGRect) {
-        glContextBuffer.display()
-    }
     
+    override func drawRect(rect: CGRect) {
+        glEnable(GL_BLEND);
+        glBlendEquation(GLenum(GL_FUNC_ADD))
+        glBlendFunc (GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        //clear renderbuffer first
+        glClearColor(0, 0, 0, 0)
+        glClear(GL_COLOR_BUFFER_BIT )//| GL_DEPTH_BUFFER_BIT)
+        paintBuffer.display()
+        if tutorialBuffer != nil
+        {
+            tutorialBuffer.display()
+            drawSeperator()
+        }
+    }
+    func drawSeperator()
+    {
+        let seperatorWidth:Float = 10
+        let rect = GLRect(p1: Vec2(canvasWidth/2-seperatorWidth,0) , p2: Vec2(canvasWidth/2+seperatorWidth,canvasHeight))
+        tutorialBuffer.drawFillRectangle(rect, color: Vec4(1,0.1,0.15,1))
+        tutorialBuffer.drawGrid(20)
+    }
     /*
     override func drawRect(rect: CGRect) {
         //Engine.render()

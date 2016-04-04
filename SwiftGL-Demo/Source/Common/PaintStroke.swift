@@ -44,7 +44,7 @@ class PaintStroke
     func genPointsFromPointData()
     {
         points = []
-        for var i = 0; i < pointData.count ;i++
+        for i in 0 ..< pointData.count 
         {
             points.append(pointData[i].paintPoint)
         }

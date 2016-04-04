@@ -91,7 +91,7 @@
 		C491EC701C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491EC6E1C129F5D00154CC6 /* PaintViewControllerAction.swift */; };
 		C49404771B2A045600BB975E /* FileBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49404751B2A039500BB975E /* FileBrowseViewController.swift */; };
 		C49404791B2A0D7400BB975E /* SaveFileDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49404781B2A0D7400BB975E /* SaveFileDialogViewController.swift */; };
-		C49E21671B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E21661B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift */; };
+		C49E21671B5E3E6D00D5A821 /* GLRenderCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E21661B5E3E6D00D5A821 /* GLRenderCanvas.swift */; };
 		C4A0A9A41B8C1E7200190A33 /* NoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0A9A31B8C1E7200190A33 /* NoteManager.swift */; };
 		C4A0A9A61B8D3EFA00190A33 /* SubViewAnimationGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0A9A51B8D3EFA00190A33 /* SubViewAnimationGestureHandler.swift */; };
 		C4A2DF331BA3506E00805CE6 /* GetPointColorInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2DF311BA3503700805CE6 /* GetPointColorInView.swift */; };
@@ -344,7 +344,7 @@
 		C493D38D1B0CEE76001AB262 /* PaintBrush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintBrush.swift; sourceTree = "<group>"; };
 		C49404751B2A039500BB975E /* FileBrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowseViewController.swift; sourceTree = "<group>"; };
 		C49404781B2A0D7400BB975E /* SaveFileDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveFileDialogViewController.swift; sourceTree = "<group>"; };
-		C49E21661B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRenderTextureFrameBuffer.swift; sourceTree = "<group>"; };
+		C49E21661B5E3E6D00D5A821 /* GLRenderCanvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRenderCanvas.swift; sourceTree = "<group>"; };
 		C4A0A9A31B8C1E7200190A33 /* NoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteManager.swift; sourceTree = "<group>"; };
 		C4A0A9A51B8D3EFA00190A33 /* SubViewAnimationGestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubViewAnimationGestureHandler.swift; path = ../SubViewAnimationGestureHandler.swift; sourceTree = "<group>"; };
 		C4A2DF311BA3503700805CE6 /* GetPointColorInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPointColorInView.swift; sourceTree = "<group>"; };
@@ -845,7 +845,7 @@
 				C4B10D771B0E3FC0001BAAAB /* GLContextBuffer.swift */,
 				C4C5B9B71B0EFB1200D6AD4B /* GLTransformation.swift */,
 				C433EEBA1B5D332F00D5175F /* GLLine.swift */,
-				C49E21661B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift */,
+				C49E21661B5E3E6D00D5A821 /* GLRenderCanvas.swift */,
 				C44609261B7A571A00C34D04 /* GLRect.swift */,
 				C401FAEB1B8D6D9A00B6F177 /* GLRenderBuffer.swift */,
 			);
@@ -1592,7 +1592,7 @@
 				C40C2E5C1C703195006A165F /* PlayPauseButton.swift in Sources */,
 				C41AD54B1C97AE9C00317E41 /* ModelViewProjectionProtocol.swift in Sources */,
 				C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */,
-				C49E21671B5E3E6D00D5A821 /* GLRenderTextureFrameBuffer.swift in Sources */,
+				C49E21671B5E3E6D00D5A821 /* GLRenderCanvas.swift in Sources */,
 				C44747781B83065E0093F019 /* CanvasCropView.swift in Sources */,
 				C491EC701C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */,
 				C4C390F41C7A54A60018A1C9 /* QTouchposeApplication.m in Sources */,

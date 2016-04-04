@@ -66,7 +66,7 @@ class ColorPicker: UIView {
         // Init new ColorGradientView subview
 //        colorView = ColorGradientView(frame: CGRect(x: smallestDim/4, y: smallestDim/4, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
 
-        //~~colorView = ColorGradientView(frame: CGRect(x: 40, y: 0, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
+        //colorView = ColorGradientView(frame: CGRect(x: 40, y: 0, width: smallestDim, height: smallestDim), color: UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0))
         
         // Add colorGradientView as a subview of this view
         

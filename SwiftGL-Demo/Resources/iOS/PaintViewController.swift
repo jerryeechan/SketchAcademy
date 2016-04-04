@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 Scott Bennett. All rights reserved.
 //
 
-func DLog(message: String, filename: String = __FILE__, line: Int = __LINE__, function: String = __FUNCTION__){
+func DLog(message: String, filename: String = #file, line: Int = #line, function: String = #function){
     #if DEBUG
          print("\((filename as NSString).lastPathComponent):\(line):\(message)")
     #else
@@ -32,7 +32,7 @@ var themeLightColor = uIntColor(244, green: 149, blue: 40, alpha: 255)
 class PaintViewController:UIViewController, UIGestureRecognizerDelegate
 {
     
-    
+    static var appMode:ApplicationMode = ApplicationMode.ArtWorkCreation
     //UI size attributes
     var viewWidth:CGFloat!
     
@@ -134,11 +134,13 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         canvasBGView.addSubview(paintView)
         paintView.addGestureRecognizer(singlePanGestureRecognizer)
         
-        
+        paintManager = PaintManager(paintView:paintView)
         /*3*/
         //  paintManager init
         
-        paintManager = PaintManager(paintView:paintView)
+        
+        
+        
         
         //paintManager = PaintManager(paintView: paintView, instructionView: instructionView)
         //the OpenCV
@@ -150,13 +152,13 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         
         nearbyColorButtons = nearbyColorButtons.sort({b1,b2 in return b1.tag > b2.tag})
         colorPicker.setup(hueView, colorGradientView: colorGradientView)
-        colorPicker.onColorChange = {[weak self](unowned color, finished) in
+        colorPicker.onColorChange = {[weak self](color, finished) in
             if finished {
                 //self.view.backgroundColor = UIColor.whiteColor() // reset background color to white
                 DLog("finished")
             } else {
                 //self.view.backgroundColor = color // set background color to current selected color (finger is still down)
-                self!.paintView.glContextBuffer.paintToolManager.changeColor(color)
+                self!.paintView.paintBuffer.paintToolManager.changeColor(color)
                 let colors = getNearByColor(color)
                 
                 for i in 0...8
@@ -168,44 +170,70 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             }
         }
         
-        paintView.glContextBuffer.paintToolManager.useCurrentTool()
+        paintView.paintBuffer.paintToolManager.useCurrentTool()
+        
         
         if(fileName != nil)
         {
             NoteManager.instance.loadNotes(fileName)
+            
+            
+            paintManager.loadArtwork(self.fileName)
+            paintManager.artwork.currentClip.onStrokeIDChanged = {[weak self](id,count) in
+                self!.onStrokeProgressChanged(id, totalStrokeCount: count)
+            }
+            paintView.glDraw()
+            setup()
+            
+            /*
             dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)) { // 1
-                if self.isDrawDone == true
-                {
+                
                     self.isDrawDone = false
                     dispatch_async(dispatch_get_main_queue()) { // 2
                         self.paintManager.loadArtwork(self.fileName)
+                        self.paintManager.artwork.currentClip.onStrokeIDChanged = {[weak self](id,count) in
+                            self!.onStrokeProgressChanged(id, totalStrokeCount: count)                            
+                        }
+
+                        self.paintView.glDraw()
                         self.isDrawDone = true
+                        self.setup()
                     }
-                }
-            }
-            
+            }*/
         }
         else
         {
+            paintManager.newArtwork()
+            paintManager.artwork.currentClip.onStrokeIDChanged = {[weak self](id,count) in
+                self!.onStrokeProgressChanged(id, totalStrokeCount: count)
+                
+            }
             NoteManager.instance.empty()
             paintView.glDraw()
+            setup()
         }
+        
+        
+        //initMode(paintMode)
+
+    }
+    func setup()
+    {
         viewWidth = view.contentScaleFactor * view.frame.width
         noteListTableView.reloadData()
         noteProgressButtonSetUp()
         noteEditSetUp()
         replayControlSetup()
         gestureHandlerSetUp()
-        initMode(paintMode)
-
+        enterDrawMode()
     }
-    
     override func viewDidAppear(animated: Bool) {
         colorPicker.setTheColor(UIColor(hue: 0, saturation: 0.0, brightness: 0.2, alpha: 1.0))
         
         //paintManager.playArtworkClip()
     }
     
+    /*
     func initMode(paintMode:PaintMode)
     {
         switch(paintMode)
@@ -220,7 +248,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             enterViewMode()
         }
     }
-    
+    */
     
     @IBOutlet weak var ToolKnob: UIView!
     
@@ -243,7 +271,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     
     @IBAction func brushScaleSliderChanged(sender: UISlider) {
-        paintView.glContextBuffer.paintToolManager.changeSize(sender.value)
+        paintView.paintBuffer.paintToolManager.changeSize(sender.value)
     }
     
     //note related
@@ -344,22 +372,9 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         toolViewState.animateHide(0.2)
     }
     
-    @IBAction func undoButtonTouched(sender: UIBarButtonItem) {
-        if appState == .drawArtwork
-        {
-            
-            paintManager.currentReplayer.drawStrokeProgress(paintManager.currentReplayer.currentStrokeID-1)
-        }
-    }
     
-    @IBAction func redoButtonTouched(sender: UIBarButtonItem) {
-        if appState == .drawArtwork
-        {
-            paintManager.currentReplayer.drawStrokeProgress(paintManager.currentReplayer.currentStrokeID+1)
-        }
-    }
     @IBAction func doubleTapEraserHandler(sender: UIButton) {
-        paintView.glContextBuffer.blank()
+        paintView.paintBuffer.blank()
         paintView.glDraw()
     }
     
@@ -438,6 +453,10 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     //進入繪圖模式
     @IBOutlet var enterDrawModeButton: UIBarButtonItem!
+    
+    @IBOutlet weak var undoButton: UIBarButtonItem!
+    
+    @IBOutlet weak var redoButton: UIBarButtonItem!
     
     @IBOutlet var dismissButton: UIBarButtonItem!
    

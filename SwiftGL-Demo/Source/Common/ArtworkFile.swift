@@ -59,8 +59,8 @@ class ArtworkFile:File{
     {
         
         data = NSMutableData()
-
-        encodeClip(artwork.masterClip)
+        
+        encodeClip(artwork.useMasterClip())
         //encodeStruct(artwork.revisionClips.count)
         
         /*
@@ -81,7 +81,7 @@ class ArtworkFile:File{
         let strokes = clip.strokes
         encodeStruct(clip.branchAtIndex)
         encodeStruct(strokes.count)
-        for var i=0;i<strokes.count; i++
+        for i in 0 ..< strokes.count
         {
             let strInfo = strokes[i].stringInfo
             let pointData = strokes[i].pointData
@@ -113,7 +113,7 @@ class ArtworkFile:File{
             currentPtr = 0
             
             let artwork =  PaintArtwork()
-            parseClip(artwork.masterClip)
+            parseClip(artwork.useMasterClip())
             
             /*
             let revisionCount:Int = parseStruct()
@@ -137,7 +137,7 @@ class ArtworkFile:File{
         clip.branchAtIndex = parseStruct()
         
         let strokeCount:Int = parseStruct()
-        for var i=0; i < strokeCount; i++ {
+        for _ in 0 ..< strokeCount {
             //parse string info
             var tSI = parseToolStringInfo(parseData)
             var tVI:ToolValueInfo

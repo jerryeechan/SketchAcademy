@@ -26,7 +26,7 @@ class FaceComponentSet {
         componentsSet.sortComponents()
         
         var score:Float = 0
-        for var i = 0; i < components.count; i++
+        for i in 0 ..< components.count
         {
             let dis = (components[i].getPos() - componentsSet.components[i].getPos()).length
             score += dis
@@ -50,7 +50,7 @@ class FaceComponentSet {
         {
             var mindis:Float = 10000
             var minId = 0
-            for var i=0; i < pos.count; i++
+            for i in 0 ..< pos.count
             {
                 let dis = (comps[0].getPos() - pos[i].getPos()).length
                 if(dis < mindis)

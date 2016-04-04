@@ -127,7 +127,7 @@ class FileManager {
         let extPredicate = NSPredicate(format: "self ENDSWITH '\(format)'")
         var fileNames = (dirContents! as NSArray).filteredArrayUsingPredicate(extPredicate) as! [String]
         
-        for var i = 0;i<fileNames.count;i++
+        for i in 0 ..< fileNames.count
         {
             fileNames[i] = NSString(string: fileNames[i]).stringByDeletingPathExtension
         }

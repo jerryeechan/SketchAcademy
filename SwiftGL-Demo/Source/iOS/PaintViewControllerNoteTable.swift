@@ -15,6 +15,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteTableCell
         let note = NoteManager.instance.getOrderedNote(indexPath.row)
+        
         if paintManager.artwork.revisionClips[note.value.strokeIndex] != nil
         {
             cell.iconButton.setImage(UIImage(named: "Pen-50.png"), forState: UIControlState.Normal)
@@ -272,7 +273,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
             NoteManager.instance.updateOrderedNote(selectedPath.row, title: noteEditTitleTextField.text!,description: noteEditTextView.text)
         case NoteEditMode.New:
             print("New Note", terminator: "")
-            let at = paintManager.getMasterStrokeID()
+            let at = paintManager.getCurrentStrokeID()
             let note = NoteManager.instance.getNoteAtStroke(at)
             if  note != nil
             {

@@ -16,6 +16,7 @@ enum PaintToolType:Int{
 }
 public class PaintToolManager {
     
+    let brushTextureLoader:BrushTextureLoader = BrushTextureLoader()
     
     var colorInPalette:Color = Color(25,25,25,125)
     var pen:PaintBrush!
@@ -111,7 +112,6 @@ public class PaintToolManager {
         
         //GLContextBuffer.instance.setReplayDrawSetting()
         eraser.useTool()
-        print("use eraser", terminator: "")
     }
     // var isToolAttributeChanged:Bool = true
     func loadToolValueInfo(valueInfo:ToolValueInfo)
@@ -145,5 +145,9 @@ public class PaintToolManager {
     func changeSize(size:Float)
     {
         currentTool.changeSize(size)
+    }
+    deinit
+    {
+        
     }
 }

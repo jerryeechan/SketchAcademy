@@ -40,7 +40,6 @@ class TextureShader: GLShaderWrapper {
         let v4 = ImageVertice(position:Vec4(rightBottom.x,rightBottom.y), textureCoordinate: Vec4(rbx,rby))
         
         imageVertices = [v1,v2,v3,v4]
-        
     }
     var imageVertices:[ImageVertice] = []
     

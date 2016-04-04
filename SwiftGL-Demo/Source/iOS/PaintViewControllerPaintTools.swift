@@ -31,14 +31,14 @@ extension PaintViewController
             size = 10
         }
         
-        paintView.glContextBuffer.paintToolManager.changeSize(size)
+        paintView.paintBuffer.paintToolManager.changeSize(size)
     }
     
     
     
     @IBAction func brushScaleSliderValueChanged(sender: UISlider) {
         let value = sender.value
-        paintView.glContextBuffer.paintToolManager.changeSize(value);
+        paintView.paintBuffer.paintToolManager.changeSize(value);
     }
     
     @IBAction func nearByColorButtonClicked(sender:UIButton)
@@ -51,11 +51,11 @@ extension PaintViewController
         switch(sender.tag)
         {
         case 0:
-            paintView.glContextBuffer.paintToolManager.changeTool("pen")
+            paintView.paintBuffer.paintToolManager.changeTool("pen")
         case 1:
-            paintView.glContextBuffer.paintToolManager.changeTool("eraser")
+            paintView.paintBuffer.paintToolManager.changeTool("eraser")
         default:
-           paintView.glContextBuffer.paintToolManager.changeTool("pen")
+           paintView.paintBuffer.paintToolManager.changeTool("pen")
         }
         
     }

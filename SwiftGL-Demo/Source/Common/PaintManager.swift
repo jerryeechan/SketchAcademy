@@ -14,53 +14,60 @@ enum ViewingClipType
     case Artwork
     case Revision
 }
+
 class PaintManager {
     
     weak var paintView:PaintView!
-    weak var instructionView:PaintView!
+    
     var openArtworkFileName:String!
     
-    let paintRecorder:PaintRecorder
-    let masterReplayer:PaintReplayer
-    let revisionReplayer:PaintReplayer
     var artwork:PaintArtwork!
-    var currentRevisionClip:PaintClip!
+    var tutorialArtwork:PaintArtwork!
     
-    //var paintMode:PaintMode = .Artwork
-    var currentReplayer:PaintReplayer
+    var replayTargetArtwork:PaintArtwork!
+    
+    let paintRecorder:PaintRecorder
+    var currentReplayer:PaintReplayer!
+    
     var viewingClipType:ViewingClipType = .Artwork
+    
     
     init(paintView:PaintView)
     {
         self.paintView = paintView
-        masterReplayer = PaintReplayer(paintView: paintView)
-        paintRecorder = PaintRecorder(canvas: paintView.glContextBuffer)
-        revisionReplayer = PaintReplayer(paintView: paintView)
-        currentReplayer = masterReplayer
-        newArtwork()
+        switch PaintViewController.appMode
+        {
+        case ApplicationMode.InstructionTutorial:
+            paintRecorder = PaintRecorder(canvas: paintView.paintBuffer)
+            
+        default:
+            paintRecorder = PaintRecorder(canvas: paintView.paintBuffer)
+            //artwork.setReplayer(paintView)
+            
+        }
+        
     }
-    init(paintView:PaintView,instructionView:PaintView)
-    {
-        self.paintView = paintView
-        self.instructionView = instructionView
-        paintRecorder = PaintRecorder(canvas: paintView.glContextBuffer)
-        masterReplayer = PaintReplayer(paintView: instructionView)
-        revisionReplayer = PaintReplayer(paintView: instructionView)
-        currentReplayer = masterReplayer
-        newArtwork()
-    }
+    
+    
+    
+    
     func newArtwork()
     {
         artwork = nil
         artwork = PaintArtwork()
-        paintRecorder.setRecordClip(artwork.masterClip)
-        masterReplayer.loadClip(artwork.masterClip)
+        let clip = artwork.useMasterClip()
+        paintRecorder.setRecordClip(clip)
+        artwork.setReplayer(paintView)
+        artwork.masterReplayer.loadClip(clip)
+        currentReplayer = artwork.masterReplayer
+        replayTargetArtwork = artwork
+        //masterReplayer.loadClip(clip)
     }
     
     func clear()
     {
-        masterReplayer.stopPlay()
-        paintView.glContextBuffer.blank()
+        artwork.masterReplayer.stopPlay()
+        paintView.paintBuffer.blank()
     }
     func saveArtwork(filename:String,img:UIImage)
     {
@@ -70,20 +77,38 @@ class PaintManager {
     }
     func loadArtwork(filename:String)->Bool
     {
-        print("Paint Manager loadArtwork", terminator: "")
-        //GLContextBuffer.instance.blank()
-        //call filemanager to load the file to PaintArtwork
-        artwork = FileManager.instance.loadPaintArtWork(filename)
-        paintRecorder.setRecordClip(artwork.masterClip)
-        masterReplayer.loadClip(artwork.masterClip)
         NoteManager.instance.loadNotes(filename)
+        switch PaintViewController.appMode
+        {
+        case .ArtWorkCreation:
+            artwork = FileManager.instance.loadPaintArtWork(filename)
+            artwork.setReplayer(paintView)
+            artwork.loadMasterClip()
+            artwork.masterReplayer.drawAll()
+            currentReplayer = artwork.masterReplayer
+        case .InstructionTutorial:
+            artwork = PaintArtwork()
+            artwork.setReplayer(paintView)
+            artwork.loadMasterClip()
+            
+            tutorialArtwork = FileManager.instance.loadPaintArtWork(filename)
+            
+            
+            tutorialArtwork.setReplayer(paintView,type: ArtworkType.Tutorial)
+            tutorialArtwork.loadMasterClip()
+            tutorialArtwork.masterReplayer.drawAll()
+            currentReplayer = tutorialArtwork.masterReplayer
+        case .CreateTutorial:
+            break
+        }
         
+        
+        
+        
+        //instructionTutorial.setReplayer(paintView)
         if(artwork != nil)
         {
-            
-            masterReplayer.loadClip(artwork.masterClip)
-            masterReplayer.drawAll()
-            //playRevisionClip(0)
+            //draw all
             return true
         }
         else
@@ -97,41 +122,37 @@ class PaintManager {
     
     func playArtworkClip()
     {
-        masterReplayer.loadClip(artwork.masterClip)
-        revisionReplayer.stopPlay()
-        currentReplayer = masterReplayer
-        
-        paintView.glContextBuffer.setArtworkMode()
+        artwork.loadMasterClip()
+        paintView.paintBuffer.setArtworkMode()
         paintView.display()
         
     }
-    func playRevisionClip(clip:PaintClip)
+    func playRevisionClip(id:Int)
     {
-        revisionReplayer.loadClip(clip)
-        currentReplayer = revisionReplayer
-        masterReplayer.pause()
-        paintView.glContextBuffer.setRevisionMode()
+        artwork.loadRevisionClip(id)
+        paintView.paintBuffer.setRevisionMode()
         paintView.display()
         
         //revisionReplayer.restart()
     }
-    func playRevisionClip(id:Int)
-    {
-        playRevisionClip(artwork.revisionClips[id]!)
-    }
+
+    
     func playCurrentRevisionClip()
     {
-        playRevisionClip(currentRevisionClip)
+        artwork.loadCurrentRevisionClip()
+        paintView.paintBuffer.setRevisionMode()
+        paintView.display()
     }
     
     func artworkDrawModeSetUp()
     {
         //self.paintMode = .Artwork
-        paintRecorder.setRecordClip(artwork.masterClip)
-        masterReplayer.loadClip(artwork.masterClip)
+        let clip = artwork.useMasterClip()
+        paintRecorder.setRecordClip(clip)
+        artwork.masterReplayer.loadClip(clip)
         
         //OpenGL setting
-        paintView.glContextBuffer.setArtworkMode()
+        paintView.paintBuffer.setArtworkMode()
     }
     func revisionDrawModeSetUp()
     {
@@ -140,25 +161,23 @@ class PaintManager {
         let id = NoteManager.instance.selectedButtonIndex
         if(artwork.revisionClips[id] == nil){
             DLog("Revision Clip Branch at \(id) created")
-            let newClip = PaintClip(name: "revision",branchAt: id)
+            artwork.addRevisionClip(id)
+            let newClip = artwork.useRevisionClip(id)
             paintRecorder.setRecordClip(newClip)
-            artwork.revisionClips[id] = newClip
-            currentRevisionClip = newClip
-            revisionReplayer.loadClip(newClip)
+            artwork.loadRevisionClip(id)
         }
         else
         {
             DLog("Revision Clip Branch at \(id) exist")
             let clip = artwork.revisionClips[id]
             paintRecorder.setRecordClip(clip!)
-            currentRevisionClip = clip
-            revisionReplayer.loadClip(clip!)
+            artwork.loadRevisionClip(id)
         }
         
         //OpenGL setting
-        paintView.glContextBuffer.setRevisionMode()
-        revisionReplayer.drawAll()
-        paintView.display()
+        paintView.paintBuffer.setRevisionMode()
+        artwork.revisionReplayer.drawAll()
+        paintView.glDraw()
     }
     
     func revisionDrawModeSwitchToViewMode()
@@ -170,13 +189,13 @@ class PaintManager {
         case .Revision:
             playCurrentRevisionClip()
         }
+        
     }
     func artworkDrawModeSwitchToViewMode()
     {
         playArtworkClip()
-        
-        
-        currentReplayer.drawAll()
+        artwork.masterReplayer.drawAll()
+        paintView.glDraw()
     }
     /*
     func switchToViewMode()
@@ -188,39 +207,64 @@ class PaintManager {
     */
     
     
+    //return if still can undo
+    func undo()
+    {
+        let currentClip = artwork.currentClip
+        DLog("\(currentClip.strokes.count) \(currentClip.currentStrokeID)")
+        currentClip.undo()
+        artwork.currentReplayer.drawCurrentStrokeProgress(-1)
+    }
     
-    
+    func redo()
+    {
+        //currentReplayer.drawCurrentStrokeProgress(1)
+        
+        let stroke = artwork.currentClip.redo()
+        DLog("\(artwork.currentClip.currentStrokeID) \(artwork.currentClip.strokes.count)")
+        if stroke != nil
+        {
+            paintView.paintBuffer.drawStroke(stroke, layer: 0)
+            paintView.glDraw()
+        }
+        
+    }
     
     
     func pauseToggle()
     {
-        currentReplayer.pauseToggle()
+        artwork.currentReplayer.pauseToggle()
     }
     func doublePlayBackSpeed()
     {
-        currentReplayer.doublePlayBackSpeed()
+        artwork.currentReplayer.doublePlayBackSpeed()
     }
     func restart()
     {
-        currentReplayer.restart()
+        artwork.currentReplayer.restart()
     }
     
     func drawStrokeProgress(strokeID:Int)->Bool
     {
-        return currentReplayer.drawStrokeProgress(strokeID)
+        return artwork.currentReplayer.drawStrokeProgress(strokeID)
     }
     func drawProgress(percentage:Float)->Bool
     {
-        return currentReplayer.drawProgress(percentage)
+        
+        return artwork.currentReplayer.drawProgress(percentage)
     }
     
+    /*
     func getMasterStrokeID()->Int
     {
-        return masterReplayer.currentStrokeID
+        return artwork.masterClip.currentStrokeID
     }
+*/
     func getCurrentStrokeID()->Int
     {
         //print("currentStrokeID: \(currentReplayer.currentStrokeID)")
-        return currentReplayer.currentStrokeID
+        
+        return artwork.currentClip.currentStrokeID
     }
+
 }

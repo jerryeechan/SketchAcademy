@@ -37,13 +37,14 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
             
             //cell.backgroundColor = UIColor.blackColor()
             let fName = FileManager.instance.getFileName(indexPath.row-1)
-            if fName != ""
+            if fName != ".paw"
             {
                 print(fName)
                 cell.titleField.text = fName
                 cell.actionButton.tag = indexPath.row-1
                 cell.imageView.image = FileManager.instance.loadImg(fName)
             }
+            
             
             return cell
             // Configure the cell
@@ -67,7 +68,6 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
             cell.imageView.alpha = 0.5
         }
         
-        //paintViewController.paintMode = .Revision
         navigationController?.pushViewController(paintViewController, animated: true)
         
         self.collectionView(collectionView, didDeselectItemAtIndexPath: indexPath)
@@ -151,7 +151,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         let paintViewController = getViewController("paintview") as! PaintViewController
         let fileName = FileManager.instance.getFileName(selectedIndexPath.row-1)
         paintViewController.fileName = fileName
-        paintViewController.paintMode = .Revision
+        PaintViewController.appMode = ApplicationMode.InstructionTutorial
         
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
         

@@ -90,7 +90,7 @@ class SubViewPanelAnimateState {
     {
         UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
             constraint.constant = value
-            self.view!.layoutIfNeeded()
+            
             }, completion: {
             (value: Bool) in
                 self.view!.hidden = hidden

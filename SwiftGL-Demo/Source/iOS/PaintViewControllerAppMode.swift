@@ -43,6 +43,8 @@ extension PaintViewController
 {
     func enterViewMode()
     {
+        mainToolBar.barTintColor = themeLightColor
+        mainToolBar.tintColor = themeDarkColor
         singlePanGestureRecognizer.cancelsTouchesInView = true
         canvasBGView.addGestureRecognizer(singlePanGestureRecognizer)
         paintView.removeGestureRecognizer(singlePanGestureRecognizer)
@@ -76,6 +78,8 @@ extension PaintViewController
     }
     func enterDrawMode()
     {
+        mainToolBar.barTintColor = themeDarkColor
+        mainToolBar.tintColor = themeLightColor
         paintView.addGestureRecognizer(singlePanGestureRecognizer)
         canvasBGView.removeGestureRecognizer(singlePanGestureRecognizer)
         noteListViewState.animateHide(0.2)
@@ -85,7 +89,7 @@ extension PaintViewController
         noteDetailView.animateHide(0.2)
         
         //paintManager.masterReplayer.drawAll()
-        paintView.glContextBuffer.paintToolManager.usePen()
+        paintView.paintBuffer.paintToolManager.usePen()
         singlePanGestureRecognizer.cancelsTouchesInView = false
         switch(appState)
         {

@@ -41,14 +41,14 @@ class PaintRecorder {
         
         stroke = PaintStroke(tool: context.paintToolManager.currentTool)
         context.paintToolManager.useCurrentTool()
-        stroke.addPoint(genPaintPoint(sender, view: view), time: recordClip.currentTime)
+        stroke.addPoint(genPaintPoint(sender, view: view,context: context), time: 0)
         strokeStartTime = CFAbsoluteTimeGetCurrent()
     }
     func startPoint(touch:UITouch,view:PaintView)
     {
         stroke = PaintStroke(tool: context.paintToolManager.currentTool)
         context.paintToolManager.useCurrentTool()
-        stroke.addPoint(genPaintPoint(touch, view: view), time: recordClip.currentTime)
+        stroke.addPoint(genPaintPoint(touch, view: view,context: context), time: 0)
         strokeStartTime = CFAbsoluteTimeGetCurrent()
     }
     var isTemp:Bool = false
@@ -71,7 +71,7 @@ class PaintRecorder {
                 //the time is offset by the begining of the touch
                 if(!isTemp)
                 {
-                    stroke.addPoint(newPoint, time: recordClip.currentTime + time - strokeStartTime)
+                    stroke.addPoint(newPoint, time: time - strokeStartTime)
                 }
                 //var points = stroke.lastThree()
                 let points = [lastPoint,newPoint]
@@ -87,21 +87,23 @@ class PaintRecorder {
     
     func movePoint(sender:UIPanGestureRecognizer,view:PaintView)
     {
-        let newPoint = genPaintPoint(sender,view: view)
+        let newPoint = genPaintPoint(sender,view: view,context: context)
         _movePoint(newPoint)
     }
     func movePoints(touches:[UITouch],view:PaintView)
     {
+        let time = CFAbsoluteTimeGetCurrent()
         var points:[PaintPoint] = []
         var lastPoint = stroke.last()
         points.append(lastPoint)
         for touch in touches
         {
-            let newPoint = genPaintPoint(touch,view: view)
-            if (newPoint.position-lastPoint.position).length2>5
+            let newPoint = genPaintPoint(touch,view: view,context: context)
+            if (newPoint.position-lastPoint.position).length2>10
             {
+                DLog("\(time - strokeStartTime)")
                 points.append(newPoint)
-                stroke.addPoint(newPoint, time: recordClip.currentTime + touch.timestamp - strokeStartTime)
+                stroke.addPoint(newPoint, time: time - strokeStartTime)
                 lastPoint = newPoint
             }
         }
@@ -112,7 +114,7 @@ class PaintRecorder {
     }
     func movePoint(touch:UITouch,view:PaintView)
     {
-        let newPoint = genPaintPoint(touch,view: view)
+        let newPoint = genPaintPoint(touch,view: view,context: context)
         _movePoint(newPoint)
     }
     
@@ -129,6 +131,7 @@ class PaintRecorder {
         if stroke != nil
         {
             strokeEndTime = time
+            recordClip.cleanRedos()
             recordClip.currentTime += strokeEndTime - strokeStartTime
             context.endStroke()
             recordClip.addPaintStroke(stroke)
@@ -140,17 +143,18 @@ class PaintRecorder {
     
     
 }
-func genPaintPoint(sender:UIPanGestureRecognizer,view:PaintView)->PaintPoint
+func genPaintPoint(sender:UIPanGestureRecognizer,view:PaintView,context:GLContextBuffer)->PaintPoint
 {
     var location = sender.locationInView(view)
+    //location.x -= context.currentCanvasShiftX
     location.y = CGFloat(view.bounds.height) - location.y
     let dis = sender.translationInView(view)
     
     //print(Vec2(point: dis).length)
     
-    return PaintPoint(position: Vec4(point: location)*Float(view.contentScaleFactor), force:Float(1), altitude: Float(M_PI_2), azimuth: normalize(Vec2(1,0)),velocity: Vec2(point: dis))
+    return PaintPoint(position: Vec4(point: location)*Float(view.contentScaleFactor)-Vec4(context.canvasShiftX,0,0,0), force:Float(1), altitude: Float(M_PI_2), azimuth: normalize(Vec2(1,0)),velocity: Vec2(point: dis))
 }
-func genPaintPoint(touch:UITouch,view:PaintView)->PaintPoint!
+func genPaintPoint(touch:UITouch,view:PaintView,context:GLContextBuffer)->PaintPoint!
 {
     var location:CGPoint
 
@@ -170,7 +174,7 @@ func genPaintPoint(touch:UITouch,view:PaintView)->PaintPoint!
             //print(Vec2(point: dir).length)
             //DLog("Azimuth: \(azimuth)")
             //DLog("altitude: \(altitude)")
-            return PaintPoint(position: Vec4(point: location)*Float(view.contentScaleFactor), force:Float(force), altitude: Float(altitude), azimuth: normalize(Vec2(cgVector:azimuth)),velocity: Vec2(point: dir))
+            return PaintPoint(position: Vec4(point: location)*Float(view.contentScaleFactor)-Vec4(context.canvasShiftX,0,0,0), force:Float(force), altitude: Float(altitude), azimuth: normalize(Vec2(cgVector:azimuth)),velocity: Vec2(point: dir))
 
         }
     }

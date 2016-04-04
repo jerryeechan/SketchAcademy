@@ -110,6 +110,7 @@ void main()
 	gl_Position = MVP * (vertexPosition+vec4(disx,disy,0,0)*2.0);
     gl_PointSize = brushSize*float(4)*(1.0+tiltValue/2.0);
     angle = floor(randNum3*4.0)/4.0 * M_PI;
+    //angle = 0.0;
     //angle = randNum*M_PI;
     
     //speed fade may be remove

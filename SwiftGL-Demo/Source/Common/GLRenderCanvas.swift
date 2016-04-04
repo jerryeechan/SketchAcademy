@@ -1,5 +1,5 @@
 //
-//  GLRenderTexture.swift
+//  GLRenderCanvas.swift
 //  SwiftGL
 //
 //  Created by jerry on 2015/7/21.
@@ -14,7 +14,7 @@ enum RenderMode{
     case drawing
 }
 
-class GLRenderTextureFrameBuffer{
+class GLRenderCanvas{
     var tempLayer:Layer!
     var layers:[Layer] = []
     var caches:Dictionary<Int,LayerCache> = Dictionary<Int,LayerCache>()
@@ -27,11 +27,10 @@ class GLRenderTextureFrameBuffer{
     var renderMode:RenderMode = .drawing
     
     var primitiveLayer:Layer
-    //static var instance:GLRenderTextureFrameBuffer!
+
     
     init(w:GLint,h:GLint)
     {
-        //GLRenderTextureFrameBuffer.instance = self
         self.width = w
         self.height = h
         glGenFramebuffers(1,&framebuffer)
@@ -59,12 +58,7 @@ class GLRenderTextureFrameBuffer{
         
     }
     
-    deinit
-    {
-        layers.removeAll()
-        revisionLayer = nil
-        glDeleteFramebuffers(1, [framebuffer])
-    }
+    
     func changeBackground(filename:String)
     {
         if(filename != "none")
@@ -147,7 +141,7 @@ class GLRenderTextureFrameBuffer{
         }
         else
         {
-            print("dead", terminator: "")
+            DLog("dead")
         }
         
     }
@@ -216,5 +210,12 @@ class GLRenderTextureFrameBuffer{
             }
         }
     }
+    deinit
+    {
+        layers.removeAll()
+        revisionLayer = nil
+        glDeleteFramebuffers(1, [framebuffer])
+    }
+    
 }
 

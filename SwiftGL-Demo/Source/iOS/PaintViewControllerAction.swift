@@ -50,7 +50,7 @@ extension PaintViewController:UITextFieldDelegate
     }
     
     @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
-        let at = paintManager.getMasterStrokeID()
+        let at = paintManager.getCurrentStrokeID()
         let note = newNote(at)
         noteTitleField.becomeFirstResponder()
         noteDetailView.animateShow(0.2)
@@ -76,6 +76,43 @@ extension PaintViewController:UITextFieldDelegate
     
     @IBAction func trashButtonTouched(sender: UIBarButtonItem) {
         paintManager.clear()
+    }
+    
+    @IBAction func undoButtonTouched(sender: UIBarButtonItem) {
+        if appState == .drawArtwork
+        {
+            paintManager.undo()
+        }
+    }
+    
+    @IBAction func redoButtonTouched(sender: UIBarButtonItem) {
+        if appState == .drawArtwork
+        {
+            paintManager.redo()
+
+        }
+    }
+    func onStrokeProgressChanged(currentStrokeID:Int,totalStrokeCount:Int)
+    {
+        if currentStrokeID == 0
+        {
+            undoButton.enabled = false
+        }
+        else
+        {
+            undoButton.enabled = true
+        }
+        
+        if currentStrokeID == totalStrokeCount-1
+        {
+            redoButton.enabled = false
+        }
+        else
+        {
+            redoButton.enabled = true
+        }
+        paintManager.currentReplayer.last_endIndex = currentStrokeID
+        
     }
     
     @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {
@@ -120,8 +157,9 @@ extension PaintViewController:UITextFieldDelegate
     //Save file
     func saveFile(fileName:String)
     {
-        let img = paintView.glContextBuffer.contextImage()
-        paintManager.saveArtwork(fileName,img:img)
+        let img = paintView.snapshot//paintView.paintBuffer.contextImage()
+        
+        paintManager.saveArtwork(fileName,img:scaleImage(img, scale: 0.2))
         //screenShotMethod()
         //GLContextBuffer.instance.releaseImgBuffer()
         

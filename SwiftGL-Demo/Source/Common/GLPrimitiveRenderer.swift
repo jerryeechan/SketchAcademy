@@ -7,8 +7,10 @@
 //
 import SwiftGL
 
+
 extension GLContextBuffer
 {
+    
     func drawLine(start:Vec4,end:Vec4){
         let vertexBuffer:[Vec4] = [start,end]
         
@@ -18,8 +20,7 @@ extension GLContextBuffer
         glLineWidth(8)
         //glDrawArrays(GL_POINTS, 0, 4)
         let size = vertexBuffer.count
-        
-        glDrawArrays(GL_LINE_LOOP, 0, GLsizei(size))
+        glDrawArrays(GL_LINES, 0, GLsizei(size))
 
     }
     func drawLines(points:[Vec4])
@@ -27,10 +28,10 @@ extension GLContextBuffer
         shaderBinder.primitiveShader.bindColor(Vec4(0,0,0,1))
         shaderBinder.primitiveShader.bindVertexs(points)
         shaderBinder.primitiveShader.useShader()
-        glDrawArrays(GL_LINE_LOOP, 0, GLsizei(points.count))
+        glDrawArrays(GL_LINES, 0, GLsizei(points.count))
     }
     func drawGrid(size:Float){
-        
+        shaderBinder.primitiveShader.bindMVP(mvpOffset)
         let height = Float(imgHeight)
         let width = Float(imgWidth)
         var vertexBuffer:[Vec4] = []
@@ -47,11 +48,12 @@ extension GLContextBuffer
         shaderBinder.primitiveShader.bindColor(Vec4(0,0,0,1))
         shaderBinder.primitiveShader.bindVertexs(vertexBuffer)
         shaderBinder.primitiveShader.useShader()
+        glLineWidth(4)
         glDrawArrays(GL_LINES, 0, GLsizei(vertexBuffer.count))
     }
-    func drawRectangle(rect:GLRect)
+    
+    func drawLineRectangle(rect:GLRect,color:Vec4)
     {
-        
         let leftTop = rect.leftTop
         let rightButtom = rect.rightButtom
         var vertexBuffer:[Vec4] = []
@@ -61,16 +63,37 @@ extension GLContextBuffer
         vertexBuffer.append(Vec4(rightButtom.x,leftTop.y))
         
         /*
-        if renderTexture.setPrimitiveBuffer() == false{
-            print("Framebuffer fail")
-        }
-*/
-        shaderBinder.primitiveShader.bindColor(Vec4(0,0,0,1))
+         if renderTexture.setPrimitiveBuffer() == false{
+         print("Framebuffer fail")
+         }
+         */
+        shaderBinder.primitiveShader.bindColor(color)
         shaderBinder.primitiveShader.bindVertexs(vertexBuffer)
         shaderBinder.primitiveShader.useShader()
         glLineWidth(8)
-        //glDrawArrays(GL_POINTS, 0, 4)
         glDrawArrays(GL_LINE_LOOP, 0, 4)
     }
-    
+    func drawFillRectangle(rect:GLRect,color:Vec4)
+    {
+        let leftTop = rect.leftTop
+        let rightButtom = rect.rightButtom
+        var vertexBuffer:[Vec4] = []
+        vertexBuffer.append(Vec4(leftTop.x,leftTop.y))
+        vertexBuffer.append(Vec4(leftTop.x,rightButtom.y))
+        vertexBuffer.append(Vec4(rightButtom.x,leftTop.y))
+        vertexBuffer.append(Vec4(rightButtom.x,rightButtom.y))
+        
+        
+        /*
+         if renderTexture.setPrimitiveBuffer() == false{
+         print("Framebuffer fail")
+         }
+         */
+        shaderBinder.primitiveShader.bindColor(color)
+        shaderBinder.primitiveShader.bindVertexs(vertexBuffer)
+        shaderBinder.primitiveShader.useShader()
+        
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)
+    }
+        
 }

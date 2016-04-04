@@ -12,16 +12,14 @@ import OpenGLES.ES2
 import SwiftGL
 
 class BrushTextureLoader {
+    static weak var instance:BrushTextureLoader!
     
-    class var instance:BrushTextureLoader{
-        struct Singleton {
-            static let instance = BrushTextureLoader()
-        }
-        return Singleton.instance
-    }
     init()
     {        
+        
         load()
+        BrushTextureLoader.instance = self
+        
     }
     func load()
     {
@@ -56,5 +54,9 @@ class BrushTextureLoader {
             DLog("texture dead:\(name)")
         }
         return textureDic[name]!
+    }
+    deinit
+    {
+        DLog("successfully deinit")
     }
 }

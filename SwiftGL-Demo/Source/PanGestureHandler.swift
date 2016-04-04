@@ -75,7 +75,8 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
     
     func handleDrawingSinglePan(sender:UIPanGestureRecognizer)
     {
-        if sender.locationInView(paintView).x > 800
+        let paintRestrictAreaX:CGFloat = 0
+        if sender.locationInView(paintView).x > paintRestrictAreaX
         {
         
             switch(sender.state)
@@ -178,25 +179,27 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
             /*
             if self.isDrawDone == true
             {
-            dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INTERACTIVE.rawValue), 0)) { // 1
+            dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INTERACTIVE.rawValue), 0))
+                { // 1
             
-            self.isDrawDone = false
-            let success = self.paintManager.drawProgress(progress)
-            
-            dispatch_async(dispatch_get_main_queue()) { // 2
-            DLog("\(progress)")
-            if success {
-            self.replayProgressBar.setProgress(progress, animated: false)
-            self.disx = 0
-            
-            self.paintView.display()
-            }
-            self.isDrawDone = true
-            }
-            
-            }
+                    self.isDrawDone = false
+                    let success = self.paintManager.drawProgress(progress)
+                    
+                    dispatch_async(dispatch_get_main_queue()) { // 2
+                    DLog("\(progress)")
+                    if success {
+                        self.replayProgressBar.setProgress(progress, animated: false)
+                        self.disx = 0
+                        
+                        self.paintView.display()
+                    }
+                    self.isDrawDone = true
+                    }
+                
+                }
             }
             */
+            
             dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INTERACTIVE.rawValue), 0)) { // 1
                 
                 if self.isDrawDone == true
@@ -220,7 +223,7 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
                 }
                 
             }
-
+    
             
             
             return

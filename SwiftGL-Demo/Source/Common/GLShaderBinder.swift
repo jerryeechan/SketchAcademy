@@ -49,12 +49,21 @@ class GLShaderBinder{
     {
         pencilShader.shader.useProgram()
     }
+    /*
     func bindMVP(MVPMatrix:Mat4)
     {
         for shader in shaderWrappers
         {
             shader.bindMVP(MVPMatrix)
         }
+    }*/
+    func bindMVPBrush(MVP:Mat4)
+    {
+        currentBrushShader.bindMVP(MVP)
+    }
+    func bindMVPRenderTexture(MVP:Mat4)
+    {
+        textureShader.bindMVP(MVP)
     }
     /*
     func useShader(shader:ShaderType)
@@ -70,8 +79,8 @@ class GLShaderBinder{
     */
     
     
-    
-    
-    
-
+    deinit
+    {
+        DLog("GLSHaderbinder deinit")
+    }
 }

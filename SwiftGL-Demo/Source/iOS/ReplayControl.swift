@@ -12,6 +12,7 @@ extension PaintViewController
         
         
         paintManager.pauseToggle()
+        
         playPauseButton.playing(paintManager.currentReplayer.isPlaying)
         if paintManager.currentReplayer.isPlaying
         {
@@ -38,7 +39,7 @@ extension PaintViewController
     
     func replayControlSetup()
     {
-        paintManager.masterReplayer.onProgressValueChanged = {[weak self](value) in
+        paintManager.currentReplayer.onProgressValueChanged = {[weak self](value) in
             self!.onProgressValueChanged(value)
             
         }

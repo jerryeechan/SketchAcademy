@@ -65,10 +65,10 @@ class SubViewAnimationGestureHandler:NSObject {
         //playBackPanelBottomConstraint.constant = playBackPanelHideBottomY
         //toolViewLeadingConstraint.constant = toolViewHideLeadingX
         
-        let toolViewPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
+        let toolViewPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(SubViewAnimationGestureHandler.handlePan(_:)))
         toolView.addGestureRecognizer(toolViewPanGestureRecognizer)
         
-        let leftEdgeGestureReconizer = UIScreenEdgePanGestureRecognizer(target: self, action: "handleLeftEdgePan:")
+        let leftEdgeGestureReconizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(SubViewAnimationGestureHandler.handleLeftEdgePan(_:)))
         leftEdgeGestureReconizer.edges = UIRectEdge.Left
         mainView.addGestureRecognizer(leftEdgeGestureReconizer)
         

@@ -21,7 +21,7 @@ class PlayBackControlPanel:UIView {
     {
         animateShow(0.5)
         enabled = true
-        UITimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: Selector("timeUp"), userInfo: nil, repeats: false)
+        UITimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(PlayBackControlPanel.timeUp), userInfo: nil, repeats: false)
         
     }
     func timeUp()
