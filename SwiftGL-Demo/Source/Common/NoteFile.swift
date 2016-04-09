@@ -53,7 +53,7 @@ class NoteFile: File {
             var notes:[Int:Note] = [Int:Note]()
             
             let length:Int = parseStruct() //1.note count
-            for i in 0 ..< length
+            for _ in 0 ..< length
             {
                 let title = parseString()
                 print("title \(title)", terminator: "")

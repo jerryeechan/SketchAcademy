@@ -29,7 +29,7 @@ extension PaintViewController
     }
     func viewModeToolBarSetUp()
     {
-        removeToolBarButton(enterViewModeButton)
+        //removeToolBarButton(enterViewModeButton)
         let index = toolBarItems.count
         //paintMode
         switch(appState)
@@ -56,11 +56,17 @@ extension PaintViewController
     }
     func artworkDrawModeToolBarSetUp()
     {
+        if PaintViewController.appMode != ApplicationMode.InstructionTutorial
+        {
+            removeToolBarButton(demoAreaText)
+            removeToolBarButton(practiceAreaText)
+        }
+        
         removeToolBarButton(reviseDoneButton)
         removeToolBarButton(addNoteButton)
         //removeToolBarButton(addNoteButton)
         removeToolBarButton(enterDrawModeButton)
-        addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
+        //addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
         mainToolBar.setItems(toolBarItems, animated: true)
         showToolButton.animateShow(0.2)
     }
@@ -72,7 +78,7 @@ extension PaintViewController
         addToolBarButton(reviseDoneButton, atIndex: 0)
         removeToolBarButton(dismissButton)
         removeToolBarButton(enterDrawModeButton)
-        addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
+        //addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
         //removeToolBarButton(addNoteButton)
         
         //toolBarItems.insert(<#T##newElement: Element##Element#>, atIndex: index)

@@ -98,7 +98,7 @@ class FaceGameStageLevelGenerator {
         for component in componentSet.components
         {
             component.position = CGPointMake(size.width / 8 + dis * CGFloat(count%8),(size.height / 8) * CGFloat(count / 8 + 1))
-            count++
+            count += 1
         }
         return componentSet
     }

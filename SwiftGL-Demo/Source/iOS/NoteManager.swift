@@ -165,9 +165,12 @@ class NoteManager {
     {
         return noteDict[at]
     }
-    func noteCount()->Int
+    var noteCount:Int
     {
-        return noteDict.count
+        get
+        {
+            return noteDict.count
+        }
     }
     func saveNotes()
     {

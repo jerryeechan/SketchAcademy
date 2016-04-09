@@ -24,7 +24,7 @@ class DotSet {
         dotSet.sortDots()
         
         var score:Float = 0
-        for var i = 0; i<dots.count; i++
+        for i in 0 ..< dots.count
         {
             let dis = (dots[i].getPos() - dotSet.dots[i].getPos()).length
             score += dis

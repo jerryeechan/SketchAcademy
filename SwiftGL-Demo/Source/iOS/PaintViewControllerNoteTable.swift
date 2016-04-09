@@ -65,7 +65,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NoteManager.instance.noteCount()
+        return NoteManager.instance.noteCount
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -284,7 +284,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
             else
             {
                 NoteManager.instance.addNote(at,title: noteEditTitleTextField.text!, description: noteEditTextView.text)
-                selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount()-1, inSection: 0)
+                selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount-1, inSection: 0)
                 
             }
         }

@@ -89,6 +89,7 @@ extension GLContextBuffer
          print("Framebuffer fail")
          }
          */
+        shaderBinder.primitiveShader.bindMVP(mvpOffset)
         shaderBinder.primitiveShader.bindColor(color)
         shaderBinder.primitiveShader.bindVertexs(vertexBuffer)
         shaderBinder.primitiveShader.useShader()

@@ -135,7 +135,9 @@ class PaintView: GLKView {
         glTransformation.resize(width, height: height)
         switch PaintViewController.appMode
         {
+        
         case .InstructionTutorial:
+            
             paintBuffer.resizeLayer(width/2,height: height,offsetX: Float(width/2))
             tutorialBuffer = GLContextBuffer()
             tutorialBuffer.resizeLayer(width/2, height: height, offsetX: 0)
@@ -168,8 +170,8 @@ class PaintView: GLKView {
     {
         let seperatorWidth:Float = 10
         let rect = GLRect(p1: Vec2(canvasWidth/2-seperatorWidth,0) , p2: Vec2(canvasWidth/2+seperatorWidth,canvasHeight))
-        tutorialBuffer.drawFillRectangle(rect, color: Vec4(1,0.1,0.15,1))
-        tutorialBuffer.drawGrid(20)
+        tutorialBuffer.drawFillRectangle(rect, color: Vec4(0.15,0.15,0.15,1))
+        
     }
     /*
     override func drawRect(rect: CGRect) {

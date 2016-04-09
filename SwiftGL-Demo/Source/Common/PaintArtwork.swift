@@ -5,15 +5,17 @@
 //  Created by jerry on 2015/5/21.
 //  Copyright (c) 2015年 Jerry Chan. All rights reserved.
 //
-enum ArtworkType{
-    case Artwork
-    case Tutorial
+enum ArtworkType:String{
+    case Artwork = "Artwork"
+    case Tutorial = "Tutorial"
     
 }
 import Foundation
 class PaintArtwork
 {
-    var type:ArtworkType = .Artwork
+    var artworkType:ArtworkType = .Artwork
+    var canvasWidth:Int
+    var canvasHeight:Int
     private var _masterClip:PaintClip
     private var _revisionClips:[Int:PaintClip] = [Int:PaintClip]()
     var revisionClips:[Int:PaintClip]{
@@ -38,18 +40,22 @@ class PaintArtwork
     }
     var currentRevisionID:Int!
     var isFileExist:Bool = false
-    var notes:[Note] = []
-
-    init()
+    
+    var currentNoteIndex:Int = 0
+    var currentNote:Note!
+    
+    init(width:Int,height:Int)
     {
         _masterClip = PaintClip(name: "master",branchAt: 0)
         _masterClip.currentTime = 0
         currentClip = _masterClip
         lastClip = currentClip
+        canvasWidth = width
+        canvasHeight = height
     }
     func setReplayer(paintView:PaintView,type:ArtworkType = .Artwork)
     {
-        self.type = type
+        self.artworkType = type
         var buffer:GLContextBuffer = paintView.paintBuffer
         if type == .Tutorial
         {

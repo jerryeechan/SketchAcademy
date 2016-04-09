@@ -42,7 +42,7 @@ class DotStageLevelGenerator {
         for dot in dotSet.dots
         {
             dot.position = CGPointMake(size.width / 8 + dis*CGFloat(count),size.height / 8)
-            count++
+            count += 1
         }
         return dotSet
     }

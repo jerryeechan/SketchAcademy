@@ -59,7 +59,11 @@ class ArtworkFile:File{
     {
         
         data = NSMutableData()
-        
+        DLog("\(artwork.canvasWidth) \(artwork.canvasHeight) \(artwork.artworkType.rawValue)")
+        encodeString("VERSION_1")
+        encodeStruct(artwork.canvasWidth)
+        encodeStruct(artwork.canvasHeight)
+        encodeString(artwork.artworkType.rawValue)
         encodeClip(artwork.useMasterClip())
         //encodeStruct(artwork.revisionClips.count)
         
@@ -112,7 +116,34 @@ class ArtworkFile:File{
             parseData = readFile(filename+".paw")
             currentPtr = 0
             
-            let artwork =  PaintArtwork()
+            //TODO****
+            //should parse width and height of the artwork
+            //implement with save file
+            //temp: canvaswidth...
+            
+            
+            
+            let version = parseString()
+            if version == nil
+            {
+                currentPtr -= sizeof(Int)
+              
+            }
+            else if version == "VERSION_1"
+            {
+                let canvasWidth:Int = parseStruct()
+                let canvasHeight:Int = parseStruct()
+                let artworkType:String = parseString()
+            }
+            else
+            {
+                DLog("\(version)")
+            }
+            /*
+            
+            */
+            let artwork =  PaintArtwork(width: PaintViewController.canvasWidth,height: PaintViewController.canvasHeight)
+            
             parseClip(artwork.useMasterClip())
             
             /*
@@ -193,6 +224,4 @@ class ArtworkFile:File{
         lastTVI = info
         return info
     }
-    
-    
 }

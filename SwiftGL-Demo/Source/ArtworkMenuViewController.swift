@@ -23,11 +23,15 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         return FileManager.instance.getFileCount()+1
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-                if(indexPath.row == 0)
+        if(indexPath.row == 0)
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("emptyCollectionCell", forIndexPath: indexPath)
-            //cell.layer.borderWidth = 2
-            //cell.layer.borderColor = UIColor.lightGrayColor().CGColor
+            
+            return cell
+        }
+        else if (indexPath.row == 1)
+        {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("tutorialCollectionCell", forIndexPath: indexPath)
             
             return cell
         }
@@ -58,13 +62,19 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         
         if(indexPath.row == 0)
         {
-            let cell = collectionView.cellForItemAtIndexPath(indexPath)
+            //let cell = collectionView.cellForItemAtIndexPath(indexPath)
+            PaintViewController.appMode = ApplicationMode.ArtWorkCreation
+        }
+        else if indexPath.row == 1
+        {
+            PaintViewController.appMode = ApplicationMode.CreateTutorial
         }
         else
         {
             let fileName = FileManager.instance.getFileName(indexPath.row-1)
             paintViewController.fileName = fileName
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ArtworkCollectionViewCell
+            PaintViewController.appMode = ApplicationMode.ArtWorkCreation
             cell.imageView.alpha = 0.5
         }
         
@@ -77,7 +87,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         
     }
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
-        if(indexPath.row==0)
+        if(indexPath.row<=1)
         {
             let cell = collectionView.cellForItemAtIndexPath(indexPath)
             cell?.alpha = 0.5
@@ -90,7 +100,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         
     }
     func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
-        if(indexPath.row==0)
+        if(indexPath.row<=1)
         {
             let cell = collectionView.cellForItemAtIndexPath(indexPath)
             cell?.alpha = 1
@@ -103,7 +113,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
     }
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         
-        if(indexPath.row==0)
+        if(indexPath.row<=1)
         {
             let cell = collectionView.cellForItemAtIndexPath(indexPath)
             cell?.alpha = 1
@@ -128,7 +138,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         
         selectedIndexPath = collectionView?.indexPathForCell(cell)
         
-        let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: "\n\n\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         
         
         //selectIndex = sender.tag
@@ -145,6 +155,15 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         navigationController!.presentViewController(alertController, animated: true, completion:{})
     }
     
+    @IBAction func copyButtonTouched(sender: UIButton) {
+        let fileName = FileManager.instance.getFileName(selectedIndexPath.row-1)
+        FileManager.instance.copyFile(fileName)
+        FileManager.instance.searchFiles()
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        self.collectionView?.reloadData()
+        
+        
+    }
     //var selectIndex:Int!
     @IBAction func reviseButtonTouched(sender: UIButton) {
         

@@ -8,18 +8,21 @@
 
 extension PaintViewController:UITextFieldDelegate
 {
-    @IBAction func enterDrawModeButtonTouched(sender: UIBarButtonItem) {
-        /*
-        switch(paintMode)
+    @IBAction func switchModeBtnTouched(sender: UIBarButtonItem) {
+        switch(appState)
         {
-        case .Artwork:
-            
-            appState = .drawArtwork
-        case .Revision:
-            
-            appState = .drawRevision
+        case .drawArtwork,.drawRevision:
+            switchToDrawMode()
+            switchModeButton.image = UIImage(contentsOfFile: "Brush-50")
+        case .viewArtwork,.viewRevision:
+            switchToViewMode()
+            switchModeButton.image = UIImage(contentsOfFile: "view")
+        default:
+            break
         }
-        */
+    }
+    func switchToDrawMode()
+    {
         switch(appState)
         {
         case .viewArtwork:
@@ -31,11 +34,10 @@ extension PaintViewController:UITextFieldDelegate
             
         }
         enterDrawMode()
-        //@@ if clean the progress
-        //paintManager.masterReplayer.cleanRewind()
+
     }
-    
-    @IBAction func enterViewModeButtonTouched(sender: UIBarButtonItem) {
+    func switchToViewMode()
+    {
         switch(appState)
         {
         case .drawArtwork:
@@ -47,6 +49,14 @@ extension PaintViewController:UITextFieldDelegate
             
         }
         enterViewMode()
+
+    }
+    @IBAction func enterDrawModeButtonTouched(sender: UIBarButtonItem) {
+        switchToDrawMode()
+    }
+    
+    @IBAction func enterViewModeButtonTouched(sender: UIBarButtonItem) {
+        switchToViewMode()
     }
     
     @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
@@ -56,7 +66,7 @@ extension PaintViewController:UITextFieldDelegate
         noteDetailView.animateShow(0.2)
         createNoteButton(note)
         
-        selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount()-1, inSection: 0)
+        selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount-1, inSection: 0)
         noteListTableView.reloadData()
         
     }
@@ -138,13 +148,6 @@ extension PaintViewController:UITextFieldDelegate
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        /*
-        UIGraphicsBeginImageContext(view.frame.size)
-        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-*/
-        
         let imageData:NSData = UIImagePNGRepresentation(image)!;
         let filePath = File.dirpath+"/screen.png"
         imageData.writeToFile(filePath, atomically: true)
@@ -166,38 +169,46 @@ extension PaintViewController:UITextFieldDelegate
     }
     func saveFileIOS9()
     {
-        if fileName != nil
-        {
-            saveFile(fileName)
+        switch PaintViewController.appMode {
+        case .InstructionTutorial:
+            //don't save when doing tutoriral practice
             self.navigationController?.popViewControllerAnimated(true)
-        }
-        else
-        {
-            let saveAlertController = UIAlertController(title: "Save File", message: "type in the file name", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            
-            
-            var inputTextField: UITextField?
-            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                self.saveFile(inputTextField!.text!)
-                self.navigationController?.popViewControllerAnimated(true)
-            })
-            
-            
-            
-            let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+        default:
+            if fileName != nil
+            {
+                saveFile(fileName)
                 self.navigationController?.popViewControllerAnimated(true)
             }
-            
-            saveAlertController.addTextFieldWithConfigurationHandler{ (textField) -> Void in
-                inputTextField = textField
-                // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
+            else
+            {
+                let saveAlertController = UIAlertController(title: "Save File", message: "type in the file name", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                
+                
+                var inputTextField: UITextField?
+                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    self.saveFile(inputTextField!.text!)
+                    self.navigationController?.popViewControllerAnimated(true)
+                })
+                
+                
+                
+                let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+                
+                saveAlertController.addTextFieldWithConfigurationHandler{ (textField) -> Void in
+                    inputTextField = textField
+                    // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
+                }
+                
+                saveAlertController.addAction(ok)
+                saveAlertController.addAction(cancel)
+                
+                presentViewController(saveAlertController, animated: true, completion: nil)
             }
-            
-            saveAlertController.addAction(ok)
-            saveAlertController.addAction(cancel)
-            
-            presentViewController(saveAlertController, animated: true, completion: nil)
         }
+        
     }
+    
 }

@@ -13,9 +13,9 @@ protocol Initable {
 extension Int:Initable
 {
 }
-class File {
+public class File {
     
-    static var nsFileManager:NSFileManager = NSFileManager.defaultManager()
+    public static var nsFileManager:NSFileManager = NSFileManager.defaultManager()
     
     var currentPtr = 0
 
@@ -33,16 +33,17 @@ class File {
     }
     func parseString()->String!
     {
+        
         let length:Int = parseStruct()
         //print("parse string \(length)")
-        if(length == -1)
+        if(length == -1 || length == 0)
         {
             return nil
         }
         
         let str = NSString(data: parseData.subdataWithRange(NSMakeRange(currentPtr, length)), encoding: NSUTF8StringEncoding) as String!
         currentPtr += length
-        
+
         return str
     }
     func parseStruct<T:Initable>()->T{

@@ -28,9 +28,21 @@ class FileManager {
     {
         return artworkFile.load(filename)
     }
+    func copyFile(filename:String)
+    {
+        for ext in [".nt",".paw" ,".png"]
+        {
+            do {
+                try NSFileManager.defaultManager().copyItemAtPath(File.dirpath+"/"+filename+ext, toPath: File.dirpath+"/"+filename+"copy"+ext)
+            }catch
+            {
+                
+            }
+        }
+    }
     func savePaintArtWork(filename:String,artwork:PaintArtwork, img:UIImage,noteDict:[Int:Note])
     {
-        let path = File.dirpath+"/"+filename
+        //let path = File.dirpath+"/"+filename
         
         artworkFile.save(filename, artwork: artwork)
         imageFile.saveImg(img, filename: filename)

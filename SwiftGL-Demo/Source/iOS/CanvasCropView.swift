@@ -90,7 +90,7 @@ class CanvasCropView:  UIView{
     }
     func initGesture()
     {
-        let dragRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handleDrag:")
+        let dragRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(CanvasCropView.handleDrag(_:)))
         
         
         self.viewForBaselineLayout().addGestureRecognizer(dragRecognizer)
@@ -145,7 +145,7 @@ class CanvasCropView:  UIView{
     
     func checkHit(point: CGPoint) -> UIView {
         var view: UIView = cropAreaView
-        for var i = 0; i < pointsArray.count; i++ {
+        for var i = 0; i < pointsArray.count; i += 1 {
             if sqrt(pow((point.x - view.center.x), 2) + pow((point.y - view.center.y), 2)) > sqrt(pow((point.x - pointsArray[i].center.x), 2) + pow((point.y - pointsArray[i].center.y), 2)) {
                 view = pointsArray[i]
             }

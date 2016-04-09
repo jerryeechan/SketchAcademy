@@ -38,6 +38,7 @@ class PaintReplayer:NSObject
     var timeScale:Double = 1
     var id = 0
     var playProgress:Float = 1
+    var doStopAtNote:Bool = false
     /*
     var currentStrokeID:Int = 0
         {
@@ -156,7 +157,7 @@ class PaintReplayer:NSObject
     {
         if strokeID < clip.strokes.count
         {
-            playbackTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("timerUpdate"), userInfo: nil, repeats: true)
+            playbackTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(PaintReplayer.timerUpdate), userInfo: nil, repeats: true)
             isTimerValid = true
             setReplayData(strokeID)
             isPlaying = true
@@ -242,6 +243,7 @@ class PaintReplayer:NSObject
     {
         currentPointID = 0
         clip.currentStrokeID += 1
+        
         let strokes = clip.strokes
         
         if(clip.currentStrokeID == strokes.count)

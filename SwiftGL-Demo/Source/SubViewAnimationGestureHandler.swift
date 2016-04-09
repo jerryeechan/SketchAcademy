@@ -72,7 +72,7 @@ class SubViewAnimationGestureHandler:NSObject {
         leftEdgeGestureReconizer.edges = UIRectEdge.Left
         mainView.addGestureRecognizer(leftEdgeGestureReconizer)
         
-        let leftEdgeGestureReconizer2 = UIScreenEdgePanGestureRecognizer(target: self, action: "handleLeftEdgePan:")
+        let leftEdgeGestureReconizer2 = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(SubViewAnimationGestureHandler.handleLeftEdgePan(_:)))
         
         leftEdgeGestureReconizer2.edges = UIRectEdge.Left
         

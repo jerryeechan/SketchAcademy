@@ -21,7 +21,7 @@ extension PaintViewController:UITextViewDelegate
         noteDescriptionTextView.addGestureRecognizer(doubleTapSingleTouchGestureRecognizer)
         noteDescriptionTextView.editTapRecognizer = doubleTapSingleTouchGestureRecognizer
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onKeyBoardHide:", name:
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PaintViewController.onKeyBoardHide(_:)), name:
             UIKeyboardWillHideNotification, object: nil)
     }
     func hideKeyBoard()

@@ -23,7 +23,7 @@ extension PaintViewController
     {
         let noteButton = NoteButton(type: UIButtonType.System)
         
-        noteButton.addTarget(self, action: Selector("noteButtonTouchUpInside:"), forControlEvents: UIControlEvents.TouchUpInside)
+        noteButton.addTarget(self, action: #selector(PaintViewController.noteButtonTouchUpInside(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         noteButton.note = note
         noteButton.tag = note.value.strokeIndex
         

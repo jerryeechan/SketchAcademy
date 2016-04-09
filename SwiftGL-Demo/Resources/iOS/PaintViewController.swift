@@ -3,7 +3,7 @@
 //  SwiftGL
 //
 //  Created by jerry on 2015/5/21.
-//  Copyright (c) 2015年 Scott Bennett. All rights reserved.
+//  Copyright (c) 2015年 Jerry Chan. All rights reserved.
 //
 
 func DLog(message: String, filename: String = #file, line: Int = #line, function: String = #function){
@@ -13,7 +13,7 @@ func DLog(message: String, filename: String = #file, line: Int = #line, function
         print("not debug")
     #endif
 }
-
+import AVKit
 import GLKit
 import SwiftGL
 import OpenGLES
@@ -86,8 +86,8 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         
         
     }
-    static let canvasWidth:GLint = 1366
-    static let canvasHeight:GLint = 1024
+    static let canvasWidth:Int = 1366
+    static let canvasHeight:Int = 1024
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
     @IBOutlet var singlePanGestureRecognizer: UIPanGestureRecognizer!
@@ -126,15 +126,8 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         pathSetUp()
         
-        /*1*/
-        //paintView init
-        paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)))
-
-        paintView.multipleTouchEnabled = true
-        canvasBGView.addSubview(paintView)
-        paintView.addGestureRecognizer(singlePanGestureRecognizer)
         
-        paintManager = PaintManager(paintView:paintView)
+        
         /*3*/
         //  paintManager init
         
@@ -142,7 +135,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         
         
         
-        //paintManager = PaintManager(paintView: paintView, instructionView: instructionView)
+    
         //the OpenCV
         //print(OpenCVWrapper.calculateImgSimilarity(UIImage(named: "img3"), secondImg: UIImage(named: "img2")))
 
@@ -170,7 +163,21 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             }
         }
         
+        switch PaintViewController.appMode {
+        case ApplicationMode.CreateTutorial:
+            paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth/2), CGFloat(PaintViewController.canvasHeight)))
+            
+        default:
+            paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)))
+            
+        }
         paintView.paintBuffer.paintToolManager.useCurrentTool()
+        paintManager = PaintManager(paintView:paintView)
+        /*1*/
+        //paintView init
+        paintView.multipleTouchEnabled = true
+        canvasBGView.addSubview(paintView)
+        paintView.addGestureRecognizer(singlePanGestureRecognizer)
         
         
         if(fileName != nil)
@@ -183,6 +190,16 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
                 self!.onStrokeProgressChanged(id, totalStrokeCount: count)
             }
             paintView.glDraw()
+            
+            //TODO ***** 
+            //need to remove the switch in paintManager, temporary have switch both
+            switch PaintViewController.appMode {
+            case .InstructionTutorial:
+                    setTutorialStepContent()
+            default:
+                break
+            }
+            
             setup()
             
             /*
@@ -203,7 +220,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         }
         else
         {
-            paintManager.newArtwork()
+            paintManager.newArtwork(PaintViewController.canvasWidth,height: PaintViewController.canvasHeight)
             paintManager.artwork.currentClip.onStrokeIDChanged = {[weak self](id,count) in
                 self!.onStrokeProgressChanged(id, totalStrokeCount: count)
                 
@@ -448,8 +465,9 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     @IBOutlet var reviseDoneButton: UIBarButtonItem!
     
     
+    
     //進入觀看模式
-    @IBOutlet var enterViewModeButton: UIBarButtonItem!
+    @IBOutlet var switchModeButton: UIBarButtonItem!
     
     //進入繪圖模式
     @IBOutlet var enterDrawModeButton: UIBarButtonItem!
@@ -462,7 +480,12 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
    
     @IBOutlet weak var modeText: UIBarButtonItem!
     
+    @IBOutlet weak var demoAreaText: UIBarButtonItem!
+    
+    @IBOutlet weak var practiceAreaText: UIBarButtonItem!
+    
     var toolBarItems:[UIBarButtonItem]!
+    
     
     deinit
     {   
@@ -483,8 +506,23 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var hueView: HueView!
     @IBOutlet weak var imageView: UIImageView!
     
+   
+    @IBOutlet weak var tutorialNextStepButton: UIBarButtonItem!
     
-    //replay
+    @IBOutlet weak var tutorialLastStepButton: UIBarButtonItem!
+    
+    @IBOutlet weak var tutorialDescriptionTextView: UITextView!
+        
+    @IBOutlet weak var tutorialTitleLabel: UILabel!
+    
+    @IBOutlet weak var tutorialControlPanel: UIView!
+    
+    @IBAction func tutorialPlayPauseBtnTouched(sender: PlayPauseButton) {
+        paintManager.tutorialToggle()
+    }
+    @IBAction func tutorialRestartBtnTouched(sender: UIBarButtonItem) {
+    }
+    
 }
 
 

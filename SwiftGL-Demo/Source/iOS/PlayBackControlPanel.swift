@@ -55,7 +55,7 @@ class PlayBackControlPanel:UIView {
         {
             UITimer.invalidate()
         }
-        UITimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: Selector("timeUp"), userInfo: nil, repeats: false)
+        UITimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(PlayBackControlPanel.timeUp), userInfo: nil, repeats: false)
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         reactivate()

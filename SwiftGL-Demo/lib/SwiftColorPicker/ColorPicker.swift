@@ -159,9 +159,9 @@ func getNearByColor(color:UIColor)->[UIColor]
     color.getHue(&hue, saturation: &sat, brightness: &bri, alpha: &alpha)
     
     var nearbyColors:[UIColor] = []
-    for var i = -1 ; i <= 1; i++
+    for i in -1 ... 1
     {
-        for var j = 1 ; j >= -1; j--
+        for j in 1 ... -1
         {
             let new_bri = bri + CGFloat(i)*0.15
             let new_sat = sat + CGFloat(j)*0.15

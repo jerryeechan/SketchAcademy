@@ -128,6 +128,7 @@
 		C4DD1FD11C6AE1560014E141 /* NoteProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */; };
 		C4DD1FD41C6B099E0014E141 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */; };
 		C4E7C8EF1BF9058200CC1EAA /* LearnMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7C8EE1BF9058200CC1EAA /* LearnMenuViewController.swift */; };
+		C4E904151CB923FC00175B60 /* ArtworkFileExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E904141CB923FB00175B60 /* ArtworkFileExporter.swift */; };
 		C4EB7A781B86016100A33651 /* DialogueLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A771B86016100A33651 /* DialogueLine.swift */; };
 		C4EB7A7A1B86017500A33651 /* DialogueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A791B86017500A33651 /* DialogueManager.swift */; };
 		C4EB7A7C1B86018300A33651 /* TypeWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7B1B86018300A33651 /* TypeWriter.swift */; };
@@ -379,6 +380,7 @@
 		C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteProgressView.swift; sourceTree = "<group>"; };
 		C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTextView.swift; sourceTree = "<group>"; };
 		C4E7C8EE1BF9058200CC1EAA /* LearnMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LearnMenuViewController.swift; sourceTree = "<group>"; };
+		C4E904141CB923FB00175B60 /* ArtworkFileExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtworkFileExporter.swift; sourceTree = "<group>"; };
 		C4EB7A771B86016100A33651 /* DialogueLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueLine.swift; sourceTree = "<group>"; };
 		C4EB7A791B86017500A33651 /* DialogueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueManager.swift; sourceTree = "<group>"; };
 		C4EB7A7B1B86018300A33651 /* TypeWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeWriter.swift; sourceTree = "<group>"; };
@@ -875,6 +877,14 @@
 			name = NoteUI;
 			sourceTree = "<group>";
 		};
+		C4E904131CB923DE00175B60 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				C4E904141CB923FB00175B60 /* ArtworkFileExporter.swift */,
+			);
+			name = Export;
+			sourceTree = "<group>";
+		};
 		C4EB7A761B8600FC00A33651 /* Caption */ = {
 			isa = PBXGroup;
 			children = (
@@ -1102,6 +1112,7 @@
 		D2F664081ADD7607003C1925 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C4E904131CB923DE00175B60 /* Export */,
 				C41AD53A1C9528D000317E41 /* Setting */,
 				C41AD5381C95287A00317E41 /* Course */,
 				C491EC611C129BD500154CC6 /* PaintViewController */,
@@ -1516,6 +1527,7 @@
 				C458F5E31B54DE5800FC1235 /* DotStageLevelGenerator.swift in Sources */,
 				C44747831B8334300093F019 /* ControlPointView.swift in Sources */,
 				C47D71051BB5A033002BFE0A /* PaintViewControllerAppMode.swift in Sources */,
+				C4E904151CB923FC00175B60 /* ArtworkFileExporter.swift in Sources */,
 				C4A0A9A41B8C1E7200190A33 /* NoteManager.swift in Sources */,
 				C44609271B7A571A00C34D04 /* GLRect.swift in Sources */,
 				C4C5B9BA1B0EFB5400D6AD4B /* GLShaderBinder.swift in Sources */,

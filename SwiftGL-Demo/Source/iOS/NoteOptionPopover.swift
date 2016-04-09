@@ -27,7 +27,7 @@ extension PaintViewController:UIPopoverPresentationControllerDelegate
         
     }
     func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
-       let noteOptionViewController = popoverPresentationController.presentedViewController as! NoteOptionTableViewController
+       _ = popoverPresentationController.presentedViewController as! NoteOptionTableViewController
        
         
     }

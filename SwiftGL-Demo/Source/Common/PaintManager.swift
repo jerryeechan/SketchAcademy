@@ -51,10 +51,10 @@ class PaintManager {
     
     
     
-    func newArtwork()
+    func newArtwork(width:Int,height:Int)
     {
         artwork = nil
-        artwork = PaintArtwork()
+        artwork = PaintArtwork(width: width,height: height)
         let clip = artwork.useMasterClip()
         paintRecorder.setRecordClip(clip)
         artwork.setReplayer(paintView)
@@ -86,8 +86,16 @@ class PaintManager {
             artwork.loadMasterClip()
             artwork.masterReplayer.drawAll()
             currentReplayer = artwork.masterReplayer
+        case .CreateTutorial:
+            artwork = FileManager.instance.loadPaintArtWork(filename)
+            artwork.setReplayer(paintView)
+            artwork.loadMasterClip()
+            artwork.masterReplayer.drawAll()
+            currentReplayer = artwork.masterReplayer
+            //add create tutorial
+            break
         case .InstructionTutorial:
-            artwork = PaintArtwork()
+            artwork = PaintArtwork(width: PaintViewController.canvasWidth/2,height:PaintViewController.canvasHeight)
             artwork.setReplayer(paintView)
             artwork.loadMasterClip()
             
@@ -96,9 +104,8 @@ class PaintManager {
             
             tutorialArtwork.setReplayer(paintView,type: ArtworkType.Tutorial)
             tutorialArtwork.loadMasterClip()
-            tutorialArtwork.masterReplayer.drawAll()
             currentReplayer = tutorialArtwork.masterReplayer
-        case .CreateTutorial:
+            tutorialGotoStep(0)
             break
         }
         
@@ -253,18 +260,61 @@ class PaintManager {
         
         return artwork.currentReplayer.drawProgress(percentage)
     }
-    
-    /*
-    func getMasterStrokeID()->Int
-    {
-        return artwork.masterClip.currentStrokeID
-    }
-*/
     func getCurrentStrokeID()->Int
     {
         //print("currentStrokeID: \(currentReplayer.currentStrokeID)")
         
         return artwork.currentClip.currentStrokeID
     }
-
+    
+    //tutorial replay
+    func tutorialNextStep()->Bool
+    {
+        tutorialArtwork.currentNoteIndex += 1
+        tutorialGotoStep(tutorialArtwork.currentNoteIndex)
+        if tutorialArtwork.currentNoteIndex == NoteManager.instance.noteCount - 1
+        {
+            //step done
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
+    func tutorialLastStep()->Bool
+    {
+        tutorialArtwork.currentNoteIndex -= 1
+        tutorialGotoStep (tutorialArtwork.currentNoteIndex)
+        if tutorialArtwork.currentNoteIndex == 0
+        {
+            //step done
+            return false
+        }
+        else
+        {
+            return true
+        }
+        
+    }
+    func tutorialGotoStep(step:Int)
+    {
+        let note = NoteManager.instance.getOrderedNote(step)
+        if note != nil
+        {
+            tutorialArtwork.currentNote = note
+            tutorialArtwork.currentReplayer.drawStrokeProgress(note.value.strokeIndex)
+            tutorialArtwork.currentReplayer.pause()
+        }
+    }
+    func tutorialToggle()
+    {
+        tutorialArtwork.currentReplayer.pauseToggle()
+        
+    }
+    func tutorialRestart()
+    {
+        let note = tutorialArtwork.currentNote;
+        tutorialArtwork.currentReplayer.drawStrokeProgress(note.value.strokeIndex)
+    }
 }

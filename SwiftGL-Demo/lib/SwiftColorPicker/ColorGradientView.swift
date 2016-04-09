@@ -55,7 +55,7 @@ class ColorGradientView: UIView {
         DLog("touched")
         let touch = touches.first
         let point = touch!.locationInView(self)
-        let color = delegate?.colorSaturationAndBrightnessSelected(point)
+        _ = delegate?.colorSaturationAndBrightnessSelected(point)
         isTouchDown = true
         
         //let dis = point-(touch?.previousLocationInView(self))!
@@ -73,7 +73,7 @@ class ColorGradientView: UIView {
             point = touch!.locationInView(self)
             point.x = getLimitXCoordinate(point.x)
             point.y = getLimitYCoordinate(point.y)
-            let color = delegate?.colorSaturationAndBrightnessSelected(point);
+            _ = delegate?.colorSaturationAndBrightnessSelected(point);
             self.knob.center = point+CGPoint(x: 0,y: -20)
         }
         
