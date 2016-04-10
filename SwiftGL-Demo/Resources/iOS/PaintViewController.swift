@@ -126,16 +126,6 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         pathSetUp()
         
-        
-        
-        /*3*/
-        //  paintManager init
-        
-        
-        
-        
-        
-    
         //the OpenCV
         //print(OpenCVWrapper.calculateImgSimilarity(UIImage(named: "img3"), secondImg: UIImage(named: "img2")))
 
@@ -203,6 +193,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             setup()
             
             /*
+             
             dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)) { // 1
                 
                     self.isDrawDone = false
@@ -223,7 +214,6 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             paintManager.newArtwork(PaintViewController.canvasWidth,height: PaintViewController.canvasHeight)
             paintManager.artwork.currentClip.onStrokeIDChanged = {[weak self](id,count) in
                 self!.onStrokeProgressChanged(id, totalStrokeCount: count)
-                
             }
             NoteManager.instance.empty()
             paintView.glDraw()
@@ -385,9 +375,6 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         return NSBundle.mainBundle().loadNibNamed(name, owner: self, options: nil)![0] as! UIView
     }
     
-    @IBAction func closeToolButtonTouched(sender: AnyObject) {
-        toolViewState.animateHide(0.2)
-    }
     
     
     @IBAction func doubleTapEraserHandler(sender: UIButton) {
@@ -470,7 +457,6 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     @IBOutlet var switchModeButton: UIBarButtonItem!
     
     //進入繪圖模式
-    @IBOutlet var enterDrawModeButton: UIBarButtonItem!
     
     @IBOutlet weak var undoButton: UIBarButtonItem!
     
@@ -480,9 +466,9 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
    
     @IBOutlet weak var modeText: UIBarButtonItem!
     
-    @IBOutlet weak var demoAreaText: UIBarButtonItem!
+    @IBOutlet var demoAreaText: UIBarButtonItem!
     
-    @IBOutlet weak var practiceAreaText: UIBarButtonItem!
+    @IBOutlet var practiceAreaText: UIBarButtonItem!
     
     var toolBarItems:[UIBarButtonItem]!
     

@@ -35,7 +35,7 @@ class GLShaderWrapper:ModelViewProjectionProtocol{
             program in
             }) {
                 // You can take this out after. Useful for debugging
-                print("failed to load pencil shader")
+                DLog("failed to load \(name) shader")
                 glDebug(#file, line: #line)
         }
     }

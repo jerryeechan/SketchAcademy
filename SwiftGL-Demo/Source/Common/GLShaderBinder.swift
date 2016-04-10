@@ -22,18 +22,21 @@ class GLShaderBinder{
     
     var textureShader:TextureShader!
     var brushTexture:Texture!
+    var eraserShader:EraserShader
     var pencilShader:PencilShader
     var primitiveShader:PrimitiveShader
     var currentBrushShader:BrushShader
     
+    var brushShaders:[GLShaderWrapper]
     var shaderWrappers:[GLShaderWrapper]
     init()
     {
         textureShader = TextureShader()
         pencilShader = PencilShader()
         primitiveShader = PrimitiveShader()
-        shaderWrappers = [textureShader,pencilShader,primitiveShader]
-        
+        eraserShader = EraserShader()
+        shaderWrappers = [textureShader,pencilShader,primitiveShader,eraserShader]
+        brushShaders = [pencilShader,eraserShader]
         currentBrushShader = pencilShader
         GLShaderBinder.instance = self
     }
@@ -47,7 +50,16 @@ class GLShaderBinder{
     }
     func usePencil()
     {
-        pencilShader.shader.useProgram()
+        useBrushShader(pencilShader)
+    }
+    func useEraser()
+    {
+        useBrushShader(eraserShader)
+    }
+    func useBrushShader(shader:BrushShader)
+    {
+        currentBrushShader = shader
+        shader.useShader()
     }
     /*
     func bindMVP(MVPMatrix:Mat4)
@@ -59,7 +71,10 @@ class GLShaderBinder{
     }*/
     func bindMVPBrush(MVP:Mat4)
     {
-        currentBrushShader.bindMVP(MVP)
+        for shader in brushShaders
+        {
+            shader.bindMVP(MVP)
+        }
     }
     func bindMVPRenderTexture(MVP:Mat4)
     {

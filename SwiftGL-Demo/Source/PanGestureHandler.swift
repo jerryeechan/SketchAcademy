@@ -209,9 +209,7 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
                         DLog("\(progress)")
                         if self.paintManager.drawProgress(progress)
                         {
-                            self.replayProgressBar.setProgress(progress, animated: false)
-                            self.paintView.display()
-                            self.disx = 0
+                         //TODO ** remove
                         }
                         self.isDrawDone = true
                     }

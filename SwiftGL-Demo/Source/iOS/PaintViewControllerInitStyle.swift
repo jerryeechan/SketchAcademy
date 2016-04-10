@@ -17,7 +17,7 @@ extension PaintViewController
         noteListViewState = SubViewPanelAnimateState(view: noteListView, constraint: noteListViewTrailingConstraint, hideValue: -240, showValue: 0)
         
         
-        toolViewState.animateHide(0)
+        toolViewState.animateHide(0.2)
         noteListViewState.animateHide(0)
         
         //noteEditViewState.animateHide(0)

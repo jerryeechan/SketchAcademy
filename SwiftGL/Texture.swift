@@ -12,7 +12,7 @@ import CoreGraphics
 #if os(OSX)
 import OpenGL
 #else
-import OpenGLES
+import OpenGLES.ES2
 import ImageIO
 import UIKit
 #endif
@@ -112,7 +112,14 @@ public class Texture {
             // Use  the bitmatp creation function provided by the Core Graphics framework.
             
             brushContext = CGBitmapContextCreate(brushData, Int(width), Int(height), 8, Int(width * 4),CGColorSpaceCreateDeviceRGB() ,CGImageAlphaInfo.PremultipliedLast.rawValue)!
-            
+            /*
+            let isPreMultiplied = false
+            if !isPreMultiplied
+            {
+                
+                brushContext = CGBitmapContextCreate(brushData, Int(width), Int(height), 8, Int(width * 4),CGColorSpaceCreateDeviceRGB() ,CGImageAlphaInfo.Last.rawValue)!
+            }
+            */
             // After you create the context, you can draw the  image to the context.
             if flipVertical {
                 CGContextTranslateCTM(brushContext, 0, CGFloat(Int(height)))
@@ -120,6 +127,7 @@ public class Texture {
             }
             
             CGContextDrawImage(brushContext, CGRectMake(0.0, 0.0, CGFloat(width), CGFloat(height)), cgImage);
+            
             // You don't need the context at this point, so you need to release it to avoid memory leaks.
             
             // Bind the texture name.
@@ -160,10 +168,10 @@ public class Texture {
         glTexParameteri(SwiftGL.GL_TEXTURE_2D, GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR);
         glTexParameteri(SwiftGL.GL_TEXTURE_2D, GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR);
         
-
-        
         glTexParameteri(SwiftGL.GL_TEXTURE_2D, GLenum(GL_TEXTURE_WRAP_S), GL_CLAMP_TO_EDGE);
         glTexParameteri(SwiftGL.GL_TEXTURE_2D, GLenum(GL_TEXTURE_WRAP_T), GL_CLAMP_TO_EDGE);
+        
+        
     }
     public func load(filename filename: String, antialias: Bool, flipVertical: Bool) -> Bool {
         

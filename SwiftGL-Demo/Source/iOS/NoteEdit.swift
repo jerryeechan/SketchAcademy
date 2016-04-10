@@ -75,7 +75,7 @@ extension PaintViewController:UITextViewDelegate
         selectedPath = nil
         noteListTableView.reloadData()
         
-        onProgressValueChanged(replayProgressBar.progress)
+        onProgressValueChanged(replayProgressBar.progress,strokeID: at)
         
     }
     private func enterEditMode()

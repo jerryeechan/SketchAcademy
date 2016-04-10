@@ -88,7 +88,9 @@ class SubViewPanelAnimateState {
     
     func animate(constraint:NSLayoutConstraint,value:CGFloat,duration:NSTimeInterval,hidden:Bool = false)
     {
-        UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+        
+        UIView.setAnimationsEnabled(true)
+        UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: {
             constraint.constant = value
             
             }, completion: {

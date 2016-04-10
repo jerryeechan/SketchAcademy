@@ -91,9 +91,6 @@ void main()
     float altitude;
     altitude = float(pencilAltitude < Altitude_Limit) * (pencilAltitude/Altitude_Limit * M_PI_2 - M_PI_2) + M_PI_2;
     
-    
-    
-    
     //if (pencilAltitude > Altitude_Limit)
     //    altitude = M_PI_2;
     //else

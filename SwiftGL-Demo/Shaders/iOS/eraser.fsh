@@ -64,15 +64,12 @@ void main()
     
     vec2 rotated = vec2(cos(vRotation) * (gl_PointCoord.x - mid) + sin(vRotation) * (gl_PointCoord.y - mid) + mid,cos(vRotation) * (gl_PointCoord.y - mid) - sin(vRotation) * (gl_PointCoord.x - mid) + mid);
     
-    
+    destColor = destColor * (1.0 - texture2D(texture, rotated).a * 0.1);
 
-    gl_FragColor = color * texture2D(texture, rotated);// - destColor;
+    //gl_FragColor = color * texture2D(texture, rotated);// - destColor;
     
-    
-    //gl_FragColor.r = BlendOverlay(color.r, destColor.r);
-    //gl_FragColor.g = BlendOverlay(color.g, destColor.g);
-    //gl_FragColor.b = BlendOverlay(color.b, destColor.b);
-    //gl_FragColor.a = color.a;
+    gl_FragColor = destColor;
+
     
     //gl_FragColor = vec4(0.5,0,0,0.5);// - destColor;
     //gl_FragColor = color *texture2D(texture, rotated);

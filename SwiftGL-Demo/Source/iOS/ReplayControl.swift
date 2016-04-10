@@ -39,8 +39,8 @@ extension PaintViewController
     
     func replayControlSetup()
     {
-        paintManager.currentReplayer.onProgressValueChanged = {[weak self](value) in
-            self!.onProgressValueChanged(value)
+        paintManager.currentReplayer.onProgressValueChanged = {[weak self](progressValue:Float,strokeID:Int) in
+            self!.onProgressValueChanged(progressValue,strokeID: strokeID)
             
         }
         switch PaintViewController.appMode {
@@ -52,11 +52,13 @@ extension PaintViewController
         tutorialLastStepButton.enabled = false
     }
     
-    func onProgressValueChanged(progress:Float)
+    func onProgressValueChanged(progress:Float,strokeID:Int)
     {
         if appState == .viewArtwork || appState == AppState.editNote
         {
             replayProgressBar.setProgress(progress, animated: false)
+            paintView.display()
+            disx = 0
             
             let currentStrokeID = paintManager.getCurrentStrokeID()
             
@@ -136,6 +138,6 @@ extension PaintViewController
     @IBAction func tutorialReplayBtnTouched(sender: UIBarButtonItem) {
     }
 
-
+    
 
 }

@@ -129,6 +129,9 @@
 		C4DD1FD41C6B099E0014E141 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */; };
 		C4E7C8EF1BF9058200CC1EAA /* LearnMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7C8EE1BF9058200CC1EAA /* LearnMenuViewController.swift */; };
 		C4E904151CB923FC00175B60 /* ArtworkFileExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E904141CB923FB00175B60 /* ArtworkFileExporter.swift */; };
+		C4E904171CBA1FEC00175B60 /* EraserShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E904161CBA1FEC00175B60 /* EraserShader.swift */; };
+		C4E904181CBA249600175B60 /* eraser.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C40C2E621C723760006A165F /* eraser.vsh */; };
+		C4E904191CBA24E700175B60 /* eraser.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C4626BD71C7254F800C62586 /* eraser.fsh */; };
 		C4EB7A781B86016100A33651 /* DialogueLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A771B86016100A33651 /* DialogueLine.swift */; };
 		C4EB7A7A1B86017500A33651 /* DialogueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A791B86017500A33651 /* DialogueManager.swift */; };
 		C4EB7A7C1B86018300A33651 /* TypeWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7B1B86018300A33651 /* TypeWriter.swift */; };
@@ -381,6 +384,7 @@
 		C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTextView.swift; sourceTree = "<group>"; };
 		C4E7C8EE1BF9058200CC1EAA /* LearnMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LearnMenuViewController.swift; sourceTree = "<group>"; };
 		C4E904141CB923FB00175B60 /* ArtworkFileExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtworkFileExporter.swift; sourceTree = "<group>"; };
+		C4E904161CBA1FEC00175B60 /* EraserShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EraserShader.swift; sourceTree = "<group>"; };
 		C4EB7A771B86016100A33651 /* DialogueLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueLine.swift; sourceTree = "<group>"; };
 		C4EB7A791B86017500A33651 /* DialogueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogueManager.swift; sourceTree = "<group>"; };
 		C4EB7A7B1B86018300A33651 /* TypeWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeWriter.swift; sourceTree = "<group>"; };
@@ -571,6 +575,7 @@
 				C41AD5441C95A99300317E41 /* TextureShader.swift */,
 				C41AD5461C964A3400317E41 /* PrimitiveShader.swift */,
 				C41AD5481C96519B00317E41 /* BrushShader.swift */,
+				C4E904161CBA1FEC00175B60 /* EraserShader.swift */,
 			);
 			name = CustomShader;
 			sourceTree = "<group>";
@@ -1406,6 +1411,8 @@
 				C478D8531B1F4C3A00FFF3D9 /* brush2.png in Resources */,
 				C478D8521B1F4C3A00FFF3D9 /* brush1.png in Resources */,
 				D2F664261ADD7607003C1925 /* DemoShader1.vsh in Resources */,
+				C4E904191CBA24E700175B60 /* eraser.fsh in Resources */,
+				C4E904181CBA249600175B60 /* eraser.vsh in Resources */,
 				C44BB09D1B48E50E001B158A /* RenderTexture.fsh in Resources */,
 				D2F664241ADD7607003C1925 /* DemoShader1.fsh in Resources */,
 				C478D8541B1F4C3A00FFF3D9 /* Particle.png in Resources */,
@@ -1604,6 +1611,7 @@
 				C40C2E5C1C703195006A165F /* PlayPauseButton.swift in Sources */,
 				C41AD54B1C97AE9C00317E41 /* ModelViewProjectionProtocol.swift in Sources */,
 				C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */,
+				C4E904171CBA1FEC00175B60 /* EraserShader.swift in Sources */,
 				C49E21671B5E3E6D00D5A821 /* GLRenderCanvas.swift in Sources */,
 				C44747781B83065E0093F019 /* CanvasCropView.swift in Sources */,
 				C491EC701C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */,

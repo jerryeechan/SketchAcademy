@@ -52,7 +52,7 @@ class FaceComponentSet {
             var minId = 0
             for i in 0 ..< pos.count
             {
-                let dis = (comps[0].getPos() - pos[i].getPos()).length
+                let dis = (comps[0].getPos() - pos[i].getPos()).length2
                 if(dis < mindis)
                 {
                     mindis = dis

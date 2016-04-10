@@ -31,7 +31,7 @@ public class PaintToolManager {
     func load()
     {
         pen = PaintBrush(textureName: "pencil",color: Color(25,25,25,25),size: 2,type:PaintToolType.pen)
-        eraser = PaintBrush(textureName: "circleTexture", color: Color(255,255,255,0),size: 10,type:PaintToolType.eraser)
+        eraser = PaintBrush(textureName: "circle", color: Color(255,255,255,0),size: 10,type:PaintToolType.eraser)
         
         currentTool = pen
         //Painter.currentBrush = currentTool
@@ -60,7 +60,7 @@ public class PaintToolManager {
     }
     private func useTool(type:PaintToolType)->PaintBrush!
     {
-        //GLContextBuffer.instance.setBrushDrawSetting(type)
+        
         switch(type)
         {
         case .pen:
@@ -90,7 +90,8 @@ public class PaintToolManager {
 */
     func usePen()
     {
-        
+        glEnable(GL_BLEND)
+        GLShaderBinder.instance.usePencil()
         pen.useTool()
         pen.changeColor(colorInPalette)
         glBlendEquation(GLenum(GL_FUNC_ADD))
@@ -101,17 +102,23 @@ public class PaintToolManager {
     
     func useEraser()
     {
+        glEnable(GLenum(GL_POINT_SMOOTH))
+        glDisable(GL_BLEND)
         //***blend function as problem
-        
-        currentTool = eraser
+        GLShaderBinder.instance.useEraser()
+        eraser.useTool()
         //        glBlendEquation(GLenum(GL_FUNC_SUBTRACT))
-        glBlendEquation(GLenum(GL_FUNC_REVERSE_SUBTRACT))
+        
+        //glBlendEquation(GLenum(GL_FUNC_REVERSE_SUBTRACT))
         //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA)
-        currentTool.changeColor(Color(rf:0,gf: 0,bf: 0,af: 0.5))
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        //currentTool.changeColor(Color(rf:0.5,gf: 0.5,bf: 0.5,af: 0.5))
+        //glBlendFunc(GL_ONE,GL_ONE)
+        
+        
         
         //GLContextBuffer.instance.setReplayDrawSetting()
-        eraser.useTool()
+        currentTool = eraser
+        
     }
     // var isToolAttributeChanged:Bool = true
     func loadToolValueInfo(valueInfo:ToolValueInfo)

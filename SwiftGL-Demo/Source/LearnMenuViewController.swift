@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class LearnMenuViewController:UIViewController{
+class LearnMenuViewController:UICollectionViewController{
     
     
     
@@ -17,22 +17,28 @@ class LearnMenuViewController:UIViewController{
         
     }
     
-    
-    @IBAction func lesson1btnTouched(sender: UIButton) {
-        
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let vc = createFaceGameViewController()
-        vc.levelName = FaceGameViewController.FaceGameLevelName.AngryBird
+        switch indexPath.row {
+        case 0:
+            vc.levelName = FaceGameViewController.FaceGameLevelName.AngryBird
+        case 1:
+            vc.levelName = FaceGameViewController.FaceGameLevelName.GreenMan
+        case 2:
+            vc.levelName = FaceGameViewController.FaceGameLevelName.Tumbler
+        default:
+            vc.levelName = FaceGameViewController.FaceGameLevelName.AngryBird
+        }
         
-        presentViewController(vc, animated: true, completion: nil)
-
+         presentViewController(vc, animated: true, completion: nil)
     }
-    
-    @IBAction func lesson2btnTouched(sender: UIButton) {
-        let vc = createFaceGameViewController()
-        vc.levelName = FaceGameViewController.FaceGameLevelName.GreenMan
-        presentViewController(vc, animated: true, completion: nil)
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        return collectionView.dequeueReusableCellWithReuseIdentifier("\(indexPath.row)", forIndexPath: indexPath)
     }
-    
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
     
     
     
@@ -44,6 +50,7 @@ class LearnMenuViewController:UIViewController{
     }
     
     @IBAction func dismissBtnTouched(sender: UIBarButtonItem) {
+        
         presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     

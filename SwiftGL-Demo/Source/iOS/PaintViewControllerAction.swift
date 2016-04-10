@@ -12,11 +12,11 @@ extension PaintViewController:UITextFieldDelegate
         switch(appState)
         {
         case .drawArtwork,.drawRevision:
-            switchToDrawMode()
-            switchModeButton.image = UIImage(contentsOfFile: "Brush-50")
-        case .viewArtwork,.viewRevision:
+            switchModeButton.image = UIImage(named: "view")
             switchToViewMode()
-            switchModeButton.image = UIImage(contentsOfFile: "view")
+        case .viewArtwork,.viewRevision:
+            switchModeButton.image = UIImage(named:"Brush-50")
+            switchToDrawMode()
         default:
             break
         }
@@ -68,7 +68,6 @@ extension PaintViewController:UITextFieldDelegate
         
         selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount-1, inSection: 0)
         noteListTableView.reloadData()
-        
     }
 
     @IBAction func reviseDoneButtonTouched(sender: UIBarButtonItem) {
@@ -126,9 +125,12 @@ extension PaintViewController:UITextFieldDelegate
     }
     
     @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {
+        
+        paintManager.currentReplayer.stopPlay()
         switch(appState)
         {
         case .viewRevision:
+            
             appState = .viewArtwork
             paintManager.playArtworkClip()
             dismissButton.image = UIImage(named: "Back-50")

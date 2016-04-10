@@ -72,7 +72,7 @@ extension PaintViewController
         
         updateAllNoteButton()
         //paintManager.currentReplayer.handleProgressValueChanged()
-        onProgressValueChanged(paintManager.currentReplayer.playProgress)
+        onProgressValueChanged(paintManager.currentReplayer.playProgress,strokeID: paintManager.getCurrentStrokeID())
         
         noteButtonView.animateShow(0.2)
     }

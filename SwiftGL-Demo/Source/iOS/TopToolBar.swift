@@ -35,20 +35,18 @@ extension PaintViewController
         switch(appState)
         {
         case .viewArtwork:
-            addToolBarButton(enterDrawModeButton, atIndex: index)
+            //addToolBarButton(enterDrawModeButton, atIndex: index)
             addToolBarButton(addNoteButton,atIndex: index)
             removeToolBarButton(reviseDoneButton)
             addToolBarButton(dismissButton, atIndex: 0)
             //addToolBarButton(addNoteButton, atIndex: index)
         case .viewRevision:
-            addToolBarButton(enterDrawModeButton, atIndex: index)
+            //addToolBarButton(enterDrawModeButton, atIndex: index)
             removeToolBarButton(addNoteButton)
             break
         default:
             break
         }
-        
-        
         
         mainToolBar.setItems(toolBarItems, animated: true)
         showToolButton.animateHide(0.2)
@@ -65,7 +63,7 @@ extension PaintViewController
         removeToolBarButton(reviseDoneButton)
         removeToolBarButton(addNoteButton)
         //removeToolBarButton(addNoteButton)
-        removeToolBarButton(enterDrawModeButton)
+        //removeToolBarButton(enterDrawModeButton)
         //addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
         mainToolBar.setItems(toolBarItems, animated: true)
         showToolButton.animateShow(0.2)
@@ -77,7 +75,7 @@ extension PaintViewController
         
         addToolBarButton(reviseDoneButton, atIndex: 0)
         removeToolBarButton(dismissButton)
-        removeToolBarButton(enterDrawModeButton)
+        //removeToolBarButton(enterDrawModeButton)
         //addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
         //removeToolBarButton(addNoteButton)
         

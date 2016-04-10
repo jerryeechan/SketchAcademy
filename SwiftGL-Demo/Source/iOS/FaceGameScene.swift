@@ -69,7 +69,8 @@ class FaceGameScene: SKScene {
     var scoreLabel:SKLabelNode = SKLabelNode(text:"");
     func calScore()->Float
     {
-        var score = 1 - ansComponents.compareSet(quesPositions) / Float(200 * 10)
+        
+        var score = 1 - ansComponents.compareSet(quesPositions) / Float(400 * quesPositions.count)
         if score < 0
         {
             score = 0

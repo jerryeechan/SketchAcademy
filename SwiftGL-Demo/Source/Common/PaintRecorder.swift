@@ -48,6 +48,7 @@ class PaintRecorder {
     {
         stroke = PaintStroke(tool: context.paintToolManager.currentTool)
         context.paintToolManager.useCurrentTool()
+        
         stroke.addPoint(genPaintPoint(touch, view: view,context: context), time: 0)
         strokeStartTime = CFAbsoluteTimeGetCurrent()
     }
@@ -101,7 +102,7 @@ class PaintRecorder {
             let newPoint = genPaintPoint(touch,view: view,context: context)
             if (newPoint.position-lastPoint.position).length2>10
             {
-                DLog("\(time - strokeStartTime)")
+                //DLog("\(time - strokeStartTime)")
                 points.append(newPoint)
                 stroke.addPoint(newPoint, time: time - strokeStartTime)
                 lastPoint = newPoint

@@ -172,8 +172,15 @@ class PaintReplayer:NSObject
         currentPoints = strokes[strokeID].points
         c_PointData = strokes[strokeID].pointData
         
-        firstTimeStamps = strokes[clip.currentStrokeID].startTime//c_PointData[0].timestamps
-        timeCounter = strokes[clip.currentStrokeID].startTime//c_PointData[0].timestamps
+        let strokeStartTime = strokes[clip.currentStrokeID].startTime
+        if strokeStartTime != nil
+        {
+            firstTimeStamps = strokeStartTime //c_PointData[0].timestamps
+        }
+        else{
+            firstTimeStamps = strokes[clip.currentStrokeID].pointData[0].timestamps
+        }
+        timeCounter = firstTimeStamps//c_PointData[0].timestamps
     }
     
     func timerUpdate()
@@ -255,8 +262,9 @@ class PaintReplayer:NSObject
                 
         c_PointData = strokes[clip.currentStrokeID].pointData
         currentPoints = strokes[clip.currentStrokeID].points
-        firstTimeStamps = strokes[clip.currentStrokeID].startTime
-        timeCounter = strokes[clip.currentStrokeID].startTime
+        firstTimeStamps = strokes[clip.currentStrokeID].pointData[0].timestamps
+        timeCounter = firstTimeStamps
+        handleProgressValueChanged()
         return true
     }
     private func draw(stroke:PaintStroke,p1:PaintPoint,p2:PaintPoint,p3:PaintPoint)
@@ -434,7 +442,7 @@ class PaintReplayer:NSObject
         let value = Float(clip.currentStrokeID+1)/Float(clip.strokes.count)
         playProgress = value
         if let handler = onProgressValueChanged{
-            handler(progressValue: value)
+            handler(progressValue: value,strokeID:clip.currentStrokeID)
         }
     }
     
@@ -463,7 +471,7 @@ class PaintReplayer:NSObject
         handleProgressValueChanged()
     }
     
-    var onProgressValueChanged:((progressValue:Float)->Void)? = nil
+    var onProgressValueChanged:((progressValue:Float,strokeID:Int)->Void)? = nil
     
     func exit()
     {

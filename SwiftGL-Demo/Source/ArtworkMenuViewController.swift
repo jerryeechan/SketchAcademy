@@ -9,6 +9,7 @@
 import UIKit
 class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
     
+    @IBOutlet weak var showView: UIView!
     weak var delegate:PaintViewController!
     
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
@@ -64,10 +65,14 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         {
             //let cell = collectionView.cellForItemAtIndexPath(indexPath)
             PaintViewController.appMode = ApplicationMode.ArtWorkCreation
+            self.navigationController?.pushViewController(paintViewController, animated: false)
+            
         }
         else if indexPath.row == 1
         {
             PaintViewController.appMode = ApplicationMode.CreateTutorial
+            self.navigationController?.pushViewController(paintViewController, animated: false)
+            
         }
         else
         {
@@ -75,12 +80,40 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
             paintViewController.fileName = fileName
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ArtworkCollectionViewCell
             PaintViewController.appMode = ApplicationMode.ArtWorkCreation
-            cell.imageView.alpha = 0.5
+            //cell.imageView.alpha = 0.5
+            let imageView = cell.imageView
+            //the relative frame to window 
+            //notice: use superview to convert the view
+            let frame = imageView.superview!.convertRect(imageView.frame, toView: nil)
+            
+            let top = UIView(frame: CGRect(origin: CGPoint(x:0,y: 0), size: view.frame.size))
+            
+            view.window?.addSubview(top)
+            let newImage = UIImageView(image: imageView.image)
+            top.addSubview(newImage)
+            newImage.frame = frame//CGRect(origin: CGPoint(x:x,y: y), size: imageView.frame.size)
+            //imageView.removeFromSuperview()
+            //showView.addSubview(imageView)
+            //imageView.frame = CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: 1366,height: 1024))
+            
+            //view.addSubview(imageView)
+            
+            //imageView.frame = CGRect(origin: CGPoint(x: x,y: y), size: imageView.frame.size)
+            
+            UIView.animateWithDuration(0.5, animations: {
+                newImage.frame = CGRect(origin: CGPoint(x: 0,y: 0), size: CGSize(width: 1366,height: 1024))
+                }, completion: {(value:Bool) in
+                top.removeFromSuperview()
+                self.navigationController?.pushViewController(paintViewController, animated: false)
+            })
+            
+            
+            
         }
         
-        navigationController?.pushViewController(paintViewController, animated: true)
+        //
         
-        self.collectionView(collectionView, didDeselectItemAtIndexPath: indexPath)
+        //self.collectionView(collectionView, didDeselectItemAtIndexPath: indexPath)
         
         
         
