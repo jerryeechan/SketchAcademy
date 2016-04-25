@@ -6,13 +6,18 @@
 //  Copyright © 2015年 Jerry Chan. All rights reserved.
 //
 
+enum Operation {
+    case Clean
+}
 class PaintClip:NSObject{
     
     //  branch related
     var strokes:[PaintStroke] = []
     var redoStrokes:[PaintStroke] = []
     
-    
+    var cleanStrokes:[PaintStroke] = []
+    var op:[Operation] = []
+    var redoOp:[Operation] = []
     
     /**
         not sure need current time or not
@@ -58,12 +63,32 @@ class PaintClip:NSObject{
     {
         
     }
+    //when user start drawing again, remove all the redo strokes and can't
     func cleanRedos()
     {
         redoStrokes = []
+        redoOp = []
+        cleanStrokes = []
+        op = []
+    }
+    
+    //enum ClipState{case Drawing,case Cleaned,case UndoCleaned}
+    func clean()
+    {
+        cleanStrokes = strokes
+        strokes = []
+        currentStrokeID = 0
+        op += [Operation.Clean]
+    }
+    func undoClean()
+    {
+        strokes = cleanStrokes
+        redoStrokes = []
+        redoOp += [Operation.Clean]
     }
     func undo()
     {
+        
         if strokes.count > 0
         {
             redoStrokes.append(strokes.removeLast())
@@ -73,6 +98,7 @@ class PaintClip:NSObject{
     }
     func redo()->PaintStroke!
     {
+        
         if redoStrokes.count > 0
         {
             strokes.append(redoStrokes.removeLast())
@@ -80,6 +106,7 @@ class PaintClip:NSObject{
             return strokes.last!
         }
         return nil
+        
     }
     
     var onStrokeIDChanged:((currentStrokeID:Int,totalStrokeCount:Int)->Void)? = nil

@@ -491,21 +491,21 @@
                                                     <constraint firstAttribute="width" constant="220" id="rce-qi-5rG"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="28"/>
-                                                <state key="normal" title="   2B" image="pencilTool">
+                                                <state key="normal" image="pencilTool">
                                                     <color key="titleColor" white="0.29940122965998295" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="paintToolButtonTouched:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="SlO-wL-yro"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5GT-9I-l4j">
+                                            <button hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5GT-9I-l4j">
                                                 <rect key="frame" x="-80" y="80" width="220" height="39"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="220" id="suV-2R-dmH"/>
                                                     <constraint firstAttribute="height" constant="39" id="u1E-SQ-ueh"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="28"/>
-                                                <state key="normal" title="   6B" image="pencilTool">
+                                                <state key="normal" image="pencilTool">
                                                     <color key="titleColor" white="0.096397860738255028" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -519,7 +519,7 @@
                                                     <constraint firstAttribute="height" constant="39" id="e17-QV-e4a"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="28"/>
-                                                <state key="normal" title="   HB" image="pencilTool">
+                                                <state key="normal" image="paintbrush">
                                                     <color key="titleColor" white="0.37581270973154363" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -546,7 +546,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iV9-oV-7Ad" userLabel="NearColorView">
                                                 <rect key="frame" x="0.0" y="260" width="200" height="121"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X18-zB-b5a">
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X18-zB-b5a" customClass="ColorBlockButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="123" y="78" width="34" height="34"/>
                                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <size key="titleShadowOffset" width="2" height="2"/>
@@ -554,7 +554,7 @@
                                                             <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="5mX-MY-03h"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luR-ND-yuq">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luR-ND-yuq" customClass="ColorBlockButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="123" y="0.0" width="34" height="34"/>
                                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <size key="titleShadowOffset" width="2" height="2"/>
@@ -562,7 +562,7 @@
                                                             <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="oKb-1E-aEy"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVo-KN-iex">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVo-KN-iex" customClass="ColorBlockButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="123" y="39" width="34" height="34"/>
                                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <size key="titleShadowOffset" width="2" height="2"/>
@@ -570,7 +570,7 @@
                                                             <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="b9N-C1-0mY"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h2E-q5-WLx">
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h2E-q5-WLx" customClass="ColorBlockButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="42" y="78" width="34" height="34"/>
                                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <size key="titleShadowOffset" width="2" height="2"/>
@@ -578,7 +578,7 @@
                                                             <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="xZk-WG-efu"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOm-sy-WEi">
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOm-sy-WEi" customClass="ColorBlockButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="42" y="0.0" width="34" height="34"/>
                                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <size key="titleShadowOffset" width="2" height="2"/>
@@ -586,7 +586,7 @@
                                                             <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="XNA-tf-ztB"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p8G-BQ-pfV">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p8G-BQ-pfV" customClass="ColorBlockButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="42" y="39" width="34" height="34"/>
                                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <size key="titleShadowOffset" width="2" height="2"/>
@@ -616,7 +616,7 @@
                                                     <constraint firstAttribute="width" constant="200" id="mNW-v5-GzB"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bv-jj-QNg">
+                                            <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bv-jj-QNg" customClass="ColorBlockButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="83" y="338" width="34" height="34"/>
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <size key="titleShadowOffset" width="2" height="2"/>
@@ -624,7 +624,7 @@
                                                     <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="yqf-lX-pfF"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSM-vs-K00">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSM-vs-K00" customClass="ColorBlockButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="83" y="260" width="34" height="34"/>
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <size key="titleShadowOffset" width="2" height="2"/>
@@ -632,7 +632,7 @@
                                                     <action selector="nearByColorButtonClicked:" destination="CvM-l6-OQ6" eventType="touchUpInside" id="11z-qy-Kai"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2J-gR-NUh">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2J-gR-NUh" customClass="ColorBlockButton" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="83" y="299" width="34" height="34"/>
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <size key="titleShadowOffset" width="2" height="2"/>
@@ -721,6 +721,7 @@
                                             <action selector="reviseDoneButtonTouched:" destination="CvM-l6-OQ6" id="3VO-Kx-23e"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="PgX-Sx-Z0x"/>
                                     <barButtonItem image="undo-fill" id="jZd-qP-tyT" userLabel="Undo Button">
                                         <connections>
                                             <action selector="undoButtonTouched:" destination="CvM-l6-OQ6" id="HCl-2Y-uhw"/>
@@ -747,6 +748,11 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="9YD-Kj-fU2"/>
                                     <barButtonItem title="練習區" style="plain" id="hs4-SP-eVU"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="dNj-Nm-anc"/>
+                                    <barButtonItem title="paper" id="NA3-sf-lb4">
+                                        <connections>
+                                            <action selector="paperSwitchBtnTouched:" destination="CvM-l6-OQ6" id="dqO-Al-sbS"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                                 <color key="tintColor" red="0.95693260732323226" green="0.58429610144544308" blue="0.15809299782474204" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="barTintColor" red="0.14117647058823529" green="0.20784313725490197" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
@@ -946,7 +952,7 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AZp-sH-prg" userLabel="Tutorial Description Text View">
                                                     <rect key="frame" x="8" y="82" width="464" height="130"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -1175,13 +1181,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="maintitle" translatesAutoresizingMaskIntoConstraints="NO" id="1gC-Xs-Awh">
-                                <rect key="frame" x="326" y="71" width="713" height="164"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="164" id="Ml9-Wi-dA5"/>
-                                    <constraint firstAttribute="width" constant="713" id="S9Z-nZ-WHN"/>
-                                </constraints>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainpencil" translatesAutoresizingMaskIntoConstraints="NO" id="aCT-iv-yCW">
                                 <rect key="frame" x="-18" y="307" width="675" height="205"/>
                                 <constraints>
@@ -1223,14 +1222,37 @@
                                     <segue destination="4pn-le-eyw" kind="show" id="nNl-zp-al3"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sketch " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39U-3G-ih6">
+                                <rect key="frame" x="295" y="169" width="377" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="FGx-dJ-3V3"/>
+                                    <constraint firstAttribute="width" constant="377" id="QvO-hF-XTw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangTC-Ultralight" family="PingFang TC" pointSize="96"/>
+                                <color key="textColor" red="1" green="0.56408900435119513" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Academy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLs-9J-FpD">
+                                <rect key="frame" x="692" y="169" width="450" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="450" id="KqQ-Z8-nsL"/>
+                                    <constraint firstAttribute="height" constant="130" id="qJK-ty-t2t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangTC-Ultralight" family="PingFang TC" pointSize="96"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="aCT-iv-yCW" firstAttribute="centerY" secondItem="MTO-23-48V" secondAttribute="centerY" multiplier="0.8" id="81q-Kz-HB0"/>
-                            <constraint firstItem="1gC-Xs-Awh" firstAttribute="centerX" secondItem="MTO-23-48V" secondAttribute="centerX" id="Ds7-S1-5Ga"/>
+                            <constraint firstItem="tLs-9J-FpD" firstAttribute="centerY" secondItem="MTO-23-48V" secondAttribute="centerY" constant="-278" id="DwL-pU-ovk"/>
+                            <constraint firstItem="tLs-9J-FpD" firstAttribute="leading" secondItem="39U-3G-ih6" secondAttribute="trailing" constant="20" id="IrC-v7-6lA"/>
                             <constraint firstItem="vMq-sm-vHy" firstAttribute="leading" secondItem="MTO-23-48V" secondAttribute="leadingMargin" constant="-38" id="Nff-od-vtU"/>
-                            <constraint firstItem="1gC-Xs-Awh" firstAttribute="centerY" secondItem="MTO-23-48V" secondAttribute="centerY" multiplier="0.3" id="bPo-bs-B0V"/>
+                            <constraint firstItem="tLs-9J-FpD" firstAttribute="leading" secondItem="39U-3G-ih6" secondAttribute="trailing" constant="20" id="dAd-X4-kqh"/>
                             <constraint firstItem="vMq-sm-vHy" firstAttribute="centerY" secondItem="MTO-23-48V" secondAttribute="centerY" multiplier="1.2" id="dzO-aX-lgX"/>
+                            <constraint firstItem="39U-3G-ih6" firstAttribute="centerY" secondItem="MTO-23-48V" secondAttribute="centerY" constant="-278" id="mcX-ij-666"/>
+                            <constraint firstItem="39U-3G-ih6" firstAttribute="leading" secondItem="MTO-23-48V" secondAttribute="leadingMargin" constant="275" id="mrS-Rq-Oho"/>
                             <constraint firstItem="aCT-iv-yCW" firstAttribute="leading" secondItem="MTO-23-48V" secondAttribute="leadingMargin" constant="-38" id="nvK-rr-kU2"/>
                         </constraints>
                     </view>
@@ -1693,7 +1715,7 @@
         <image name="fast-forward" width="24" height="16"/>
         <image name="imghint" width="2149" height="1665"/>
         <image name="mainpencil" width="1560" height="205"/>
-        <image name="maintitle" width="1352" height="138"/>
+        <image name="paintbrush" width="139" height="23"/>
         <image name="pencilTool" width="160" height="25"/>
         <image name="play-arrow" width="22" height="24"/>
         <image name="redo-fill" width="24" height="24"/>

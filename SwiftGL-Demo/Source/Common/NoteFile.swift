@@ -63,9 +63,17 @@ class NoteFile: File {
                 let valueData:NoteValueData = parseStruct()
                 //print("valueData")
                 
+                var note:Note
                 
                 //print(valueData.strokeIndex)
-                let note = Note(title: title, description: description,valueData: valueData)
+                if title == nil
+                {
+                    note = Note(title: "", description: description,valueData: valueData)
+                }
+                else{
+                    note = Note(title: title, description: description,valueData: valueData)
+                }
+                
                 
                 notes[note.value.strokeIndex] = note
             }

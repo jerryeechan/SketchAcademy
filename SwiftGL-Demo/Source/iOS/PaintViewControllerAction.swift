@@ -87,23 +87,11 @@ extension PaintViewController:UITextFieldDelegate
         paintManager.clear()
     }
     
-    @IBAction func undoButtonTouched(sender: UIBarButtonItem) {
-        if appState == .drawArtwork
-        {
-            paintManager.undo()
-        }
-    }
-    
-    @IBAction func redoButtonTouched(sender: UIBarButtonItem) {
-        if appState == .drawArtwork
-        {
-            paintManager.redo()
-
-        }
-    }
-    func onStrokeProgressChanged(currentStrokeID:Int,totalStrokeCount:Int)
-    {
-        if currentStrokeID == 0
+    func checkUndoRedo(){
+        let currentStrokeID = paintManager.artwork.currentClip.currentStrokeID
+        let totalStrokeCount = paintManager.artwork.currentClip.strokes.count + paintManager.artwork.currentClip.redoStrokes.count
+        
+        if currentStrokeID == 0 && paintManager.artwork.currentClip.op.count == 0
         {
             undoButton.enabled = false
         }
@@ -112,7 +100,7 @@ extension PaintViewController:UITextFieldDelegate
             undoButton.enabled = true
         }
         
-        if currentStrokeID == totalStrokeCount-1
+        if currentStrokeID == totalStrokeCount && paintManager.artwork.currentClip.redoOp.count == 0
         {
             redoButton.enabled = false
         }
@@ -120,6 +108,25 @@ extension PaintViewController:UITextFieldDelegate
         {
             redoButton.enabled = true
         }
+    }
+    @IBAction func undoButtonTouched(sender: UIBarButtonItem) {
+        if appState == .drawArtwork
+        {
+            paintManager.undo()
+            checkUndoRedo()
+        }
+    }
+    
+    @IBAction func redoButtonTouched(sender: UIBarButtonItem) {
+        if appState == .drawArtwork
+        {
+            paintManager.redo()
+            checkUndoRedo()
+        }
+    }
+    func onStrokeProgressChanged(currentStrokeID:Int,totalStrokeCount:Int)
+    {
+        checkUndoRedo()
         paintManager.currentReplayer.last_endIndex = currentStrokeID
         
     }

@@ -141,6 +141,9 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
                 DLog("finished")
             } else {
                 //self.view.backgroundColor = color // set background color to current selected color (finger is still down)
+                self!.paintView.paintBuffer.setBrushDrawSetting(self!.paintView.paintBuffer.paintToolManager.currentTool.toolType)
+                
+                self!.paintView.paintBuffer.paintToolManager.usePreviousTool()
                 self!.paintView.paintBuffer.paintToolManager.changeColor(color)
                 let colors = getNearByColor(color)
                 
@@ -150,6 +153,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
                     button.backgroundColor = colors[i]
                     
                 }
+                
             }
         }
         
@@ -376,10 +380,15 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     }
     
     
-    
+    var doubleTap:Bool = false
     @IBAction func doubleTapEraserHandler(sender: UIButton) {
-        paintView.paintBuffer.blank()
-        paintView.glDraw()
+        
+        paintManager.clean()
+        checkUndoRedo()
+        paintView.paintBuffer.paintToolManager.usePreviousTool()
+        paintView.paintBuffer.setBrushDrawSetting(paintView.paintBuffer.paintToolManager.currentTool.toolType)
+        paintView.paintBuffer.paintToolManager.changeColor(colorPicker.color)
+        doubleTap = true
     }
     
     var isCanvasManipulationEnabled:Bool = true
@@ -509,10 +518,35 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     @IBAction func tutorialRestartBtnTouched(sender: UIBarButtonItem) {
     }
     
+    
+    @IBAction func paperSwitchBtnTouched(sender: UIBarButtonItem) {
+        paintView.paintBuffer.switchBG()
+        paintView.glDraw()
+    }
+    
+    
+    
 }
 
 
-
+func isPointContain(vertices:[CGPoint],test:CGPoint)->Bool{
+    let nvert = vertices.count;
+    var c:Bool = false
+    
+    var i:Int,j:Int
+    for (i = 0, j = nvert-1; i < nvert; j = i, i += 1) {
+        let verti = vertices[i]
+        let vertj = vertices[j]
+        if (( (verti.y > test.y) != (vertj.y > test.y) ) &&
+        ( test.x < ( vertj.x - verti.x ) * ( test.y - verti.y ) / ( vertj.y - verti.y ) + verti.x) )
+        {
+            c = !c;
+        }
+        
+    }
+    
+    return c;
+}
 
 func CGPointToVec4(p:CGPoint)->Vec4
 {

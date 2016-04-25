@@ -12,6 +12,10 @@ import OpenGLES.ES3
 
 // the attribute struct
 
+enum BrushType:Int
+{
+    case Pencil = 0,OilBrush,Eraser
+}
 
 class GLShaderBinder{
 
@@ -22,23 +26,29 @@ class GLShaderBinder{
     
     var textureShader:TextureShader!
     var brushTexture:Texture!
-    var eraserShader:EraserShader
-    var pencilShader:PencilShader
+    
     var primitiveShader:PrimitiveShader
     var currentBrushShader:BrushShader
     
-    var brushShaders:[GLShaderWrapper]
+    var brushShaderDict:[BrushType:BrushShader] = [:]
     var shaderWrappers:[GLShaderWrapper]
     init()
     {
         textureShader = TextureShader()
-        pencilShader = PencilShader()
+        
         primitiveShader = PrimitiveShader()
-        eraserShader = EraserShader()
-        shaderWrappers = [textureShader,pencilShader,primitiveShader,eraserShader]
-        brushShaders = [pencilShader,eraserShader]
-        currentBrushShader = pencilShader
+        
+        shaderWrappers = [textureShader,primitiveShader]
+        //brushShaders = [pencilShader,eraserShader]
+        
+        
+        brushShaderDict[BrushType.Pencil] = PencilShader()
+        brushShaderDict[BrushType.Eraser] = EraserShader()
+        brushShaderDict[BrushType.OilBrush] = BrushShader(name: "oilbrush")
+            
+        currentBrushShader = brushShaderDict[BrushType.Pencil]!
         GLShaderBinder.instance = self
+        useBrush(BrushType.Pencil)
     }
     enum ShaderType:String
     {
@@ -48,14 +58,11 @@ class GLShaderBinder{
     {
         textureShader.setSize(width, height: height)
     }
-    func usePencil()
+    func useBrush(type:BrushType)
     {
-        useBrushShader(pencilShader)
+        useBrushShader(brushShaderDict[type]!)
     }
-    func useEraser()
-    {
-        useBrushShader(eraserShader)
-    }
+    
     func useBrushShader(shader:BrushShader)
     {
         currentBrushShader = shader
@@ -71,7 +78,7 @@ class GLShaderBinder{
     }*/
     func bindMVPBrush(MVP:Mat4)
     {
-        for shader in brushShaders
+        for shader in brushShaderDict.values
         {
             shader.bindMVP(MVP)
         }

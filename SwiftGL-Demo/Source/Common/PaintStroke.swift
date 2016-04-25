@@ -15,7 +15,7 @@ struct StrokeInfo{
 }
 class PaintStroke
 {
-    
+    var rect:GLRect = GLRect(p1: Vec2(0,0), p2: Vec2(0,0))
     var points:[PaintPoint] = []
     //var position:[Vec2]=[]
     //var timestamps:[CFTimeInterval]=[]
@@ -81,6 +81,27 @@ class PaintStroke
     {
         points+=[point]
         pointData.append(PointData(paintPoint: point,t: time))
+        expandBound(point.position)
+    }
+    func expandBound(position:Vec4)
+    {
+        if position.x < rect.leftTop.x
+        {
+            rect.leftTop.x = position.x
+        }
+        if position.y < rect.leftTop.y
+        {
+            rect.leftTop.y = position.y
+        }
+        if position.x > rect.rightButtom.x
+        {
+            rect.rightButtom.x = position.x
+        }
+        if position.y > rect.rightButtom.y
+        {
+            rect.rightButtom.y = position.y
+        }
+
     }
     /*
     func drawBetween(startIndex:Int,endIndex:Int)

@@ -54,25 +54,32 @@ extension PaintViewController
         
         if sender.tag <= 2 && sender.tag>=0
         {
-            paintView.paintBuffer.paintToolManager.changeTool("pen")
-            paintView.paintBuffer.setBrushDrawSetting(PaintToolType.pen)
+            
+            
+            
+            paintView.paintBuffer.setBrushDrawSetting(paintView.paintBuffer.paintToolManager.currentTool.toolType)
+            
             
         }
         switch(sender.tag)
         {
         case 0:
             
-            colorPicker.setTheColor(UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1))
+            paintView.paintBuffer.paintToolManager.changeTool("oil")
         case 1:
-           
-            colorPicker.setTheColor(UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1))
-        case 2:
-           
-            colorPicker.setTheColor(UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1))
-        case -1:
-            paintView.paintBuffer.paintToolManager.changeTool("eraser")
-            paintView.paintBuffer.setBrushDrawSetting(PaintToolType.eraser)
+           paintView.paintBuffer.paintToolManager.changeTool("pen")
             
+        case 2:
+           break
+            
+        case -1:
+            if !doubleTap
+            {
+                paintView.paintBuffer.paintToolManager.changeTool("eraser")
+                paintView.paintBuffer.setBrushDrawSetting(paintView.paintBuffer.paintToolManager.currentTool.toolType)
+                
+            }
+            doubleTap = false
         default:
            paintView.paintBuffer.paintToolManager.changeTool("pen")
         }

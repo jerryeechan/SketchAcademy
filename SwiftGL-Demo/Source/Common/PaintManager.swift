@@ -212,28 +212,66 @@ class PaintManager {
         currentReplayer.drawAll()
     }
     */
-    
+    func clean()
+    {
+        artwork.currentClip.clean()
+        paintView.paintBuffer.blank()
+        paintView.glDraw()
+        
+    }
     
     //return if still can undo
     func undo()
     {
         let currentClip = artwork.currentClip
         DLog("\(currentClip.strokes.count) \(currentClip.currentStrokeID)")
-        currentClip.undo()
-        artwork.currentReplayer.drawCurrentStrokeProgress(-1)
+        
+        if(currentClip.op.count > 0)
+        {
+            let op = currentClip.op.removeLast()
+            switch op {
+            case Operation.Clean:
+                currentClip.undoClean()
+                artwork.currentReplayer.drawAll()
+                paintView.glDraw()
+            }
+        }
+        else
+        {
+            //no op just undo stroke
+            currentClip.undo()
+            artwork.currentReplayer.drawCurrentStrokeProgress(-1)
+        }
     }
     
     func redo()
     {
+        let currentClip = artwork.currentClip
         //currentReplayer.drawCurrentStrokeProgress(1)
-        
-        let stroke = artwork.currentClip.redo()
-        DLog("\(artwork.currentClip.currentStrokeID) \(artwork.currentClip.strokes.count)")
-        if stroke != nil
+        if currentClip.redoOp.count > 0
         {
-            paintView.paintBuffer.drawStroke(stroke, layer: 0)
-            paintView.glDraw()
+            let op = currentClip.redoOp.removeLast()
+            switch op{
+            case Operation.Clean:
+                clean()
+                DLog("\(artwork.currentClip.currentStrokeID) \(artwork.currentClip.strokes.count) \(currentClip.redoOp)")
+            }
         }
+        else{
+            let stroke = artwork.currentClip.redo()
+            DLog("\(artwork.currentClip.currentStrokeID) \(artwork.currentClip.strokes.count)")
+            if stroke != nil
+            {
+                paintView.paintBuffer.drawStroke(stroke, layer: 0)
+                paintView.glDraw()
+            }
+            else{
+                DLog("something wrong")
+            }
+
+        }
+        
+        
         
     }
     

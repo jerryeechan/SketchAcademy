@@ -10,24 +10,40 @@ import Foundation
 import ImageIO
 import MobileCoreServices
 import SwiftGL
-class ArtworkFileExporter {
+extension PaintViewController {
     func exportGIF(filename:String)
     {
-        /*
-        let property:NSDictionary = [kCGImagePropertyGIFDictionary:[kCGImagePropertyGIFDelayTime:0.02]]
+        let property:NSDictionary = [kCGImagePropertyGIFDictionary as NSString:[kCGImagePropertyGIFLoopCount as NSString:0]]
+        
+        let frameProperties = [kCGImagePropertyGIFDictionary as NSString:[kCGImagePropertyGIFDelayTime as NSString:2]]
         let docDirURL:NSURL
         let fileURL:NSURL
+        let destination:CGImageDestination
         do{
             docDirURL = try NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomain: NSSearchPathDomainMask.AllDomainsMask, appropriateForURL: nil, create: true)
             fileURL = docDirURL.URLByAppendingPathComponent("\(filename).gif")
-            let destination = CGImageDestinationCreateWithURL(fileURL, kUTTypeGIF, 32, nil)
+            destination = CGImageDestinationCreateWithURL(fileURL, kUTTypeGIF, 32, nil)!
+            for i in 0...100 {
+                paintManager.artwork.currentReplayer.drawProgress(Float(i))
+                let image = paintView.snapshot
+                CGImageDestinationAddImage(destination,image.CGImage!, frameProperties);
+            }
+            CGImageDestinationSetProperties(destination, property)
+            CGImageDestinationFinalize(destination);
             
-            CGImageDestinationSetProperties(destination, <#T##CFDictionary?#>)
         }
         catch _ {
             
         }
-        */
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
     }

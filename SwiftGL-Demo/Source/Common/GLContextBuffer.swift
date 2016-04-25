@@ -41,7 +41,7 @@ class GLContextBuffer{
         {
             shaderBinder = GLShaderBinder()
         }
-        shaderBinder.usePencil()
+        
         
     }
     var mvp:Mat4!
@@ -77,7 +77,16 @@ class GLContextBuffer{
         draw all layers
         no need to bind any framebuffer, defaut done by GLKView
      */
-    
+    var currentBG = false
+    func switchBG()
+    {
+        if currentBG
+        {paintCanvas.changeBackground("paper_sketch")}
+        else
+        {paintCanvas.changeBackground("blackpaper")}
+        currentBG = !currentBG
+        display()
+    }
     func drawLayersOfCanvas(canvas:GLRenderCanvas,mvp:Mat4)
     {
         shaderBinder.textureShader.bindMVP(mvp)
@@ -123,16 +132,18 @@ class GLContextBuffer{
         paintCanvas.renderMode = RenderMode.direct
     }
     
-    func setBrushDrawSetting(toolType:PaintToolType)
+    func setBrushDrawSetting(toolType:BrushType)
     {
         switch(toolType)
         {
-        case .pen:
+        case .Pencil:
                 paintCanvas.renderMode = RenderMode.drawing
-        case .eraser:
+        case .Eraser:
                 paintCanvas.renderMode = RenderMode.direct
-        case .smudge:
-                paintCanvas.renderMode = RenderMode.direct
+        default :
+                paintCanvas.renderMode = RenderMode.drawing
+        //case .:
+          //      paintCanvas.renderMode = RenderMode.direct
         }
         
     }

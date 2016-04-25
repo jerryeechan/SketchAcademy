@@ -11,9 +11,10 @@ import OpenGLES.ES2
 import SwiftGL
 import UIKit
 
+/*
 enum PaintToolType:Int{
-    case pen = 0,eraser,smudge
-}
+    case pen = 0,eraser,oil,smudge
+}*/
 public class PaintToolManager {
     
     let brushTextureLoader:BrushTextureLoader = BrushTextureLoader()
@@ -21,8 +22,9 @@ public class PaintToolManager {
     var colorInPalette:Color = Color(25,25,25,125)
     var pen:PaintBrush!
     var eraser:PaintBrush!
-    
+    var oilbrush:PaintBrush!
     var currentTool:PaintBrush!
+    var lastBrush:PaintBrush!
 //    static var instance:PaintToolManager!
     init()
     {
@@ -30,51 +32,62 @@ public class PaintToolManager {
     }
     func load()
     {
-        pen = PaintBrush(textureName: "pencil",color: Color(25,25,25,25),size: 2,type:PaintToolType.pen)
-        eraser = PaintBrush(textureName: "circle", color: Color(255,255,255,0),size: 10,type:PaintToolType.eraser)
+        //pen = PaintBrush(textureName: "oilbrush",color: Color(25,25,25,25),size: 10,type:PaintToolType.pen)
         
-        currentTool = pen
+        pen = PaintBrush(textureName: "pencil",color: Color(25,25,25,25),size: 2,type:BrushType.Pencil)
+        eraser = PaintBrush(textureName: "circle", color: Color(255,255,255,0),size: 10,type:BrushType.Eraser)
+        oilbrush = PaintBrush(textureName: "oilbrush", color: Color(25,25,25,25), size: 20, type: BrushType.OilBrush)
+        brushDict[BrushType.Pencil] = pen
+        brushDict[BrushType.Eraser] = eraser
+        brushDict[BrushType.OilBrush] = oilbrush
+        useTool(BrushType.Pencil)
+        
         //Painter.currentBrush = currentTool
-        pen.useTool()
+    
     }
-
-    func getTool(name:String)->PaintToolType    {
+    var brushDict:[BrushType:PaintBrush] = [:]
+    func getTool(name:String)->BrushType{
         switch(name)
         {
         case "pen":
-            
-            
-            return .pen
+            return .Pencil
         case "marker":
             pen.changeTexture("Particle")
-            return .pen
+            return .Pencil
+        case "oil":
+            return .OilBrush
         case "eraser":
-            return .eraser
+            return .Eraser
         default :
-            return .pen
+            return .Pencil
         }
+    }
+    public func usePreviousTool()
+    {
+        useTool(lastBrush.toolType)
     }
     public func useCurrentTool()
     {
         useTool(currentTool.toolType)
     }
-    private func useTool(type:PaintToolType)->PaintBrush!
+    private func useTool(type:BrushType)->PaintBrush!
     {
-        
+        currentTool = brushDict[type]
         switch(type)
         {
-        case .pen:
-            usePen()
-            return pen
-        case .eraser:
+        
+        case .Eraser:
             useEraser()
-            return eraser
         default:
-            return pen
+            useBrush(type)
+            lastBrush = currentTool
+            
         }
         
+        return currentTool
         
     }
+    
     func changeTool(name:String)->PaintBrush
     {
         currentTool = useTool(getTool(name))
@@ -88,15 +101,25 @@ public class PaintToolManager {
         return brush
     }
 */
+    func useBrush(type:BrushType)
+    {
+        glEnable(GL_BLEND)
+        GLShaderBinder.instance.useBrush(type)
+        let brush = brushDict[type]
+        brush!.useTool()
+        brush?.changeColor(
+            colorInPalette)
+        glBlendEquation(GLenum(GL_FUNC_ADD))
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+    }
     func usePen()
     {
         glEnable(GL_BLEND)
-        GLShaderBinder.instance.usePencil()
+        GLShaderBinder.instance.useBrush(BrushType.Pencil)
         pen.useTool()
         pen.changeColor(colorInPalette)
         glBlendEquation(GLenum(GL_FUNC_ADD))
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
-        //print("PaintToolManager: use pen")
         currentTool = pen
     }
     
@@ -105,7 +128,7 @@ public class PaintToolManager {
         glEnable(GLenum(GL_POINT_SMOOTH))
         glDisable(GL_BLEND)
         //***blend function as problem
-        GLShaderBinder.instance.useEraser()
+        GLShaderBinder.instance.useBrush(BrushType.Eraser)
         eraser.useTool()
         //        glBlendEquation(GLenum(GL_FUNC_SUBTRACT))
         
@@ -117,7 +140,6 @@ public class PaintToolManager {
         
         
         //GLContextBuffer.instance.setReplayDrawSetting()
-        currentTool = eraser
         
     }
     // var isToolAttributeChanged:Bool = true

@@ -7,6 +7,7 @@
 //
 import SwiftGL
 class BrushShader:GLShaderWrapper{
+    
     override init(name:String)
     {
         super.init(name: name)
@@ -21,7 +22,7 @@ class BrushShader:GLShaderWrapper{
         addUniform("brushSize")
         addUniform("texture")
     }
-   
+    
     var brushTexture:Texture!
     func bindBrush()
     {

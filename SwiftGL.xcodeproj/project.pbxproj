@@ -22,6 +22,7 @@
 		C40FB5C21C663234004A7731 /* SwiftGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EE432F1953BE91007CC56F /* SwiftGL.framework */; };
 		C40FB5C31C663234004A7731 /* SwiftGL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2EE432F1953BE91007CC56F /* SwiftGL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C41805E41B9F2F4000B69EF5 /* NoteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */; };
+		C41936F11CC8658A00B06E1F /* ColorBlockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936F01CC8658A00B06E1F /* ColorBlockButton.swift */; };
 		C41AD53C1C95A29500317E41 /* GLPrimitiveRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD53B1C95A29400317E41 /* GLPrimitiveRenderer.swift */; };
 		C41AD5401C95A52B00317E41 /* GLShaderWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD53F1C95A52B00317E41 /* GLShaderWrapper.swift */; };
 		C41AD5431C95A62500317E41 /* PencilShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD5421C95A62500317E41 /* PencilShader.swift */; };
@@ -75,6 +76,10 @@
 		C46DAEFD1C7700530047A7B7 /* NoteOptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46DAEFC1C7700530047A7B7 /* NoteOptionTableViewController.swift */; };
 		C46DAEFF1C7701A00047A7B7 /* NoteOptionPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46DAEFE1C7701A00047A7B7 /* NoteOptionPopover.swift */; };
 		C46DCD271BA477110038014F /* SubViewPanelAnimateState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46DCD251BA4768C0038014F /* SubViewPanelAnimateState.swift */; };
+		C4755F461CC7235B0082C723 /* PaintOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4755F451CC7235A0082C723 /* PaintOperation.swift */; };
+		C4755F481CC73B5A0082C723 /* oilbrush.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C4755F471CC73B5A0082C723 /* oilbrush.fsh */; };
+		C4755F4A1CC73B670082C723 /* oilbrush.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C4755F491CC73B670082C723 /* oilbrush.vsh */; };
+		C4755F4C1CC75AFD0082C723 /* OilBrushShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4755F4B1CC75AFD0082C723 /* OilBrushShader.swift */; };
 		C478D8521B1F4C3A00FFF3D9 /* brush1.png in Resources */ = {isa = PBXBuildFile; fileRef = C478D84F1B1F4C3A00FFF3D9 /* brush1.png */; };
 		C478D8531B1F4C3A00FFF3D9 /* brush2.png in Resources */ = {isa = PBXBuildFile; fileRef = C478D8501B1F4C3A00FFF3D9 /* brush2.png */; };
 		C478D8541B1F4C3A00FFF3D9 /* Particle.png in Resources */ = {isa = PBXBuildFile; fileRef = C478D8511B1F4C3A00FFF3D9 /* Particle.png */; };
@@ -274,6 +279,7 @@
 		C40C2E601C711D5B006A165F /* NoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteButton.swift; sourceTree = "<group>"; };
 		C40C2E621C723760006A165F /* eraser.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = eraser.vsh; sourceTree = "<group>"; };
 		C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTableCell.swift; sourceTree = "<group>"; };
+		C41936F01CC8658A00B06E1F /* ColorBlockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorBlockButton.swift; sourceTree = "<group>"; };
 		C41AD53B1C95A29400317E41 /* GLPrimitiveRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLPrimitiveRenderer.swift; sourceTree = "<group>"; };
 		C41AD53F1C95A52B00317E41 /* GLShaderWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLShaderWrapper.swift; sourceTree = "<group>"; };
 		C41AD5421C95A62500317E41 /* PencilShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PencilShader.swift; sourceTree = "<group>"; };
@@ -331,6 +337,10 @@
 		C46DAEFC1C7700530047A7B7 /* NoteOptionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteOptionTableViewController.swift; path = ../../../NoteOptionTableViewController.swift; sourceTree = "<group>"; };
 		C46DAEFE1C7701A00047A7B7 /* NoteOptionPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteOptionPopover.swift; sourceTree = "<group>"; };
 		C46DCD251BA4768C0038014F /* SubViewPanelAnimateState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubViewPanelAnimateState.swift; sourceTree = "<group>"; };
+		C4755F451CC7235A0082C723 /* PaintOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintOperation.swift; sourceTree = "<group>"; };
+		C4755F471CC73B5A0082C723 /* oilbrush.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = oilbrush.fsh; sourceTree = "<group>"; };
+		C4755F491CC73B670082C723 /* oilbrush.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = oilbrush.vsh; sourceTree = "<group>"; };
+		C4755F4B1CC75AFD0082C723 /* OilBrushShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OilBrushShader.swift; sourceTree = "<group>"; };
 		C478D84F1B1F4C3A00FFF3D9 /* brush1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush1.png; sourceTree = "<group>"; };
 		C478D8501B1F4C3A00FFF3D9 /* brush2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush2.png; sourceTree = "<group>"; };
 		C478D8511B1F4C3A00FFF3D9 /* Particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Particle.png; sourceTree = "<group>"; };
@@ -511,6 +521,7 @@
 				C4AE3C441B0CF54F00C959C2 /* PaintStroke.swift */,
 				C478D8551B1F7F1900FFF3D9 /* PointData.swift */,
 				C45222F41C0CA90A00506B82 /* PaintClip.swift */,
+				C4755F451CC7235A0082C723 /* PaintOperation.swift */,
 			);
 			name = PaintData;
 			sourceTree = "<group>";
@@ -533,6 +544,14 @@
 				C491EC681C129C9C00154CC6 /* ReplayControl.swift */,
 			);
 			name = Progress;
+			sourceTree = "<group>";
+		};
+		C41936EF1CC8653600B06E1F /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				C41936F01CC8658A00B06E1F /* ColorBlockButton.swift */,
+			);
+			name = Buttons;
 			sourceTree = "<group>";
 		};
 		C41AD5381C95287A00317E41 /* Course */ = {
@@ -576,6 +595,7 @@
 				C41AD5461C964A3400317E41 /* PrimitiveShader.swift */,
 				C41AD5481C96519B00317E41 /* BrushShader.swift */,
 				C4E904161CBA1FEC00175B60 /* EraserShader.swift */,
+				C4755F4B1CC75AFD0082C723 /* OilBrushShader.swift */,
 			);
 			name = CustomShader;
 			sourceTree = "<group>";
@@ -583,6 +603,7 @@
 		C42468141B21E0250053CB5B /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				C41936EF1CC8653600B06E1F /* Buttons */,
 				C42468151B21E0520053CB5B /* AlertViewManager.swift */,
 				C4A2DF311BA3503700805CE6 /* GetPointColorInView.swift */,
 			);
@@ -1074,6 +1095,8 @@
 				C44BB0941B48E17D001B158A /* RenderTexture.vsh */,
 				C44BB08F1B48E0EF001B158A /* pencil.fsh */,
 				C44BB0901B48E0EF001B158A /* pencil.vsh */,
+				C4755F471CC73B5A0082C723 /* oilbrush.fsh */,
+				C4755F491CC73B670082C723 /* oilbrush.vsh */,
 				D2F663FE1ADD7607003C1925 /* DemoShader1.vsh */,
 				D2F663FD1ADD7607003C1925 /* DemoShader1.fsh */,
 				C442A8941B7B3B87000BB98F /* primitive.fsh */,
@@ -1407,12 +1430,14 @@
 				D2F664181ADD7607003C1925 /* Main.storyboard in Resources */,
 				C442A8951B7B3B87000BB98F /* primitive.fsh in Resources */,
 				C442A8931B7B3B75000BB98F /* primitive.vsh in Resources */,
+				C4755F4A1CC73B670082C723 /* oilbrush.vsh in Resources */,
 				D2F6641A1ADD7607003C1925 /* Images.xcassets in Resources */,
 				C478D8531B1F4C3A00FFF3D9 /* brush2.png in Resources */,
 				C478D8521B1F4C3A00FFF3D9 /* brush1.png in Resources */,
 				D2F664261ADD7607003C1925 /* DemoShader1.vsh in Resources */,
 				C4E904191CBA24E700175B60 /* eraser.fsh in Resources */,
 				C4E904181CBA249600175B60 /* eraser.vsh in Resources */,
+				C4755F481CC73B5A0082C723 /* oilbrush.fsh in Resources */,
 				C44BB09D1B48E50E001B158A /* RenderTexture.fsh in Resources */,
 				D2F664241ADD7607003C1925 /* DemoShader1.fsh in Resources */,
 				C478D8541B1F4C3A00FFF3D9 /* Particle.png in Resources */,
@@ -1573,6 +1598,7 @@
 				C4C5B9B81B0EFB1200D6AD4B /* GLTransformation.swift in Sources */,
 				C4BBE6BA1C6EFD9600E731A1 /* NoteTextArea.swift in Sources */,
 				C4FEDC0B1BB3D1C900BE7F1C /* LayerCache.swift in Sources */,
+				C4755F461CC7235B0082C723 /* PaintOperation.swift in Sources */,
 				C4EB7A821B8645D600A33651 /* TypeWriter.swift in Sources */,
 				C4FE45E81BDFDE59008CE7D0 /* NoteFile.swift in Sources */,
 				C4A7213C1C11B700007B0B2E /* NoteDetailCell.swift in Sources */,
@@ -1618,6 +1644,8 @@
 				C4C390F41C7A54A60018A1C9 /* QTouchposeApplication.m in Sources */,
 				C458F5DF1B54C93100FC1235 /* DotSet.swift in Sources */,
 				C44CF0A51B85B86100D6C43E /* SelectedColorView.swift in Sources */,
+				C4755F4C1CC75AFD0082C723 /* OilBrushShader.swift in Sources */,
+				C41936F11CC8658A00B06E1F /* ColorBlockButton.swift in Sources */,
 				C4BD8CA91B274DA0000A20A4 /* TouchClassifier.swift in Sources */,
 				C4AE3C4A1B0D1DF200C959C2 /* PaintStroke.swift in Sources */,
 				C41AD5491C96519C00317E41 /* BrushShader.swift in Sources */,
