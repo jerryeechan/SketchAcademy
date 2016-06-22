@@ -26,6 +26,10 @@ class Layer:NSObject{
         self.init()
         self.texture = texture
     }
+    func drawImage(glImage:GLImage,x:Int,y:Int)
+    {
+        
+    }
     override init()
     {
         super.init()

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>BVHTest.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>SwiftGL-Demo-iOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,16 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>C4C391071C7B5BB70018A1C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4E565921CE1B5E8004D1D70</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4E565C51CE25DC8004D1D70</key>
 		<dict>
 			<key>primary</key>
 			<true/>

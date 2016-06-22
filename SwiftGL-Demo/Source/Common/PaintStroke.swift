@@ -13,14 +13,42 @@ import SwiftGL
 struct StrokeInfo{
     var timeAfterLast:Double
 }
-class PaintStroke
+
+/*
+if _bound == nil
 {
-    var rect:GLRect = GLRect(p1: Vec2(0,0), p2: Vec2(0,0))
+    for point in points
+    {
+        expandBound(point.position)
+    }
+}
+*/
+
+class PaintStroke:HasBound
+{
+    var _bound:GLRect!
+    var bound:GLRect{
+        get{
+            if _bound == nil
+            {
+                _bound = GLRect(p1: points[0].position.xy, p2: points[0].position.xy)
+                for point in points
+                {
+                    expandBound(point.position)
+                }
+            }
+            return _bound
+        }
+        set{
+            _bound = newValue
+        }
+    }
     var points:[PaintPoint] = []
     //var position:[Vec2]=[]
     //var timestamps:[CFTimeInterval]=[]
     //var velocities:[Vec2] = []
-    var pointData:[PointData]=[]
+    
+    var pointData:[PointData] = []
     
     var startTime:Double!
     var texture:Texture!
@@ -81,25 +109,29 @@ class PaintStroke
     {
         points+=[point]
         pointData.append(PointData(paintPoint: point,t: time))
+        if points.count == 1
+        {
+            bound = GLRect(p1: point.position.xy,p2: point.position.xy)
+        }
         expandBound(point.position)
     }
     func expandBound(position:Vec4)
     {
-        if position.x < rect.leftTop.x
+        if position.x < _bound.leftTop.x
         {
-            rect.leftTop.x = position.x
+            _bound.leftTop.x = position.x
         }
-        if position.y < rect.leftTop.y
+        if position.y < _bound.leftTop.y
         {
-            rect.leftTop.y = position.y
+            _bound.leftTop.y = position.y
         }
-        if position.x > rect.rightButtom.x
+        if position.x > _bound.rightButtom.x
         {
-            rect.rightButtom.x = position.x
+            _bound.rightButtom.x = position.x
         }
-        if position.y > rect.rightButtom.y
+        if position.y > _bound.rightButtom.y
         {
-            rect.rightButtom.y = position.y
+            _bound.rightButtom.y = position.y
         }
 
     }

@@ -448,6 +448,7 @@ class PaintReplayer:NSObject
     
     func drawAll()
     {
+        context.clearCacheAll()
         let strokes = clip.strokes
         context.setReplayDrawSetting()
         context.blank()

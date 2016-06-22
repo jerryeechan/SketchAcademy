@@ -10,7 +10,9 @@ import SwiftGL
 
 extension GLContextBuffer
 {
-    
+    func setLineAttribute(){
+        
+    }
     func drawLine(start:Vec4,end:Vec4){
         let vertexBuffer:[Vec4] = [start,end]
         

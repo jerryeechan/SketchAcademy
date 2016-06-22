@@ -1,10 +1,10 @@
 attribute vec4 position;
-attribute vec4 inputTextureCoordinate;
+attribute vec2 textureUV;
 uniform mat4 MVP;
-varying vec2 textureCoordinate;
+varying vec2 vUV;
 
 void main()
 {
-    gl_Position = MVP *position;
-    textureCoordinate = inputTextureCoordinate.xy;
+    gl_Position = MVP * position;
+    vUV = textureUV.xy;
 }

@@ -90,13 +90,27 @@ class ColorGradientView: UIView {
         })
         
     }
+    override func drawRect(rect: CGRect) {
+
+        //drawCoreGraphic()
+        
+    }
+    
+    
+    
     func initLayer()
     {
+        
+        //drawCoreGraphic()
         colorLayer = ColorLayer(color: UIColor.redColor(),hue:0)
         colorLayer.layer.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.width)
         // Insert the color.colorLayer into this views layer as a sublayer
         layer.insertSublayer(colorLayer.layer, atIndex: 0)
         // Init new CAGradientLayer to be used as the grayScale overlay
+        
+        
+        
+        
         let grayScaleLayer = CAGradientLayer()
         // Set the grayScaleLayer colors to black and clear
         grayScaleLayer.colors = [UIColor.clearColor().CGColor,UIColor.blackColor().CGColor]
@@ -107,6 +121,7 @@ class ColorGradientView: UIView {
         grayScaleLayer.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.width)
         // Insert the grayScaleLayer into this views layer as a sublayer
         self.layer.insertSublayer(grayScaleLayer, atIndex: 1)
+        setNeedsDisplay()
     }
     func setColor(_color: UIColor!,hue:CGFloat) {
         // Set member color to the new UIColor coming in
@@ -120,6 +135,7 @@ class ColorGradientView: UIView {
         colorLayer.layer.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.width)
         // Insert the color.colorLayer into this views layer as a sublayer
         layer.insertSublayer(colorLayer.layer, atIndex: 0)
+        
         knob.backgroundColor = _color
         // Init new CAGradientLayer to be used as the grayScale overlay
         

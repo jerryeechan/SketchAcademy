@@ -19,8 +19,31 @@ class ImageFile: File {
         return nil
         
     }
+    func loadImgWithExtension(filename:String,ext:String)->UIImage!
+    {
+        if let img = UIImage(contentsOfFile: File.dirpath+"/"+NSString(string: filename).stringByDeletingPathExtension+ext)
+        {
+            return img
+        }
+        return nil
+    }
+    func loadImg(filename:String, attribute:String = "original")->UIImage!
+    {
+        switch attribute {
+        case "original":
+            return loadImgWithExtension(filename, ext: ".png")
+        case "thumb":
+            return loadImgWithExtension(filename, ext: "thumb.png")
+        case "gif":
+            return loadImgWithExtension(filename, ext: ".gif")
+        default:
+            return loadImgWithExtension(filename, ext: ".png")
+        }
+    }
+     
     func saveImg(img:UIImage,filename:String)
     {
+        
         let imageData:NSData = UIImagePNGRepresentation(img)!;
         let filePath = File.dirpath+"/"+filename+".png"
         imageData.writeToFile(filePath, atomically: true)

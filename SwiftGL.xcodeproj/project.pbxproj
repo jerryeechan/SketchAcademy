@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C401FAEC1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401FAEB1B8D6D9A00B6F177 /* GLRenderBuffer.swift */; };
 		C401FAED1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401FAEB1B8D6D9A00B6F177 /* GLRenderBuffer.swift */; };
 		C4024B6B1B56CF2E00761BB1 /* DrawDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4024B691B56CEE500761BB1 /* DrawDetailNavigationController.swift */; };
 		C404FA951B14601F004C2D8C /* PaintPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404FA921B144851004C2D8C /* PaintPoint.swift */; };
@@ -23,6 +22,10 @@
 		C40FB5C31C663234004A7731 /* SwiftGL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2EE432F1953BE91007CC56F /* SwiftGL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C41805E41B9F2F4000B69EF5 /* NoteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */; };
 		C41936F11CC8658A00B06E1F /* ColorBlockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936F01CC8658A00B06E1F /* ColorBlockButton.swift */; };
+		C41936F61CD1225500B06E1F /* LessonDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936F51CD1225500B06E1F /* LessonDescriptionViewController.swift */; };
+		C41936F81CD126F200B06E1F /* LessonMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936F71CD126F200B06E1F /* LessonMenuViewController.swift */; };
+		C41936FA1CD2E0C400B06E1F /* LessonMenuSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936F91CD2E0C400B06E1F /* LessonMenuSplitViewController.swift */; };
+		C41936FE1CD33FB900B06E1F /* LessonMenuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936FD1CD33FB900B06E1F /* LessonMenuDetailViewController.swift */; };
 		C41AD53C1C95A29500317E41 /* GLPrimitiveRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD53B1C95A29400317E41 /* GLPrimitiveRenderer.swift */; };
 		C41AD5401C95A52B00317E41 /* GLShaderWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD53F1C95A52B00317E41 /* GLShaderWrapper.swift */; };
 		C41AD5431C95A62500317E41 /* PencilShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD5421C95A62500317E41 /* PencilShader.swift */; };
@@ -31,19 +34,16 @@
 		C41AD5491C96519C00317E41 /* BrushShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD5481C96519B00317E41 /* BrushShader.swift */; };
 		C41AD54B1C97AE9C00317E41 /* ModelViewProjectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD54A1C97AE9C00317E41 /* ModelViewProjectionProtocol.swift */; };
 		C4235B761C0F406F00C32531 /* ArtworkMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4235B741C0F3C4900C32531 /* ArtworkMenuViewController.swift */; };
-		C42468161B21E0520053CB5B /* AlertViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42468151B21E0520053CB5B /* AlertViewManager.swift */; };
 		C42BB0DA1C6F4A31003F3337 /* NoteTitleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */; };
 		C42BB0DD1C6F8770003F3337 /* CleanToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB0DB1C6F876D003F3337 /* CleanToolBar.swift */; };
 		C42BB0DF1C6F87D7003F3337 /* PlayBackControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB0DE1C6F87D7003F3337 /* PlayBackControlPanel.swift */; };
-		C433EEB51B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */; };
+		C42E35A21CD4B61E001EDC02 /* GLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42E35A11CD4B61E001EDC02 /* GLImage.swift */; };
+		C42E35A41CD7675B001EDC02 /* TutorialPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42E35A31CD7675A001EDC02 /* TutorialPanel.swift */; };
 		C433EEB61B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */; };
-		C433EEB81B5BC13000D5175F /* SliceRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB71B5BC13000D5175F /* SliceRect.swift */; };
 		C433EEB91B5BC13000D5175F /* SliceRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB71B5BC13000D5175F /* SliceRect.swift */; };
-		C433EEBB1B5D332F00D5175F /* GLLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEBA1B5D332F00D5175F /* GLLine.swift */; };
 		C433EEBC1B5D332F00D5175F /* GLLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEBA1B5D332F00D5175F /* GLLine.swift */; };
 		C442A8931B7B3B75000BB98F /* primitive.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8921B7B3B75000BB98F /* primitive.vsh */; };
 		C442A8951B7B3B87000BB98F /* primitive.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8941B7B3B87000BB98F /* primitive.fsh */; };
-		C44609271B7A571A00C34D04 /* GLRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44609261B7A571A00C34D04 /* GLRect.swift */; };
 		C44747781B83065E0093F019 /* CanvasCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F49F401B83014B001E62AD /* CanvasCropView.swift */; };
 		C447477D1B8317120093F019 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447477C1B8317120093F019 /* Note.swift */; };
 		C44747811B8333EC0093F019 /* ShadeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44747801B8333EC0093F019 /* ShadeView.swift */; };
@@ -71,10 +71,16 @@
 		C458F5E31B54DE5800FC1235 /* DotStageLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458F5E21B54DE5800FC1235 /* DotStageLevelGenerator.swift */; };
 		C45BF5E31B9B6CB9000DD389 /* AngleGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C45BF5E21B9B6CB9000DD389 /* AngleGradientLayer.m */; };
 		C45BF5ED1B9BF879000DD389 /* PlayBackUISlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45BF5EC1B9BF879000DD389 /* PlayBackUISlider.swift */; };
+		C46B3ABE1CDA4707002E6387 /* LessonCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46B3ABD1CDA4707002E6387 /* LessonCollectionCell.swift */; };
+		C46B3AC11CDA4D97002E6387 /* LessonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46B3AC01CDA4D97002E6387 /* LessonData.swift */; };
+		C46B3AD01CDA56C2002E6387 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C46B3AD21CDA56C2002E6387 /* Localizable.strings */; };
+		C46B3AD91CDAEF82002E6387 /* LessonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46B3AD81CDAEF82002E6387 /* LessonBuilder.swift */; };
+		C46B3ADB1CDAF62E002E6387 /* Lesson1.json in Resources */ = {isa = PBXBuildFile; fileRef = C46B3ADA1CDAF62E002E6387 /* Lesson1.json */; };
+		C46B3ADF1CDE02FC002E6387 /* SelectRectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46B3ADE1CDE02FC002E6387 /* SelectRectView.swift */; };
 		C46CB8661B0D9F33008C378B /* PaintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46CB8651B0D9F33008C378B /* PaintView.swift */; };
 		C46CB8681B0DA8BC008C378B /* PaintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46CB8671B0DA8BC008C378B /* PaintViewController.swift */; };
 		C46DAEFD1C7700530047A7B7 /* NoteOptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46DAEFC1C7700530047A7B7 /* NoteOptionTableViewController.swift */; };
-		C46DAEFF1C7701A00047A7B7 /* NoteOptionPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46DAEFE1C7701A00047A7B7 /* NoteOptionPopover.swift */; };
+		C46DAEFF1C7701A00047A7B7 /* OptionPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46DAEFE1C7701A00047A7B7 /* OptionPopover.swift */; };
 		C46DCD271BA477110038014F /* SubViewPanelAnimateState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46DCD251BA4768C0038014F /* SubViewPanelAnimateState.swift */; };
 		C4755F461CC7235B0082C723 /* PaintOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4755F451CC7235A0082C723 /* PaintOperation.swift */; };
 		C4755F481CC73B5A0082C723 /* oilbrush.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C4755F471CC73B5A0082C723 /* oilbrush.fsh */; };
@@ -132,15 +138,21 @@
 		C4DD1FCF1C6AD87A0014E141 /* NoteProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FCE1C6AD87A0014E141 /* NoteProgressButton.swift */; };
 		C4DD1FD11C6AE1560014E141 /* NoteProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */; };
 		C4DD1FD41C6B099E0014E141 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */; };
+		C4E5658B1CDEB319004D1D70 /* StrokeSelecter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5658A1CDEB319004D1D70 /* StrokeSelecter.swift */; };
+		C4E5658D1CDF2BF9004D1D70 /* OptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5658C1CDF2BF9004D1D70 /* OptionTableViewController.swift */; };
+		C4E565A51CE1C47E004D1D70 /* GLRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E565A31CE1C47E004D1D70 /* GLRect.swift */; };
+		C4E565AE1CE1E463004D1D70 /* BVHNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5659F1CE1B62B004D1D70 /* BVHNode.swift */; };
+		C4E565B01CE1E48B004D1D70 /* BVHTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E565A11CE1B638004D1D70 /* BVHTree.swift */; };
+		C4E565B51CE203A7004D1D70 /* HasBound.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E565B31CE203A7004D1D70 /* HasBound.swift */; };
+		C4E565C91CE25DC8004D1D70 /* BVHTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E565C81CE25DC8004D1D70 /* BVHTest.swift */; };
+		C4E565CB1CE25DC8004D1D70 /* SwiftGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EE432F1953BE91007CC56F /* SwiftGL.framework */; };
+		C4E565D31CE28354004D1D70 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E565D11CE28354004D1D70 /* PriorityQueue.swift */; };
+		C4E565D51CE86151004D1D70 /* PaintViewStrokeSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E565D41CE86151004D1D70 /* PaintViewStrokeSelect.swift */; };
 		C4E7C8EF1BF9058200CC1EAA /* LearnMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7C8EE1BF9058200CC1EAA /* LearnMenuViewController.swift */; };
 		C4E904151CB923FC00175B60 /* ArtworkFileExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E904141CB923FB00175B60 /* ArtworkFileExporter.swift */; };
 		C4E904171CBA1FEC00175B60 /* EraserShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E904161CBA1FEC00175B60 /* EraserShader.swift */; };
 		C4E904181CBA249600175B60 /* eraser.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C40C2E621C723760006A165F /* eraser.vsh */; };
 		C4E904191CBA24E700175B60 /* eraser.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C4626BD71C7254F800C62586 /* eraser.fsh */; };
-		C4EB7A781B86016100A33651 /* DialogueLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A771B86016100A33651 /* DialogueLine.swift */; };
-		C4EB7A7A1B86017500A33651 /* DialogueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A791B86017500A33651 /* DialogueManager.swift */; };
-		C4EB7A7C1B86018300A33651 /* TypeWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7B1B86018300A33651 /* TypeWriter.swift */; };
-		C4EB7A7E1B86450F00A33651 /* Dialogue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7D1B86450F00A33651 /* Dialogue.swift */; };
 		C4EB7A7F1B86450F00A33651 /* Dialogue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A7D1B86450F00A33651 /* Dialogue.swift */; };
 		C4EB7A801B8645D200A33651 /* DialogueLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A771B86016100A33651 /* DialogueLine.swift */; };
 		C4EB7A811B8645D600A33651 /* DialogueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB7A791B86017500A33651 /* DialogueManager.swift */; };
@@ -168,26 +180,8 @@
 		D262B80519663A37004A2997 /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AE9194536CF00655A34 /* Shader.swift */; };
 		D262B80619663A37004A2997 /* Vbo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AF11946795100655A34 /* Vbo.swift */; };
 		D262B80719663A37004A2997 /* Vao.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AF319468EDA00655A34 /* Vao.swift */; };
-		D262B80B19663A52004A2997 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CA623219512D24007B2DC2 /* Constants.swift */; };
-		D262B80C19663A52004A2997 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AE71945263000655A34 /* Float.swift */; };
-		D262B80D19663A52004A2997 /* Vec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AD11944F08E00655A34 /* Vec2.swift */; };
-		D262B80E19663A52004A2997 /* Vec3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AE3194501D300655A34 /* Vec3.swift */; };
-		D262B80F19663A52004A2997 /* Vec4.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AE519450A4D00655A34 /* Vec4.swift */; };
-		D262B81019663A52004A2997 /* Mat4.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20662C01947D8D2001D2FAC /* Mat4.swift */; };
-		D262B81119663A52004A2997 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AD3C3119575EC700798AEE /* Color.swift */; };
-		D262B81219663A52004A2997 /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AE9194536CF00655A34 /* Shader.swift */; };
-		D262B81319663A52004A2997 /* Vbo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AF11946795100655A34 /* Vbo.swift */; };
-		D262B81419663A52004A2997 /* Vao.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AF319468EDA00655A34 /* Vao.swift */; };
-		D262B81519663A52004A2997 /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B38FAE194E063800722470 /* Texture.swift */; };
 		D262B81819663F6A004A2997 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D2AB3ADF194500D900655A34 /* LICENSE */; };
-		D2A1901D1997F9C100830CA4 /* SwiftGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AB3AB51944F05700655A34 /* SwiftGL.framework */; };
-		D2A1901E1997F9C100830CA4 /* SwiftGL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2AB3AB51944F05700655A34 /* SwiftGL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D2AB3AC11944F05700655A34 /* SwiftGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AB3AB51944F05700655A34 /* SwiftGL.framework */; };
-		D2AB3AC81944F05700655A34 /* SwiftGLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AC71944F05700655A34 /* SwiftGLTests.swift */; };
-		D2AB3AE1194500D900655A34 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D2AB3ADF194500D900655A34 /* LICENSE */; };
-		D2AB3AEC194536EB00655A34 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AB3AEB194536EB00655A34 /* OpenGL.framework */; };
 		D2EE434A1953BF64007CC56F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EE43491953BF64007CC56F /* OpenGLES.framework */; };
-		D2EE43551953E42F007CC56F /* GLTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D2EE43541953E42F007CC56F /* GLTest.m */; };
 		D2F664161ADD7607003C1925 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F663F01ADD7607003C1925 /* LaunchScreen.xib */; };
 		D2F664181ADD7607003C1925 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2F663F21ADD7607003C1925 /* Main.storyboard */; };
 		D2F6641A1ADD7607003C1925 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2F663F41ADD7607003C1925 /* Images.xcassets */; };
@@ -217,19 +211,12 @@
 			remoteGlobalIDString = C4C391071C7B5BB70018A1C9;
 			remoteInfo = SwiftHttp;
 		};
-		D2A1901F1997F9C100830CA4 /* PBXContainerItemProxy */ = {
+		C4E565CC1CE25DC8004D1D70 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D2AB3AAC1944F05700655A34 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AB3AB41944F05700655A34;
-			remoteInfo = "SwiftGL-OSX";
-		};
-		D2AB3AC21944F05700655A34 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2AB3AAC1944F05700655A34 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AB3AB41944F05700655A34;
-			remoteInfo = SwiftGL;
+			remoteGlobalIDString = D2EE432E1953BE91007CC56F;
+			remoteInfo = "SwiftGL-iOS";
 		};
 		D2F664471ADD7633003C1925 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -241,13 +228,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		C4E565BE1CE2553F004D1D70 /* Embed PlugIns */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed PlugIns";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2A190211997F9C200830CA4 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D2A1901E1997F9C100830CA4 /* SwiftGL.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +276,10 @@
 		C40C2E621C723760006A165F /* eraser.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = eraser.vsh; sourceTree = "<group>"; };
 		C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTableCell.swift; sourceTree = "<group>"; };
 		C41936F01CC8658A00B06E1F /* ColorBlockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorBlockButton.swift; sourceTree = "<group>"; };
+		C41936F51CD1225500B06E1F /* LessonDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonDescriptionViewController.swift; sourceTree = "<group>"; };
+		C41936F71CD126F200B06E1F /* LessonMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonMenuViewController.swift; sourceTree = "<group>"; };
+		C41936F91CD2E0C400B06E1F /* LessonMenuSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonMenuSplitViewController.swift; sourceTree = "<group>"; };
+		C41936FD1CD33FB900B06E1F /* LessonMenuDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonMenuDetailViewController.swift; sourceTree = "<group>"; };
 		C41AD53B1C95A29400317E41 /* GLPrimitiveRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLPrimitiveRenderer.swift; sourceTree = "<group>"; };
 		C41AD53F1C95A52B00317E41 /* GLShaderWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLShaderWrapper.swift; sourceTree = "<group>"; };
 		C41AD5421C95A62500317E41 /* PencilShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PencilShader.swift; sourceTree = "<group>"; };
@@ -292,13 +292,14 @@
 		C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTitleField.swift; sourceTree = "<group>"; };
 		C42BB0DB1C6F876D003F3337 /* CleanToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanToolBar.swift; sourceTree = "<group>"; };
 		C42BB0DE1C6F87D7003F3337 /* PlayBackControlPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayBackControlPanel.swift; sourceTree = "<group>"; };
+		C42E35A11CD4B61E001EDC02 /* GLImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLImage.swift; sourceTree = "<group>"; };
+		C42E35A31CD7675A001EDC02 /* TutorialPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPanel.swift; sourceTree = "<group>"; };
 		C43124091BBCD1B400E876F4 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = framework/opencv2.framework; sourceTree = "<group>"; };
 		C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSlicedRectangles.swift; sourceTree = "<group>"; };
 		C433EEB71B5BC13000D5175F /* SliceRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceRect.swift; sourceTree = "<group>"; };
 		C433EEBA1B5D332F00D5175F /* GLLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLLine.swift; sourceTree = "<group>"; };
 		C442A8921B7B3B75000BB98F /* primitive.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = primitive.vsh; sourceTree = "<group>"; };
 		C442A8941B7B3B87000BB98F /* primitive.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = primitive.fsh; sourceTree = "<group>"; };
-		C44609261B7A571A00C34D04 /* GLRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRect.swift; sourceTree = "<group>"; };
 		C447477C1B8317120093F019 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		C44747801B8333EC0093F019 /* ShadeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadeView.swift; sourceTree = "<group>"; };
 		C44747821B8334300093F019 /* ControlPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlPointView.swift; sourceTree = "<group>"; };
@@ -332,10 +333,25 @@
 		C45BF5E21B9B6CB9000DD389 /* AngleGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AngleGradientLayer.m; sourceTree = "<group>"; };
 		C45BF5EC1B9BF879000DD389 /* PlayBackUISlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayBackUISlider.swift; sourceTree = "<group>"; };
 		C4626BD71C7254F800C62586 /* eraser.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = eraser.fsh; sourceTree = "<group>"; };
+		C46B3ABD1CDA4707002E6387 /* LessonCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonCollectionCell.swift; sourceTree = "<group>"; };
+		C46B3AC01CDA4D97002E6387 /* LessonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonData.swift; sourceTree = "<group>"; };
+		C46B3ACA1CDA569E002E6387 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C46B3ACB1CDA569E002E6387 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		C46B3ACC1CDA569E002E6387 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		C46B3ACD1CDA56AD002E6387 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C46B3ACE1CDA56AD002E6387 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		C46B3ACF1CDA56AE002E6387 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		C46B3AD11CDA56C2002E6387 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C46B3AD31CDA56C7002E6387 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C46B3AD41CDA56C8002E6387 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C46B3AD71CDA574F002E6387 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		C46B3AD81CDAEF82002E6387 /* LessonBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonBuilder.swift; sourceTree = "<group>"; };
+		C46B3ADA1CDAF62E002E6387 /* Lesson1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Lesson1.json; sourceTree = "<group>"; };
+		C46B3ADE1CDE02FC002E6387 /* SelectRectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectRectView.swift; sourceTree = "<group>"; };
 		C46CB8651B0D9F33008C378B /* PaintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintView.swift; sourceTree = "<group>"; };
 		C46CB8671B0DA8BC008C378B /* PaintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaintViewController.swift; path = ../../Resources/iOS/PaintViewController.swift; sourceTree = "<group>"; };
 		C46DAEFC1C7700530047A7B7 /* NoteOptionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteOptionTableViewController.swift; path = ../../../NoteOptionTableViewController.swift; sourceTree = "<group>"; };
-		C46DAEFE1C7701A00047A7B7 /* NoteOptionPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteOptionPopover.swift; sourceTree = "<group>"; };
+		C46DAEFE1C7701A00047A7B7 /* OptionPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionPopover.swift; sourceTree = "<group>"; };
 		C46DCD251BA4768C0038014F /* SubViewPanelAnimateState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubViewPanelAnimateState.swift; sourceTree = "<group>"; };
 		C4755F451CC7235A0082C723 /* PaintOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintOperation.swift; sourceTree = "<group>"; };
 		C4755F471CC73B5A0082C723 /* oilbrush.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = oilbrush.fsh; sourceTree = "<group>"; };
@@ -392,6 +408,18 @@
 		C4DD1FCE1C6AD87A0014E141 /* NoteProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteProgressButton.swift; sourceTree = "<group>"; };
 		C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteProgressView.swift; sourceTree = "<group>"; };
 		C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTextView.swift; sourceTree = "<group>"; };
+		C4E5658A1CDEB319004D1D70 /* StrokeSelecter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StrokeSelecter.swift; sourceTree = "<group>"; };
+		C4E5658C1CDF2BF9004D1D70 /* OptionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionTableViewController.swift; sourceTree = "<group>"; };
+		C4E5659F1CE1B62B004D1D70 /* BVHNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BVHNode.swift; path = ../BoundingVolumeHierarchy/BVHNode.swift; sourceTree = "<group>"; };
+		C4E565A11CE1B638004D1D70 /* BVHTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BVHTree.swift; path = ../BoundingVolumeHierarchy/BVHTree.swift; sourceTree = "<group>"; };
+		C4E565A31CE1C47E004D1D70 /* GLRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLRect.swift; sourceTree = "<group>"; };
+		C4E565B31CE203A7004D1D70 /* HasBound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasBound.swift; sourceTree = "<group>"; };
+		C4E565B61CE244AB004D1D70 /* BVHTreeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BVHTreeTest.swift; path = ../SwiftGL/BVHTreeTest.swift; sourceTree = "<group>"; };
+		C4E565C61CE25DC8004D1D70 /* BVHTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BVHTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4E565C81CE25DC8004D1D70 /* BVHTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BVHTest.swift; sourceTree = "<group>"; };
+		C4E565CA1CE25DC8004D1D70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4E565D11CE28354004D1D70 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
+		C4E565D41CE86151004D1D70 /* PaintViewStrokeSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintViewStrokeSelect.swift; sourceTree = "<group>"; };
 		C4E7C8EE1BF9058200CC1EAA /* LearnMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LearnMenuViewController.swift; sourceTree = "<group>"; };
 		C4E904141CB923FB00175B60 /* ArtworkFileExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtworkFileExporter.swift; sourceTree = "<group>"; };
 		C4E904161CBA1FEC00175B60 /* EraserShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EraserShader.swift; sourceTree = "<group>"; };
@@ -415,9 +443,7 @@
 		C4FFAB7C1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialIntrodutionPageViewController.swift; sourceTree = "<group>"; };
 		D20662C01947D8D2001D2FAC /* Mat4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mat4.swift; sourceTree = "<group>"; };
 		D2A18FDF1997F8E000830CA4 /* SwiftGL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftGL.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2AB3AB51944F05700655A34 /* SwiftGL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftGL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2AB3AB91944F05700655A34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D2AB3AC01944F05700655A34 /* SwiftGL.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftGL.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2AB3AC61944F05700655A34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2AB3AC71944F05700655A34 /* SwiftGLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGLTests.swift; sourceTree = "<group>"; };
 		D2AB3AD11944F08E00655A34 /* Vec2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vec2.swift; sourceTree = "<group>"; };
@@ -469,27 +495,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4E565C31CE25DC8004D1D70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4E565CB1CE25DC8004D1D70 /* SwiftGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2A18FDC1997F8E000830CA4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2A1901D1997F9C100830CA4 /* SwiftGL.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D2AB3AB11944F05700655A34 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2AB3AEC194536EB00655A34 /* OpenGL.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D2AB3ABD1944F05700655A34 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2AB3AC11944F05700655A34 /* SwiftGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,10 +555,11 @@
 			isa = PBXGroup;
 			children = (
 				C46DAEFC1C7700530047A7B7 /* NoteOptionTableViewController.swift */,
-				C46DAEFE1C7701A00047A7B7 /* NoteOptionPopover.swift */,
+				C46DAEFE1C7701A00047A7B7 /* OptionPopover.swift */,
 				C4BBE6BB1C6F123A00E731A1 /* NoteEdit.swift */,
 				C4DD1FCC1C68EC500014E141 /* NoteProgress.swift */,
 				C491EC681C129C9C00154CC6 /* ReplayControl.swift */,
+				C42E35A31CD7675A001EDC02 /* TutorialPanel.swift */,
 			);
 			name = Progress;
 			sourceTree = "<group>";
@@ -554,6 +572,36 @@
 			name = Buttons;
 			sourceTree = "<group>";
 		};
+		C41936F21CD1222A00B06E1F /* course */ = {
+			isa = PBXGroup;
+			children = (
+				C46B3ABF1CDA4D78002E6387 /* Lesson */,
+				C41936F41CD1223D00B06E1F /* Description */,
+				C41936F31CD1223400B06E1F /* Menu */,
+			);
+			name = course;
+			sourceTree = "<group>";
+		};
+		C41936F31CD1223400B06E1F /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				C46B3ABC1CDA46CC002E6387 /* Course */,
+				C46B3ABB1CDA46C0002E6387 /* Lesson */,
+				C41936F71CD126F200B06E1F /* LessonMenuViewController.swift */,
+				C41936F91CD2E0C400B06E1F /* LessonMenuSplitViewController.swift */,
+				C41936FD1CD33FB900B06E1F /* LessonMenuDetailViewController.swift */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		C41936F41CD1223D00B06E1F /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				C41936F51CD1225500B06E1F /* LessonDescriptionViewController.swift */,
+			);
+			name = Description;
+			sourceTree = "<group>";
+		};
 		C41AD5381C95287A00317E41 /* Course */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +612,7 @@
 		C41AD53A1C9528D000317E41 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				C4E5658C1CDF2BF9004D1D70 /* OptionTableViewController.swift */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -732,6 +781,48 @@
 			name = ControlPanel;
 			sourceTree = "<group>";
 		};
+		C46B3ABB1CDA46C0002E6387 /* Lesson */ = {
+			isa = PBXGroup;
+			children = (
+				C46B3ABD1CDA4707002E6387 /* LessonCollectionCell.swift */,
+			);
+			name = Lesson;
+			sourceTree = "<group>";
+		};
+		C46B3ABC1CDA46CC002E6387 /* Course */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Course;
+			sourceTree = "<group>";
+		};
+		C46B3ABF1CDA4D78002E6387 /* Lesson */ = {
+			isa = PBXGroup;
+			children = (
+				C46B3ADC1CDAF636002E6387 /* JSON File */,
+				C46B3AC01CDA4D97002E6387 /* LessonData.swift */,
+				C46B3AD81CDAEF82002E6387 /* LessonBuilder.swift */,
+			);
+			name = Lesson;
+			sourceTree = "<group>";
+		};
+		C46B3ADC1CDAF636002E6387 /* JSON File */ = {
+			isa = PBXGroup;
+			children = (
+				C46B3ADA1CDAF62E002E6387 /* Lesson1.json */,
+			);
+			name = "JSON File";
+			sourceTree = "<group>";
+		};
+		C46B3ADD1CDE02CB002E6387 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				C46B3ADE1CDE02FC002E6387 /* SelectRectView.swift */,
+				C4E5658A1CDEB319004D1D70 /* StrokeSelecter.swift */,
+			);
+			name = Edit;
+			sourceTree = "<group>";
+		};
 		C46DCD241BA476650038014F /* SubViewPanels */ = {
 			isa = PBXGroup;
 			children = (
@@ -794,6 +885,7 @@
 				C491EC6E1C129F5D00154CC6 /* PaintViewControllerAction.swift */,
 				C4EB7A831B86483A00A33651 /* PanGestureHandler.swift */,
 				C40C2E5D1C7086B4006A165F /* TopToolBar.swift */,
+				C4E565D41CE86151004D1D70 /* PaintViewStrokeSelect.swift */,
 			);
 			name = PaintViewController;
 			sourceTree = "<group>";
@@ -874,7 +966,6 @@
 				C4C5B9B71B0EFB1200D6AD4B /* GLTransformation.swift */,
 				C433EEBA1B5D332F00D5175F /* GLLine.swift */,
 				C49E21661B5E3E6D00D5A821 /* GLRenderCanvas.swift */,
-				C44609261B7A571A00C34D04 /* GLRect.swift */,
 				C401FAEB1B8D6D9A00B6F177 /* GLRenderBuffer.swift */,
 			);
 			name = GLFramework;
@@ -886,6 +977,7 @@
 			children = (
 				C4C73BD51B5F1EC8008C0D36 /* Layer.swift */,
 				C4FEDC0A1BB3D1C900BE7F1C /* LayerCache.swift */,
+				C42E35A11CD4B61E001EDC02 /* GLImage.swift */,
 			);
 			name = "Painting Software";
 			sourceTree = "<group>";
@@ -901,6 +993,15 @@
 				C40C2E601C711D5B006A165F /* NoteButton.swift */,
 			);
 			name = NoteUI;
+			sourceTree = "<group>";
+		};
+		C4E565C71CE25DC8004D1D70 /* BVHTest */ = {
+			isa = PBXGroup;
+			children = (
+				C4E565C81CE25DC8004D1D70 /* BVHTest.swift */,
+				C4E565CA1CE25DC8004D1D70 /* Info.plist */,
+			);
+			path = BVHTest;
 			sourceTree = "<group>";
 		};
 		C4E904131CB923DE00175B60 /* Export */ = {
@@ -974,6 +1075,7 @@
 				D2F663ED1ADD7607003C1925 /* SwiftGL-Demo-iOS */,
 				D2AB3AC41944F05700655A34 /* SwiftGLTests */,
 				C4C391091C7B5BB70018A1C9 /* SwiftHttp */,
+				C4E565C71CE25DC8004D1D70 /* BVHTest */,
 				D20662C41947D963001D2FAC /* Frameworks */,
 				D2AB3AB61944F05700655A34 /* Products */,
 			);
@@ -982,12 +1084,11 @@
 		D2AB3AB61944F05700655A34 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AB3AB51944F05700655A34 /* SwiftGL.framework */,
-				D2AB3AC01944F05700655A34 /* SwiftGL.xctest */,
 				D2EE432F1953BE91007CC56F /* SwiftGL.framework */,
 				D2A18FDF1997F8E000830CA4 /* SwiftGL.app */,
 				D2F663141ADD7417003C1925 /* SwiftGL-Demo-iOS.app */,
 				C4C391081C7B5BB70018A1C9 /* SwiftHttp.framework */,
+				C4E565C61CE25DC8004D1D70 /* BVHTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1004,9 +1105,14 @@
 				D2AD3C3119575EC700798AEE /* Color.swift */,
 				D2AB3AE9194536CF00655A34 /* Shader.swift */,
 				D2AB3AF11946795100655A34 /* Vbo.swift */,
+				C4E5659F1CE1B62B004D1D70 /* BVHNode.swift */,
+				C4E565A11CE1B638004D1D70 /* BVHTree.swift */,
 				D2AB3AF319468EDA00655A34 /* Vao.swift */,
 				D2B38FAE194E063800722470 /* Texture.swift */,
+				C4E565A31CE1C47E004D1D70 /* GLRect.swift */,
 				D2AB3AB81944F05700655A34 /* Supporting Files */,
+				C4E565B31CE203A7004D1D70 /* HasBound.swift */,
+				C4E565D11CE28354004D1D70 /* PriorityQueue.swift */,
 			);
 			path = SwiftGL;
 			sourceTree = "<group>";
@@ -1022,6 +1128,7 @@
 		D2AB3AC41944F05700655A34 /* SwiftGLTests */ = {
 			isa = PBXGroup;
 			children = (
+				C4E565B61CE244AB004D1D70 /* BVHTreeTest.swift */,
 				D2AB3AC71944F05700655A34 /* SwiftGLTests.swift */,
 				D2EE43541953E42F007CC56F /* GLTest.m */,
 				D2AB3AC51944F05700655A34 /* Supporting Files */,
@@ -1040,6 +1147,7 @@
 		D2F663ED1ADD7607003C1925 /* SwiftGL-Demo-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C46B3AD21CDA56C2002E6387 /* Localizable.strings */,
 				C44BB31B1BBA7E870027D9F1 /* Supporting Files */,
 				D2F663EE1ADD7607003C1925 /* nib */,
 				D2F663FB1ADD7607003C1925 /* Shaders */,
@@ -1110,6 +1218,7 @@
 		D2F664021ADD7607003C1925 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C41936F21CD1222A00B06E1F /* course */,
 				C44CF0931B85B84D00D6C43E /* SwiftColorPicker */,
 				C4FFAB7A1B8B7947009282FF /* menu */,
 				C4EB7A761B8600FC00A33651 /* Caption */,
@@ -1140,6 +1249,7 @@
 		D2F664081ADD7607003C1925 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C46B3ADD1CDE02CB002E6387 /* Edit */,
 				C4E904131CB923DE00175B60 /* Export */,
 				C41AD53A1C9528D000317E41 /* Setting */,
 				C41AD5381C95287A00317E41 /* Course */,
@@ -1185,13 +1295,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D2AB3AB21944F05700655A34 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D2EE432C1953BE91007CC56F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1220,6 +1323,24 @@
 			productReference = C4C391081C7B5BB70018A1C9 /* SwiftHttp.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		C4E565C51CE25DC8004D1D70 /* BVHTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4E565CE1CE25DC8004D1D70 /* Build configuration list for PBXNativeTarget "BVHTest" */;
+			buildPhases = (
+				C4E565C21CE25DC8004D1D70 /* Sources */,
+				C4E565C31CE25DC8004D1D70 /* Frameworks */,
+				C4E565C41CE25DC8004D1D70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C4E565CD1CE25DC8004D1D70 /* PBXTargetDependency */,
+			);
+			name = BVHTest;
+			productName = BVHTest;
+			productReference = C4E565C61CE25DC8004D1D70 /* BVHTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D2A18FDE1997F8E000830CA4 /* SwiftGL-Demo-OSX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D2A18FFD1997F8E100830CA4 /* Build configuration list for PBXNativeTarget "SwiftGL-Demo-OSX" */;
@@ -1232,48 +1353,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				D2A190201997F9C100830CA4 /* PBXTargetDependency */,
 			);
 			name = "SwiftGL-Demo-OSX";
 			productName = "SwiftGL-Demo";
 			productReference = D2A18FDF1997F8E000830CA4 /* SwiftGL.app */;
 			productType = "com.apple.product-type.application";
-		};
-		D2AB3AB41944F05700655A34 /* SwiftGL-OSX */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D2AB3ACB1944F05700655A34 /* Build configuration list for PBXNativeTarget "SwiftGL-OSX" */;
-			buildPhases = (
-				D2AB3AB01944F05700655A34 /* Sources */,
-				D2AB3AB11944F05700655A34 /* Frameworks */,
-				D2AB3AB21944F05700655A34 /* Headers */,
-				D2AB3AB31944F05700655A34 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "SwiftGL-OSX";
-			productName = SwiftGL;
-			productReference = D2AB3AB51944F05700655A34 /* SwiftGL.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		D2AB3ABF1944F05700655A34 /* SwiftGLTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D2AB3ACE1944F05700655A34 /* Build configuration list for PBXNativeTarget "SwiftGLTests" */;
-			buildPhases = (
-				D2AB3ABC1944F05700655A34 /* Sources */,
-				D2AB3ABD1944F05700655A34 /* Frameworks */,
-				D2AB3ABE1944F05700655A34 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D2AB3AC31944F05700655A34 /* PBXTargetDependency */,
-			);
-			name = SwiftGLTests;
-			productName = SwiftGLTests;
-			productReference = D2AB3AC01944F05700655A34 /* SwiftGL.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D2EE432E1953BE91007CC56F /* SwiftGL-iOS */ = {
 			isa = PBXNativeTarget;
@@ -1301,6 +1385,7 @@
 				D2F663111ADD7417003C1925 /* Frameworks */,
 				D2F663121ADD7417003C1925 /* Resources */,
 				D2F664491ADD7633003C1925 /* Embed Frameworks */,
+				C4E565BE1CE2553F004D1D70 /* Embed PlugIns */,
 			);
 			buildRules = (
 			);
@@ -1320,7 +1405,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0720;
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Jerry Chan";
 				TargetAttributes = {
@@ -1328,15 +1413,12 @@
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = C2V9ET57N8;
 					};
+					C4E565C51CE25DC8004D1D70 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = C2V9ET57N8;
+					};
 					D2A18FDE1997F8E000830CA4 = {
 						CreatedOnToolsVersion = 6.0;
-					};
-					D2AB3AB41944F05700655A34 = {
-						CreatedOnToolsVersion = 6.0;
-					};
-					D2AB3ABF1944F05700655A34 = {
-						CreatedOnToolsVersion = 6.0;
-						TestTargetID = D2AB3AB41944F05700655A34;
 					};
 					D2EE432E1953BE91007CC56F = {
 						CreatedOnToolsVersion = 6.0;
@@ -1363,18 +1445,19 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
+				"zh-Hans",
 			);
 			mainGroup = D2AB3AAB1944F05700655A34;
 			productRefGroup = D2AB3AB61944F05700655A34 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2AB3AB41944F05700655A34 /* SwiftGL-OSX */,
 				D2A18FDE1997F8E000830CA4 /* SwiftGL-Demo-OSX */,
 				D2EE432E1953BE91007CC56F /* SwiftGL-iOS */,
 				D2F663131ADD7417003C1925 /* SwiftGL-Demo-iOS */,
-				D2AB3ABF1944F05700655A34 /* SwiftGLTests */,
 				C4C391071C7B5BB70018A1C9 /* SwiftHttp */,
+				C4E565C51CE25DC8004D1D70 /* BVHTest */,
 			);
 		};
 /* End PBXProject section */
@@ -1387,27 +1470,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4E565C41CE25DC8004D1D70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2A18FDD1997F8E000830CA4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D2F6641F1ADD7607003C1925 /* Images.xcassets in Resources */,
 				C4CEB91D1B5F7C2E00EEDD9C /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D2AB3AB31944F05700655A34 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2AB3AE1194500D900655A34 /* LICENSE in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D2AB3ABE1944F05700655A34 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1424,6 +1499,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C44BB0991B48E504001B158A /* pencil.fsh in Resources */,
+				C46B3ADB1CDAF62E002E6387 /* Lesson1.json in Resources */,
 				C44BB09E1B48E50E001B158A /* RenderTexture.vsh in Resources */,
 				D2F664161ADD7607003C1925 /* LaunchScreen.xib in Resources */,
 				C44BB09A1B48E504001B158A /* pencil.vsh in Resources */,
@@ -1439,6 +1515,7 @@
 				C4E904181CBA249600175B60 /* eraser.vsh in Resources */,
 				C4755F481CC73B5A0082C723 /* oilbrush.fsh in Resources */,
 				C44BB09D1B48E50E001B158A /* RenderTexture.fsh in Resources */,
+				C46B3AD01CDA56C2002E6387 /* Localizable.strings in Resources */,
 				D2F664241ADD7607003C1925 /* DemoShader1.fsh in Resources */,
 				C478D8541B1F4C3A00FFF3D9 /* Particle.png in Resources */,
 			);
@@ -1459,6 +1536,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4E565C21CE25DC8004D1D70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4E565C91CE25DC8004D1D70 /* BVHTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2A18FDB1997F8E000830CA4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1476,51 +1561,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D2AB3AB01944F05700655A34 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D262B80B19663A52004A2997 /* Constants.swift in Sources */,
-				D262B80C19663A52004A2997 /* Float.swift in Sources */,
-				D262B80D19663A52004A2997 /* Vec2.swift in Sources */,
-				C433EEB51B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */,
-				D262B80E19663A52004A2997 /* Vec3.swift in Sources */,
-				D262B80F19663A52004A2997 /* Vec4.swift in Sources */,
-				C4EB7A7E1B86450F00A33651 /* Dialogue.swift in Sources */,
-				D262B81019663A52004A2997 /* Mat4.swift in Sources */,
-				D262B81119663A52004A2997 /* Color.swift in Sources */,
-				C433EEB81B5BC13000D5175F /* SliceRect.swift in Sources */,
-				D262B81219663A52004A2997 /* Shader.swift in Sources */,
-				C401FAEC1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */,
-				D262B81319663A52004A2997 /* Vbo.swift in Sources */,
-				C42468161B21E0520053CB5B /* AlertViewManager.swift in Sources */,
-				C4EB7A7C1B86018300A33651 /* TypeWriter.swift in Sources */,
-				D262B81419663A52004A2997 /* Vao.swift in Sources */,
-				C433EEBB1B5D332F00D5175F /* GLLine.swift in Sources */,
-				D262B81519663A52004A2997 /* Texture.swift in Sources */,
-				C4EB7A7A1B86017500A33651 /* DialogueManager.swift in Sources */,
-				C4EB7A781B86016100A33651 /* DialogueLine.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D2AB3ABC1944F05700655A34 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2EE43551953E42F007CC56F /* GLTest.m in Sources */,
-				D2AB3AC81944F05700655A34 /* SwiftGLTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D2EE432A1953BE91007CC56F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4E565AE1CE1E463004D1D70 /* BVHNode.swift in Sources */,
 				D262B7FE19663A37004A2997 /* Constants.swift in Sources */,
+				C4E565B01CE1E48B004D1D70 /* BVHTree.swift in Sources */,
 				D262B7FF19663A37004A2997 /* Float.swift in Sources */,
 				D262B80019663A37004A2997 /* Vec2.swift in Sources */,
+				C4E565D31CE28354004D1D70 /* PriorityQueue.swift in Sources */,
 				D262B80119663A37004A2997 /* Vec3.swift in Sources */,
+				C4E565A51CE1C47E004D1D70 /* GLRect.swift in Sources */,
 				D262B80219663A37004A2997 /* Vec4.swift in Sources */,
+				C4E565B51CE203A7004D1D70 /* HasBound.swift in Sources */,
 				D262B80319663A37004A2997 /* Mat4.swift in Sources */,
 				C44A27991B5E21EB00A78C8E /* Texture.swift in Sources */,
 				D262B80419663A37004A2997 /* Color.swift in Sources */,
@@ -1542,7 +1596,10 @@
 				C49404771B2A045600BB975E /* FileBrowseViewController.swift in Sources */,
 				C4EB7A811B8645D600A33651 /* DialogueManager.swift in Sources */,
 				C41805E41B9F2F4000B69EF5 /* NoteTableCell.swift in Sources */,
+				C42E35A21CD4B61E001EDC02 /* GLImage.swift in Sources */,
+				C4E565D51CE86151004D1D70 /* PaintViewStrokeSelect.swift in Sources */,
 				C4A0A9A61B8D3EFA00190A33 /* SubViewAnimationGestureHandler.swift in Sources */,
+				C4E5658B1CDEB319004D1D70 /* StrokeSelecter.swift in Sources */,
 				C44CF0A01B85B86100D6C43E /* ColorGradientView.swift in Sources */,
 				C4EB7A851B86483A00A33651 /* PanGestureHandler.swift in Sources */,
 				D2F6642C1ADD7607003C1925 /* DemoScene.swift in Sources */,
@@ -1552,16 +1609,19 @@
 				C4F1D2CF1B8EB79000634626 /* FaceGameStageLevelGenerator.swift in Sources */,
 				C48F98AA1C0F38B200D6CE60 /* MenuViewController.swift in Sources */,
 				C4FFAB7D1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift in Sources */,
+				C46B3AC11CDA4D97002E6387 /* LessonData.swift in Sources */,
+				C41936FE1CD33FB900B06E1F /* LessonMenuDetailViewController.swift in Sources */,
 				C4F1D2CE1B8EB79000634626 /* FaceGameScene.swift in Sources */,
 				C45BF5ED1B9BF879000DD389 /* PlayBackUISlider.swift in Sources */,
 				C491EC671C129C3C00154CC6 /* PaintViewControllerPaintTools.swift in Sources */,
-				C46DAEFF1C7701A00047A7B7 /* NoteOptionPopover.swift in Sources */,
+				C41936F81CD126F200B06E1F /* LessonMenuViewController.swift in Sources */,
+				C46DAEFF1C7701A00047A7B7 /* OptionPopover.swift in Sources */,
 				C458F5E31B54DE5800FC1235 /* DotStageLevelGenerator.swift in Sources */,
 				C44747831B8334300093F019 /* ControlPointView.swift in Sources */,
 				C47D71051BB5A033002BFE0A /* PaintViewControllerAppMode.swift in Sources */,
 				C4E904151CB923FC00175B60 /* ArtworkFileExporter.swift in Sources */,
 				C4A0A9A41B8C1E7200190A33 /* NoteManager.swift in Sources */,
-				C44609271B7A571A00C34D04 /* GLRect.swift in Sources */,
+				C46B3AD91CDAEF82002E6387 /* LessonBuilder.swift in Sources */,
 				C4C5B9BA1B0EFB5400D6AD4B /* GLShaderBinder.swift in Sources */,
 				C4F1D2CC1B8EB79000634626 /* FaceComponent.swift in Sources */,
 				C4DD1FD41C6B099E0014E141 /* NoteTextView.swift in Sources */,
@@ -1570,6 +1630,7 @@
 				D2F664321ADD7607003C1925 /* Vertex.swift in Sources */,
 				C46CB8681B0DA8BC008C378B /* PaintViewController.swift in Sources */,
 				C458F5A81B54AB6000FC1235 /* CroppedRectangleManager.swift in Sources */,
+				C42E35A41CD7675B001EDC02 /* TutorialPanel.swift in Sources */,
 				C4918E3E1B6383F600539433 /* RefImgManager.swift in Sources */,
 				C4E7C8EF1BF9058200CC1EAA /* LearnMenuViewController.swift in Sources */,
 				C478D8561B1F7F1900FFF3D9 /* PointData.swift in Sources */,
@@ -1578,6 +1639,7 @@
 				C4B6C76C1B563CD50052BFC3 /* ReferenceImageScene.swift in Sources */,
 				C4AE3C4B1B0D1DF900C959C2 /* PaintArtwork.swift in Sources */,
 				C458F5A61B54AA9500FC1235 /* ReferenceImageViewController.swift in Sources */,
+				C4E5658D1CDF2BF9004D1D70 /* OptionTableViewController.swift in Sources */,
 				C458F5A11B54A62100FC1235 /* DotGameViewController.swift in Sources */,
 				C491EC641C129C0700154CC6 /* PaintViewControllerInitStyle.swift in Sources */,
 				C42BB0DD1C6F8770003F3337 /* CleanToolBar.swift in Sources */,
@@ -1603,6 +1665,7 @@
 				C4FE45E81BDFDE59008CE7D0 /* NoteFile.swift in Sources */,
 				C4A7213C1C11B700007B0B2E /* NoteDetailCell.swift in Sources */,
 				C4BBE6BC1C6F123A00E731A1 /* NoteEdit.swift in Sources */,
+				C41936FA1CD2E0C400B06E1F /* LessonMenuSplitViewController.swift in Sources */,
 				C4F1D2CD1B8EB79000634626 /* FaceComponentSet.swift in Sources */,
 				C4EB7A801B8645D200A33651 /* DialogueLine.swift in Sources */,
 				C4FE45EC1BDFDF3D008CE7D0 /* File.swift in Sources */,
@@ -1621,6 +1684,7 @@
 				C40FB5C11C662F6A004A7731 /* AppDelegate.swift in Sources */,
 				C4AE3C3E1B0CF42200C959C2 /* PaintBrush.swift in Sources */,
 				C478D8581B20BD4400FFF3D9 /* PaintReplayer.swift in Sources */,
+				C41936F61CD1225500B06E1F /* LessonDescriptionViewController.swift in Sources */,
 				C4235B761C0F406F00C32531 /* ArtworkMenuViewController.swift in Sources */,
 				C491EC6A1C129C9C00154CC6 /* ReplayControl.swift in Sources */,
 				C46DAEFD1C7700530047A7B7 /* NoteOptionTableViewController.swift in Sources */,
@@ -1643,8 +1707,10 @@
 				C491EC701C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */,
 				C4C390F41C7A54A60018A1C9 /* QTouchposeApplication.m in Sources */,
 				C458F5DF1B54C93100FC1235 /* DotSet.swift in Sources */,
+				C46B3ADF1CDE02FC002E6387 /* SelectRectView.swift in Sources */,
 				C44CF0A51B85B86100D6C43E /* SelectedColorView.swift in Sources */,
 				C4755F4C1CC75AFD0082C723 /* OilBrushShader.swift in Sources */,
+				C46B3ABE1CDA4707002E6387 /* LessonCollectionCell.swift in Sources */,
 				C41936F11CC8658A00B06E1F /* ColorBlockButton.swift in Sources */,
 				C4BD8CA91B274DA0000A20A4 /* TouchClassifier.swift in Sources */,
 				C4AE3C4A1B0D1DF200C959C2 /* PaintStroke.swift in Sources */,
@@ -1666,15 +1732,10 @@
 			target = C4C391071C7B5BB70018A1C9 /* SwiftHttp */;
 			targetProxy = C4C3912F1C7B5D020018A1C9 /* PBXContainerItemProxy */;
 		};
-		D2A190201997F9C100830CA4 /* PBXTargetDependency */ = {
+		C4E565CD1CE25DC8004D1D70 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D2AB3AB41944F05700655A34 /* SwiftGL-OSX */;
-			targetProxy = D2A1901F1997F9C100830CA4 /* PBXContainerItemProxy */;
-		};
-		D2AB3AC31944F05700655A34 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D2AB3AB41944F05700655A34 /* SwiftGL-OSX */;
-			targetProxy = D2AB3AC21944F05700655A34 /* PBXContainerItemProxy */;
+			target = D2EE432E1953BE91007CC56F /* SwiftGL-iOS */;
+			targetProxy = C4E565CC1CE25DC8004D1D70 /* PBXContainerItemProxy */;
 		};
 		D2F664481ADD7633003C1925 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1684,10 +1745,23 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C46B3AD21CDA56C2002E6387 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C46B3AD11CDA56C2002E6387 /* en */,
+				C46B3AD31CDA56C7002E6387 /* zh-Hant */,
+				C46B3AD41CDA56C8002E6387 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		D2F663F01ADD7607003C1925 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D2F663F11ADD7607003C1925 /* Base */,
+				C46B3ACA1CDA569E002E6387 /* zh-Hant */,
+				C46B3ACD1CDA56AD002E6387 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -1696,6 +1770,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				D2F663F31ADD7607003C1925 /* Base */,
+				C46B3ACB1CDA569E002E6387 /* zh-Hant */,
+				C46B3ACE1CDA56AD002E6387 /* zh-Hans */,
+				C46B3AD71CDA574F002E6387 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1704,6 +1781,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				D2F663F81ADD7607003C1925 /* Base */,
+				C46B3ACC1CDA569E002E6387 /* zh-Hant */,
+				C46B3ACF1CDA56AE002E6387 /* zh-Hans */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1764,12 +1843,49 @@
 			};
 			name = Release;
 		};
+		C4E565CF1CE25DC8004D1D70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = BVHTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.easyman.BVHTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C4E565D01CE25DC8004D1D70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = BVHTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.easyman.BVHTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		D2A18FF91997F8E100830CA4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1791,6 +1907,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/SwiftGL-Demo/Resources/OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1889,103 +2006,6 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		D2AB3ACC1944F05700655A34 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/framework",
-				);
-				FRAMEWORK_VERSION = A;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.easyman.PaintRecord$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = SwiftGL;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		D2AB3ACD1944F05700655A34 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/framework",
-				);
-				FRAMEWORK_VERSION = A;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.easyman.PaintRecord$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = SwiftGL;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		D2AB3ACF1944F05700655A34 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwiftGLTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				METAL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "proj.catalyst.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = SwiftGL;
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftGLTests/SwiftGLTests-Bridging-Header.h";
-			};
-			name = Debug;
-		};
-		D2AB3AD01944F05700655A34 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwiftGLTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				METAL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "proj.catalyst.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = SwiftGL;
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftGLTests/SwiftGLTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -2143,6 +2163,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		C4E565CE1CE25DC8004D1D70 /* Build configuration list for PBXNativeTarget "BVHTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4E565CF1CE25DC8004D1D70 /* Debug */,
+				C4E565D01CE25DC8004D1D70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		D2A18FFD1997F8E100830CA4 /* Build configuration list for PBXNativeTarget "SwiftGL-Demo-OSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2157,24 +2185,6 @@
 			buildConfigurations = (
 				D2AB3AC91944F05700655A34 /* Debug */,
 				D2AB3ACA1944F05700655A34 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		D2AB3ACB1944F05700655A34 /* Build configuration list for PBXNativeTarget "SwiftGL-OSX" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D2AB3ACC1944F05700655A34 /* Debug */,
-				D2AB3ACD1944F05700655A34 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		D2AB3ACE1944F05700655A34 /* Build configuration list for PBXNativeTarget "SwiftGLTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D2AB3ACF1944F05700655A34 /* Debug */,
-				D2AB3AD01944F05700655A34 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

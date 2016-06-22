@@ -42,7 +42,6 @@ class GLContextBuffer{
             shaderBinder = GLShaderBinder()
         }
         
-        
     }
     var mvp:Mat4!
     var mvpOffset:Mat4!
@@ -358,6 +357,10 @@ class GLContextBuffer{
         clear()
         drawTexture(paintCanvas.currentLayer.texture, alpha: 1)
     }
+    func clearCacheAll()
+    {
+        paintCanvas.caches = [:]
+    }
     func clearCacheFrame(atStroke:Int)
     {
         
@@ -514,7 +517,6 @@ func scaleImage(image:UIImage,scale:CGFloat)->UIImage{
     //let context = UIGraphicsGetCurrentContext();
     //CGContextScaleCTM(context, 1, -1)
     //CGContextTranslateCTM(context, 0, -newSize.height);
-    
     
     image.drawInRect(CGRect(origin: CGPoint.zero, size: newSize))
     let newImage = UIGraphicsGetImageFromCurrentImageContext()

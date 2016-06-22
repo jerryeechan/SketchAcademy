@@ -72,7 +72,7 @@ class PaintArtwork
     }
     func drawAll()
     {
-        
+        masterReplayer.drawAll()
     }
     func drawClip(clip:PaintClip)
     {
@@ -84,8 +84,22 @@ class PaintArtwork
     {
         
     }
+    func loadCurrentClip()
+    {
+        masterReplayer.loadClip(currentClip)
+        currentReplayer = masterReplayer
+    }
+    func loadClip(clip:PaintClip)
+    {
+        currentClip = clip
+        masterReplayer.loadClip(clip)
+        revisionReplayer.stopPlay()
+        currentReplayer = masterReplayer
+        masterReplayer.drawAll()
+    }
     func loadMasterClip()
     {
+        currentClip = _masterClip
         masterReplayer.loadClip(_masterClip)
         revisionReplayer.stopPlay()
         currentReplayer = masterReplayer

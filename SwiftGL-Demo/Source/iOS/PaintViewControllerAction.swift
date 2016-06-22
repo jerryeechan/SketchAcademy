@@ -71,8 +71,17 @@ extension PaintViewController:UITextFieldDelegate
     }
 
     @IBAction func reviseDoneButtonTouched(sender: UIBarButtonItem) {
-        appState = .viewArtwork
-        enterViewMode()
+        switch appState {
+        case AppState.drawRevision,AppState.viewRevision:
+            appState = .viewArtwork
+            enterViewMode()
+        case AppState.selectStroke:
+            playSeletingStrokes()
+            
+        default:
+            break
+        }
+        
     }
     
     
@@ -132,7 +141,15 @@ extension PaintViewController:UITextFieldDelegate
     }
     
     @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {
-        
+        if strokeSelecter.isSelectingClip
+        {
+            //strokeSelecter.exitSelectionMode()
+            paintManager.artwork.loadMasterClip()
+            paintManager.artwork.drawAll()
+            paintView.display()
+            strokeSelecter.isSelectingClip = false
+            return
+        }
         paintManager.currentReplayer.stopPlay()
         switch(appState)
         {
@@ -150,7 +167,12 @@ extension PaintViewController:UITextFieldDelegate
         //dismissViewControllerAnimated(true, completion: nil)
         
     }
-    func screenShotMethod() {
+    func share()
+    {
+       let acv = UIActivityViewController(activityItems: [FileManager.instance.imageFile.loadImg(fileName, attribute: "gif")], applicationActivities: nil)
+        presentViewController(acv, animated: true, completion: nil)
+    }
+    func takeScreenShot() {
         //Create the UIImage
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
         view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
@@ -161,7 +183,7 @@ extension PaintViewController:UITextFieldDelegate
         let filePath = File.dirpath+"/screen.png"
         imageData.writeToFile(filePath, atomically: true)
         
-        FileManager.instance.upload(filePath)
+        FileManager.instance.uploadFilePath(filePath)
         //Save it to the camera roll
         //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
@@ -171,7 +193,8 @@ extension PaintViewController:UITextFieldDelegate
     {
         let img = paintView.snapshot//paintView.paintBuffer.contextImage()
         
-        paintManager.saveArtwork(fileName,img:scaleImage(img, scale: 0.2))
+        paintManager.saveArtwork(fileName,img:img)
+        //exportGIF(fileName)
         //screenShotMethod()
         //GLContextBuffer.instance.releaseImgBuffer()
         
@@ -181,12 +204,26 @@ extension PaintViewController:UITextFieldDelegate
         switch PaintViewController.appMode {
         case .InstructionTutorial:
             //don't save when doing tutoriral practice
-            self.navigationController?.popViewControllerAnimated(true)
+            if((navigationController) != nil)
+            {
+                navigationController?.popViewControllerAnimated(true)
+            }
+            else
+            {
+                presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            }
         default:
             if fileName != nil
             {
                 saveFile(fileName)
-                self.navigationController?.popViewControllerAnimated(true)
+                if((navigationController) != nil)
+                {
+                    navigationController?.popViewControllerAnimated(true)
+                }
+                else
+                {
+                    presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                }
             }
             else
             {

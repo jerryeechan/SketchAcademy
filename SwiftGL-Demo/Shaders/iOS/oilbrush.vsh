@@ -98,14 +98,14 @@ void main()
     
     //
 	gl_Position = MVP * vertexPosition;
-    gl_PointSize = brushSize*float(4)*(1.0+tiltValue/2.0);
+    gl_PointSize = brushSize * 2.0 * (1.0+tiltValue)*(1.0+float(tiltValue < Altitude_Limit) * easeout(0.2,1.0,pencilForce));
     //angle = floor(randNum3*4.0)/4.0 * M_PI;
     //angle = 0.0;
     //angle = randNum*M_PI;
     
     //speed fade may be remove
     
-    color = brushColor*easeout(0.0,1.0,pencilForce);//*(0.5-centerx*centerx+centery*centery);;//speedfade;
+    color = brushColor*easeout(0.2,1.0,pencilForce);//*(0.5-centerx*centerx+centery*centery);;//speedfade;
     
 }
 

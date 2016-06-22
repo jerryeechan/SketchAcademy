@@ -126,11 +126,12 @@ class PaintRecorder {
         context.cleanTemp()
     }
     
-    func endStroke()
+    func endStroke()->PaintStroke!
     {
         let time = CFAbsoluteTimeGetCurrent()
         if stroke != nil
         {
+            let oldStroke = stroke
             strokeEndTime = time
             recordClip.cleanRedos()
             recordClip.currentTime += strokeEndTime - strokeStartTime
@@ -138,12 +139,15 @@ class PaintRecorder {
             recordClip.addPaintStroke(stroke)
             context.checkCache(recordClip.strokes.count)
             stroke = nil
+            return oldStroke
             //PaintView.display()
         }
+        return nil
     }
     
     
 }
+
 func genPaintPoint(sender:UIPanGestureRecognizer,view:PaintView,context:GLContextBuffer)->PaintPoint
 {
     var location = sender.locationInView(view)

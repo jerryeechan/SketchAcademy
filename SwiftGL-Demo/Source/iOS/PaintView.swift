@@ -152,6 +152,7 @@ class PaintView: GLKView {
 
     }
     
+    
     override func drawRect(rect: CGRect) {
         glEnable(GL_BLEND);
         glBlendEquation(GLenum(GL_FUNC_ADD))
@@ -165,10 +166,13 @@ class PaintView: GLKView {
             tutorialBuffer.display()
             drawSeperator()
         }
+        
+        
     }
     func drawSeperator()
     {
         let seperatorWidth:Float = 10
+        
         let rect = GLRect(p1: Vec2(canvasWidth/2-seperatorWidth,0) , p2: Vec2(canvasWidth/2+seperatorWidth,canvasHeight))
         tutorialBuffer.drawFillRectangle(rect, color: Vec4(0.15,0.15,0.15,1))
         

@@ -57,8 +57,9 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         
     }
     
-    
+    //select item
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        PaintViewController.courseTitle = "creation"
         let paintViewController = getViewController("paintview") as! PaintViewController
         
         if(indexPath.row == 0)
@@ -210,6 +211,7 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         navigationController?.pushViewController(paintViewController, animated: true)
 
     }
+
     @IBAction func deleteButtonTouched(sender: UIButton) {
         
         

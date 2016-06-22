@@ -10,6 +10,46 @@ import Foundation
 import SwiftGL
 import UIKit
 import SwiftHttp
+func uploadToGiphy(fileUrl:NSURL)
+{
+    do {
+        let opt = try HTTP.POST("http://upload.giphy.com/v1/gifs", parameters: ["api_key": "dc6zaTOxFJmzC", "file": Upload(fileUrl: fileUrl)])
+        opt.start { response in
+            //do things...
+            if let err = response.error {
+                DLog("error: \(err.localizedDescription)")
+                
+                return //also notify app of failure as needed
+            }
+            
+            DLog("opt finished: \(response)")
+            
+        }
+    } catch let error {
+        print("got an error creating the request: \(error)")
+    }
+ 
+}
+func upload(fileUrl:NSURL)
+{
+    do {
+        print(Upload(fileUrl: fileUrl))
+        let opt = try HTTP.POST("http://140.114.217.36:3000/artworks/upload", parameters: ["name": "test", "file": Upload(fileUrl: fileUrl)])
+        opt.start { response in
+            //do things...
+            if let err = response.error {
+                DLog("error: \(err.localizedDescription)")
+                
+                return //also notify app of failure as needed
+            }
+            DLog("opt finished: \(response.description)")
+            
+        }
+    } catch let error {
+        print("got an error creating the request: \(error)")
+    }
+}
+
 class FileManager {
     
     class var instance:FileManager{
@@ -45,45 +85,29 @@ class FileManager {
         //let path = File.dirpath+"/"+filename
         
         artworkFile.save(filename, artwork: artwork)
-        imageFile.saveImg(img, filename: filename)
+        imageFile.saveImg(scaleImage(img, scale: 0.2), filename: filename)
+        imageFile.saveImg(img, filename: filename+"_ori")
         //upload(path+".png")
         //upload(path+".paw")
         noteFile.save(noteDict, filename: filename)
         
         searchFiles()
     }
-    func upload(img:UIImage)
+    
+    func uploadImage(img:UIImage)
     {
         let imageData:NSData = UIImagePNGRepresentation(img)!;
         let fileUrl = NSURL(dataRepresentation: imageData, relativeToURL: nil)
         upload(fileUrl)
     }
     
-    func upload(filePath:String)
+    func uploadFilePath(filePath:String)
     {
         
         let fileUrl = NSURL(fileURLWithPath: filePath)
         upload(fileUrl)
     }
-    func upload(fileUrl:NSURL)
-    {
-        do {
-            let opt = try HTTP.POST("http://140.114.217.36:3000/artworks/upload", parameters: ["name": "test", "file": Upload(fileUrl: fileUrl)])
-            opt.start { response in
-                //do things...
-                if let err = response.error {
-                    DLog("error: \(err.localizedDescription)")
-                    
-                    return //also notify app of failure as needed
-                }
-                DLog("opt finished: \(response.description)")
-                
-            }
-        } catch let error {
-            print("got an error creating the request: \(error)")
-        }
-    }
-    func deletePaintArtWork(filename:String)
+        func deletePaintArtWork(filename:String)
     {
         artworkFile.delete(filename)
         imageFile.delete(filename)

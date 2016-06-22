@@ -9,6 +9,7 @@
 enum Operation {
     case Clean
 }
+import SwiftGL
 class PaintClip:NSObject{
     
     //  branch related
@@ -46,13 +47,15 @@ class PaintClip:NSObject{
         self.name = name
         self.branchAtIndex = branchAt
     }
+    
+   
     func addPaintStroke(stroke:PaintStroke)
     {
         currentTime = (stroke.pointData.last?.timestamps)!
         strokes.append(stroke)
         
         currentStrokeID = strokes.count
-        DLog("\(currentStrokeID)")
+        //DLog("\(currentStrokeID)")
     }
     func addBranchClip(branchName:String,branchAt:Int)
     {
@@ -115,10 +118,19 @@ class PaintClip:NSObject{
     {
         
         if let handler = onStrokeIDChanged{
-            DLog("strokes:\(strokes.count) redo:\(redoStrokes.count)")
+            DLog("current\(currentStrokeID) strokes:\(strokes.count) redo:\(redoStrokes.count)")
             handler(currentStrokeID: currentStrokeID, totalStrokeCount: strokes.count + redoStrokes.count)
         }
 
+    }
+    var bvhTree:BVHTree = BVHTree()
+    func buildBVHTree()
+    {
+        bvhTree.buildTree(strokes)
+    }
+    func selectStrokes(point:Vec2)->[PaintStroke]
+    {
+        return bvhTree.searchNodes(point) as! [PaintStroke]
     }
     deinit
     {

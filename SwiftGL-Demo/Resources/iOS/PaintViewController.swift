@@ -33,6 +33,8 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
 {
     
     static var appMode:ApplicationMode = ApplicationMode.ArtWorkCreation
+    static var courseTitle:String = "none"
+    
     //UI size attributes
     var viewWidth:CGFloat!
     
@@ -57,10 +59,12 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         case viewRevision
         case drawArtwork
         case drawRevision
+        case editArtwork
         case editNote
+        case selectStroke
     }
     var fileName:String!
-    var paintMode = PaintMode.Artwork
+    //var paintMode = PaintMode.Artwork
     var paintManager:PaintManager!
     var lastAppState:AppState!
     var appState:AppState = .drawArtwork{
@@ -79,6 +83,8 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
                 modeText.title = "觀看模式"
             case .drawRevision:
                 modeText.title = "批改模式"
+            case .selectStroke:
+                modeText.title = "選擇繪畫步驟"
             default:
                 break
             }
@@ -153,7 +159,6 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
                     button.backgroundColor = colors[i]
                     
                 }
-                
             }
         }
         
@@ -219,7 +224,16 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             paintManager.artwork.currentClip.onStrokeIDChanged = {[weak self](id,count) in
                 self!.onStrokeProgressChanged(id, totalStrokeCount: count)
             }
+            
+            
             NoteManager.instance.empty()
+            switch(PaintViewController.courseTitle)
+            {
+                case "upsidedown":
+                    paintView.tutorialBuffer.paintCanvas.addImageLayer("chicken180", index: 1)
+            default:
+                break;
+            }
             paintView.glDraw()
             setup()
         }
@@ -237,6 +251,8 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         replayControlSetup()
         gestureHandlerSetUp()
         enterDrawMode()
+        strokeSelecter.originalClip = paintManager.artwork.useMasterClip()
+        strokeSelecter.selectRectView = selectRectView
     }
     override func viewDidAppear(animated: Bool) {
         colorPicker.setTheColor(UIColor(hue: 0, saturation: 0.0, brightness: 0.2, alpha: 1.0))
@@ -524,8 +540,12 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         paintView.glDraw()
     }
     
+   
     
     
+    //select tool
+    @IBOutlet weak var selectRectView: SelectRectView!
+    let strokeSelecter = StrokeSelecter()
 }
 
 

@@ -76,9 +76,10 @@ class GLRenderCanvas{
         layers.append(Layer(w: width, h: height))
         currentLayer = layers.last!
     }
-    func addImageLayer(texture:Texture,index:Int = 0)
+    func addImageLayer(filename:String,index:Int = 0)
     {
-        let newLayer = Layer(texture: texture)
+        
+        let newLayer = Layer(texture: Texture(filename: filename))
         layers.insert(newLayer, atIndex: 0)
         //currentLayer = layers.last!
     }

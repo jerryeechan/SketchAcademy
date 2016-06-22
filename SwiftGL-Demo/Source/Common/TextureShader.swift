@@ -6,9 +6,14 @@
 //  Copyright © 2016年 Jerry Chan. All rights reserved.
 //
 import SwiftGL
-struct ImageVertice{
+struct TextureMappingVertice{
     var position:Vec4
-    var textureCoordinate:Vec4
+    var textureUV:Vec2
+}
+enum ImageMode{
+    case Fill
+    case Fit
+    
 }
 class TextureShader: GLShaderWrapper {
     var imgWidth:Float = 0,imgHeight:Float = 0
@@ -16,7 +21,7 @@ class TextureShader: GLShaderWrapper {
         super.init(name:"RenderTexture")
                 //
         addAttribute("position", type: Vec4.self)
-        addAttribute("inputTextureCoordinate", type: Vec4.self)
+        addAttribute("textureUV", type: Vec2.self)
         //
         addUniform("MVP")
         addUniform("imageTexture")
@@ -34,14 +39,24 @@ class TextureShader: GLShaderWrapper {
         let rbx = rightBottom.x / imgWidth
         let rby = rightBottom.y / imgHeight
         
-        let v1 = ImageVertice(position: Vec4(leftTop.x,leftTop.y), textureCoordinate: Vec4(ltx,lty))
-        let v2 = ImageVertice(position: Vec4(rightBottom.x,leftTop.y), textureCoordinate: Vec4(rbx,lty))
-        let v3 = ImageVertice(position: Vec4(leftTop.x,rightBottom.y), textureCoordinate: Vec4(ltx,rby))
-        let v4 = ImageVertice(position:Vec4(rightBottom.x,rightBottom.y), textureCoordinate: Vec4(rbx,rby))
+        
+        
+        let v1 = TextureMappingVertice(position: Vec4(leftTop.x,leftTop.y), textureUV: Vec2(ltx,lty))
+        let v2 = TextureMappingVertice(position: Vec4(rightBottom.x,leftTop.y), textureUV: Vec2(rbx,lty))
+        let v3 = TextureMappingVertice(position: Vec4(leftTop.x,rightBottom.y), textureUV: Vec2(ltx,rby))
+        let v4 = TextureMappingVertice(position:Vec4(rightBottom.x,rightBottom.y), textureUV: Vec2(rbx,rby))
         
         imageVertices = [v1,v2,v3,v4]
     }
-    var imageVertices:[ImageVertice] = []
+    
+    func genImageVertices(position:Vec4,size:Vec2)
+    {
+        imageVertices[0].position = position
+        imageVertices[1].position = Vec4(position.x+size.x,position.y)
+        imageVertices[2].position = Vec4(position.x,position.y+size.y)
+        imageVertices[3].position = Vec4(position.x+size.x,position.y+size.y)
+    }
+    var imageVertices:[TextureMappingVertice] = []
     
 //    var squareVertices:[GLfloat] = [
 //        0, 0,
@@ -64,13 +79,13 @@ class TextureShader: GLShaderWrapper {
         imgWidth = width
         imgHeight = height
         
-        imageVertices.append(ImageVertice(position: Vec4(0,0), textureCoordinate: Vec4(0,0)))
+        imageVertices.append(TextureMappingVertice(position: Vec4(0,0), textureUV: Vec2(0,0)))
         
-        imageVertices.append(ImageVertice(position: Vec4(width,0), textureCoordinate: Vec4(1,0)))
+        imageVertices.append(TextureMappingVertice(position: Vec4(width,0), textureUV: Vec2(1,0)))
         
-        imageVertices.append(ImageVertice(position: Vec4(0,height), textureCoordinate: Vec4(0,1)))
+        imageVertices.append(TextureMappingVertice(position: Vec4(0,height), textureUV: Vec2(0,1)))
         
-        imageVertices.append(ImageVertice(position: Vec4(width,height), textureCoordinate: Vec4(1,1)))
+        imageVertices.append(TextureMappingVertice(position: Vec4(width,height), textureUV: Vec2(1,1)))
         
     }
     func bindImageTexture(texture:Texture,alpha:Float,leftTop:Vec4,rightBottom:Vec4)
@@ -82,9 +97,19 @@ class TextureShader: GLShaderWrapper {
         genImageVertices(leftTop, rightBottom: rightBottom)
         bindVertexs(imageVertices)
     }
-    
+    func bindImageTexture(texture:Texture,alpha:Float,position:Vec4,size:Vec2)
+    {
+        
+        shader.bind(getUniform("imageTexture")!,texture , index: 2)
+        
+        shader.bind(getUniform("alpha")!, alpha)
+        shader.useProgram()
+        genImageVertices(position, size: size)
+        //genImageVertices(leftTop, rightBottom: rightBottom)
+        bindVertexs(imageVertices)
+    }
     func bindImageTexture(texture:Texture,alpha:Float)
     {
-        bindImageTexture(texture, alpha: alpha, leftTop: Vec4(0,0), rightBottom: Vec4(imgWidth,imgHeight))
-    }
+        bindImageTexture(texture, alpha: alpha, position: Vec4(0,0), size: Vec2(imgWidth,imgHeight))
+        }
 }

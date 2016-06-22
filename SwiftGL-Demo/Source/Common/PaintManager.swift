@@ -129,7 +129,7 @@ class PaintManager {
     
     func playArtworkClip()
     {
-        artwork.loadMasterClip()
+        artwork.loadCurrentClip()
         paintView.paintBuffer.setArtworkMode()
         paintView.display()
         

@@ -8,6 +8,23 @@
 //註解選項按鈕 handler
 extension PaintViewController:UIPopoverPresentationControllerDelegate
 {
+    @IBAction func optionButtonTouched(sender: UIBarButtonItem) {
+        
+        hideKeyBoard()
+        let optionViewController = getViewController("option") as! OptionTableViewController
+        
+        optionViewController.modalPresentationStyle = .Popover
+        
+        optionViewController.delegate = self
+        
+        let popover = optionViewController.popoverPresentationController
+        popover?.barButtonItem  = sender
+        popover?.permittedArrowDirections = .Up
+        popover?.delegate = self
+        
+        self.presentViewController(optionViewController, animated: true, completion: {})
+ 
+    }
     @IBAction func noteOptionButtonTouched(sender: UIBarButtonItem) {
         hideKeyBoard()
         let noteOptionViewController = getViewController("noteOption") as! NoteOptionTableViewController
@@ -27,7 +44,7 @@ extension PaintViewController:UIPopoverPresentationControllerDelegate
         
     }
     func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
-       _ = popoverPresentationController.presentedViewController as! NoteOptionTableViewController
+       //_ = popoverPresentationController.presentedViewController as! NoteOptionTableViewController
        
         
     }

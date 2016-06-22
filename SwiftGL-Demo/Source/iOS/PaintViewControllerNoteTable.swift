@@ -289,6 +289,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
             }
         }
         //###go here
+        /*
         switch(paintMode)
         {
         case .Artwork:
@@ -300,7 +301,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
             
             break
             
-        }
+        }*/
         
         noteListTableView.reloadData()
         view.endEditing(true)

@@ -1,0 +1,201 @@
+
+/* Class = "UIBarButtonItem"; title = "離開"; ObjectID = "09X-EL-0Ue"; */
+"09X-EL-0Ue.title" = "離開";
+
+/* Class = "UILabel"; text = "進入批改模式"; ObjectID = "0BT-Oc-Bqq"; */
+"0BT-Oc-Bqq.text" = "進入批改模式";
+
+/* Class = "UIBarButtonItem"; title = "離開"; ObjectID = "1Ou-gv-d5o"; */
+"1Ou-gv-d5o.title" = "離開";
+
+/* Class = "UILabel"; text = "進度0/4"; ObjectID = "2Um-mk-7Pk"; */
+"2Um-mk-7Pk.text" = "進度0/4";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "2tQ-Ao-wtA"; */
+"2tQ-Ao-wtA.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UIButton"; normalTitle = "創作與教學"; ObjectID = "35N-7W-Ekl"; */
+"35N-7W-Ekl.normalTitle" = "創作與教學";
+
+/* Class = "UILabel"; text = "Sketch "; ObjectID = "39U-3G-ih6"; */
+"39U-3G-ih6.text" = "Sketch ";
+
+/* Class = "UIBarButtonItem"; title = "繪畫過程註解"; ObjectID = "4mF-fJ-kKB"; */
+"4mF-fJ-kKB.title" = "繪畫過程註解";
+
+/* Class = "UICollectionViewController"; title = "GameMenu"; ObjectID = "4pn-le-eyw"; */
+"4pn-le-eyw.title" = "GameMenu";
+
+/* Class = "UIButton"; normalTitle = "換張"; ObjectID = "7BN-2S-bUw"; */
+"7BN-2S-bUw.normalTitle" = "換張";
+
+/* Class = "UIButton"; normalTitle = "教學"; ObjectID = "9s1-w9-oj1"; */
+"9s1-w9-oj1.normalTitle" = "教學";
+
+/* Class = "UIBarButtonItem"; title = "下一步"; ObjectID = "AGX-T0-CMS"; */
+"AGX-T0-CMS.title" = "下一步";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "AZp-sH-prg"; */
+"AZp-sH-prg.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UIViewController"; title = "ArtworkMenu"; ObjectID = "FhT-vH-qSY"; */
+"FhT-vH-qSY.title" = "ArtworkMenu";
+
+/* Class = "UIButton"; normalTitle = "新關卡"; ObjectID = "HkR-Su-2EU"; */
+"HkR-Su-2EU.normalTitle" = "新關卡";
+
+/* Class = "UIButton"; normalTitle = "基礎課程"; ObjectID = "I05-Qm-Frc"; */
+"I05-Qm-Frc.normalTitle" = "基礎課程";
+
+/* Class = "UIButton"; normalTitle = "學習"; ObjectID = "IjS-Ff-bPG"; */
+"IjS-Ff-bPG.normalTitle" = "學習";
+
+/* Class = "UIButton"; normalTitle = "Start"; ObjectID = "Imb-zY-cAg"; */
+"Imb-zY-cAg.normalTitle" = "Start";
+
+/* Class = "UIButton"; normalTitle = "互動訓練遊戲"; ObjectID = "JhB-ah-Xmh"; */
+"JhB-ah-Xmh.normalTitle" = "互動訓練遊戲";
+
+/* Class = "UIBarButtonItem"; title = "示範區"; ObjectID = "Ksf-ht-7aZ"; */
+"Ksf-ht-7aZ.title" = "示範區";
+
+/* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "LnU-Yd-uzR"; */
+"LnU-Yd-uzR.normalTitle" = "Edit";
+
+/* Class = "UIBarButtonItem"; title = "paper"; ObjectID = "NA3-sf-lb4"; */
+"NA3-sf-lb4.title" = "paper";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "NKq-Ge-YZO"; */
+"NKq-Ge-YZO.text" = "Title";
+
+/* Class = "UIBarButtonItem"; title = "編輯"; ObjectID = "Phw-cx-3Rf"; */
+"Phw-cx-3Rf.title" = "編輯";
+
+/* Class = "UIBarButtonItem"; title = "上一步"; ObjectID = "QCT-27-t4K"; */
+"QCT-27-t4K.title" = "上一步";
+
+/* Class = "UITextField"; placeholder = "標題"; ObjectID = "QlO-Hw-e3m"; */
+"QlO-Hw-e3m.placeholder" = "標題";
+
+/* Class = "UITextField"; text = "Label"; ObjectID = "QlO-Hw-e3m"; */
+"QlO-Hw-e3m.text" = "Label";
+
+/* Class = "UITextView"; text = "Goal: Try to draw draw the image as like as possible"; ObjectID = "RLN-aL-kQo"; */
+"RLN-aL-kQo.text" = "Goal: Try to draw draw the image as like as possible";
+
+/* Class = "UIButton"; normalTitle = "計算分數"; ObjectID = "SLg-Am-i5k"; */
+"SLg-Am-i5k.normalTitle" = "計算分數";
+
+/* Class = "UILabel"; text = "Draw an up-side-down image"; ObjectID = "UBa-4P-tWA"; */
+"UBa-4P-tWA.text" = "Draw an up-side-down image";
+
+/* Class = "UIButton"; normalTitle = "複製"; ObjectID = "WKh-1N-aTF"; */
+"WKh-1N-aTF.normalTitle" = "複製";
+
+/* Class = "UIButton"; normalTitle = "得分"; ObjectID = "WmR-Dw-bst"; */
+"WmR-Dw-bst.normalTitle" = "得分";
+
+/* Class = "UILabel"; text = "T"; ObjectID = "XIE-lh-TR1"; */
+"XIE-lh-TR1.text" = "T";
+
+/* Class = "UILabel"; text = "基礎課程"; ObjectID = "XKp-Mf-sNi"; */
+"XKp-Mf-sNi.text" = "基礎課程";
+
+/* Class = "UITextView"; text = "Goal: Try to draw draw the image as like as possible"; ObjectID = "XuT-iC-KFh"; */
+"XuT-iC-KFh.text" = "Goal: Try to draw draw the image as like as possible";
+
+/* Class = "UIButton"; normalTitle = " 1x"; ObjectID = "ZLT-D1-yer"; */
+"ZLT-D1-yer.normalTitle" = " 1x";
+
+/* Class = "UIButton"; selectedTitle = "ha"; ObjectID = "ZLT-D1-yer"; */
+"ZLT-D1-yer.selectedTitle" = "ha";
+
+/* Class = "UILabel"; text = "1. Draw up-side-down"; ObjectID = "Zvh-O9-P46"; */
+"Zvh-O9-P46.text" = "1. Draw up-side-down";
+
+/* Class = "UIButton"; normalTitle = "提示"; ObjectID = "aaI-L1-1Bc"; */
+"aaI-L1-1Bc.normalTitle" = "提示";
+
+/* Class = "UINavigationItem"; title = "Courses"; ObjectID = "bcP-UA-wXq"; */
+"bcP-UA-wXq.title" = "Courses";
+
+/* Class = "UILabel"; text = "Challenge 3"; ObjectID = "ddx-0S-zHu"; */
+"ddx-0S-zHu.text" = "Challenge 3";
+
+/* Class = "UIBarButtonItem"; title = "繪圖模式"; ObjectID = "eNY-I8-B4Y"; */
+"eNY-I8-B4Y.title" = "繪圖模式";
+
+/* Class = "UILabel"; text = "新創作"; ObjectID = "fe5-Ku-O5g"; */
+"fe5-Ku-O5g.text" = "新創作";
+
+/* Class = "UILabel"; text = "Challenge 1"; ObjectID = "hTP-is-xt7"; */
+"hTP-is-xt7.text" = "Challenge 1";
+
+/* Class = "UIBarButtonItem"; title = "練習區"; ObjectID = "hs4-SP-eVU"; */
+"hs4-SP-eVU.title" = "練習區";
+
+/* Class = "UIViewController"; title = "CoponentGameView Controller"; ObjectID = "hwo-0u-zuk"; */
+"hwo-0u-zuk.title" = "CoponentGameView Controller";
+
+/* Class = "UILabel"; text = "Challenge 2"; ObjectID = "k4d-4z-Na6"; */
+"k4d-4z-Na6.text" = "Challenge 2";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "kBY-Os-gxh"; */
+"kBY-Os-gxh.text" = "Title";
+
+/* Class = "UILabel"; text = "Lesson 1"; ObjectID = "kbT-zd-vFh"; */
+"kbT-zd-vFh.text" = "Lesson 1";
+
+/* Class = "UILabel"; text = "Lesson 1"; ObjectID = "lBb-jc-q3t"; */
+"lBb-jc-q3t.text" = "Lesson 1";
+
+/* Class = "UILabel"; text = "Share GIF"; ObjectID = "me1-5P-v9E"; */
+"me1-5P-v9E.text" = "Share GIF";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "nqJ-jP-KEe"; */
+"nqJ-jP-KEe.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "o0N-mX-nnA"; */
+"o0N-mX-nnA.title" = "Done";
+
+/* Class = "UIButton"; normalTitle = "刪除"; ObjectID = "pdU-TS-ui7"; */
+"pdU-TS-ui7.normalTitle" = "刪除";
+
+/* Class = "UILabel"; text = "Draw an up-side-down image"; ObjectID = "qSM-5Z-BWX"; */
+"qSM-5Z-BWX.text" = "Draw an up-side-down image";
+
+/* Class = "UILabel"; text = "Academy"; ObjectID = "tLs-9J-FpD"; */
+"tLs-9J-FpD.text" = "Academy";
+
+/* Class = "UIButton"; normalTitle = "重新"; ObjectID = "teA-Cq-sHn"; */
+"teA-Cq-sHn.normalTitle" = "重新";
+
+/* Class = "UILabel"; text = "新增教學"; ObjectID = "u4k-Hb-qWL"; */
+"u4k-Hb-qWL.text" = "新增教學";
+
+/* Class = "UIViewController"; title = "Menu"; ObjectID = "uBR-xu-8WE"; */
+"uBR-xu-8WE.title" = "Menu";
+
+/* Class = "UITextField"; placeholder = "註解標題..."; ObjectID = "uTo-Je-bns"; */
+"uTo-Je-bns.placeholder" = "註解標題...";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "uw8-rb-rVR"; */
+"uw8-rb-rVR.title" = "Item";
+
+/* Class = "UITextField"; text = "未命名"; ObjectID = "vQ0-SR-p45"; */
+"vQ0-SR-p45.text" = "未命名";
+
+/* Class = "UIButton"; normalTitle = "重新"; ObjectID = "wfh-5n-vCF"; */
+"wfh-5n-vCF.normalTitle" = "重新";
+
+/* Class = "UIBarButtonItem"; title = "2"; ObjectID = "x7O-fb-Fom"; */
+"x7O-fb-Fom.title" = "2";
+
+/* Class = "UIButton"; normalTitle = "Start"; ObjectID = "yIq-2E-maU"; */
+"yIq-2E-maU.normalTitle" = "Start";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "yNM-Ts-cPB"; */
+"yNM-Ts-cPB.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "ySz-24-Nrt"; */
+"ySz-24-Nrt.title" = "Item";

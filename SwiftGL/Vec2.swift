@@ -27,7 +27,10 @@ public struct Vec2 {
         self.x = x
         self.y = 0
     }
-    
+    public init(x: Int, y:Int) {
+        self.x = Float(x)
+        self.y = Float(y)
+    }
     public init(x: Float, y: Float) {
         self.x = x
         self.y = y
@@ -53,6 +56,7 @@ public struct Vec2 {
         self.x = x
         self.y = y
     }
+    
     
     public var length2: Float {
         get {
@@ -133,6 +137,22 @@ public func /= (inout a: Vec2, b: Vec2) {a = a / b}
 public func *= (inout a: Vec2, b: Float) {a = a * b}
 public func /= (inout a: Vec2, b: Float) {a = a / b}
 
+public func < (a:Vec2,b:Vec2)->Bool
+{
+    return (a.x < b.x && a.y < b.y)
+}
+public func <= (a:Vec2,b:Vec2)->Bool
+{
+    return (a.x <= b.x && a.y <= b.y)
+}
+public func >= (a:Vec2,b:Vec2)->Bool
+{
+    return (a.x >= b.x && a.y >= b.y)
+}
+public func > (a:Vec2,b:Vec2)->Bool
+{
+    return (a.x > b.x && a.y > b.y)
+}
 // Functions which operate on Vec2
 public func length(v: Vec2) -> Float {return v.length}
 public func length2(v: Vec2) -> Float {return v.length2}

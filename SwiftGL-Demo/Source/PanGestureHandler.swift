@@ -34,13 +34,16 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
             }
         case .viewArtwork, .viewRevision:
             handleReplaySinglePan(sender)
+        case .selectStroke:
+            handleSelectSinglePan(sender)
         case .editNote:
+            break
+        default:
             break
         }
         
     }
-
-    
+   
     @IBAction func uiPanGestureHandler(sender: UIPanGestureRecognizer) {
         
         /*
@@ -87,7 +90,8 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
                 paintManager.paintRecorder.movePoint(sender, view: paintView)
                 paintView.glDraw()
             case UIGestureRecognizerState.Ended:
-                paintManager.paintRecorder.endStroke()
+                let stroke = paintManager.paintRecorder.endStroke()
+                strokeSelecter.expand(stroke)
                 currentTouchType = "None"
             default :
                 break
@@ -97,6 +101,33 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
 
     }
     
+    
+    
+    
+    //select stroke pan
+    func handleSelectSinglePan(sender:UIPanGestureRecognizer)
+    {
+        let paintRestrictAreaX:CGFloat = 0
+        if sender.locationInView(paintView).x > paintRestrictAreaX
+        {
+            
+            switch(sender.state)
+            {
+            
+            case UIGestureRecognizerState.Began:
+                strokeSelecter.startSelectPolygon()
+            case UIGestureRecognizerState.Changed:
+                var location = sender.locationInView(view)
+                location.y = CGFloat(paintView.bounds.height) - location.y
+                strokeSelecter.addSelectPoint(Vec2(point: location)*Float(paintView.contentScaleFactor))
+            case UIGestureRecognizerState.Ended:
+                strokeSelecter.selectStrokesInPolygon()
+            default :
+                break
+            }
+        }
+
+    }
     func handleDrawingTwoPan(sender:UIPanGestureRecognizer)
     {
         

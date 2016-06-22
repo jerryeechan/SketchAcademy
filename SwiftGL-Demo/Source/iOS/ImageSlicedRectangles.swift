@@ -5,7 +5,7 @@
 //  Created by jerry on 2015/7/19.
 //  Copyright (c) 2015年 Jerry Chan. All rights reserved.
 //
-import UIKit
+
 class ImageSlicedRectangles {
     
     class var instance:ImageSlicedRectangles{
