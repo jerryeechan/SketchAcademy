@@ -16,3 +16,4 @@ struct PaintPoint{
     var azimuth:Vec2
     var velocity:Vec2
 }
+

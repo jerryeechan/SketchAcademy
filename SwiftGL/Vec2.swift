@@ -72,6 +72,12 @@ public struct Vec2 {
             self = length * normalize(self)
         }
     }
+    public var unit:Vec2
+    {
+        get{
+            return normalize(self)
+        }
+    }
     
     // Swizzle (Vec2) Properties
     public var xx: Vec2 {get {return Vec2(x: x, y: x)}}

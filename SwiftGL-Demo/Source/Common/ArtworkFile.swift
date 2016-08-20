@@ -122,7 +122,6 @@ class ArtworkFile:File{
             //temp: canvaswidth...
             
             
-            
             let version = parseString()
             if version == nil
             {
@@ -169,7 +168,8 @@ class ArtworkFile:File{
         
         let strokeCount:Int = parseStruct()
         for _ in 0 ..< strokeCount {
-            //parse string info
+            
+            //parse string info, check type
             var tSI = parseToolStringInfo(parseData)
             var tVI:ToolValueInfo
             if(tSI==nil)
@@ -179,18 +179,27 @@ class ArtworkFile:File{
             }
             else
             {
-                //valueInfo    :ToolValueInfo
+                //valueInfo:ToolValueInfo, get stroke detail
                 tVI = parseToolValueInfo(parseData)
             }
             
             let stroke = PaintStroke(s: tSI, v: tVI)
+            clip.addPaintStroke(stroke)
             
-            //pointData    :[PointData]
+            
+            //some special tool doesn't have points
+            if(tSI.toolName=="clear")
+            {
+                continue
+            }
+            
+            
+            //parse pointData:[PointData]
             let pointData:[PointData] = parseStructArray()
             stroke.pointData = pointData
             stroke.genPointsFromPointData()
             
-            clip.addPaintStroke(stroke)
+            
         }
         
         return clip

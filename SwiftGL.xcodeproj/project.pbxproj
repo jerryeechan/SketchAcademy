@@ -14,6 +14,12 @@
 		C404FA9D1B1AF8F9004C2D8C /* PaintRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404FA9C1B1AF8F9004C2D8C /* PaintRecorder.swift */; };
 		C404FAA01B1AFB98004C2D8C /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404FA9F1B1AFB98004C2D8C /* FileManager.swift */; };
 		C404FAA31B1AFE01004C2D8C /* BrushTextureLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404FAA21B1AFE01004C2D8C /* BrushTextureLoader.swift */; };
+		C4069B101D6061A200C2A7D6 /* ScrollableGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4069B0F1D6061A200C2A7D6 /* ScrollableGraphView.swift */; };
+		C4069B131D60681800C2A7D6 /* VisualizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4069B121D60681800C2A7D6 /* VisualizationViewController.swift */; };
+		C4069B151D606A7100C2A7D6 /* UIColor+colorFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4069B141D606A7100C2A7D6 /* UIColor+colorFromHex.swift */; };
+		C4069B251D60DF4000C2A7D6 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4069B1E1D60DE7500C2A7D6 /* Charts.framework */; };
+		C4069B261D60DF4000C2A7D6 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4069B1E1D60DE7500C2A7D6 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4069B2D1D61C27800C2A7D6 /* PointAttributeAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4069B2C1D61C27800C2A7D6 /* PointAttributeAnalyzer.swift */; };
 		C40C2E5C1C703195006A165F /* PlayPauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C2E5B1C703195006A165F /* PlayPauseButton.swift */; };
 		C40C2E5E1C7086B4006A165F /* TopToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C2E5D1C7086B4006A165F /* TopToolBar.swift */; };
 		C40C2E611C711D5B006A165F /* NoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C2E601C711D5B006A165F /* NoteButton.swift */; };
@@ -134,6 +140,7 @@
 		C4C5B9BA1B0EFB5400D6AD4B /* GLShaderBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5B9B91B0EFB5400D6AD4B /* GLShaderBinder.swift */; };
 		C4C73BD61B5F1EC8008C0D36 /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C73BD51B5F1EC8008C0D36 /* Layer.swift */; };
 		C4CEB91D1B5F7C2E00EEDD9C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F663F71ADD7607003C1925 /* MainMenu.xib */; };
+		C4CEE2F61D57919C00B62EC6 /* StrokeAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CEE2F51D57919C00B62EC6 /* StrokeAnalyzer.swift */; };
 		C4DD1FCD1C68EC500014E141 /* NoteProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FCC1C68EC500014E141 /* NoteProgress.swift */; };
 		C4DD1FCF1C6AD87A0014E141 /* NoteProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FCE1C6AD87A0014E141 /* NoteProgressButton.swift */; };
 		C4DD1FD11C6AE1560014E141 /* NoteProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */; };
@@ -204,6 +211,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C4069B1D1D60DE7500C2A7D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4069B161D60DE7400C2A7D6 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5BA8EC401A9D14DC00CE82E1;
+			remoteInfo = "Charts-iOS";
+		};
+		C4069B1F1D60DE7500C2A7D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4069B161D60DE7400C2A7D6 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A52C5C371BAC5CA400594CDD;
+			remoteInfo = "Charts-TV";
+		};
+		C4069B211D60DE7500C2A7D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4069B161D60DE7400C2A7D6 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65B3F5BF1C7370BE000983D0;
+			remoteInfo = "Charts-OSX";
+		};
+		C4069B231D60DE7500C2A7D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4069B161D60DE7400C2A7D6 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06AEE7A21BDC3F8B009875AE;
+			remoteInfo = ChartsTests;
+		};
+		C4069B271D60DF4000C2A7D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4069B161D60DE7400C2A7D6 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5BA8EC3F1A9D14DC00CE82E1;
+			remoteInfo = "Charts-iOS";
+		};
 		C4C3912F1C7B5D020018A1C9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D2AB3AAC1944F05700655A34 /* Project object */;
@@ -254,6 +296,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C4069B261D60DF4000C2A7D6 /* Charts.framework in Embed Frameworks */,
 				C4C3912E1C7B5D020018A1C9 /* SwiftHttp.framework in Embed Frameworks */,
 				C40FB5C31C663234004A7731 /* SwiftGL.framework in Embed Frameworks */,
 			);
@@ -270,6 +313,11 @@
 		C404FA9C1B1AF8F9004C2D8C /* PaintRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintRecorder.swift; sourceTree = "<group>"; };
 		C404FA9F1B1AFB98004C2D8C /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		C404FAA21B1AFE01004C2D8C /* BrushTextureLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrushTextureLoader.swift; sourceTree = "<group>"; };
+		C4069B0F1D6061A200C2A7D6 /* ScrollableGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollableGraphView.swift; sourceTree = "<group>"; };
+		C4069B121D60681800C2A7D6 /* VisualizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualizationViewController.swift; sourceTree = "<group>"; };
+		C4069B141D606A7100C2A7D6 /* UIColor+colorFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+colorFromHex.swift"; sourceTree = "<group>"; };
+		C4069B161D60DE7400C2A7D6 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Downloads/Charts-master/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
+		C4069B2C1D61C27800C2A7D6 /* PointAttributeAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointAttributeAnalyzer.swift; sourceTree = "<group>"; };
 		C40C2E5B1C703195006A165F /* PlayPauseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayPauseButton.swift; sourceTree = "<group>"; };
 		C40C2E5D1C7086B4006A165F /* TopToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopToolBar.swift; sourceTree = "<group>"; };
 		C40C2E601C711D5B006A165F /* NoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteButton.swift; sourceTree = "<group>"; };
@@ -404,6 +452,7 @@
 		C4C5B9B71B0EFB1200D6AD4B /* GLTransformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLTransformation.swift; sourceTree = "<group>"; };
 		C4C5B9B91B0EFB5400D6AD4B /* GLShaderBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLShaderBinder.swift; sourceTree = "<group>"; };
 		C4C73BD51B5F1EC8008C0D36 /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
+		C4CEE2F51D57919C00B62EC6 /* StrokeAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StrokeAnalyzer.swift; sourceTree = "<group>"; };
 		C4DD1FCC1C68EC500014E141 /* NoteProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteProgress.swift; path = ../../../NoteProgress.swift; sourceTree = "<group>"; };
 		C4DD1FCE1C6AD87A0014E141 /* NoteProgressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteProgressButton.swift; sourceTree = "<group>"; };
 		C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteProgressView.swift; sourceTree = "<group>"; };
@@ -522,6 +571,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4069B251D60DF4000C2A7D6 /* Charts.framework in Frameworks */,
 				C4C3912D1C7B5D020018A1C9 /* SwiftHttp.framework in Frameworks */,
 				C40FB5C21C663234004A7731 /* SwiftGL.framework in Frameworks */,
 			);
@@ -549,6 +599,27 @@
 				C404FAA21B1AFE01004C2D8C /* BrushTextureLoader.swift */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		C4069B111D60680200C2A7D6 /* Visualization */ = {
+			isa = PBXGroup;
+			children = (
+				C4069B121D60681800C2A7D6 /* VisualizationViewController.swift */,
+				C4069B141D606A7100C2A7D6 /* UIColor+colorFromHex.swift */,
+				C4069B2C1D61C27800C2A7D6 /* PointAttributeAnalyzer.swift */,
+			);
+			name = Visualization;
+			sourceTree = "<group>";
+		};
+		C4069B171D60DE7400C2A7D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4069B1E1D60DE7500C2A7D6 /* Charts.framework */,
+				C4069B201D60DE7500C2A7D6 /* Charts.framework */,
+				C4069B221D60DE7500C2A7D6 /* Charts.framework */,
+				C4069B241D60DE7500C2A7D6 /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		C40C2E5F1C7088A4006A165F /* Progress */ = {
@@ -982,6 +1053,14 @@
 			name = "Painting Software";
 			sourceTree = "<group>";
 		};
+		C4CEE2F41D57918400B62EC6 /* Analyze */ = {
+			isa = PBXGroup;
+			children = (
+				C4CEE2F51D57919C00B62EC6 /* StrokeAnalyzer.swift */,
+			);
+			name = Analyze;
+			sourceTree = "<group>";
+		};
 		C4DD1FD21C6B096B0014E141 /* NoteUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -1058,6 +1137,7 @@
 		D20662C41947D963001D2FAC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4069B0F1D6061A200C2A7D6 /* ScrollableGraphView.swift */,
 				C43124091BBCD1B400E876F4 /* opencv2.framework */,
 				D2AB3AEB194536EB00655A34 /* OpenGL.framework */,
 				D2EE43491953BF64007CC56F /* OpenGLES.framework */,
@@ -1078,6 +1158,7 @@
 				C4E565C71CE25DC8004D1D70 /* BVHTest */,
 				D20662C41947D963001D2FAC /* Frameworks */,
 				D2AB3AB61944F05700655A34 /* Products */,
+				C4069B161D60DE7400C2A7D6 /* Charts.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1218,6 +1299,8 @@
 		D2F664021ADD7607003C1925 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C4069B111D60680200C2A7D6 /* Visualization */,
+				C4CEE2F41D57918400B62EC6 /* Analyze */,
 				C41936F21CD1222A00B06E1F /* course */,
 				C44CF0931B85B84D00D6C43E /* SwiftColorPicker */,
 				C4FFAB7A1B8B7947009282FF /* menu */,
@@ -1392,6 +1475,7 @@
 			dependencies = (
 				D2F664481ADD7633003C1925 /* PBXTargetDependency */,
 				C4C391301C7B5D020018A1C9 /* PBXTargetDependency */,
+				C4069B281D60DF4000C2A7D6 /* PBXTargetDependency */,
 			);
 			name = "SwiftGL-Demo-iOS";
 			productName = "SwiftGL-Demo-iOS";
@@ -1451,6 +1535,12 @@
 			mainGroup = D2AB3AAB1944F05700655A34;
 			productRefGroup = D2AB3AB61944F05700655A34 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C4069B171D60DE7400C2A7D6 /* Products */;
+					ProjectRef = C4069B161D60DE7400C2A7D6 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D2A18FDE1997F8E000830CA4 /* SwiftGL-Demo-OSX */,
@@ -1461,6 +1551,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C4069B1E1D60DE7500C2A7D6 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = C4069B1D1D60DE7500C2A7D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4069B201D60DE7500C2A7D6 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = C4069B1F1D60DE7500C2A7D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4069B221D60DE7500C2A7D6 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = C4069B211D60DE7500C2A7D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4069B241D60DE7500C2A7D6 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = C4069B231D60DE7500C2A7D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C4C391061C7B5BB70018A1C9 /* Resources */ = {
@@ -1619,6 +1740,7 @@
 				C458F5E31B54DE5800FC1235 /* DotStageLevelGenerator.swift in Sources */,
 				C44747831B8334300093F019 /* ControlPointView.swift in Sources */,
 				C47D71051BB5A033002BFE0A /* PaintViewControllerAppMode.swift in Sources */,
+				C4069B131D60681800C2A7D6 /* VisualizationViewController.swift in Sources */,
 				C4E904151CB923FC00175B60 /* ArtworkFileExporter.swift in Sources */,
 				C4A0A9A41B8C1E7200190A33 /* NoteManager.swift in Sources */,
 				C46B3AD91CDAEF82002E6387 /* LessonBuilder.swift in Sources */,
@@ -1667,6 +1789,7 @@
 				C4BBE6BC1C6F123A00E731A1 /* NoteEdit.swift in Sources */,
 				C41936FA1CD2E0C400B06E1F /* LessonMenuSplitViewController.swift in Sources */,
 				C4F1D2CD1B8EB79000634626 /* FaceComponentSet.swift in Sources */,
+				C4069B101D6061A200C2A7D6 /* ScrollableGraphView.swift in Sources */,
 				C4EB7A801B8645D200A33651 /* DialogueLine.swift in Sources */,
 				C4FE45EC1BDFDF3D008CE7D0 /* File.swift in Sources */,
 				C491EC6D1C129D6A00154CC6 /* GestureHandler.swift in Sources */,
@@ -1699,11 +1822,13 @@
 				C41AD5451C95A99400317E41 /* TextureShader.swift in Sources */,
 				C41AD5431C95A62500317E41 /* PencilShader.swift in Sources */,
 				C40C2E5C1C703195006A165F /* PlayPauseButton.swift in Sources */,
+				C4CEE2F61D57919C00B62EC6 /* StrokeAnalyzer.swift in Sources */,
 				C41AD54B1C97AE9C00317E41 /* ModelViewProjectionProtocol.swift in Sources */,
 				C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */,
 				C4E904171CBA1FEC00175B60 /* EraserShader.swift in Sources */,
 				C49E21671B5E3E6D00D5A821 /* GLRenderCanvas.swift in Sources */,
 				C44747781B83065E0093F019 /* CanvasCropView.swift in Sources */,
+				C4069B151D606A7100C2A7D6 /* UIColor+colorFromHex.swift in Sources */,
 				C491EC701C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */,
 				C4C390F41C7A54A60018A1C9 /* QTouchposeApplication.m in Sources */,
 				C458F5DF1B54C93100FC1235 /* DotSet.swift in Sources */,
@@ -1713,6 +1838,7 @@
 				C46B3ABE1CDA4707002E6387 /* LessonCollectionCell.swift in Sources */,
 				C41936F11CC8658A00B06E1F /* ColorBlockButton.swift in Sources */,
 				C4BD8CA91B274DA0000A20A4 /* TouchClassifier.swift in Sources */,
+				C4069B2D1D61C27800C2A7D6 /* PointAttributeAnalyzer.swift in Sources */,
 				C4AE3C4A1B0D1DF200C959C2 /* PaintStroke.swift in Sources */,
 				C41AD5491C96519C00317E41 /* BrushShader.swift in Sources */,
 				C45BF5E31B9B6CB9000DD389 /* AngleGradientLayer.m in Sources */,
@@ -1727,6 +1853,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C4069B281D60DF4000C2A7D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Charts-iOS";
+			targetProxy = C4069B271D60DF4000C2A7D6 /* PBXContainerItemProxy */;
+		};
 		C4C391301C7B5D020018A1C9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C4C391071C7B5BB70018A1C9 /* SwiftHttp */;
@@ -2170,6 +2301,7 @@
 				C4E565D01CE25DC8004D1D70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		D2A18FFD1997F8E100830CA4 /* Build configuration list for PBXNativeTarget "SwiftGL-Demo-OSX" */ = {
 			isa = XCConfigurationList;

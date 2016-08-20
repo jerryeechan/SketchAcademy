@@ -48,7 +48,10 @@ class PaintClip:NSObject{
         self.branchAtIndex = branchAt
     }
     
-   
+    func addStep()
+    {
+        
+    }
     func addPaintStroke(stroke:PaintStroke)
     {
         currentTime = (stroke.pointData.last?.timestamps)!
