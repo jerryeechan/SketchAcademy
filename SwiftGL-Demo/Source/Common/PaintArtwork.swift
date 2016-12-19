@@ -11,13 +11,14 @@ enum ArtworkType:String{
     
 }
 import Foundation
+import PaintStrokeData
 class PaintArtwork
 {
     var artworkType:ArtworkType = .Artwork
     var canvasWidth:Int
     var canvasHeight:Int
-    private var _masterClip:PaintClip
-    private var _revisionClips:[Int:PaintClip] = [Int:PaintClip]()
+    fileprivate var _masterClip:PaintClip
+    fileprivate var _revisionClips:[Int:PaintClip] = [Int:PaintClip]()
     var revisionClips:[Int:PaintClip]{
         get{
             return _revisionClips
@@ -33,8 +34,8 @@ class PaintArtwork
             {
                 lastClip = currentClip
                 //unbind the stroke change event if the clip has changed
-                newClip.onStrokeIDChanged = currentClip.onStrokeIDChanged
-                currentClip.onStrokeIDChanged = nil
+                //newClip.onStrokeIDChanged = currentClip.onStrokeIDChanged
+                //currentClip.onStrokeIDChanged = nil
             }
         }
     }
@@ -53,7 +54,7 @@ class PaintArtwork
         canvasWidth = width
         canvasHeight = height
     }
-    func setReplayer(paintView:PaintView,type:ArtworkType = .Artwork)
+    func setReplayer(_ paintView:PaintView,type:ArtworkType = .Artwork)
     {
         self.artworkType = type
         var buffer:GLContextBuffer = paintView.paintBuffer
@@ -74,7 +75,7 @@ class PaintArtwork
     {
         masterReplayer.drawAll()
     }
-    func drawClip(clip:PaintClip)
+    func drawClip(_ clip:PaintClip)
     {
         _masterClip = clip
         masterReplayer.loadClip(clip)
@@ -89,7 +90,7 @@ class PaintArtwork
         masterReplayer.loadClip(currentClip)
         currentReplayer = masterReplayer
     }
-    func loadClip(clip:PaintClip)
+    func loadClip(_ clip:PaintClip)
     {
         currentClip = clip
         masterReplayer.loadClip(clip)
@@ -108,7 +109,7 @@ class PaintArtwork
     {
         loadRevisionClip(currentRevisionID)
     }
-    func loadRevisionClip(stroke:Int)
+    func loadRevisionClip(_ stroke:Int)
     {
         currentRevisionID = stroke
         revisionReplayer.loadClip(_revisionClips[stroke]!)
@@ -116,7 +117,7 @@ class PaintArtwork
         currentReplayer = revisionReplayer
 
     }
-    func useClip(clip:PaintClip)->PaintClip
+    func useClip(_ clip:PaintClip)->PaintClip
     {
         currentClip = clip
         return currentClip
@@ -125,11 +126,11 @@ class PaintArtwork
     {
         return useClip(_masterClip)
     }
-    func useRevisionClip(id:Int)->PaintClip
+    func useRevisionClip(_ id:Int)->PaintClip
     {
         return useClip(revisionClips[id]!)
     }
-    func addRevisionClip(atStroke:Int)
+    func addRevisionClip(_ atStroke:Int)
     {
         let newClip = PaintClip(name: "revision",branchAt: atStroke)
         _revisionClips[atStroke] =  newClip

@@ -14,7 +14,7 @@ class SliceRect{
     var width:Int
     var height:Int
     var strokewidth:Float = 5
-    var color:UIColor = UIColor.blackColor()
+    var color:UIColor = UIColor.black
     
     var rectSKNode:SKShapeNode!
     

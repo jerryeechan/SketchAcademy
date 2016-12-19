@@ -8,18 +8,19 @@
 
 import Foundation
 import UIKit
+import PaintStrokeData
 class PaintReplayer:NSObject
 {
     //private var strokes:[PaintStroke] = []
     //private var artwork:PaintArtwork!
-    private var clip:PaintClip!
+    fileprivate var clip:PaintClip!
     weak var context:GLContextBuffer!
     weak var paintView:PaintView!
     init(paintView:PaintView,context:GLContextBuffer) {
         self.paintView = paintView
         self.context = context
     }
-    var playbackTimer:NSTimer!
+    var playbackTimer:Timer!
     
     
     var branchAt:Int = -1//not used yet
@@ -58,7 +59,7 @@ class PaintReplayer:NSObject
     
 
    
-    func loadClip(clip:PaintClip)
+    func loadClip(_ clip:PaintClip)
     {
         //--playingArtwork = artwork
         self.clip = clip
@@ -75,7 +76,7 @@ class PaintReplayer:NSObject
         DLog("\(clip.currentStrokeID) \(strokes.count-1)")
         if clip.currentStrokeID <= strokes.count
         {
-            clip.strokes.removeRange(clip.currentStrokeID...strokes.count-1)
+            clip.strokes.removeSubrange(clip.currentStrokeID...strokes.count-1)
         }
     }
     
@@ -105,8 +106,10 @@ class PaintReplayer:NSObject
     {
         if((playbackTimer) != nil)
         {
-            playbackTimer.fireDate = NSDate.distantFuture()
+            playbackTimer.fireDate = Date.distantFuture
         }
+        
+        PaintViewController.instance.playPauseButton.playing(false)
         
         isPlaying = false
     }
@@ -122,15 +125,14 @@ class PaintReplayer:NSObject
             print("resume stroke_index:\(clip.currentStrokeID)", terminator: "")
             if isProgressChanged
             {
-                currentPointID = 0
-                c_PointData = clip.strokes[clip.currentStrokeID].pointData
-                
+                setReplayData(clip.currentStrokeID)
                 isProgressChanged = false
             }
             isPlaying = true
             timeCounter = c_PointData[0].timestamps
-            playbackTimer.fireDate = NSDate()
+            playbackTimer.fireDate = Date()
         }
+        PaintViewController.instance.playPauseButton.playing(true)
         
     }
     func restart()
@@ -153,17 +155,18 @@ class PaintReplayer:NSObject
     {
         startReplayAtStroke(clip.currentStrokeID)
     }
-    func startReplayAtStroke(strokeID:Int)
+    func startReplayAtStroke(_ strokeID:Int)
     {
         if strokeID < clip.strokes.count
         {
-            playbackTimer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: #selector(PaintReplayer.timerUpdate), userInfo: nil, repeats: true)
+            playbackTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(PaintReplayer.timerUpdate), userInfo: nil, repeats: true)
             isTimerValid = true
             setReplayData(strokeID)
             isPlaying = true
         }
     }
-    func setReplayData(strokeID:Int)
+    
+    func setReplayData(_ strokeID:Int)
     {
         let strokes = clip.strokes
         
@@ -175,7 +178,7 @@ class PaintReplayer:NSObject
         let strokeStartTime = strokes[clip.currentStrokeID].startTime
         if strokeStartTime != nil
         {
-            firstTimeStamps = strokeStartTime //c_PointData[0].timestamps
+            firstTimeStamps = strokeStartTime! //c_PointData[0].timestamps
         }
         else{
             firstTimeStamps = strokes[clip.currentStrokeID].pointData[0].timestamps
@@ -192,7 +195,7 @@ class PaintReplayer:NSObject
             //print("timecounter \(timeCounter)")
             while timeCounter >= (c_PointData[currentPointID].timestamps + firstTimeStamps)
             {
-                DLog("timestamps: \(c_PointData[currentPointID].timestamps + firstTimeStamps)")
+                //DLog("timestamps: \(c_PointData[currentPointID].timestamps + firstTimeStamps)")
                 if currentPointID >= c_PointData.count
                 {
                     testNextPoint()
@@ -267,7 +270,7 @@ class PaintReplayer:NSObject
         handleProgressValueChanged()
         return true
     }
-    private func draw(stroke:PaintStroke,p1:PaintPoint,p2:PaintPoint,p3:PaintPoint)
+    fileprivate func draw(_ stroke:PaintStroke,p1:PaintPoint,p2:PaintPoint,p3:PaintPoint)
     {
         GLShaderBinder.instance.currentBrushShader.bindBrushInfo(stroke.valueInfo)
         context.renderStaticLine([p1,p2,p3])
@@ -288,7 +291,7 @@ class PaintReplayer:NSObject
             timeScale = 1
         }
     }
-    func changePlayBackSpeed(scale:Double)
+    func changePlayBackSpeed(_ scale:Double)
     {
         timeScale = scale;
         if timeScale < 0.1
@@ -309,15 +312,18 @@ class PaintReplayer:NSObject
     *   direct draw
     *
     */
-    func drawCurrentStrokeProgress(offset:Int)
+    func drawCurrentStrokeProgress(_ offset:Int)
     {
         drawStrokeProgress(clip.currentStrokeID+offset)
     }
     
     //0 as blank, 1 as first stroke, stroke.count as all
-    func drawStrokeProgress(index:Int)->Bool
+    func drawStrokeProgress(_ index:Int)->Bool
     {
         let strokes = clip.strokes
+        
+        currentPointID = 0
+        
         if isPlaying
         {
             pause()
@@ -378,7 +384,7 @@ class PaintReplayer:NSObject
                 return true
             }
         }
-        
+        isProgressChanged = true
         //DLog("cache at:\(cacheIndex) current:\(clip.currentStrokeID) start at:\(startIndex) end at:\(endIndex) last_end\(last_endIndex)")
 
         /*
@@ -424,15 +430,14 @@ class PaintReplayer:NSObject
     var last_endIndex:Int = 0
 
     
-    func drawProgress(percentage:Float)->Bool
+    func drawProgress(_ percentage:Float)->Bool
     {
         //between 0~1
         //print("drawProgress \(percentage)")
         return drawStrokeProgress(Int(percentage*Float(clip.strokes.count)))
-    
     }
     var progress:Float = 0
-    func panOnReplayer(disx:CGFloat)
+    func panOnReplayer(_ disx:CGFloat)
     {
         
     }
@@ -442,7 +447,7 @@ class PaintReplayer:NSObject
         let value = Float(clip.currentStrokeID+1)/Float(clip.strokes.count)
         playProgress = value
         if let handler = onProgressValueChanged{
-            handler(progressValue: value,strokeID:clip.currentStrokeID)
+            handler(value,clip.currentStrokeID)
         }
     }
     
@@ -472,7 +477,7 @@ class PaintReplayer:NSObject
         handleProgressValueChanged()
     }
     
-    var onProgressValueChanged:((progressValue:Float,strokeID:Int)->Void)? = nil
+    var onProgressValueChanged:((_ progressValue:Float,_ strokeID:Int)->Void)? = nil
     
     func exit()
     {

@@ -15,7 +15,7 @@ class LessonMenuDetailViewController: UIViewController {
         }
     }
     
-    func updateUI(data:LessonData)
+    func updateUI(_ data:LessonData)
     {
         lessonNumber.text = "Lesson \(data.lessonOrder)"
         lessonTitle.text = data.title
@@ -28,15 +28,15 @@ class LessonMenuDetailViewController: UIViewController {
     
     @IBOutlet weak var goalText: UITextView!
     
-    @IBAction func startButtonTouched(sender: UIButton) {
+    @IBAction func startButtonTouched(_ sender: UIButton) {
         PaintViewController.courseTitle = "upsidedown"
-        PaintViewController.appMode = ApplicationMode.InstructionTutorial
+        PaintViewController.appMode = ApplicationMode.instructionTutorial
         //let appdelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         //let rootViewController = appdelegate.window?.rootViewController
         
         let paintViewController = getViewController("paintview") as! PaintViewController
         
-        presentViewController(paintViewController, animated: true, completion: nil)
+        present(paintViewController, animated: true, completion: nil)
     }
     
 }

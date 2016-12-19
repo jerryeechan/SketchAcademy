@@ -12,19 +12,22 @@ class OptionTableViewController: UITableViewController {
     @IBOutlet weak var shareGIFTableCell: UITableViewCell!
     @IBOutlet weak var enterSelectStrokeModeCell: UITableViewCell!
     weak var delegate:PaintViewController!
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        dismissViewControllerAnimated(true, completion: {})
+        dismiss(animated: true, completion: {})
         
-        switch tableView.cellForRowAtIndexPath(indexPath)! {
+        switch tableView.cellForRow(at: indexPath)! {
         case shareGIFTableCell:
             delegate.exportGIF()
         case enterSelectStrokeModeCell:
             delegate.enterSelectStrokeMode()
         case visualizeDataCell:
+            /*
             let visualizationController = getViewController("visualizeView") as! VisualizationViewController
-            visualizationController.delegate = delegate
+            visualizationController.delete = delegate
             delegate.navigationController?.pushViewController(visualizationController, animated: true)
+ */
+            break
         default:
             break
         }

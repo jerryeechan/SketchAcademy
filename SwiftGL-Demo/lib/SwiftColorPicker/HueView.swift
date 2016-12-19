@@ -8,7 +8,7 @@
 import UIKit
 extension UIView
 {
-    func getLimitXCoordinate(coord:CGFloat)->CGFloat
+    func getLimitXCoordinate(_ coord:CGFloat)->CGFloat
     {
         if coord < 0
         {
@@ -20,7 +20,7 @@ extension UIView
         }
         return coord
     }
-    func getLimitYCoordinate(coord:CGFloat)->CGFloat
+    func getLimitYCoordinate(_ coord:CGFloat)->CGFloat
     {
         if coord < 0
         {
@@ -56,23 +56,23 @@ class HueView: UIView {
         
         if !hasLayouted
         {
-            backgroundColor = UIColor.clearColor()
+            backgroundColor = UIColor.clear
             
             width = frame.height
             width_2 = width*0.5
             let colorLayer = CAGradientLayer()
             colorLayer.colors = [
-                UIColor(hue: 0.0, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor,
-                UIColor(hue: 0.1, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor,
-                UIColor(hue: 0.2, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor,
-                UIColor(hue: 0.3, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor,
-                UIColor(hue: 0.4, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor,
-                UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor,
-                UIColor(hue: 0.6, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor,
-                UIColor(hue: 0.7, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor,
-                UIColor(hue: 0.8, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor,
-                UIColor(hue: 0.9, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor,
-                UIColor(hue: 1.0, saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor
+                UIColor(hue: 0.0, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor,
+                UIColor(hue: 0.1, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor,
+                UIColor(hue: 0.2, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor,
+                UIColor(hue: 0.3, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor,
+                UIColor(hue: 0.4, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor,
+                UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor,
+                UIColor(hue: 0.6, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor,
+                UIColor(hue: 0.7, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor,
+                UIColor(hue: 0.8, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor,
+                UIColor(hue: 0.9, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor,
+                UIColor(hue: 1.0, saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor
             ]
             
             //colorLayer.locations = [0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95]
@@ -85,16 +85,16 @@ class HueView: UIView {
             
             // Insert the colorLayer into this views layer as a sublayer
             self.layer.insertSublayer(colorLayer, below: layer)
-            self.color = UIColor.blackColor()
+            self.color = UIColor.black
             
             point = getPointFromColor(color)
             
             knob = UIView(frame: CGRect(x: -3, y: -2, width: 6, height: width+4))
             knob.layer.cornerRadius = 3
             knob.layer.borderWidth = 1
-            knob.layer.borderColor = UIColor.lightGrayColor().CGColor
-            knob.backgroundColor = UIColor.whiteColor()
-            knob.layer.shadowColor = UIColor.blackColor().CGColor
+            knob.layer.borderColor = UIColor.lightGray.cgColor
+            knob.backgroundColor = UIColor.white
+            knob.layer.shadowColor = UIColor.black.cgColor
             //        knob.layer.shadowOffset = CGSize(width: 0, height: -3)
             
             
@@ -114,7 +114,7 @@ class HueView: UIView {
     }
     
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Set reference to the location of the touch in member point
         let  touch = touches.first
         
@@ -138,27 +138,27 @@ class HueView: UIView {
     
     
 
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Set reference to the location of the touchesMoved in member point
         let  touch = touches.first
         moveKnob(touch!,duration: 0.1)
     }
-    func moveKnob(touch:UITouch,duration:NSTimeInterval)
+    func moveKnob(_ touch:UITouch,duration:TimeInterval)
     {
-        point = touch.locationInView(self)
+        point = touch.location(in: self)
         point.x = getLimitXCoordinate(point.x)
         point.y = width_2
         // Notify delegate of the new new color selection
         let color = getColorFromPoint(point)
         delegate?.mainColorSelected(color, point: point)
-        UIView.animateWithDuration(duration, animations: {
+        UIView.animate(withDuration: duration, animations: {
             self.knob.layer.transform = CATransform3DMakeTranslation(self.point.x, 0, 0)
         })
     }
-    override func getColorFromPoint(point: CGPoint) -> UIColor {
+    func getColorFromPoint(_ point: CGPoint) -> UIColor {
         return UIColor(hue: point.x/frame.width, saturation: 1, brightness: 1, alpha: 1)
     }
-     override func drawRect(rect: CGRect) {
+     override func draw(_ rect: CGRect) {
         /*
         if (point != nil) {
             let context = UIGraphicsGetCurrentContext()
@@ -183,7 +183,7 @@ class HueView: UIView {
 */
     }
     // Determine crosshair coordinates from a color
-    func getPointFromColor(color: UIColor) -> CGPoint {
+    func getPointFromColor(_ color: UIColor) -> CGPoint {
         var hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
         let ok: Bool = color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         if (!ok) {

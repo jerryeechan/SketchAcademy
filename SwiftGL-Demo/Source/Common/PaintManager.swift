@@ -6,15 +6,15 @@
 //  Copyright © 2015年 Jerry Chan. All rights reserved.
 //
 enum PaintMode{
-    case Artwork
-    case Revision
+    case artwork
+    case revision
 }
 enum ViewingClipType
 {
-    case Artwork
-    case Revision
+    case artwork
+    case revision
 }
-
+import PaintStrokeData
 class PaintManager {
     
     weak var paintView:PaintView!
@@ -29,7 +29,7 @@ class PaintManager {
     let paintRecorder:PaintRecorder
     var currentReplayer:PaintReplayer!
     
-    var viewingClipType:ViewingClipType = .Artwork
+    var viewingClipType:ViewingClipType = .artwork
     
     
     init(paintView:PaintView)
@@ -37,7 +37,7 @@ class PaintManager {
         self.paintView = paintView
         switch PaintViewController.appMode
         {
-        case ApplicationMode.InstructionTutorial:
+        case ApplicationMode.instructionTutorial:
             paintRecorder = PaintRecorder(canvas: paintView.paintBuffer)
             
         default:
@@ -51,16 +51,17 @@ class PaintManager {
     
     
     
-    func newArtwork(width:Int,height:Int)
+    func newArtwork(_ width:Int,height:Int)
     {
         artwork = nil
         artwork = PaintArtwork(width: width,height: height)
         let clip = artwork.useMasterClip()
         paintRecorder.setRecordClip(clip)
         artwork.setReplayer(paintView)
-        artwork.masterReplayer.loadClip(clip)
+        
         currentReplayer = artwork.masterReplayer
         replayTargetArtwork = artwork
+        artwork.masterReplayer.loadClip(clip)
         //masterReplayer.loadClip(clip)
     }
     
@@ -69,24 +70,25 @@ class PaintManager {
         artwork.masterReplayer.stopPlay()
         paintView.paintBuffer.blank()
     }
-    func saveArtwork(filename:String,img:UIImage)
+    func saveArtwork(_ filename:String,img:UIImage)
     {
         
         //call filemanager to  save the current PaintArtwork with name
-        FileManager.instance.savePaintArtWork(filename, artwork: artwork, img: img, noteDict:NoteManager.instance.getNotes())
+        FileManager.instance.savePaintArtWork(filename, artwork: artwork, img: img, notes:NoteManager.instance.getNoteArray())
+        
     }
-    func loadArtwork(filename:String)->Bool
+    func loadArtwork(_ filename:String)->Bool
     {
         NoteManager.instance.loadNotes(filename)
         switch PaintViewController.appMode
         {
-        case .ArtWorkCreation:
+        case .artWorkCreation:
             artwork = FileManager.instance.loadPaintArtWork(filename)
             artwork.setReplayer(paintView)
             artwork.loadMasterClip()
             artwork.masterReplayer.drawAll()
             currentReplayer = artwork.masterReplayer
-        case .CreateTutorial:
+        case .createTutorial:
             artwork = FileManager.instance.loadPaintArtWork(filename)
             artwork.setReplayer(paintView)
             artwork.loadMasterClip()
@@ -94,7 +96,7 @@ class PaintManager {
             currentReplayer = artwork.masterReplayer
             //add create tutorial
             break
-        case .InstructionTutorial:
+        case .instructionTutorial:
             artwork = PaintArtwork(width: PaintViewController.canvasWidth/2,height:PaintViewController.canvasHeight)
             artwork.setReplayer(paintView)
             artwork.loadMasterClip()
@@ -134,7 +136,7 @@ class PaintManager {
         paintView.display()
         
     }
-    func playRevisionClip(id:Int)
+    func playRevisionClip(_ id:Int)
     {
         artwork.loadRevisionClip(id)
         paintView.paintBuffer.setRevisionMode()
@@ -166,19 +168,19 @@ class PaintManager {
         //self.paintMode = .Revision
         
         let id = NoteManager.instance.selectedButtonIndex
-        if(artwork.revisionClips[id] == nil){
+        if(artwork.revisionClips[id!] == nil){
             DLog("Revision Clip Branch at \(id) created")
-            artwork.addRevisionClip(id)
-            let newClip = artwork.useRevisionClip(id)
+            artwork.addRevisionClip(id!)
+            let newClip = artwork.useRevisionClip(id!)
             paintRecorder.setRecordClip(newClip)
-            artwork.loadRevisionClip(id)
+            artwork.loadRevisionClip(id!)
         }
         else
         {
             DLog("Revision Clip Branch at \(id) exist")
-            let clip = artwork.revisionClips[id]
+            let clip = artwork.revisionClips[id!]
             paintRecorder.setRecordClip(clip!)
-            artwork.loadRevisionClip(id)
+            artwork.loadRevisionClip(id!)
         }
         
         //OpenGL setting
@@ -191,9 +193,9 @@ class PaintManager {
     {
         switch(viewingClipType)
         {
-        case .Artwork:
+        case .artwork:
             playArtworkClip()
-        case .Revision:
+        case .revision:
             playCurrentRevisionClip()
         }
         
@@ -230,7 +232,7 @@ class PaintManager {
         {
             let op = currentClip.op.removeLast()
             switch op {
-            case Operation.Clean:
+            case Operation.clean:
                 currentClip.undoClean()
                 artwork.currentReplayer.drawAll()
                 paintView.glDraw()
@@ -252,7 +254,7 @@ class PaintManager {
         {
             let op = currentClip.redoOp.removeLast()
             switch op{
-            case Operation.Clean:
+            case Operation.clean:
                 clean()
                 DLog("\(artwork.currentClip.currentStrokeID) \(artwork.currentClip.strokes.count) \(currentClip.redoOp)")
             }
@@ -262,7 +264,7 @@ class PaintManager {
             DLog("\(artwork.currentClip.currentStrokeID) \(artwork.currentClip.strokes.count)")
             if stroke != nil
             {
-                paintView.paintBuffer.drawStroke(stroke, layer: 0)
+                paintView.paintBuffer.drawStroke(stroke!, layer: 0)
                 paintView.glDraw()
             }
             else{
@@ -274,7 +276,10 @@ class PaintManager {
         
         
     }
-    
+    func pause()
+    {
+        artwork.currentReplayer.pause()
+    }
     
     func pauseToggle()
     {
@@ -289,11 +294,11 @@ class PaintManager {
         artwork.currentReplayer.restart()
     }
     
-    func drawStrokeProgress(strokeID:Int)->Bool
+    func drawStrokeProgress(_ strokeID:Int)->Bool
     {
         return artwork.currentReplayer.drawStrokeProgress(strokeID)
     }
-    func drawProgress(percentage:Float)->Bool
+    func drawProgress(_ percentage:Float)->Bool
     {
         
         return artwork.currentReplayer.drawProgress(percentage)
@@ -335,14 +340,16 @@ class PaintManager {
         }
         
     }
-    func tutorialGotoStep(step:Int)
+    
+    //draw to the step, pause the player
+    func tutorialGotoStep(_ step:Int)
     {
         let note = NoteManager.instance.getOrderedNote(step)
         if note != nil
         {
             tutorialArtwork.currentNote = note
-            tutorialArtwork.currentReplayer.drawStrokeProgress(note.value.strokeIndex)
-            tutorialArtwork.currentReplayer.pause()
+            tutorialArtwork.currentReplayer.drawStrokeProgress((note?.value.strokeIndex)!)
+            
         }
     }
     func tutorialToggle()
@@ -353,6 +360,6 @@ class PaintManager {
     func tutorialRestart()
     {
         let note = tutorialArtwork.currentNote;
-        tutorialArtwork.currentReplayer.drawStrokeProgress(note.value.strokeIndex)
+        tutorialArtwork.currentReplayer.drawStrokeProgress((note?.value.strokeIndex)!)
     }
 }

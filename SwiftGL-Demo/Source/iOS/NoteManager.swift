@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import PaintStrokeData
 class NoteManager {
     class var instance:NoteManager{
         struct Singleton{
@@ -17,12 +17,12 @@ class NoteManager {
     }
     var noteButtonDict:[Int:NoteButton] = [Int:NoteButton]()
     var selectedButtonIndex:Int!
-    private var noteDict:[Int:Note] = [Int:Note]()
-    func getNoteButton(atStroke:Int)->NoteButton!
+    fileprivate var noteDict:[Int:Note] = [Int:Note]()
+    func getNoteButton(_ atStroke:Int)->NoteButton!
     {
         return noteButtonDict[atStroke]
     }
-    func addNoteButton(noteButton:NoteButton,note:Note)
+    func addNoteButton(_ noteButton:NoteButton,note:Note)
     {
         noteButton.note = note
         noteButtonDict[note.value.strokeIndex] = noteButton
@@ -36,7 +36,7 @@ class NoteManager {
         noteDict = [Int:Note]()
         editingNoteIndex = -1
     }
-    func loadNotes(filename:String)
+    func loadNotes(_ filename:String)
     {
         noteDict = FileManager.instance.loadNotes(filename)
         getSortedKeys()
@@ -55,16 +55,16 @@ class NoteManager {
     }
     func getNoteArray()->[Note]
     {
-        let sortedArray = Array(noteDict.values).sort({$0.value.strokeIndex < $1.value.strokeIndex})
+        let sortedArray = Array(noteDict.values).sorted(by: {$0.value.strokeIndex < $1.value.strokeIndex})
         return sortedArray
     }
     func getSortedKeys()->[Int]
     {
-        sortedKeys = Array(noteDict.keys).sort()        
+        sortedKeys = Array(noteDict.keys).sorted()        
         return sortedKeys
     }
     var sortedKeys:[Int] = []
-    func getOrderedNote(index:Int)->Note!
+    func getOrderedNote(_ index:Int)->Note!
     {
         getSortedKeys()
         if index < sortedKeys.count
@@ -77,21 +77,21 @@ class NoteManager {
             return nil
         }
     }
-    func deleteNoteAtStroke(at:Int)->Int
+    func deleteNoteAtStroke(_ at:Int)->Int
     {
         selectedButtonIndex = nil
         let noteButton = getNoteButton(at)
         noteButtonDict[at] = nil
-        noteButton.removeFromSuperview()
-        noteDict.removeValueForKey(at)
+        noteButton?.removeFromSuperview()
+        noteDict.removeValue(forKey: at)
         sortedKeys = getSortedKeys()
         return sortedKeys.count
     }
-    func updateOrderedNote(index:Int,title:String,description:String)
+    func updateOrderedNote(_ index:Int,title:String,description:String)
     {
         updateNote(sortedKeys[index], title: title, description: description)
     }
-    func updateNote(at:Int,title:String,description:String)
+    func updateNote(_ at:Int,title:String,description:String)
     {
         noteDict[at]?.title = title
         noteDict[at]?.description = description
@@ -108,9 +108,9 @@ class NoteManager {
         editingNoteIndex = -1
 */
     }
-    func addNote(at:Int,title:String,description:String)->Note
+    func addNote(_ at:Int,title:String,description:String)->Note
     {
-        noteDict[at] = Note(title: "\(title)", description: description, strokeIndex: at,type: NoteType.Note)
+        noteDict[at] = Note(title: "\(title)", description: description, strokeIndex: at,type: NoteType.note)
         sortedKeys = getSortedKeys()
         return noteDict[at]!
         //noteList.sortInPlace({$0.value.strokeIndex < $1.value.strokeIndex})
@@ -122,7 +122,7 @@ class NoteManager {
     //var selectedNoteIndex:Int = -1
     
     //the array index of the floor strokeID
-    func getFloorNoteIndexFromStrokeID(strokeID:Int)->Int
+    func getFloorNoteIndexFromStrokeID(_ strokeID:Int)->Int
     {
         getSortedKeys()
         DLog("\(sortedKeys)")
@@ -161,7 +161,7 @@ class NoteManager {
         //selectedNoteIndex = index
         return getNote(at)
     }*/
-    func getNoteAtStroke(at:Int)->Note!
+    func getNoteAtStroke(_ at:Int)->Note!
     {
         return noteDict[at]
     }

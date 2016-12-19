@@ -15,12 +15,12 @@ extension PaintViewController
     {
         for g in canvasBGView.gestureRecognizers!
         {
-            g.enabled = false
+            g.isEnabled = false
         }
         paintView.removeGestureRecognizer(singlePanGestureRecognizer)
         
         
-        singlePanGestureRecognizer.enabled = false
+        singlePanGestureRecognizer.isEnabled = false
     }
     func enableGesture()
     {
@@ -28,12 +28,12 @@ extension PaintViewController
         for g in canvasBGView.gestureRecognizers!
         {
             //            /canvasBGView.removeGestureRecognizer(g)
-            g.enabled = true
+            g.isEnabled = true
         }
-        singlePanGestureRecognizer.enabled = true
+        singlePanGestureRecognizer.isEnabled = true
         
     }
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if appState == AppState.viewArtwork || appState == AppState.viewRevision
         {
             return
@@ -43,7 +43,7 @@ extension PaintViewController
             if currentTouchType == "None"
             {
                 
-                if touchRaw.type == .Stylus
+                if touchRaw.type == .stylus
                 {
                     currentTouchType = "Stylus"
                     //disableGesture()
@@ -56,7 +56,7 @@ extension PaintViewController
             }
             else
             {
-                if touchRaw.type == .Stylus
+                if touchRaw.type == .stylus
                 {
                     paintManager.paintRecorder.disruptFingerStroke()
                     
@@ -73,7 +73,7 @@ extension PaintViewController
     }
     
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         //DLog(currentTouchType)
         if appState == AppState.viewArtwork || appState == AppState.viewRevision
         {
@@ -84,10 +84,10 @@ extension PaintViewController
             var toucharray = [UITouch]()
             if #available(iOS 9.1, *) {
                 
-                if touchRaw.type == .Stylus
+                if touchRaw.type == .stylus
                 {
                     
-                    if let coalescedTouches = event?.coalescedTouchesForTouch(touchRaw) {
+                    if let coalescedTouches = event?.coalescedTouches(for: touchRaw) {
                         toucharray = coalescedTouches
                     }
                     /*
@@ -115,10 +115,10 @@ extension PaintViewController
         
         
     }
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touchRaw = touches.first else { return }
         if #available(iOS 9.1, *) {
-            if touchRaw.type == .Stylus
+            if touchRaw.type == .stylus
             {
                 paintManager.paintRecorder.endStroke()
                 paintView.addGestureRecognizer(singlePanGestureRecognizer)
@@ -130,7 +130,8 @@ extension PaintViewController
         }
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    @objc(gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:)
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == singlePanGestureRecognizer || otherGestureRecognizer == singlePanGestureRecognizer
         {
             return false
@@ -141,19 +142,19 @@ extension PaintViewController
             return false
         }
     }
-    func viewPinchHandler(targetPaintView:PaintView,sender:UIPinchGestureRecognizer)
+    func viewPinchHandler(_ targetPaintView:PaintView,sender:UIPinchGestureRecognizer)
     {
-        var center:CGPoint = CGPointMake(0, 0)
-        for i in 0 ..< sender.numberOfTouches()
+        var center:CGPoint = CGPoint(x: 0, y: 0)
+        for i in 0 ..< sender.numberOfTouches
         {
-            let p = sender.locationOfTouch(i, inView: targetPaintView)
+            let p = sender.location(ofTouch: i, in: targetPaintView)
             center.x += p.x
             center.y += p.y
         }
-        center.x /= CGFloat(sender.numberOfTouches())
-        center.y /= CGFloat(sender.numberOfTouches())
+        center.x /= CGFloat(sender.numberOfTouches)
+        center.y /= CGFloat(sender.numberOfTouches)
         
-        setAnchorPoint(CGPointMake(center.x/targetPaintView.bounds.size.width,center.y / targetPaintView.bounds.size.height), forView: targetPaintView)
+        setAnchorPoint(CGPoint(x: center.x/targetPaintView.bounds.size.width,y: center.y / targetPaintView.bounds.size.height), forView: targetPaintView)
         
         
         switch sender.state
@@ -161,7 +162,7 @@ extension PaintViewController
             
             //paintView.layer.anchorPoint = CGPointMake(0.5, 0.5)
             
-        case UIGestureRecognizerState.Changed:
+        case UIGestureRecognizerState.changed:
             targetPaintView.scale *= sender.scale
             //print("scale: \(paintView.layer.transform.m11 * sender.scale)")
             if targetPaintView.scale >= 3
@@ -179,11 +180,11 @@ extension PaintViewController
             //paintView.layer.transform = CATransform3DMakeScale(sender.scale, sender.scale, 1)
             //paintView.layer.transform = CGAffineTransformScale(paintView.transform, sender.scale, )
             sender.scale = 1
-        case .Ended:()
+        case .ended:()
         print(sender.velocity)
         if sender.velocity < -2 || sender.velocity > 4
         {
-            UIView.animateWithDuration(0.5, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 //self.paintView.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
                 
                 self.resetAnchor(targetPaintView)
@@ -198,16 +199,16 @@ extension PaintViewController
 
     }
     
-    @IBAction func uiPinchGestrueEvent(sender: UIPinchGestureRecognizer) {
+    @IBAction func uiPinchGestrueEvent(_ sender: UIPinchGestureRecognizer) {
         viewPinchHandler(paintView, sender: sender)
         
     }
-    @IBAction func rotationGestureHandler(sender: UIRotationGestureRecognizer) {
+    @IBAction func rotationGestureHandler(_ sender: UIRotationGestureRecognizer) {
         switch sender.state
         {
             
             //paintView.layer.anchorPoint = CGPointMake(0.5, 0.5)
-        case UIGestureRecognizerState.Changed:
+        case UIGestureRecognizerState.changed:
             paintView.rotation += sender.rotation
             applyCATransform()
             //paintView.layer.transform = CATransform3DRotate(paintView.layer.transform,sender.rotation,0,0,1)
@@ -216,8 +217,8 @@ extension PaintViewController
         default: ()
         }
     }
-    @IBAction func singleTapSingleTouchGestureHandler(sender: UITapGestureRecognizer) {
-        if sender.state == .Ended
+    @IBAction func singleTapSingleTouchGestureHandler(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended
         {
             //DLog("Single tap")
             switch appState
@@ -233,25 +234,25 @@ extension PaintViewController
         
     }
     
-    @IBAction func doubleTapSingleTouchGestureHandler(sender: UITapGestureRecognizer) {
+    @IBAction func doubleTapSingleTouchGestureHandler(_ sender: UITapGestureRecognizer) {
         DLog("double tap")
-        if sender.state == .Ended
+        if sender.state == .ended
         {
             DLog("\(appState)")
             switch appState
             {
             case .viewArtwork, .viewRevision:
                 //TODO show replay panel
-                let textViews = [noteTitleField, noteDescriptionTextView]
+                let textViews = [noteTitleField, noteDescriptionTextView] as [UIView]
                 for view in textViews
                 {
-                    let point = sender.locationInView(view)
+                    let point = sender.location(in: view)
                     
                     //if sender.view == view
-                    if view.pointInside(point, withEvent: nil)
+                    if view.point(inside: point, with: nil)
                     {
                         editNote()
-                        view.becomeFirstResponder()
+                        (view as AnyObject).becomeFirstResponder()
                         return
                     }
                 }

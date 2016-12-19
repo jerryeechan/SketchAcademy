@@ -12,10 +12,10 @@ let square:Bool = false
 let IMAGE_MIN_HEIGHT:CGFloat = 100;
 let IMAGE_MIN_WIDTH:CGFloat = 100;
 
-func SquareCGRectAtCenter(centerX:CGFloat,  centerY:CGFloat,  size:CGFloat)->CGRect {
+func SquareCGRectAtCenter(_ centerX:CGFloat,  centerY:CGFloat,  size:CGFloat)->CGRect {
      let x = centerX - size / 2.0;
      let y = centerY - size / 2.0;
-    return CGRectMake(x, y, size, size);
+    return CGRect(x: x, y: y, width: size, height: size);
 }
 
 struct DragPoint {
@@ -56,7 +56,7 @@ class CanvasCropView:  UIView{
     
     func initView()
     {
-        let centerInView:CGPoint = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2)
+        let centerInView:CGPoint = CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
         let initialClearAreaSize = self.frame.size.width / 10;
         
         topLeftPoint = ControlPointView(frame: SquareCGRectAtCenter(centerInView.x - initialClearAreaSize, centerY: centerInView.y - initialClearAreaSize, size:controlPointSize))
@@ -72,7 +72,7 @@ class CanvasCropView:  UIView{
         shadeView = ShadeView(frame: self.bounds)
         let cropArea = clearAreaFromControlPoints()
         cropAreaView = UIView(frame: cropArea)
-        cropAreaView.backgroundColor = UIColor.clearColor()
+        cropAreaView.backgroundColor = UIColor.clear
         
         self.addSubview(shadeView)
         self.addSubview(cropAreaView)
@@ -81,7 +81,7 @@ class CanvasCropView:  UIView{
         self.addSubview(topLeftPoint)
         self.addSubview(bottomLeftPoint)
         
-        imageFrameInView = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
+        imageFrameInView = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
         
         pointsArray = [topLeftPoint,bottomLeftPoint,bottomRightPoint,topRightPoint]
         shadeView.setCropArea(cropArea)
@@ -93,15 +93,15 @@ class CanvasCropView:  UIView{
         let dragRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(CanvasCropView.handleDrag(_:)))
         
         
-        self.viewForBaselineLayout().addGestureRecognizer(dragRecognizer)
+        self.forBaselineLayout().addGestureRecognizer(dragRecognizer)
 
     }
     
-    func setCropAreaInView(area: CGRect) {
+    func setCropAreaInView(_ area: CGRect) {
         let topLeft: CGPoint = area.origin
-        let bottomLeft: CGPoint = CGPointMake(topLeft.x, topLeft.y + area.size.height)
-        let bottomRight: CGPoint = CGPointMake(bottomLeft.x + area.size.width, bottomLeft.y)
-        let topRight: CGPoint = CGPointMake(topLeft.x + area.size.width, topLeft.y)
+        let bottomLeft: CGPoint = CGPoint(x: topLeft.x, y: topLeft.y + area.size.height)
+        let bottomRight: CGPoint = CGPoint(x: bottomLeft.x + area.size.width, y: bottomLeft.y)
+        let topRight: CGPoint = CGPoint(x: topLeft.x + area.size.width, y: topLeft.y)
         topLeftPoint.center = topLeft
         bottomLeftPoint.center = bottomLeft
         bottomRightPoint.center = bottomRight
@@ -109,8 +109,8 @@ class CanvasCropView:  UIView{
         
         let cropArea: CGRect = clearAreaFromControlPoints()
         cropAreaView = UIView(frame: cropArea)
-        cropAreaView.opaque = false
-        cropAreaView.backgroundColor = UIColor.clearColor()
+        cropAreaView.isOpaque = false
+        cropAreaView.backgroundColor = UIColor.clear
 
         shadeView.cropArea = area
         self.setNeedsDisplay()
@@ -119,53 +119,57 @@ class CanvasCropView:  UIView{
     func clearAreaFromControlPoints() -> CGRect {
         let width: CGFloat = topRightPoint.center.x - topLeftPoint.center.x
         let height: CGFloat = bottomRightPoint.center.y - topRightPoint.center.y
-        let hole: CGRect = CGRectMake(topLeftPoint.center.x, topLeftPoint.center.y, width, height)
+        let hole: CGRect = CGRect(x: topLeftPoint.center.x, y: topLeftPoint.center.y, width: width, height: height)
         return hole
     }
     
     func controllableAreaFromControlPoints() -> CGRect {
         let width: CGFloat = topRightPoint.center.x - topLeftPoint.center.x - controlPointSize
         let height: CGFloat = bottomRightPoint.center.y - topRightPoint.center.y - controlPointSize
-        let hole: CGRect = CGRectMake(topLeftPoint.center.x + controlPointSize / 2, topLeftPoint.center.y + controlPointSize / 2, width, height)
+        let hole: CGRect = CGRect(x: topLeftPoint.center.x + controlPointSize / 2, y: topLeftPoint.center.y + controlPointSize / 2, width: width, height: height)
         return hole
     }
     
-    func boundingBoxForTopLeft(topLeft: CGPoint, bottomLeft: CGPoint, bottomRight: CGPoint, topRight: CGPoint) {
-        var box: CGRect = CGRectMake(topLeft.x - controlPointSize / 2, topLeft.y - controlPointSize / 2, topRight.x - topLeft.x + controlPointSize, bottomRight.y - topRight.y + controlPointSize)
+    func boundingBoxForTopLeft(_ topLeft: CGPoint, bottomLeft: CGPoint, bottomRight: CGPoint, topRight: CGPoint) {
+        var box: CGRect = CGRect(x: topLeft.x - controlPointSize / 2, y: topLeft.y - controlPointSize / 2, width: topRight.x - topLeft.x + controlPointSize, height: bottomRight.y - topRight.y + controlPointSize)
         if !square {
-            box = CGRectIntersection(imageFrameInView, box)
+            box = imageFrameInView.intersection(box)
         }
-        if CGRectContainsRect(imageFrameInView, box) {
-            bottomLeftPoint.center = CGPointMake(box.origin.x + controlPointSize / 2, box.origin.y + box.size.height - controlPointSize / 2)
-            bottomRightPoint.center = CGPointMake(box.origin.x + box.size.width - controlPointSize / 2, box.origin.y + box.size.height - controlPointSize / 2)
-            topLeftPoint.center = CGPointMake(box.origin.x + controlPointSize / 2, box.origin.y + controlPointSize / 2)
-            topRightPoint.center = CGPointMake(box.origin.x + box.size.width - controlPointSize / 2, box.origin.y + controlPointSize / 2)
+        if imageFrameInView.contains(box) {
+            bottomLeftPoint.center = CGPoint(x: box.origin.x + controlPointSize / 2, y: box.origin.y + box.size.height - controlPointSize / 2)
+            bottomRightPoint.center = CGPoint(x: box.origin.x + box.size.width - controlPointSize / 2, y: box.origin.y + box.size.height - controlPointSize / 2)
+            topLeftPoint.center = CGPoint(x: box.origin.x + controlPointSize / 2, y: box.origin.y + controlPointSize / 2)
+            topRightPoint.center = CGPoint(x: box.origin.x + box.size.width - controlPointSize / 2, y: box.origin.y + controlPointSize / 2)
         }
     }
     
-    func checkHit(point: CGPoint) -> UIView {
+    func checkHit(_ point: CGPoint) -> UIView {
         var view: UIView = cropAreaView
-        for var i = 0; i < pointsArray.count; i += 1 {
-            if sqrt(pow((point.x - view.center.x), 2) + pow((point.y - view.center.y), 2)) > sqrt(pow((point.x - pointsArray[i].center.x), 2) + pow((point.y - pointsArray[i].center.y), 2)) {
+        for i in 0 ..< pointsArray.count {
+            let a = pow((point.x - view.center.x), 2)
+            let b = pow((point.y - view.center.y), 2)
+            let c = pow((point.x - pointsArray[i].center.x), 2)
+            let d = pow((point.y - pointsArray[i].center.y), 2)
+            if  sqrt(a + b) > sqrt(c+d) {
                 view = pointsArray[i]
             }
         }
         return view
     }
-    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-        let frame: CGRect = CGRectInset(cropAreaView.frame, -30, -30)
-        return CGRectContainsPoint(frame, point) ? cropAreaView : nil
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let frame: CGRect = cropAreaView.frame.insetBy(dx: -30, dy: -30)
+        return frame.contains(point) ? cropAreaView : nil
     }
     
-    func handleDrag(recognizer: UIPanGestureRecognizer) {
+    func handleDrag(_ recognizer: UIPanGestureRecognizer) {
         switch(recognizer.state)
         {
-        case UIGestureRecognizerState.Began:
+        case UIGestureRecognizerState.began:
             self.prepSingleTouchPan(recognizer)
             return
-        case UIGestureRecognizerState.Changed:
-            self.beginCropBoxTransformForPoint(recognizer.locationInView(self), atView: dragViewOne)
-        case UIGestureRecognizerState.Ended:
+        case UIGestureRecognizerState.changed:
+            self.beginCropBoxTransformForPoint(recognizer.location(in: self), atView: dragViewOne)
+        case UIGestureRecognizerState.ended:
             return
         default:
             return
@@ -173,9 +177,9 @@ class CanvasCropView:  UIView{
     }
     
     
-    func prepSingleTouchPan(recognizer: UIPanGestureRecognizer) {
-        dragViewOne = self.checkHit(recognizer.locationInView(self))
-        dragPoint = DragPoint(dragStart: recognizer.locationInView(self), topLeftCenter: topLeftPoint.center, bottomLeftCenter: bottomLeftPoint.center, bottomRightCenter: bottomRightPoint.center, topRightCenter: topRightPoint.center, clearAreaCenter: cropAreaView.center)
+    func prepSingleTouchPan(_ recognizer: UIPanGestureRecognizer) {
+        dragViewOne = self.checkHit(recognizer.location(in: self))
+        dragPoint = DragPoint(dragStart: recognizer.location(in: self), topLeftCenter: topLeftPoint.center, bottomLeftCenter: bottomLeftPoint.center, bottomRightCenter: bottomRightPoint.center, topRightCenter: topRightPoint.center, clearAreaCenter: cropAreaView.center)
         
         
         
@@ -183,10 +187,10 @@ class CanvasCropView:  UIView{
         
     }
     
-    func deriveDisplacementFromDragLocation(dragLocation: CGPoint, draggedPoint: CGPoint, oppositePoint: CGPoint) -> CGSize {
+    func deriveDisplacementFromDragLocation(_ dragLocation: CGPoint, draggedPoint: CGPoint, oppositePoint: CGPoint) -> CGSize {
         let dX: CGFloat = dragLocation.x - dragPoint.dragStart.x
         let dY: CGFloat = dragLocation.y - dragPoint.dragStart.y
-        let tempDraggedPoint: CGPoint = CGPointMake(draggedPoint.x + dX, draggedPoint.y + dY)
+        let tempDraggedPoint: CGPoint = CGPoint(x: draggedPoint.x + dX, y: draggedPoint.y + dY)
         let width: CGFloat = (tempDraggedPoint.x - oppositePoint.x)
         let height: CGFloat = (tempDraggedPoint.y - oppositePoint.y)
         let size: CGFloat = fabs(width) >= fabs(height) ? width : height
@@ -226,11 +230,11 @@ class CanvasCropView:  UIView{
                 newY = oppositePoint.y + fabs(height)
             }
         }
-        let displacement: CGSize = CGSizeMake(newX - draggedPoint.x, newY - draggedPoint.y)
+        let displacement: CGSize = CGSize(width: newX - draggedPoint.x, height: newY - draggedPoint.y)
         return displacement
     }
     
-    func beginCropBoxTransformForPoint(location: CGPoint, atView view: UIView) {
+    func beginCropBoxTransformForPoint(_ location: CGPoint, atView view: UIView) {
         switch(view)
         {
         case topLeftPoint:
@@ -254,11 +258,11 @@ class CanvasCropView:  UIView{
         self.shadeView.setCropArea(clearArea)
     }
     var imageScale:CGFloat = 1
-    func handleDragTopLeft(dragLocation: CGPoint) {
+    func handleDragTopLeft(_ dragLocation: CGPoint) {
         let disp: CGSize = self.deriveDisplacementFromDragLocation(dragLocation, draggedPoint: dragPoint.topLeftCenter, oppositePoint: dragPoint.bottomRightCenter)
-        var topLeft: CGPoint = CGPointMake(dragPoint.topLeftCenter.x + disp.width, dragPoint.topLeftCenter.y + disp.height)
-        var topRight: CGPoint = CGPointMake(dragPoint.topRightCenter.x, dragPoint.topLeftCenter.y + disp.height)
-        var bottomLeft: CGPoint = CGPointMake(dragPoint.bottomLeftCenter.x + disp.width, dragPoint.bottomLeftCenter.y)
+        var topLeft: CGPoint = CGPoint(x: dragPoint.topLeftCenter.x + disp.width, y: dragPoint.topLeftCenter.y + disp.height)
+        var topRight: CGPoint = CGPoint(x: dragPoint.topRightCenter.x, y: dragPoint.topLeftCenter.y + disp.height)
+        var bottomLeft: CGPoint = CGPoint(x: dragPoint.bottomLeftCenter.x + disp.width, y: dragPoint.bottomLeftCenter.y)
         var width: CGFloat = topRight.x - topLeft.x
         var height: CGFloat = bottomLeft.y - topLeft.y
         width = width * imageScale
@@ -285,11 +289,11 @@ class CanvasCropView:  UIView{
         self.boundingBoxForTopLeft(topLeft, bottomLeft: bottomLeft, bottomRight: dragPoint.bottomRightCenter, topRight: topRight)
     }
     
-    func handleDragBottomLeft(dragLocation: CGPoint) {
+    func handleDragBottomLeft(_ dragLocation: CGPoint) {
         let disp: CGSize = self.deriveDisplacementFromDragLocation(dragLocation, draggedPoint: dragPoint.bottomLeftCenter, oppositePoint: dragPoint.topRightCenter)
-        var bottomLeft: CGPoint = CGPointMake(dragPoint.bottomLeftCenter.x + disp.width, dragPoint.bottomLeftCenter.y + disp.height)
-        var topLeft: CGPoint = CGPointMake(dragPoint.topLeftCenter.x + disp.width, dragPoint.topLeftCenter.y)
-        var bottomRight: CGPoint = CGPointMake(dragPoint.bottomRightCenter.x, dragPoint.bottomRightCenter.y + disp.height)
+        var bottomLeft: CGPoint = CGPoint(x: dragPoint.bottomLeftCenter.x + disp.width, y: dragPoint.bottomLeftCenter.y + disp.height)
+        var topLeft: CGPoint = CGPoint(x: dragPoint.topLeftCenter.x + disp.width, y: dragPoint.topLeftCenter.y)
+        var bottomRight: CGPoint = CGPoint(x: dragPoint.bottomRightCenter.x, y: dragPoint.bottomRightCenter.y + disp.height)
         var width: CGFloat = bottomRight.x - bottomLeft.x
         var height: CGFloat = bottomLeft.y - topLeft.y
         width = width * self.imageScale
@@ -316,11 +320,11 @@ class CanvasCropView:  UIView{
         self.boundingBoxForTopLeft(topLeft, bottomLeft: bottomLeft, bottomRight: bottomRight, topRight: dragPoint.topRightCenter)
     }
     
-    func handleDragBottomRight(dragLocation: CGPoint) {
+    func handleDragBottomRight(_ dragLocation: CGPoint) {
         let disp: CGSize = self.deriveDisplacementFromDragLocation(dragLocation, draggedPoint: dragPoint.bottomRightCenter, oppositePoint: dragPoint.topLeftCenter)
-        var bottomRight: CGPoint = CGPointMake(dragPoint.bottomRightCenter.x + disp.width, dragPoint.bottomRightCenter.y + disp.height)
-        var topRight: CGPoint = CGPointMake(dragPoint.topRightCenter.x + disp.width, dragPoint.topRightCenter.y)
-        var bottomLeft: CGPoint = CGPointMake(dragPoint.bottomLeftCenter.x, dragPoint.bottomLeftCenter.y + disp.height)
+        var bottomRight: CGPoint = CGPoint(x: dragPoint.bottomRightCenter.x + disp.width, y: dragPoint.bottomRightCenter.y + disp.height)
+        var topRight: CGPoint = CGPoint(x: dragPoint.topRightCenter.x + disp.width, y: dragPoint.topRightCenter.y)
+        var bottomLeft: CGPoint = CGPoint(x: dragPoint.bottomLeftCenter.x, y: dragPoint.bottomLeftCenter.y + disp.height)
         var width: CGFloat = bottomRight.x - bottomLeft.x
         var height: CGFloat = bottomRight.y - topRight.y
         width = width * self.imageScale
@@ -347,11 +351,11 @@ class CanvasCropView:  UIView{
         self.boundingBoxForTopLeft(dragPoint.topLeftCenter, bottomLeft: bottomLeft, bottomRight: bottomRight, topRight: topRight)
     }
     
-    func handleDragTopRight(dragLocation: CGPoint) {
+    func handleDragTopRight(_ dragLocation: CGPoint) {
         let disp: CGSize = self.deriveDisplacementFromDragLocation(dragLocation, draggedPoint: dragPoint.topRightCenter, oppositePoint: dragPoint.bottomLeftCenter)
-        var topRight: CGPoint = CGPointMake(dragPoint.topRightCenter.x + disp.width, dragPoint.topRightCenter.y + disp.height)
-        var topLeft: CGPoint = CGPointMake(dragPoint.topLeftCenter.x, dragPoint.topLeftCenter.y + disp.height)
-        var bottomRight: CGPoint = CGPointMake(dragPoint.bottomRightCenter.x + disp.width, dragPoint.bottomRightCenter.y)
+        var topRight: CGPoint = CGPoint(x: dragPoint.topRightCenter.x + disp.width, y: dragPoint.topRightCenter.y + disp.height)
+        var topLeft: CGPoint = CGPoint(x: dragPoint.topLeftCenter.x, y: dragPoint.topLeftCenter.y + disp.height)
+        var bottomRight: CGPoint = CGPoint(x: dragPoint.bottomRightCenter.x + disp.width, y: dragPoint.bottomRightCenter.y)
         var width: CGFloat = topRight.x - topLeft.x
         var height: CGFloat = bottomRight.y - topRight.y
         width = width * self.imageScale
@@ -378,13 +382,13 @@ class CanvasCropView:  UIView{
         self.boundingBoxForTopLeft(topLeft, bottomLeft: dragPoint.bottomLeftCenter, bottomRight: bottomRight, topRight: topRight)
     }
     
-    func handleDragClearArea(dragLocation: CGPoint) {
+    func handleDragClearArea(_ dragLocation: CGPoint) {
         let dX: CGFloat = dragLocation.x - dragPoint.dragStart.x
         let dY: CGFloat = dragLocation.y - dragPoint.dragStart.y
-        var newTopLeft: CGPoint = CGPointMake(dragPoint.topLeftCenter.x + dX, dragPoint.topLeftCenter.y + dY)
-        var newBottomLeft: CGPoint = CGPointMake(dragPoint.bottomLeftCenter.x + dX, dragPoint.bottomLeftCenter.y + dY)
-        var newBottomRight: CGPoint = CGPointMake(dragPoint.bottomRightCenter.x + dX, dragPoint.bottomRightCenter.y + dY)
-        var newTopRight: CGPoint = CGPointMake(dragPoint.topRightCenter.x + dX, dragPoint.topRightCenter.y + dY)
+        var newTopLeft: CGPoint = CGPoint(x: dragPoint.topLeftCenter.x + dX, y: dragPoint.topLeftCenter.y + dY)
+        var newBottomLeft: CGPoint = CGPoint(x: dragPoint.bottomLeftCenter.x + dX, y: dragPoint.bottomLeftCenter.y + dY)
+        var newBottomRight: CGPoint = CGPoint(x: dragPoint.bottomRightCenter.x + dX, y: dragPoint.bottomRightCenter.y + dY)
+        var newTopRight: CGPoint = CGPoint(x: dragPoint.topRightCenter.x + dX, y: dragPoint.topRightCenter.y + dY)
         let clearAreaWidth: CGFloat = dragPoint.topRightCenter.x - dragPoint.topLeftCenter.x
         let clearAreaHeight: CGFloat = dragPoint.bottomLeftCenter.y - dragPoint.topLeftCenter.y
         let halfControlPointSize: CGFloat = controlPointSize / 2

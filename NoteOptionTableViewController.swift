@@ -12,20 +12,20 @@ enum NoteOptionAction{
 }
 class NoteOptionTableViewController: UITableViewController {
     weak var delegate:PaintViewController!
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         view.layer.cornerRadius = 0
     }
     
     @IBOutlet weak var enterRevisionModeButton: UITableViewCell!
     
     var action:NoteOptionAction = .none
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if tableView.cellForRowAtIndexPath(indexPath) ==
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.cellForRow(at: indexPath) ==
         enterRevisionModeButton
         {
             //delegate. 
             action = .drawRevision
-            dismissViewControllerAnimated(true, completion: {})
+            dismiss(animated: true, completion: {})
             delegate.noteOptionDrawRevisionTouched()
         }
         

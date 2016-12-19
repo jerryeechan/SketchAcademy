@@ -10,7 +10,7 @@ import Foundation
 import GLKit
 import SwiftGL
 
-struct StrokeInfo{
+public struct StrokeInfo{
     var timeAfterLast:Double
 }
 
@@ -24,10 +24,10 @@ if _bound == nil
 }
 */
 
-class PaintStroke:HasBound
+public class PaintStroke:HasBound
 {
     var _bound:GLRect!
-    var bound:GLRect{
+    public var bound:GLRect{
         get{
             if _bound == nil
             {
@@ -56,10 +56,13 @@ class PaintStroke:HasBound
     var stringInfo:ToolStringInfo
     var strokeInfo:StrokeInfo!
     
-    init(tool:PaintBrush)   //use when recording
+    //init(tool:PaintBrush)   //use when recording
+    init(stringInfo:ToolStringInfo,valueInfo:ToolValueInfo)   //use when recording
     {
-        stringInfo = tool.sInfo
-        valueInfo = tool.vInfo
+        self.stringInfo = stringInfo
+        self.valueInfo = valueInfo
+        //stringInfo = tool.sInfo
+        //valueInfo = tool.vInfo
         startTime =  CFAbsoluteTimeGetCurrent()
     }
     init(s:ToolStringInfo,v:ToolValueInfo) //use when load data
@@ -105,7 +108,7 @@ class PaintStroke:HasBound
         }
         return []
     }
-    func addPoint(point:PaintPoint,time:CFAbsoluteTime)
+    func addPoint(_ point:PaintPoint,time:CFAbsoluteTime)
     {
         points+=[point]
         pointData.append(PointData(paintPoint: point,t: time))
@@ -115,7 +118,7 @@ class PaintStroke:HasBound
         }
         expandBound(point.position)
     }
-    func expandBound(position:Vec4)
+    func expandBound(_ position:Vec4)
     {
         if position.x < _bound.leftTop.x
         {
@@ -149,5 +152,14 @@ class PaintStroke:HasBound
     func setBrush()
     {
         
+    }
+    
+}
+extension Sequence where Iterator.Element == PaintStroke
+{
+    var tojson:String{
+        get{
+            return "[" + self.map {$0.pointData.jsonArray}.joined(separator: ",") + "]"
+        }
     }
 }

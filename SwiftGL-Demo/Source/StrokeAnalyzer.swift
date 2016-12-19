@@ -7,23 +7,23 @@
 //
 
 import UIKit
-
+import PaintStrokeData
 class StrokeAnalyzer{
     
     var speeds:[Double] = []
     var lengths:[Double] = []
     var forces:[Double] = []
-    func analyze(strokes:[PaintStroke]){
+    func analyze(_ strokes:[PaintStroke]){
         
-        for var stroke in strokes
+        for stroke in strokes
         {
             let result = pointAnalyzer.analyze(stroke.pointData);
             speeds.append(Double(result.speed))
             forces.append(Double(result.paintPoint.force))
             lengths.append(Double(result.length))
         }
-        let maxSpeed = speeds.maxElement()
-        let maxLength = lengths.maxElement()
+        let maxSpeed = speeds.max()
+        let maxLength = lengths.max()
         
         //max force is 1
         for i in 0..<speeds.count
@@ -46,7 +46,7 @@ class StrokeAnalyzer{
         return reduceArray(forces)
     }
     
-    func reduceArray(array:[Double])->[Double]
+    func reduceArray(_ array:[Double])->[Double]
     {
         if(array.count<100)
         {
@@ -72,7 +72,7 @@ class StrokeAnalyzer{
     }
     
     var pointAnalyzer:PointAttributeAnalyzer = PointAttributeAnalyzer(points: [])
-    func updateStroke(stroke:PaintStroke)
+    func updateStroke(_ stroke:PaintStroke)
     {
        // pointAnalyzer.addPoint(asdf)
     
@@ -84,7 +84,8 @@ class StrokeAnalyzer{
     }
     
 }
-extension _ArrayType where Generator.Element == String {
+/*
+extension _ArrayType where Iterator.Element == String {
     var doubleArray: [Double] {
         return flatMap{ Double($0) }
     }
@@ -92,3 +93,4 @@ extension _ArrayType where Generator.Element == String {
         return flatMap{ Float($0) }
     }
 }
+ */

@@ -24,41 +24,41 @@ class NoteDetailCell:UITableViewCell{
     
     
     var strokeID:Int!
-    var isEditing:Bool!
+    var is_editing:Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        textView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.layer.cornerRadius = 2
         isEditing = false
-        titleEditTextField.hidden = true
+        titleEditTextField.isHidden = true
     }
     
     
     
 
-    @IBAction func editButtonTouched(sender: UIButton) {
+    @IBAction func editButtonTouched(_ sender: UIButton) {
         let note = NoteManager.instance.getNoteAtStroke(strokeID)
         //enter editing mode
-        if isEditing == false
+        if is_editing == false
         {
             
-            textView.editable = true
+            textView.isEditable = true
             textView.layer.borderWidth = 1
-            titleEditTextField.hidden = false
-            titleEditTextField.text = note.title
-            editButton.setImage(UIImage(named: "Pen-50"), forState: UIControlState.Normal)
+            titleEditTextField.isHidden = false
+            titleEditTextField.text = note?.title
+            editButton.setImage(UIImage(named: "Pen-50"), for: UIControlState())
         }
         else
         {
-            textView.editable = false
+            textView.isEditable = false
             textView.layer.borderWidth = 0
-            titleEditTextField.hidden = true
+            titleEditTextField.isHidden = true
             NoteManager.instance.updateNote(strokeID, title: titleEditTextField.text!, description: textView.text)
             title.text = titleEditTextField.text!
-            editButton.setImage(UIImage(named: "write"), forState: UIControlState.Normal)
+            editButton.setImage(UIImage(named: "write"), for: UIControlState())
         }
-        isEditing = !isEditing
+        is_editing = !is_editing
         
     }
     

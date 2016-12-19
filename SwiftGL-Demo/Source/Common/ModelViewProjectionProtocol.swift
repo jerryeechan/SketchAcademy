@@ -8,5 +8,5 @@
 import SwiftGL
 protocol ModelViewProjectionProtocol
 {
-    func bindMVP(mat4:Mat4)
+    func bindMVP(_ mat4:Mat4)
 }

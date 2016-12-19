@@ -12,12 +12,12 @@ class NoteTextArea: UITextView ,UITextViewDelegate,UIGestureRecognizerDelegate{
     func clear()
     {
         text = placeholderText
-        textColor = UIColor.lightGrayColor()
+        textColor = UIColor.lightGray
         delegate = self
         emptyFlag = true
     }
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         if(text.characters.count == 0)
         {
@@ -29,11 +29,11 @@ class NoteTextArea: UITextView ,UITextViewDelegate,UIGestureRecognizerDelegate{
         else if(textView.text == placeholderText)
         {
             self.text = ""
-            textColor = UIColor.blackColor()
+            textColor = UIColor.black
         }
         return true
     }
-    func textViewDidChangeSelection(textView: UITextView) {
+    func textViewDidChangeSelection(_ textView: UITextView) {
         if(self.text == placeholderText)
         {
             if(selectedRange.location != 0)
@@ -42,7 +42,7 @@ class NoteTextArea: UITextView ,UITextViewDelegate,UIGestureRecognizerDelegate{
             }
         }
     }
-    func textViewDidBeginEditing(textView: UITextView) {
+    func textViewDidBeginEditing(_ textView: UITextView) {
         
         if(text == placeholderText)
         {
@@ -53,7 +53,7 @@ class NoteTextArea: UITextView ,UITextViewDelegate,UIGestureRecognizerDelegate{
     }
     var emptyFlag = true
     
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         
         if(text == "")
         {
@@ -61,13 +61,13 @@ class NoteTextArea: UITextView ,UITextViewDelegate,UIGestureRecognizerDelegate{
         }
         else if emptyFlag == true
         {
-            text = text.stringByReplacingOccurrencesOfString(placeholderText, withString: "")
-            textColor = UIColor.blackColor()
+            text = text.replacingOccurrences(of: placeholderText, with: "")
+            textColor = UIColor.black
             emptyFlag = false
         }
         
     }
-    func changeText(text:String)
+    func changeText(_ text:String)
     {
         if(text == "" || text == placeholderText)
         {
@@ -76,16 +76,16 @@ class NoteTextArea: UITextView ,UITextViewDelegate,UIGestureRecognizerDelegate{
         else
         {
             self.text = text
-            textColor = UIColor.blackColor()
+            textColor = UIColor.black
             emptyFlag = false
         }
 
     }
     
-    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer is UITapGestureRecognizer && (gestureRecognizer as! UITapGestureRecognizer).numberOfTapsRequired == 2
         {
-            if gestureRecognizer == editTapRecognizer && editable == false
+            if gestureRecognizer == editTapRecognizer && isEditable == false
             {
                 return true
             }

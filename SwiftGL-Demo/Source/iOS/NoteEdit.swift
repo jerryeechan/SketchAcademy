@@ -16,27 +16,27 @@ extension PaintViewController:UITextViewDelegate
         noteTitleField.editTapRecognizer = doubleTapSingleTouchGestureRecognizer
         
         
-        noteDescriptionTextView.editable = false
+        noteDescriptionTextView.isEditable = false
         noteDescriptionTextView.delegate = self
         noteDescriptionTextView.addGestureRecognizer(doubleTapSingleTouchGestureRecognizer)
         noteDescriptionTextView.editTapRecognizer = doubleTapSingleTouchGestureRecognizer
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PaintViewController.onKeyBoardHide(_:)), name:
-            UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PaintViewController.onKeyBoardHide(_:)), name:
+            NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     func hideKeyBoard()
     {
         noteTitleField.resignFirstResponder()
         noteDescriptionTextView.resignFirstResponder()
     }
-    func onKeyBoardHide(notification:NSNotification)
+    func onKeyBoardHide(_ notification:Notification)
     {
         if appState == AppState.editNote
         {
             editNoteDone()
         }
     }
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if let t = textField as? NoteTitleField
         {
             return t.editable
@@ -46,18 +46,18 @@ extension PaintViewController:UITextViewDelegate
             return true
         }
     }
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         editNoteDone()
         return true
     }
     
-     func newNote(atStroke:Int)->Note
+     func newNote(_ atStroke:Int)->Note
      {
         noteTitleField.text = ""
         noteDescriptionTextView.clear()
         let note = NoteManager.instance.addNote(atStroke,title: "", description: "")
-        addNoteButton.enabled = false
+        addNoteButton.isEnabled = false
         
         enterEditMode()
         
@@ -67,7 +67,7 @@ extension PaintViewController:UITextViewDelegate
     {
         enterEditMode()
     }
-    func deleteNote(at:Int)
+    func deleteNote(_ at:Int)
     {
         hideKeyBoard()
         NoteManager.instance.deleteNoteAtStroke(at)
@@ -78,10 +78,10 @@ extension PaintViewController:UITextViewDelegate
         onProgressValueChanged(replayProgressBar.progress,strokeID: at)
         
     }
-    private func enterEditMode()
+    fileprivate func enterEditMode()
     {
         appState = AppState.editNote
-        noteDescriptionTextView.editable = true
+        noteDescriptionTextView.isEditable = true
         noteTitleField.editable = true
     }
     
@@ -89,7 +89,7 @@ extension PaintViewController:UITextViewDelegate
     {
         if appState == .editNote
         {
-            noteDescriptionTextView.editable = false
+            noteDescriptionTextView.isEditable = false
             noteTitleField.editable = false
             
             NoteManager.instance.updateNote(NoteManager.instance.selectedButtonIndex, title: noteTitleField.text!, description: noteDescriptionTextView.text)

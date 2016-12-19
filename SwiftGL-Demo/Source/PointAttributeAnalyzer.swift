@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftGL
+import PaintStrokeData
 struct PointAnalyzeResult {
     init()
     {
@@ -27,11 +28,11 @@ class PointAttributeAnalyzer{
         
         addPoints(points)
     }
-    func addPoints(points:[PointData])
+    func addPoints(_ points:[PointData])
     {
         self.points += points
     }
-    func addPoint(point:PointData)
+    func addPoint(_ point:PointData)
     {
         points.append(point)
         dataUpdated()
@@ -50,7 +51,7 @@ class PointAttributeAnalyzer{
         _sumCaled = false
     }
     var result:PointAnalyzeResult!
-    func analyze(points:[PointData])->PointAnalyzeResult
+    func analyze(_ points:[PointData])->PointAnalyzeResult
     {
         
         clear()
@@ -98,7 +99,7 @@ class PointAttributeAnalyzer{
             return Float(points.count)
         }
     }
-    func square(value:Float)->Float
+    func square(_ value:Float)->Float
     {
         return value*value
     }
@@ -130,14 +131,14 @@ class PointAttributeAnalyzer{
         for i in 0...points.count
         {
             let p = points[i].paintPoint
-            pResult.altitude += square(p.altitude)
-            pResult.force += square(p.force)
+            pResult.altitude += square((p?.altitude)!)
+            pResult.force += square((p?.force)!)
             pAnaResult.speed += square(avg.speed)
             //pResult.azimuth += square(points[i].azimuth)
         }
         //-N*mu^2
-        pResult.altitude -= pointNumF*square(avgp.altitude)
-        pResult.force -= pointNumF*square(avgp.force)
+        pResult.altitude -= pointNumF*square((avgp?.altitude)!)
+        pResult.force -= pointNumF*square((avgp?.force)!)
         
         pAnaResult.paintPoint = pResult
         return pAnaResult
@@ -152,13 +153,13 @@ class PointAttributeAnalyzer{
         {
             let p = points[i].paintPoint
             
-            pResult.altitude += p.altitude
-            pResult.azimuth += p.azimuth
-            pResult.force += p.force
-            pResult.position += p.position
-            pResult.velocity += p.velocity
+            pResult.altitude += (p?.altitude)!
+            pResult.azimuth += (p?.azimuth)!
+            pResult.force += (p?.force)!
+            pResult.position += (p?.position)!
+            pResult.velocity += (p?.velocity)!
             
-            pAnaResult.length += p.velocity.length
+            pAnaResult.length += (p?.velocity.length)!
             
             if(i != 0)
             {
@@ -166,7 +167,7 @@ class PointAttributeAnalyzer{
                 let td = Float(points[i].timestamps-points[i-1].timestamps)
                 if(td != 0)
                 {
-                    pAnaResult.speed += p.velocity.length/td
+                    pAnaResult.speed += (p?.velocity.length)!/td
                 }
                 
             }

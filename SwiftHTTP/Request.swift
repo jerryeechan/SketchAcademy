@@ -17,9 +17,9 @@ extension String {
     */
     var escaped: String? {
         let set = NSMutableCharacterSet()
-        set.formUnionWithCharacterSet(NSCharacterSet.URLQueryAllowedCharacterSet())
-        set.removeCharactersInString("[].:/?&=;+!@#$()',*\"") // remove the HTTP ones from the set.
-        return self.stringByAddingPercentEncodingWithAllowedCharacters(set)
+        set.formUnion(with: CharacterSet.urlQueryAllowed)
+        set.removeCharacters(in: "[].:/?&=;+!@#$()',*\"") // remove the HTTP ones from the set.
+        return self.addingPercentEncoding(withAllowedCharacters: set as CharacterSet)
     }
 }
 
@@ -90,9 +90,9 @@ Enum used to describe what kind of Parameter is being interacted with.
 This allows us to only support an Array or Dictionary and avoid having to use AnyObject
 */
 public enum HTTPParamType {
-    case Array
-    case Dictionary
-    case Upload
+    case array
+    case dictionary
+    case upload
 }
 
 /**
@@ -100,7 +100,7 @@ This protocol is used to make the dictionary and array serializable into key/val
 */
 public protocol HTTPParameterProtocol {
     func paramType() -> HTTPParamType
-    func createPairs(key: String?) -> Array<HTTPPair>
+    func createPairs(_ key: String?) -> Array<HTTPPair>
 }
 
 /**
@@ -108,17 +108,17 @@ Support for the Dictionary type as an HTTPParameter.
 */
 extension Dictionary: HTTPParameterProtocol {
     public func paramType() -> HTTPParamType {
-        return .Dictionary
+        return .dictionary
     }
-    public func createPairs(key: String?) -> Array<HTTPPair> {
+    public func createPairs(_ key: String?) -> Array<HTTPPair> {
         var collect = Array<HTTPPair>()
         for (k, v) in self {
             if let nestedKey = k as? String, let nestedVal = v as? AnyObject {
                 let useKey = key != nil ? "\(key!)[\(nestedKey)]" : nestedKey
                 if let subParam = nestedVal as? Dictionary { //as? HTTPParameterProtocol <- bug? should work.
-                    collect.appendContentsOf(subParam.createPairs(useKey))
+                    collect.append(contentsOf: subParam.createPairs(useKey))
                 } else if let subParam = nestedVal as? Array<AnyObject> {
-                    collect.appendContentsOf(subParam.createPairs(useKey))
+                    collect.append(contentsOf: subParam.createPairs(useKey))
                 } else {
                     collect.append(HTTPPair(key: useKey, value: nestedVal))
                 }
@@ -133,18 +133,18 @@ Support for the Array type as an HTTPParameter.
 */
 extension Array: HTTPParameterProtocol {
     public func paramType() -> HTTPParamType {
-        return .Array
+        return .array
     }
     
-    public func createPairs(key: String?) -> Array<HTTPPair> {
+    public func createPairs(_ key: String?) -> Array<HTTPPair> {
         var collect = Array<HTTPPair>()
         for v in self {
             if let nestedVal = v as? AnyObject {
                 let useKey = key != nil ? "\(key!)[]" : key
                 if let subParam = nestedVal as? Dictionary<String, AnyObject> {
-                    collect.appendContentsOf(subParam.createPairs(useKey))
+                    collect.append(contentsOf: subParam.createPairs(useKey))
                 } else if let subParam = nestedVal as? Array<AnyObject> {
-                    collect.appendContentsOf(subParam.createPairs(useKey))
+                    collect.append(contentsOf: subParam.createPairs(useKey))
                 } else {
                     collect.append(HTTPPair(key: useKey, value: nestedVal))
                 }
@@ -159,10 +159,10 @@ Support for the Upload type as an HTTPParameter.
 */
 extension Upload: HTTPParameterProtocol {
     public func paramType() -> HTTPParamType {
-        return .Upload
+        return .upload
     }
     
-    public func createPairs(key: String?) -> Array<HTTPPair> {
+    public func createPairs(_ key: String?) -> Array<HTTPPair> {
         var collect = Array<HTTPPair>()
         collect.append(HTTPPair(key: key, value: self))
         return collect
@@ -178,8 +178,8 @@ extension NSMutableURLRequest {
     -parameter urlString: The string representation of a URL to init with.
     */
     public convenience init?(urlString: String) {
-        if let url = NSURL(string: urlString) {
-            self.init(URL: url)
+        if let url = URL(string: urlString) {
+            self.init(url: url)
         } else {
             return nil
         }
@@ -190,10 +190,10 @@ extension NSMutableURLRequest {
     */
     public var verb: HTTPVerb {
         set {
-            HTTPMethod = newValue.rawValue
+            httpMethod = newValue.rawValue
         }
         get {
-            if let v = HTTPVerb(rawValue: HTTPMethod) {
+            if let v = HTTPVerb(rawValue: httpMethod) {
                 return v
             }
             return .UNKNOWN
@@ -214,7 +214,7 @@ extension NSMutableURLRequest {
     If it contains a file it uses `multipart/form-data` for the content type.
     -parameter parameters: The container (array or dictionary) to convert and append to the URL or Body
     */
-    public func appendParameters(parameters: HTTPParameterProtocol) throws {
+    public func appendParameters(_ parameters: HTTPParameterProtocol) throws {
         if isURIParam() {
             appendParametersAsQueryString(parameters)
         } else if containsFile(parameters) {
@@ -228,13 +228,13 @@ extension NSMutableURLRequest {
     append the parameters as a HTTP Query string. (e.g. domain.com?first=one&second=two)
     -parameter parameters: The container (array or dictionary) to convert and append to the URL
     */
-    public func appendParametersAsQueryString(parameters: HTTPParameterProtocol) {
+    public func appendParametersAsQueryString(_ parameters: HTTPParameterProtocol) {
         let queryString = parameters.createPairs(nil).map({ (pair) in
             return pair.escapedValue
-        }).joinWithSeparator("&")
-        if let u = self.URL where queryString.characters.count > 0 {
+        }).joined(separator: "&")
+        if let u = self.url , queryString.characters.count > 0 {
             let para = u.query != nil ? "&" : "?"
-            self.URL = NSURL(string: "\(u.absoluteString)\(para)\(queryString)")
+            self.url = URL(string: "\(u.absoluteString)\(para)\(queryString)")
         }
     }
     
@@ -242,54 +242,54 @@ extension NSMutableURLRequest {
     append the parameters as a url encoded string. (e.g. in the body of the request as: first=one&second=two)
     -parameter parameters: The container (array or dictionary) to convert and append to the HTTP body
     */
-    public func appendParametersAsUrlEncoding(parameters: HTTPParameterProtocol) {
-        if valueForHTTPHeaderField(contentTypeKey) == nil {
-            let charset = CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding))
+    public func appendParametersAsUrlEncoding(_ parameters: HTTPParameterProtocol) {
+        if value(forHTTPHeaderField: contentTypeKey) == nil {
+            let charset = CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(String.Encoding.utf8.rawValue))
             setValue("application/x-www-form-urlencoded; charset=\(charset)",
                 forHTTPHeaderField:contentTypeKey)
             
         }
         let queryString = parameters.createPairs(nil).map({ (pair) in
             return pair.escapedValue
-        }).joinWithSeparator("&")
-        HTTPBody = queryString.dataUsingEncoding(NSUTF8StringEncoding)
+        }).joined(separator: "&")
+        httpBody = queryString.data(using: String.Encoding.utf8)
     }
     
     /**
     append the parameters as a multpart form body. This is the type normally used for file uploads.
     -parameter parameters: The container (array or dictionary) to convert and append to the HTTP body
     */
-    public func appendParametersAsMultiPartFormData(parameters: HTTPParameterProtocol) throws {
+    public func appendParametersAsMultiPartFormData(_ parameters: HTTPParameterProtocol) throws {
         let boundary = "Boundary+\(arc4random())\(arc4random())"
-        if valueForHTTPHeaderField(contentTypeKey) == nil {
+        if value(forHTTPHeaderField: contentTypeKey) == nil {
             setValue("multipart/form-data; boundary=\(boundary)",
                 forHTTPHeaderField:contentTypeKey)
         }
         let mutData = NSMutableData()
         let multiCRLF = "\r\n"
-        mutData.appendData("--\(boundary)".dataUsingEncoding(NSUTF8StringEncoding)!)
+        mutData.append("--\(boundary)".data(using: String.Encoding.utf8)!)
         for pair in parameters.createPairs(nil) {
             guard let key = pair.key else { continue } //this won't happen, but just to properly unwrap
-            mutData.appendData("\(multiCRLF)".dataUsingEncoding(NSUTF8StringEncoding)!)
+            mutData.append("\(multiCRLF)".data(using: String.Encoding.utf8)!)
             if let upload = pair.upload {
                 let data = try upload.getData()
-                mutData.appendData(multiFormHeader(key, fileName: upload.fileName,
-                    type: upload.mimeType, multiCRLF: multiCRLF).dataUsingEncoding(NSUTF8StringEncoding)!)
-                mutData.appendData(data)
+                mutData.append(multiFormHeader(key, fileName: upload.fileName,
+                    type: upload.mimeType, multiCRLF: multiCRLF).data(using: String.Encoding.utf8)!)
+                mutData.append(data as Data)
             } else {
                 let str = "\(multiFormHeader(key, fileName: nil, type: nil, multiCRLF: multiCRLF))\(pair.value)"
-                mutData.appendData(str.dataUsingEncoding(NSUTF8StringEncoding)!)
+                mutData.append(str.data(using: String.Encoding.utf8)!)
             }
-            mutData.appendData("\(multiCRLF)--\(boundary)".dataUsingEncoding(NSUTF8StringEncoding)!)
+            mutData.append("\(multiCRLF)--\(boundary)".data(using: String.Encoding.utf8)!)
         }
-        mutData.appendData("--\(multiCRLF)".dataUsingEncoding(NSUTF8StringEncoding)!)
-        HTTPBody = mutData
+        mutData.append("--\(multiCRLF)".data(using: String.Encoding.utf8)!)
+        httpBody = mutData as Data
     }
     
     /**
     Helper method to create the multipart form data
     */
-    func multiFormHeader(name: String, fileName: String?, type: String?, multiCRLF: String) -> String {
+    func multiFormHeader(_ name: String, fileName: String?, type: String?, multiCRLF: String) -> String {
         var str = "Content-Disposition: form-data; name=\"\(name.escaped!)\""
         if let name = fileName {
             str += "; filename=\"\(name)\""
@@ -307,16 +307,16 @@ extension NSMutableURLRequest {
      send the parameters as a body of JSON
     -parameter parameters: The container (array or dictionary) to convert and append to the URL or Body
     */
-    public func appendParametersAsJSON(parameters: HTTPParameterProtocol) throws {
+    public func appendParametersAsJSON(_ parameters: HTTPParameterProtocol) throws {
         if isURIParam() {
             appendParametersAsQueryString(parameters)
         } else {
             do {
-                HTTPBody = try NSJSONSerialization.dataWithJSONObject(parameters as! AnyObject, options: NSJSONWritingOptions())
+                httpBody = try JSONSerialization.data(withJSONObject: parameters as AnyObject, options: JSONSerialization.WritingOptions())
             } catch let error {
                 throw error
             }
-            let charset = CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding))
+            let charset = CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(String.Encoding.utf8.rawValue))
             setValue("application/json; charset=\(charset)", forHTTPHeaderField: contentTypeKey)
         }
     }
@@ -335,7 +335,7 @@ extension NSMutableURLRequest {
      check if the parameters contain a file object within them
     -parameter parameters: The parameters to search through for an upload object
     */
-    public func containsFile(parameters: Any) -> Bool {
+    public func containsFile(_ parameters: Any) -> Bool {
         guard let params = parameters as? HTTPParameterProtocol else { return false }
         for pair in params.createPairs(nil) {
             if let _ = pair.upload {

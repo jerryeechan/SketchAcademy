@@ -20,7 +20,7 @@ class ImageSlicedRectangles {
     {
         
     }
-    func addRect(rect:SliceRect)
+    func addRect(_ rect:SliceRect)
     {
         rects.append(rect)
     }

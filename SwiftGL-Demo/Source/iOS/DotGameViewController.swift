@@ -29,12 +29,12 @@ class DotGameViewController: UIViewController {
     
     @IBOutlet weak var confirmButton: UIButton!
     
-    @IBAction func confirmButtonTouched(sender: UIButton) {
+    @IBAction func confirmButtonTouched(_ sender: UIButton) {
             //new cal score
         scene.calScore()
     }
     
-    @IBAction func newStageButtonTouched(sender: UIButton) {
+    @IBAction func newStageButtonTouched(_ sender: UIButton) {
         //new stage
         scene.newStage()
         
@@ -43,13 +43,13 @@ class DotGameViewController: UIViewController {
     
     @IBOutlet weak var difficultyLabel: UIBarButtonItem!
     
-    @IBAction func difficultyStepperValueChanged(sender: UIStepper) {
+    @IBAction func difficultyStepperValueChanged(_ sender: UIStepper) {
         let v = Int(sender.value)
         difficultyLabel.title = String(v)
         scene.changeDifficulty(v)
     }
     
-    @IBAction func restartButtonTouched(sender: UIButton) {
+    @IBAction func restartButtonTouched(_ sender: UIButton) {
         scene.restart()
     }
     

@@ -15,34 +15,34 @@ class LessonMenuViewController: UIViewController,UICollectionViewDelegate,UIColl
     }*/
     
     //number of section
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     // cell num in section
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //self.collectionView = collectionView
         return 10
     }
     //get cell
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("lessonCell", forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lessonCell", for: indexPath)
         
         return cell
     }
     
     //select cell
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let lessonDetailVC = splitViewController?.viewControllers.last as!LessonMenuDetailViewController
         
     }
-    @IBAction func exitLesson(sender: UIBarButtonItem) {
-        presentingViewController?.dismissViewControllerAnimated(true, completion:nil)
+    @IBAction func exitLesson(_ sender: UIBarButtonItem) {
+        presentingViewController?.dismiss(animated: true, completion:nil)
         print("exit")
     }
     
     
-    @IBAction func startLessonButtonTouched(sender: UIButton) {
+    @IBAction func startLessonButtonTouched(_ sender: UIButton) {
         print("...")
         /*
         PaintViewController.courseTitle = "upsidedown"

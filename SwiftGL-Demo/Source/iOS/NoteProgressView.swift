@@ -8,18 +8,18 @@
 
 import Foundation
 class NoteProgressView:UIView{
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         setNeedsDisplay()
         for subview in subviews
         {
-            if subview.pointInside(self.convertPoint(point, toView: subview), withEvent: event)
+            if subview.point(inside: self.convert(point, to: subview), with: event)
             {
                 return true
             }
         }
-        return super.pointInside(point, withEvent: event)
+        return super.point(inside: point, with: event)
     }
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         DLog("droaw")
       
     }

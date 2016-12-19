@@ -15,5 +15,10 @@ struct PaintPoint{
     var altitude:Float
     var azimuth:Vec2
     var velocity:Vec2
+    
+    
+    var tojson : String {
+        
+        return "{\"p\":\(position.tojson),\"f\":\(force),\"alti\":\(altitude)}"
+    }
 }
-

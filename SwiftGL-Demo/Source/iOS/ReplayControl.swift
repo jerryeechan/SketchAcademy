@@ -8,12 +8,11 @@
 
 extension PaintViewController
 {
-    @IBAction func PlayButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func PlayButtonTouched(_ sender: UIBarButtonItem) {
         
         
         paintManager.pauseToggle()
         
-        playPauseButton.playing(paintManager.currentReplayer.isPlaying)
         if paintManager.currentReplayer.isPlaying
         {
             playbackControlPanel.reactivate()
@@ -25,13 +24,13 @@ extension PaintViewController
         
         
     }
-    @IBAction func fastForwardButtonTouched(sender: UIButton) {
+    @IBAction func fastForwardButtonTouched(_ sender: UIButton) {
         paintManager.doublePlayBackSpeed()
-        doublePlayBackButton.setTitle("\(Int(paintManager.currentReplayer.timeScale))x", forState: UIControlState.Normal)
+        doublePlayBackButton.setTitle("\(Int(paintManager.currentReplayer.timeScale))x", for: UIControlState())
         
         playbackControlPanel.reactivate()
     }
-    @IBAction func RewindButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func RewindButtonTouched(_ sender: UIBarButtonItem) {
         paintManager.restart()
         playPauseButton.playing(true)
         playbackControlPanel.reactivate()
@@ -44,15 +43,15 @@ extension PaintViewController
             
         }
         switch PaintViewController.appMode {
-        case .InstructionTutorial:
-            tutorialLastStepButton.enabled = false
+        case .instructionTutorial:
+            tutorialLastStepButton.isEnabled = false
         default:
-            tutorialControlPanel.hidden = true
+            tutorialControlPanel.isHidden = true
         }
-        tutorialLastStepButton.enabled = false
+        tutorialLastStepButton.isEnabled = false
     }
     
-    func onProgressValueChanged(progress:Float,strokeID:Int)
+    func onProgressValueChanged(_ progress:Float,strokeID:Int)
     {
         if appState == .viewArtwork || appState == AppState.editNote
         {
@@ -66,11 +65,11 @@ extension PaintViewController
             {
                 //TODO
                 //allow add button
-                addNoteButton.enabled = true
+                addNoteButton.isEnabled = true
             }
             else
             {
-                addNoteButton.enabled = false
+                addNoteButton.isEnabled = false
             }
             
             DLog("\(currentStrokeID)")
@@ -82,14 +81,14 @@ extension PaintViewController
             {
                 noteDetailView.animateShow(0.2)
                 isCellSelectedSentbySlider = true
-                selectRow(NSIndexPath(forRow: nearestNoteArrayIndex, inSection: 0))
+                selectRow(IndexPath(row: nearestNoteArrayIndex, section: 0))
                 let atStroke = NoteManager.instance.getSortedKeys()[nearestNoteArrayIndex]
                 
                 let note = NoteManager.instance.getNoteAtStroke(atStroke)
                 
-                noteTitleField.text = note.title
+                noteTitleField.text = note?.title
                 
-                noteDescriptionTextView.changeText(note.description)
+                noteDescriptionTextView.changeText((note?.description)!)
                 selectNoteButton(atStroke)
             }
             else
@@ -100,7 +99,7 @@ extension PaintViewController
                 {
                     let indexPath = selectedPath
                     selectedPath = nil
-                    noteListTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                    noteListTableView.reloadRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
                 }
                 
             }

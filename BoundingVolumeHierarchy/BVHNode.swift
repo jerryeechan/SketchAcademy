@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Jerry Chan. All rights reserved.
 //
 
-public class BVHNode:Equatable {
+open class BVHNode:Equatable {
     
     var children:[BVHNode] = []
     var childrenLimit:Int = 2
@@ -37,7 +37,7 @@ public class BVHNode:Equatable {
         self.rect = rect
         self.data = data
     }
-    public func expand(rect:GLRect)
+    open func expand(_ rect:GLRect)
     {
         self.rect.union(rect)
         if parent != nil
@@ -45,7 +45,7 @@ public class BVHNode:Equatable {
             parent.expand(rect)
         }
     }
-    public func mergeNode(node:BVHNode)->BVHNode
+    open func mergeNode(_ node:BVHNode)->BVHNode
     {
         // always create a new parent as binary tree
         // worth to try with more nodes
@@ -66,7 +66,7 @@ public class BVHNode:Equatable {
         
         return newParent
     }
-    public func insertParent()->BVHNode
+    open func insertParent()->BVHNode
     {
         parent.children.removeObject(self)
         let newParent = BVHNode(rect: rect, data: nil)
@@ -93,7 +93,7 @@ public class BVHNode:Equatable {
     }
  */    
     
-    public func search(point:Vec2,inout nodes:[BVHNode])
+    open func search(_ point:Vec2,nodes:inout [BVHNode])
     {
         if rect.intersect(point)
         {

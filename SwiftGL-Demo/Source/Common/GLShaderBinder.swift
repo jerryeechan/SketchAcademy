@@ -12,10 +12,7 @@ import OpenGLES.ES3
 
 // the attribute struct
 
-enum BrushType:Int
-{
-    case Pencil = 0,OilBrush,Eraser
-}
+
 
 class GLShaderBinder{
 
@@ -42,28 +39,28 @@ class GLShaderBinder{
         //brushShaders = [pencilShader,eraserShader]
         
         
-        brushShaderDict[BrushType.Pencil] = PencilShader()
-        brushShaderDict[BrushType.Eraser] = EraserShader()
-        brushShaderDict[BrushType.OilBrush] = BrushShader(name: "oilbrush")
+        brushShaderDict[BrushType.pencil] = PencilShader()
+        brushShaderDict[BrushType.eraser] = EraserShader()
+        brushShaderDict[BrushType.oilBrush] = BrushShader(name: "oilbrush")
             
-        currentBrushShader = brushShaderDict[BrushType.Pencil]!
+        currentBrushShader = brushShaderDict[BrushType.pencil]!
         GLShaderBinder.instance = self
-        useBrush(BrushType.Pencil)
+        useBrush(BrushType.pencil)
     }
     enum ShaderType:String
     {
         case brush = "brush",image = "image"
     }
-    func setSize(width:Float,height:Float)
+    func setSize(_ width:Float,height:Float)
     {
         textureShader.setSize(width, height: height)
     }
-    func useBrush(type:BrushType)
+    func useBrush(_ type:BrushType)
     {
         useBrushShader(brushShaderDict[type]!)
     }
     
-    func useBrushShader(shader:BrushShader)
+    func useBrushShader(_ shader:BrushShader)
     {
         currentBrushShader = shader
         shader.useShader()
@@ -76,14 +73,14 @@ class GLShaderBinder{
             shader.bindMVP(MVPMatrix)
         }
     }*/
-    func bindMVPBrush(MVP:Mat4)
+    func bindMVPBrush(_ MVP:Mat4)
     {
         for shader in brushShaderDict.values
         {
             shader.bindMVP(MVP)
         }
     }
-    func bindMVPRenderTexture(MVP:Mat4)
+    func bindMVPRenderTexture(_ MVP:Mat4)
     {
         textureShader.bindMVP(MVP)
     }

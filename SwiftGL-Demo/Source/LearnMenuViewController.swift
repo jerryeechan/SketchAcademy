@@ -13,45 +13,45 @@ class LearnMenuViewController:UICollectionViewController{
     
     func createFaceGameViewController()->FaceGameViewController
     {
-        return self.storyboard!.instantiateViewControllerWithIdentifier("facegame") as! FaceGameViewController
+        return self.storyboard!.instantiateViewController(withIdentifier: "facegame") as! FaceGameViewController
         
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = createFaceGameViewController()
-        switch indexPath.row {
+        switch (indexPath as NSIndexPath).row {
         case 0:
-            vc.levelName = FaceGameViewController.FaceGameLevelName.AngryBird
+            vc.levelName = FaceGameViewController.FaceGameLevelName.angryBird
         case 1:
-            vc.levelName = FaceGameViewController.FaceGameLevelName.GreenMan
+            vc.levelName = FaceGameViewController.FaceGameLevelName.greenMan
         case 2:
-            vc.levelName = FaceGameViewController.FaceGameLevelName.Tumbler
+            vc.levelName = FaceGameViewController.FaceGameLevelName.tumbler
         default:
-            vc.levelName = FaceGameViewController.FaceGameLevelName.AngryBird
+            vc.levelName = FaceGameViewController.FaceGameLevelName.angryBird
         }
         
-         presentViewController(vc, animated: true, completion: nil)
+         present(vc, animated: true, completion: nil)
     }
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        return collectionView.dequeueReusableCellWithReuseIdentifier("\(indexPath.row)", forIndexPath: indexPath)
+        return collectionView.dequeueReusableCell(withReuseIdentifier: "\((indexPath as NSIndexPath).row)", for: indexPath)
     }
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
     
     
     
     
-    @IBAction func lesson3BtnTouched(sender: UIButton) {
+    @IBAction func lesson3BtnTouched(_ sender: UIButton) {
         let vc = createFaceGameViewController()
-        vc.levelName = FaceGameViewController.FaceGameLevelName.Tumbler
-        presentViewController(vc, animated: true, completion: nil)
+        vc.levelName = FaceGameViewController.FaceGameLevelName.tumbler
+        present(vc, animated: true, completion: nil)
     }
     
-    @IBAction func dismissBtnTouched(sender: UIBarButtonItem) {
+    @IBAction func dismissBtnTouched(_ sender: UIBarButtonItem) {
         
-        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     

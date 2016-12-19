@@ -16,14 +16,14 @@ class ReferenceImageViewController: UIViewController {
     
     var scene:ReferenceImageScene!
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
         if imageView != nil
         {
             imageView.removeFromSuperview()
     
         }
-        imageView = SKView(frame: CGRectMake(0, 0, 1024, 724))
+        imageView = SKView(frame: CGRect(x: 0, y: 0, width: 1024, height: 724))
         view.addSubview(imageView)
         
         scene = ReferenceImageScene(size: view.bounds.size)
@@ -36,7 +36,7 @@ class ReferenceImageViewController: UIViewController {
     }
     
     
-    @IBAction func toolModeSegControlValueChanged(sender: UISegmentedControl) {
+    @IBAction func toolModeSegControlValueChanged(_ sender: UISegmentedControl) {
         scene.rectToolMode = ReferenceImageScene.RectToolMode(rawValue: sender.selectedSegmentIndex)!
     }
     
@@ -48,12 +48,12 @@ class ReferenceImageViewController: UIViewController {
         
     }
     
-    @IBAction func toggleButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func toggleButtonTouched(_ sender: UIBarButtonItem) {
         saveRefImage()
     }
-    @IBAction func doneButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func doneButtonTouched(_ sender: UIBarButtonItem) {
         saveRect()
-        performSegueWithIdentifier("showPaintView", sender: self)
+        performSegue(withIdentifier: "showPaintView", sender: self)
     }
     func saveRect()
     {
@@ -68,8 +68,8 @@ class ReferenceImageViewController: UIViewController {
     func getImage()->UIImage!
     {
         //UIGraphicsBeginImageContext(imageView.bounds.size)
-        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, UIScreen.mainScreen().scale)
-        if imageView.drawViewHierarchyInRect(imageView.bounds, afterScreenUpdates: true)==true
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, UIScreen.main.scale)
+        if imageView.drawHierarchy(in: imageView.bounds, afterScreenUpdates: true)==true
         {
             let img = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
@@ -78,7 +78,7 @@ class ReferenceImageViewController: UIViewController {
         return nil
     }
 
-    @IBAction func refreshButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func refreshButtonTouched(_ sender: UIBarButtonItem) {
         scene.cleanUp()
     }
     

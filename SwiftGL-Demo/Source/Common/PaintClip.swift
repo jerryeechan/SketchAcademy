@@ -6,19 +6,19 @@
 //  Copyright © 2015年 Jerry Chan. All rights reserved.
 //
 
-enum Operation {
-    case Clean
+public enum Operation {
+    case clean
 }
 import SwiftGL
-class PaintClip:NSObject{
+public class PaintClip:NSObject{
     
     //  branch related
-    var strokes:[PaintStroke] = []
-    var redoStrokes:[PaintStroke] = []
+   public var strokes:[PaintStroke] = []
+   public var redoStrokes:[PaintStroke] = []
     
-    var cleanStrokes:[PaintStroke] = []
-    var op:[Operation] = []
-    var redoOp:[Operation] = []
+   public var cleanStrokes:[PaintStroke] = []
+   var op:[Operation] = []
+   var redoOp:[Operation] = []
     
     /**
         not sure need current time or not
@@ -26,7 +26,7 @@ class PaintClip:NSObject{
     var currentTime:CFAbsoluteTime = 0
     var currentPointID:Int = 0
     var current_vInfo:ToolValueInfo!
-    var currentStrokeID:Int = 0
+   public var currentStrokeID:Int = 0
         {
         didSet{
             handleStrokeIDChanged();
@@ -35,37 +35,54 @@ class PaintClip:NSObject{
 
     //    branch related
 
-    var name:String
+    var clipName:String
     var branchAtIndex:Int = 0
     var parentClip:PaintClip!
     var branchClip:Dictionary<String,PaintClip> = Dictionary<String,PaintClip>()
+    var strokeDelegate:StrokeProgressChangeDelegate!
     
-    
-    
-    init(name:String,branchAt:Int)
+    func defaultOnStrokeIDChanged(a:Int,b:Int)->Void
     {
-        self.name = name
+        
+    }
+    
+    init(name:String,branchAt:Int,delegate:StrokeProgressChangeDelegate)
+    {
+        self.clipName = name
         self.branchAtIndex = branchAt
+        self.strokeDelegate = delegate
+        //self.onStrokeIDChanged = defaultOnStrokeIDChanged
+        super.init()
+        
+        
     }
     
     func addStep()
     {
         
     }
-    func addPaintStroke(stroke:PaintStroke)
+    func addPaintStroke(_ stroke:PaintStroke)
     {
-        currentTime = (stroke.pointData.last?.timestamps)!
+        if(stroke.pointData.count>0 )
+        {
+            currentTime = (stroke.pointData.last?.timestamps)!
+        }
+        else
+        {
+            currentTime = stroke.startTime;
+        }
+        
         strokes.append(stroke)
         
         currentStrokeID = strokes.count
         //DLog("\(currentStrokeID)")
     }
-    func addBranchClip(branchName:String,branchAt:Int)
+    func addBranchClip(_ branchName:String,branchAt:Int,delegate:StrokeProgressChangeDelegate)
     {
-        branchClip[branchName] = PaintClip(name: branchName,branchAt: branchAt)
+        branchClip[branchName] = PaintClip(name: branchName,branchAt: branchAt,delegate: delegate)
         branchClip[branchName]?.parentClip = self
     }
-    func switchToBranch(branchName:String)
+    func switchToBranch(_ branchName:String)
     {
         
     }
@@ -84,13 +101,13 @@ class PaintClip:NSObject{
         cleanStrokes = strokes
         strokes = []
         currentStrokeID = 0
-        op += [Operation.Clean]
+        op += [Operation.clean]
     }
     func undoClean()
     {
         strokes = cleanStrokes
         redoStrokes = []
-        redoOp += [Operation.Clean]
+        redoOp += [Operation.clean]
     }
     func undo()
     {
@@ -114,16 +131,22 @@ class PaintClip:NSObject{
         return nil
         
     }
-    
-    var onStrokeIDChanged:((currentStrokeID:Int,totalStrokeCount:Int)->Void)? = nil
+     var onStrokeIDChanged:((_ currentStrokeID:Int,_ totalStrokeCount:Int)->Void)? = nil
+//    var onStrokeIDChanged:(currentStrokeID:Int,totalStrokeCount:Int)->Void
+    //var onStrokeIDChanged:(Int,Int)->Void
+    //var onStrokeIDChanged:(Int,Int)->Void
     
     func handleStrokeIDChanged()
     {
-        
-        if let handler = onStrokeIDChanged{
-            DLog("current\(currentStrokeID) strokes:\(strokes.count) redo:\(redoStrokes.count)")
-            handler(currentStrokeID: currentStrokeID, totalStrokeCount: strokes.count + redoStrokes.count)
+        if (strokeDelegate != nil)
+        {
+            strokeDelegate.onStrokeProgressChanged(currentStrokeID, totalStrokeCount: strokes.count + redoStrokes.count)
+            //PaintViewController.instance.onStrokeProgressChanged(currentStrokeID, totalStrokeCount: strokes.count + redoStrokes.count)
+            
         }
+        //onStrokeIDChanged(currentStrokeID, strokes.count + redoStrokes.count)
+        
+        DLog("current\(currentStrokeID) strokes:\(strokes.count) redo:\(redoStrokes.count)")
 
     }
     var bvhTree:BVHTree = BVHTree()
@@ -131,7 +154,7 @@ class PaintClip:NSObject{
     {
         bvhTree.buildTree(strokes)
     }
-    func selectStrokes(point:Vec2)->[PaintStroke]
+    func selectStrokes(_ point:Vec2)->[PaintStroke]
     {
         return bvhTree.searchNodes(point) as! [PaintStroke]
     }
@@ -139,4 +162,9 @@ class PaintClip:NSObject{
     {
         DLog("clip deinit")
     }
+}
+
+protocol StrokeProgressChangeDelegate {
+    func onStrokeProgressChanged(_ currentStrokeID:Int,totalStrokeCount:Int);
+    
 }

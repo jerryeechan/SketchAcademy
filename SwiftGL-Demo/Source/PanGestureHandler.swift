@@ -8,13 +8,15 @@
 
 import SwiftGL
 import UIKit
-enum TwoSwipeState{
-    case Unknown
-    case FastSwipe
-    case Dragging
-}
 public func + (a: CGPoint, b: CGPoint) -> CGPoint {return CGPoint(x: a.x + b.x, y: a.y + b.y)}
-public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewController {
+public func += (a: inout CGPoint, b: CGPoint) {a = a + b};
+
+enum TwoSwipeState{
+    case unknown
+    case fastSwipe
+    case dragging
+}
+extension PaintViewController {
     
     func applyCATransform()
     {
@@ -23,7 +25,7 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
         paintView.layer.transform = CATransform3DScale(paintView.layer.transform, paintView.scale, paintView.scale, 1)
     }
     
-    @IBAction func FingerPanGestureRecognizer(sender:UIPanGestureRecognizer) {
+    @IBAction func FingerPanGestureRecognizer(_ sender:UIPanGestureRecognizer) {
         //only take Finger
         switch appState
         {
@@ -44,7 +46,7 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
         
     }
    
-    @IBAction func uiPanGestureHandler(sender: UIPanGestureRecognizer) {
+    @IBAction func uiPanGestureHandler(_ sender: UIPanGestureRecognizer) {
         
         /*
         velocity = sender.velocityInView(paintView)
@@ -53,7 +55,7 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
         dis = sender.translationInView(scrollView)
         */
         
-            if sender.numberOfTouches() == 2
+            if sender.numberOfTouches == 2
             {
                 handleDrawingTwoPan(sender)
             }
@@ -72,26 +74,26 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
         */
         
         
-        sender.setTranslation(CGPointZero, inView: canvasBGView)
+        sender.setTranslation(CGPoint.zero, in: canvasBGView)
 
     }
     
-    func handleDrawingSinglePan(sender:UIPanGestureRecognizer)
+    func handleDrawingSinglePan(_ sender:UIPanGestureRecognizer)
     {
         let paintRestrictAreaX:CGFloat = 0
-        if sender.locationInView(paintView).x > paintRestrictAreaX
+        if sender.location(in: paintView).x > paintRestrictAreaX
         {
         
             switch(sender.state)
             {
-            case UIGestureRecognizerState.Began:
+            case UIGestureRecognizerState.began:
                 paintManager.paintRecorder.startPoint(sender, view: paintView)
-            case UIGestureRecognizerState.Changed:
+            case UIGestureRecognizerState.changed:
                 paintManager.paintRecorder.movePoint(sender, view: paintView)
                 paintView.glDraw()
-            case UIGestureRecognizerState.Ended:
+            case UIGestureRecognizerState.ended:
                 let stroke = paintManager.paintRecorder.endStroke()
-                strokeSelecter.expand(stroke)
+                strokeSelecter.expand(stroke!)
                 currentTouchType = "None"
             default :
                 break
@@ -105,22 +107,22 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
     
     
     //select stroke pan
-    func handleSelectSinglePan(sender:UIPanGestureRecognizer)
+    func handleSelectSinglePan(_ sender:UIPanGestureRecognizer)
     {
         let paintRestrictAreaX:CGFloat = 0
-        if sender.locationInView(paintView).x > paintRestrictAreaX
+        if sender.location(in: paintView).x > paintRestrictAreaX
         {
             
             switch(sender.state)
             {
             
-            case UIGestureRecognizerState.Began:
+            case UIGestureRecognizerState.began:
                 strokeSelecter.startSelectPolygon()
-            case UIGestureRecognizerState.Changed:
-                var location = sender.locationInView(view)
+            case UIGestureRecognizerState.changed:
+                var location = sender.location(in: view)
                 location.y = CGFloat(paintView.bounds.height) - location.y
                 strokeSelecter.addSelectPoint(Vec2(point: location)*Float(paintView.contentScaleFactor))
-            case UIGestureRecognizerState.Ended:
+            case UIGestureRecognizerState.ended:
                 strokeSelecter.selectStrokesInPolygon()
             default :
                 break
@@ -128,70 +130,20 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
         }
 
     }
-    func handleDrawingTwoPan(sender:UIPanGestureRecognizer)
-    {
-        
-        switch(sender.state)
-        {
-        case UIGestureRecognizerState.Began:
-            //twoTouchSwipeCount = 0;
-            //twoSwipeState = TwoSwipeState.Unknown
-            break
-        case UIGestureRecognizerState.Changed:
-            /*
-            if twoSwipeState == TwoSwipeState.Unknown
-            {
-                let v = sender.velocityInView(scrollView)
-               
-                if v.x < -800
-                {
-                    twoSwipeState = TwoSwipeState.FastSwipe
-                    print("fast swipe")
-                    return
-                }
-                else if v.x>800
-                {
-                    twoSwipeState = TwoSwipeState.FastSwipe
-                    print("fast swipe")
-                    return
-                }
-                
-                twoTouchSwipeCount++
-                if twoTouchSwipeCount > 10
-                {
-                    twoSwipeState = TwoSwipeState.Dragging
-                }
-            }
-            else if twoSwipeState == TwoSwipeState.Dragging
-            {
-*/
-            
-            let dis = sender.translationInView(canvasBGView)
-            paintView.translation += CGPoint(x: dis.x,y: dis.y)
-            applyCATransform()
-              //  paintView.layer.transform = CATransform3DTranslate(paintView.layer.transform, dis.x/scale , dis.y/scale, 0)
-            /*
-            }
-            */
-            sender.setTranslation(CGPoint.zero, inView: canvasBGView)
-        default: ()
-            
-        }
-    }
     
     //drag to the frame of replaying artwork
     
-    func handleReplaySinglePan(sender:UIPanGestureRecognizer)
+    func handleReplaySinglePan(_ sender:UIPanGestureRecognizer)
     {
         switch(sender.state)
         {
-        case UIGestureRecognizerState.Began:
+        case UIGestureRecognizerState.began:
             
             return
-        case UIGestureRecognizerState.Changed:
-            disx += sender.translationInView(canvasBGView).x * 4
+        case UIGestureRecognizerState.changed:
+            disx += sender.translation(in: canvasBGView).x * 4
             
-            sender.setTranslation(CGPoint.zero, inView: canvasBGView)
+            sender.setTranslation(CGPoint.zero, in: canvasBGView)
             
             
             DLog("\(replayProgressBar.progress)")
@@ -231,12 +183,12 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
             }
             */
             
-            dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INTERACTIVE.rawValue), 0)) { // 1
+            DispatchQueue.global().async { // 1
                 
                 if self.isDrawDone == true
                 {
                     self.isDrawDone = false
-                    dispatch_async(dispatch_get_main_queue()) { // 2
+                    DispatchQueue.main.async { // 2
                         DLog("\(progress)")
                         if self.paintManager.drawProgress(progress)
                         {
@@ -262,4 +214,55 @@ public func += (inout a: CGPoint, b: CGPoint) {a = a + b};extension PaintViewCon
         }
 
     }
+    func handleDrawingTwoPan(_ sender:UIPanGestureRecognizer)
+    {
+        
+        switch(sender.state)
+        {
+        case UIGestureRecognizerState.began:
+            //twoTouchSwipeCount = 0;
+            //twoSwipeState = TwoSwipeState.Unknown
+            break
+        case UIGestureRecognizerState.changed:
+            /*
+             if twoSwipeState == TwoSwipeState.Unknown
+             {
+             let v = sender.velocityInView(scrollView)
+             
+             if v.x < -800
+             {
+             twoSwipeState = TwoSwipeState.FastSwipe
+             print("fast swipe")
+             return
+             }
+             else if v.x>800
+             {
+             twoSwipeState = TwoSwipeState.FastSwipe
+             print("fast swipe")
+             return
+             }
+             
+             twoTouchSwipeCount++
+             if twoTouchSwipeCount > 10
+             {
+             twoSwipeState = TwoSwipeState.Dragging
+             }
+             }
+             else if twoSwipeState == TwoSwipeState.Dragging
+             {
+             */
+            
+            let dis = sender.translation(in: canvasBGView)
+            paintView.translation += CGPoint(x: dis.x,y: dis.y)
+            applyCATransform()
+            //  paintView.layer.transform = CATransform3DTranslate(paintView.layer.transform, dis.x/scale , dis.y/scale, 0)
+            /*
+             }
+             */
+            sender.setTranslation(CGPoint.zero, in: canvasBGView)
+        default: ()
+            
+        }
+    }
+
 }

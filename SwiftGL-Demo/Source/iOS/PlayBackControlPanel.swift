@@ -9,7 +9,7 @@
 import Foundation
 class PlayBackControlPanel:UIView {
     var enabled:Bool = true
-    var UITimer:NSTimer!
+    var UITimer:Timer!
     var counter:Int = 0
     override func awakeFromNib() {
         layer.cornerRadius = 10
@@ -21,7 +21,7 @@ class PlayBackControlPanel:UIView {
     {
         animateShow(0.5)
         enabled = true
-        UITimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(PlayBackControlPanel.timeUp), userInfo: nil, repeats: false)
+        UITimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(PlayBackControlPanel.timeUp), userInfo: nil, repeats: false)
         
     }
     func timeUp()
@@ -55,9 +55,9 @@ class PlayBackControlPanel:UIView {
         {
             UITimer.invalidate()
         }
-        UITimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(PlayBackControlPanel.timeUp), userInfo: nil, repeats: false)
+        UITimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(PlayBackControlPanel.timeUp), userInfo: nil, repeats: false)
     }
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         reactivate()
         DLog("panel touched")
     }

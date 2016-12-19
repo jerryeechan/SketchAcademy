@@ -23,7 +23,7 @@ class LessonDescriptionViewController: UIViewController, UIScrollViewDelegate{
         
     }
     
-    @IBAction func pageControlValueChanged(sender: UIPageControl) {
+    @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
         
     }
     

@@ -18,14 +18,14 @@ import UIKit
 #endif
 
 
-func DLog(message: String, filename: String = #file, line: Int = #line, function: String = #function){
+func DLog(_ message: String, filename: String = #file, line: Int = #line, function: String = #function){
         print("\((filename as NSString).lastPathComponent):\(line) \(function):\(message)")
 }
-public class Texture {
-    public var id: GLuint
-    public var width: GLsizei
-    public var height: GLsizei
-    public var filename:String!
+open class Texture {
+    open var id: GLuint
+    open var width: GLsizei
+    open var height: GLsizei
+    open var filename:String!
     
     public init() {
         id = 0
@@ -34,7 +34,7 @@ public class Texture {
         glGenTextures(1, &id)
         DLog("gen texture \(id)")
     }
-    public func check()->Bool
+    open func check()->Bool
     {
         if glIsTexture(id) == GL_FALSE        {
             glGenTextures(1, &id)
@@ -81,37 +81,37 @@ public class Texture {
         glDeleteTextures(1, &id)
     }
     
-    public func load(filename filename: String) -> Bool {
+    open func load(filename: String) -> Bool {
         return load(filename: filename, antialias: false, flipVertical: true)
     }
     
-    public func load(filename filename: String, antialias: Bool) -> Bool {
+    open func load(filename: String, antialias: Bool) -> Bool {
         return load(filename: filename, antialias: antialias, flipVertical: true)
     }
     
-    public func load(filename filename: String, flipVertical: Bool) -> Bool {
+    open func load(filename: String, flipVertical: Bool) -> Bool {
         return load(filename: filename, antialias: false, flipVertical: flipVertical)
     }
     
     /// @return true on success
-    public func load(image image:UIImage, antialias: Bool, flipVertical: Bool)->Bool
+    open func load(image:UIImage, antialias: Bool, flipVertical: Bool)->Bool
     {
         
 
-        let cgImage = image.CGImage
-        var	brushContext:CGContextRef
+        let cgImage = image.cgImage
+        var	brushContext:CGContext
         // Get the width and height of the image
         
-        var brushData:UnsafeMutablePointer<Void>
+        var brushData:UnsafeMutableRawPointer
         // Make sure the image exists
         if(cgImage != nil) {
-            width = GLsizei(CGImageGetWidth(cgImage))
-            height = GLsizei(CGImageGetHeight(cgImage))
+            width = GLsizei((cgImage?.width)!)
+            height = GLsizei((cgImage?.height)!)
             // Allocate  memory needed for the bitmap context
-            brushData = calloc(Int(width * height * 4),sizeof(GLubyte))
+            brushData = calloc(Int(width * height * 4),MemoryLayout<GLubyte>.size)
             // Use  the bitmatp creation function provided by the Core Graphics framework.
             
-            brushContext = CGBitmapContextCreate(brushData, Int(width), Int(height), 8, Int(width * 4),CGColorSpaceCreateDeviceRGB() ,CGImageAlphaInfo.PremultipliedLast.rawValue)!
+            brushContext = CGContext(data: brushData, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: Int(width * 4),space: CGColorSpaceCreateDeviceRGB() ,bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
             /*
             let isPreMultiplied = false
             if !isPreMultiplied
@@ -122,11 +122,11 @@ public class Texture {
             */
             // After you create the context, you can draw the  image to the context.
             if flipVertical {
-                CGContextTranslateCTM(brushContext, 0, CGFloat(Int(height)))
-                CGContextScaleCTM(brushContext, 1, -1)
+                brushContext.translateBy(x: 0, y: CGFloat(Int(height)))
+                brushContext.scaleBy(x: 1, y: -1)
             }
             
-            CGContextDrawImage(brushContext, CGRectMake(0.0, 0.0, CGFloat(width), CGFloat(height)), cgImage);
+            brushContext.draw(cgImage!, in: CGRect(x: 0.0, y: 0.0, width: CGFloat(width), height: CGFloat(height)));
             
             // You don't need the context at this point, so you need to release it to avoid memory leaks.
             
@@ -144,23 +144,23 @@ public class Texture {
         }
         return false
     }
-    public func bind()
+    open func bind()
     {
         glBindTexture(GL_TEXTURE_2D, id);
     }
-    public func empty()
+    open func empty()
     {
         glBindTexture(GL_TEXTURE_2D, id);
         
         //setTextureParameter()
         
-        let pixel = calloc(Int(width * height * 4),sizeof(GLubyte))
+        let pixel = calloc(Int(width * height * 4),MemoryLayout<GLubyte>.size)
         glTexSubImage2D(SwiftGL.GL_TEXTURE_2D, 0, 0, 0, width, height, GLenum(GL_RGBA), SwiftGL.GL_UNSIGNED_BYTE, pixel)
         
         free(pixel)
         
     }
-    private func setTextureParameter()
+    fileprivate func setTextureParameter()
     {
         glBindTexture(GL_TEXTURE_2D, id);
         // Set the texture parameters to use a minifying filter and a linear filer (weighted average)
@@ -173,7 +173,7 @@ public class Texture {
         
         
     }
-    public func load(filename filename: String, antialias: Bool, flipVertical: Bool) -> Bool {
+    open func load(filename: String, antialias: Bool, flipVertical: Bool) -> Bool {
         
         if(load(image:UIImage(named: filename)!,antialias: antialias,flipVertical:flipVertical))
         {
@@ -216,31 +216,31 @@ public class Texture {
         return false
     }
     
-    private class func Load(filename filename: String, inout width: GLsizei, inout height: GLsizei, flipVertical: Bool) -> UnsafeMutablePointer<()> {
-        let url = CFBundleCopyResourceURL(CFBundleGetMainBundle(), filename as NSString, "", nil)
+    fileprivate class func Load(filename: String, width: inout GLsizei, height: inout GLsizei, flipVertical: Bool) -> UnsafeMutableRawPointer {
+        let url = CFBundleCopyResourceURL(CFBundleGetMainBundle(), filename as NSString, "" as CFString!, nil)
         
-        let imageSource = CGImageSourceCreateWithURL(url, nil)
+        let imageSource = CGImageSourceCreateWithURL(url!, nil)
         let image = CGImageSourceCreateImageAtIndex(imageSource!, 0, nil)
         
-        width  = GLsizei(CGImageGetWidth(image))
-        height = GLsizei(CGImageGetHeight(image))
+        width  = GLsizei((image?.width)!)
+        height = GLsizei((image?.height)!)
         
         let zero: CGFloat = 0
-        let rect = CGRectMake(zero, zero, CGFloat(Int(width)), CGFloat(Int(height)))
+        let rect = CGRect(x: zero, y: zero, width: CGFloat(Int(width)), height: CGFloat(Int(height)))
         let colourSpace = CGColorSpaceCreateDeviceRGB()
         
-        let imageData: UnsafeMutablePointer<()> = malloc(Int(width * height * 4))
+        let imageData: UnsafeMutableRawPointer = malloc(Int(width * height * 4))
         
         
-        let ctx = CGBitmapContextCreate(imageData, Int(width), Int(height), 8, Int(width * 4), colourSpace,CGImageAlphaInfo.PremultipliedLast.rawValue)
+        let ctx = CGContext(data: imageData, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: Int(width * 4), space: colourSpace,bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
         
         
         if flipVertical {
-            CGContextTranslateCTM(ctx, zero, CGFloat(Int(height)))
-            CGContextScaleCTM(ctx, 1, -1)
+            ctx?.translateBy(x: zero, y: CGFloat(Int(height)))
+            ctx?.scaleBy(x: 1, y: -1)
         }
-        CGContextSetBlendMode(ctx, CGBlendMode.Copy)
-        CGContextDrawImage(ctx, rect, image)
+        ctx?.setBlendMode(CGBlendMode.copy)
+        ctx?.draw(image!, in: rect)
         // The caller is required to free the imageData buffer
         return imageData
     }

@@ -16,7 +16,7 @@ class ArtworkCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleField: UITextField!
     
     
-    @IBAction func titleTouched(sender: UIButton) {
+    @IBAction func titleTouched(_ sender: UIButton) {
         
     }
     

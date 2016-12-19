@@ -37,13 +37,13 @@ class PaintView: GLKView {
         super.init(coder: aDecoder)
        
         
-        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
+        self.glcontext = EAGLContext(api: EAGLRenderingAPI.openGLES3)
         if self.glcontext == nil {
             print("Failed to create ES context")
         }
         context = glcontext
         
-        contentScaleFactor = UIScreen.mainScreen().scale;
+        contentScaleFactor = UIScreen.main.scale;
         //Painter.scale = Float(contentScaleFactor)
         
         //drawableDepthFormat = GLKViewDrawableDepthFormat.Format24;
@@ -59,12 +59,12 @@ class PaintView: GLKView {
     {
         super.init(frame: frame)
         
-        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
+        self.glcontext = EAGLContext(api: EAGLRenderingAPI.openGLES3)
         if self.glcontext == nil {
             print("Failed to create ES context")
         }
         context = glcontext
-        contentScaleFactor = UIScreen.mainScreen().scale;
+        contentScaleFactor = UIScreen.main.scale;
       //  Painter.scale = Float(contentScaleFactor)
         initGL()
         
@@ -74,27 +74,27 @@ class PaintView: GLKView {
     
     func setContext()
     {
-        EAGLContext.setCurrentContext(self.glcontext)
+        EAGLContext.setCurrent(self.glcontext)
     }
     func initGL()->Bool{
         
         // Change the working directory so that we can use C code to grab resource files
-        if let path = NSBundle.mainBundle().resourcePath {
-            NSFileManager.defaultManager().changeCurrentDirectoryPath(path)
+        if let path = Bundle.main.resourcePath {
+            Foundation.FileManager.default.changeCurrentDirectoryPath(path)
         }
-        let path = NSBundle.mainBundle().bundlePath
-        let fm = NSFileManager.defaultManager()
+        let path = Bundle.main.bundlePath
+        let fm = Foundation.FileManager.default
         
         let dirContents: [AnyObject]?
         do {
-            dirContents = try fm.contentsOfDirectoryAtPath(path)
+            dirContents = try fm.contentsOfDirectory(atPath: path) as [AnyObject]?
         } catch _ {
             dirContents = nil
         }
         print(dirContents)
         
-        EAGLContext.setCurrentContext(self.glcontext)
-        glcontext.multiThreaded = true
+        EAGLContext.setCurrent(self.glcontext)
+        glcontext.isMultiThreaded = true
         eaglLayer = layer as! CAEAGLLayer
         
         eaglLayer.drawableProperties = [kEAGLDrawablePropertyColorFormat:kEAGLColorFormatRGBA8,kEAGLDrawablePropertyRetainedBacking:true]
@@ -136,7 +136,7 @@ class PaintView: GLKView {
         switch PaintViewController.appMode
         {
         
-        case .InstructionTutorial:
+        case .instructionTutorial:
             
             paintBuffer.resizeLayer(width/2,height: height,offsetX: Float(width/2))
             tutorialBuffer = GLContextBuffer()
@@ -153,13 +153,13 @@ class PaintView: GLKView {
     }
     
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         glEnable(GL_BLEND);
         glBlendEquation(GLenum(GL_FUNC_ADD))
         glBlendFunc (GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         //clear renderbuffer first
         glClearColor(0, 0, 0, 0)
-        glClear(GL_COLOR_BUFFER_BIT )//| GL_DEPTH_BUFFER_BIT)
+        glClear(GL_COLOR_BUFFER_BIT)//| GL_DEPTH_BUFFER_BIT)
         paintBuffer.display()
         if tutorialBuffer != nil
         {

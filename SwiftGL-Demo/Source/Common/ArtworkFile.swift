@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import PaintStrokeData
+
 class ArtworkFile:File{
 
     override init()
@@ -55,7 +57,7 @@ class ArtworkFile:File{
         //brushTexture :string
         //valueInfo    :ToolValueInfo
         //pointData    :[PointData]
-    func save(filename:String,artwork:PaintArtwork)
+    func save(_ filename:String,artwork:PaintArtwork)
     {
         
         data = NSMutableData()
@@ -76,11 +78,31 @@ class ArtworkFile:File{
 */
         let path = File.dirpath
         
-        data.writeToFile(path+"/"+filename+".paw", atomically: true)
+        data.write(toFile: path+"/"+filename+".paw", atomically: true)
+        
+        //safe stroke data into text file(json?)
+        //saveText(filename, artwork: artwork)
+    }
+    func saveText(_ filename:String,artwork:PaintArtwork)
+    {
+        
+        let clip = artwork.useMasterClip()
+        let text = clip.strokes.tojson
+        
+        print(text)
+        
+        do
+        {
+            try text.write(toFile: File.dirpath+"/zana_data/"+filename+"Text.txt", atomically: false, encoding: String.Encoding.utf8)
+        }
+        catch
+        {
+            print("save to text error")
+        }
         
     }
     
-    func encodeClip(clip:PaintClip)
+    func encodeClip(_ clip:PaintClip)
     {
         let strokes = clip.strokes
         encodeStruct(clip.branchAtIndex)
@@ -101,19 +123,19 @@ class ArtworkFile:File{
     //
     //---------------------------------------------------------------
     
-    override func delete(filename: String) {
+    override func delete(_ filename: String) {
         super.delete(filename+".paw")
     }
     
     
-    func load(filename:String)->PaintArtwork!
+    func load(_ filename:String)->PaintArtwork!
     {
         
         let path = createPath(filename+".paw")
         
         if checkFileExist(path)
         {
-            parseData = readFile(filename+".paw")
+            parseData = readFile(filename+".paw") as NSData!
             currentPtr = 0
             
             //TODO****
@@ -123,15 +145,17 @@ class ArtworkFile:File{
             
             
             let version = parseString()
+            let canvasWidth:Int
+            let canvasHeight:Int
             if version == nil
             {
-                currentPtr -= sizeof(Int)
+                currentPtr -= MemoryLayout<Int>.size
               
             }
             else if version == "VERSION_1"
             {
-                let canvasWidth:Int = parseStruct()
-                let canvasHeight:Int = parseStruct()
+                canvasWidth = parseStruct()
+                canvasHeight = parseStruct()
                 let artworkType:String = parseString()
             }
             else
@@ -141,7 +165,8 @@ class ArtworkFile:File{
             /*
             
             */
-            let artwork =  PaintArtwork(width: PaintViewController.canvasWidth,height: PaintViewController.canvasHeight)
+            //let artwork =  PaintArtwork(width: PaintViewController.canvasWidth,height: PaintViewController.canvasHeight)
+            let artwork =  PaintArtwork(width: canvasWidth,height: canvasHeight)
             
             parseClip(artwork.useMasterClip())
             
@@ -162,7 +187,7 @@ class ArtworkFile:File{
         }
         //data.getBytes(&brushString, range: )
     }
-    func parseClip(clip:PaintClip)->PaintClip
+    func parseClip(_ clip:PaintClip)->PaintClip
     {
         clip.branchAtIndex = parseStruct()
         
@@ -170,7 +195,7 @@ class ArtworkFile:File{
         for _ in 0 ..< strokeCount {
             
             //parse string info, check type
-            var tSI = parseToolStringInfo(parseData)
+            var tSI = parseToolStringInfo(parseData as Data)
             var tVI:ToolValueInfo
             if(tSI==nil)
             {
@@ -180,26 +205,26 @@ class ArtworkFile:File{
             else
             {
                 //valueInfo:ToolValueInfo, get stroke detail
-                tVI = parseToolValueInfo(parseData)
+                tVI = parseToolValueInfo(parseData as Data)
             }
             
-            let stroke = PaintStroke(s: tSI, v: tVI)
-            clip.addPaintStroke(stroke)
+            let stroke = PaintStroke(s: tSI!, v: tVI)
+            
             
             
             //some special tool doesn't have points
-            if(tSI.toolName=="clear")
+            if(tSI?.toolName=="clear")
             {
+                clip.addPaintStroke(stroke)
                 continue
+                
             }
-            
             
             //parse pointData:[PointData]
             let pointData:[PointData] = parseStructArray()
             stroke.pointData = pointData
             stroke.genPointsFromPointData()
-            
-            
+            clip.addPaintStroke(stroke)
         }
         
         return clip
@@ -207,7 +232,7 @@ class ArtworkFile:File{
     var lastTSI:ToolStringInfo = ToolStringInfo()
     var lastTVI:ToolValueInfo = ToolValueInfo()
     
-    func parseToolStringInfo(data:NSData)->ToolStringInfo!
+    func parseToolStringInfo(_ data:Data)->ToolStringInfo!
     {
         //toolName :string
         
@@ -221,13 +246,13 @@ class ArtworkFile:File{
             //brushTexture :string
             let textureString = parseString()
             
-            let info = ToolStringInfo(tool: toolString, texture: textureString)
+            let info = ToolStringInfo(tool: toolString!, texture: textureString!)
             
             lastTSI = info
             return info
         }
     }
-    func parseToolValueInfo(data:NSData)->ToolValueInfo
+    func parseToolValueInfo(_ data:Data)->ToolValueInfo
     {
         let info:ToolValueInfo = parseStruct()
         lastTVI = info

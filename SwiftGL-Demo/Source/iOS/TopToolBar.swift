@@ -8,22 +8,22 @@
 
 extension PaintViewController
 {
-    func removeToolBarButton(button:UIBarButtonItem)->Int!
+    func removeToolBarButton(_ button:UIBarButtonItem)->Int!
     {
-        let index = toolBarItems.indexOf(button)
+        let index = toolBarItems.index(of: button)
         if(index != nil)
         {
-            toolBarItems.removeAtIndex(index!)
+            toolBarItems.remove(at: index!)
         }
         return index
         
     }
-    func addToolBarButton(button:UIBarButtonItem,atIndex:Int)
+    func addToolBarButton(_ button:UIBarButtonItem,atIndex:Int)
     {
-        let index = toolBarItems.indexOf(button)
+        let index = toolBarItems.index(of: button)
         if(index == nil)
         {
-            toolBarItems.insert(button, atIndex: atIndex)
+            toolBarItems.insert(button, at: atIndex)
         }
         
     }
@@ -37,12 +37,12 @@ extension PaintViewController
         case .viewArtwork:
             //addToolBarButton(enterDrawModeButton, atIndex: index)
             addToolBarButton(addNoteButton,atIndex: index)
-            removeToolBarButton(reviseDoneButton)
+            _ = removeToolBarButton(reviseDoneButton)
             addToolBarButton(dismissButton, atIndex: 0)
             //addToolBarButton(addNoteButton, atIndex: index)
         case .viewRevision:
             //addToolBarButton(enterDrawModeButton, atIndex: index)
-            removeToolBarButton(addNoteButton)
+            _ = removeToolBarButton(addNoteButton)
             break
         default:
             break
@@ -54,7 +54,7 @@ extension PaintViewController
     }
     func artworkDrawModeToolBarSetUp()
     {
-        if PaintViewController.appMode != ApplicationMode.InstructionTutorial
+        if PaintViewController.appMode != ApplicationMode.instructionTutorial
         {
             removeToolBarButton(demoAreaText)
             removeToolBarButton(practiceAreaText)

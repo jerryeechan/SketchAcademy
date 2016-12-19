@@ -14,13 +14,13 @@ class FaceGameViewController: UIViewController {
     
     @IBOutlet weak var faceGameView: UIView!
     enum FaceGameLevelName{
-        case AngryBird
-        case GreenMan
-        case Tumbler
+        case angryBird
+        case greenMan
+        case tumbler
     }
     var scene:FaceGameScene!
     
-    var levelName = FaceGameLevelName.GreenMan
+    var levelName = FaceGameLevelName.greenMan
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,42 +33,42 @@ class FaceGameViewController: UIViewController {
         //difficultyLabel.title = "\(1)"
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     @IBOutlet weak var confirmButton: UIButton!
     
-    @IBAction func confirmButtonTouched(sender: UIButton) {
+    @IBAction func confirmButtonTouched(_ sender: UIButton) {
         //new cal score
         scene.calScore()
     }
     
-    @IBAction func newStageButtonTouched(sender: UIButton) {
+    @IBAction func newStageButtonTouched(_ sender: UIButton) {
         //new stage
         scene.newStage()
     }
  
-    @IBAction func hintButtonTouchDown(sender: UIButton) {
+    @IBAction func hintButtonTouchDown(_ sender: UIButton) {
         scene.showImg()
     }
     
-    @IBAction func hintButtonTouchUpInside(sender: UIButton) {
+    @IBAction func hintButtonTouchUpInside(_ sender: UIButton) {
         scene.hideImg()
 
     }
 
-    @IBAction func hintButtonTouchUpOutside(sender: UIButton) {
+    @IBAction func hintButtonTouchUpOutside(_ sender: UIButton) {
         scene.hideImg()
 
     }
     
-    @IBAction func restartButtonTouched(sender: UIButton) {
+    @IBAction func restartButtonTouched(_ sender: UIButton) {
         scene.restart()
     }
     
-    @IBAction func dismissButtonTouched(sender: UIButton) {
-          presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func dismissButtonTouched(_ sender: UIButton) {
+          presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
 }

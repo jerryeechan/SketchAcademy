@@ -35,7 +35,7 @@ class StrokeSelecter {
         selectingPolyPoints = []
     }
     
-    func addSelectPoint(point:Vec2)
+    func addSelectPoint(_ point:Vec2)
     {
         DLog("\(point)")
         selectingPolyPoints.append(point)
@@ -47,7 +47,7 @@ class StrokeSelecter {
         return selectStrokesInPolygon(selectingPolyPoints)
     }
     //select strokes from a polygon area
-    func selectStrokesInPolygon(points:[Vec2])->[PaintStroke]
+    func selectStrokesInPolygon(_ points:[Vec2])->[PaintStroke]
     {
         selectedStrokes = []
         area = nil
@@ -68,14 +68,14 @@ class StrokeSelecter {
         return selectedStrokes
     }
     
-    func testStrokes(point:Vec2)->[PaintStroke]
+    func testStrokes(_ point:Vec2)->[PaintStroke]
     {
         let strokes = originalClip.selectStrokes(point)
         selectedStrokes = strokes
         return strokes
     }
     
-    func expand(stroke:PaintStroke)
+    func expand(_ stroke:PaintStroke)
     {
         DLog("\(stroke.bound)")
         if area == nil
@@ -95,7 +95,7 @@ class StrokeSelecter {
 }
 
 extension Vec2 {
-    func isInsidePolygon(vertices: [Vec2]) -> Bool {
+    func isInsidePolygon(_ vertices: [Vec2]) -> Bool {
         guard !vertices.isEmpty else { return false }
         var j = vertices.last!, c = false
         for i in vertices {

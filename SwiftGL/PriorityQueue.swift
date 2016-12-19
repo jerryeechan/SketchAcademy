@@ -25,9 +25,9 @@
 // This code was inspired by Section 2.4 of Algorithms by Sedgewick & Wayne, 4th Edition
 
 #if !swift(>=3.0)
-    typealias IteratorProtocol = GeneratorType
-    typealias Sequence = SequenceType
-    typealias Collection = CollectionType
+    typealias IteratorProtocol = Swift.IteratorProtocol
+    typealias Sequence = Swift.Sequence
+    typealias Collection = Swift.Collection
 #endif
 
 /// A PriorityQueue takes objects to be pushed of any type that implements Comparable.
@@ -37,8 +37,8 @@
 /// at the time of initialization.
 public struct PriorityQueue<T: Comparable> {
     
-    private var heap = [T]()
-    private let ordered: (T, T) -> Bool
+    fileprivate var heap = [T]()
+    fileprivate let ordered: (T, T) -> Bool
     
     public init(ascending: Bool = false, startingValues: [T] = []) {
         
@@ -60,7 +60,7 @@ public struct PriorityQueue<T: Comparable> {
     /// Add a new element onto the Priority Queue. O(lg n)
     ///
     /// - parameter element: The element to be inserted into the Priority Queue.
-    public mutating func push(element: T) {
+    public mutating func push(_ element: T) {
         heap.append(element)
         swim(heap.count - 1)
     }
@@ -92,12 +92,12 @@ public struct PriorityQueue<T: Comparable> {
         #if swift(>=3.0)
             heap.removeAll(keepingCapacity: false)
         #else
-            heap.removeAll(keepCapacity: false)
+            heap.removeAll(keepingCapacity: false)
         #endif
     }
     
     // Based on example from Sedgewick p 316
-    private mutating func sink(index: Int) {
+    fileprivate mutating func sink(_ index: Int) {
         var index = index
         while 2 * index + 1 < heap.count {
             
@@ -112,7 +112,7 @@ public struct PriorityQueue<T: Comparable> {
     }
     
     // Based on example from Sedgewick p 316
-    private mutating func swim(index: Int) {
+    fileprivate mutating func swim(_ index: Int) {
         var index = index
         while index > 0 && ordered(heap[(index - 1) / 2], heap[index]) {
             swap(&heap[(index - 1) / 2], &heap[index])
@@ -131,12 +131,21 @@ extension PriorityQueue: IteratorProtocol {
 // MARK: - SequenceType
 extension PriorityQueue: Sequence {
     
-    public typealias Generator = PriorityQueue
-    public func generate() -> Generator { return self }
+    public typealias Iterator = PriorityQueue
+    public func makeIterator() -> Iterator { return self }
 }
 
 // MARK: - CollectionType
 extension PriorityQueue: Collection {
+    /// Returns the position immediately after the given index.
+    ///
+    /// - Parameter i: A valid index of the collection. `i` must be less than
+    ///   `endIndex`.
+    /// - Returns: The index value immediately after `i`.
+    public func index(after i: Int) -> Int {
+        return i+1;
+    }
+
     
     public typealias Index = Int
     

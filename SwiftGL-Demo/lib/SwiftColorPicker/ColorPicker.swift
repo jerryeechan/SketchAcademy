@@ -16,7 +16,7 @@ class ColorPicker: UIView {
     weak var colorView: ColorGradientView!
     weak var hueView: HueView!
     var selectedColorView: SelectedColorView!
-    var onColorChange:((color:UIColor, finished:Bool)->Void)? = nil
+    var onColorChange:((_ color:UIColor, _ finished:Bool)->Void)? = nil
     var color: UIColor!
     var hue: CGFloat = 1.0
     var saturation: CGFloat = 1.0
@@ -27,29 +27,29 @@ class ColorPicker: UIView {
     var smallestDim: CGFloat = 200.0
     
     override func awakeFromNib() {
-        opaque = false
-        backgroundColor = UIColor.clearColor()
+        isOpaque = false
+        backgroundColor = UIColor.clear
         
         // Init with default color of red
-        color = UIColor.redColor()
+        color = UIColor.red
     }
     
-    func setTheColor(color: UIColor) {
+    func setTheColor(_ color: UIColor) {
         var hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
         let ok: Bool = color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         if (!ok) {
-            DLog("ColorPicker: exception <The color provided to ColorPicker is not convertible to HSB>")
+            print("ColorPicker: exception <The color provided to ColorPicker is not convertible to HSB>")
         }
         self.hue = hue
         self.saturation = saturation
         self.brightness = brightness
         self.percentSaturation = saturation
         self.percentBrightness = brightness
-        DLog("\(color)")
+        
         notifyViews(color,hue:hue)
     }
     
-    func setup(hueView:HueView,colorGradientView:ColorGradientView) {
+    func setup(_ hueView:HueView,colorGradientView:ColorGradientView) {
         // Remove all subviews
         self.hueView = hueView
         self.colorView = colorGradientView
@@ -97,7 +97,7 @@ class ColorPicker: UIView {
     }
     
     
-    func mainColorSelected(color: UIColor, point: CGPoint) {
+    func mainColorSelected(_ color: UIColor, point: CGPoint) {
         
         var hue:CGFloat = 0
         var sat:CGFloat = 0
@@ -113,7 +113,7 @@ class ColorPicker: UIView {
     
     
     
-    func colorSaturationAndBrightnessSelected(point: CGPoint)->UIColor {
+    func colorSaturationAndBrightnessSelected(_ point: CGPoint)->UIColor {
         
         // Determine the brightness and saturation of the selected color based upon the selection coordinates and the dimensions of the container
         
@@ -128,7 +128,7 @@ class ColorPicker: UIView {
         return color
     }
     
-    func notifyViews(selectedColor: UIColor,hue:CGFloat) {
+    func notifyViews(_ selectedColor: UIColor,hue:CGFloat) {
         
         colorView.setColor(selectedColor,hue:hue)
         //crossHairView.setTheColor(selectedColor)
@@ -136,12 +136,11 @@ class ColorPicker: UIView {
         handleColorChange(selectedColor, changing: true)
     }
     
-    private func handleColorChange(color:UIColor, changing:Bool) {
-        DLog("\(color) \(self.color)")
+    fileprivate func handleColorChange(_ color:UIColor, changing:Bool) {
         
         if color != self.color {
             if let handler = onColorChange {
-                handler(color: color, finished:!changing)
+                handler(color, !changing)
             }
             self.color = color
             //setNeedsDisplay()
@@ -149,7 +148,7 @@ class ColorPicker: UIView {
     }
 }
 
-func getNearByColor(color:UIColor)->[UIColor]
+func getNearByColor(_ color:UIColor)->[UIColor]
 {
     var hue:CGFloat = 0
     var sat:CGFloat = 0
@@ -159,9 +158,9 @@ func getNearByColor(color:UIColor)->[UIColor]
     color.getHue(&hue, saturation: &sat, brightness: &bri, alpha: &alpha)
     
     var nearbyColors:[UIColor] = []
-    for var i = -1 ; i <= 1; i+=1
+    for i in -1...1
     {
-        for var j = 1 ; j >= -1; j-=1
+        for j in -1...1
         {
             let new_bri = bri + CGFloat(i)*0.15
             let new_sat = sat + CGFloat(j)*0.15

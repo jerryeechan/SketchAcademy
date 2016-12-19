@@ -10,34 +10,7 @@ import Foundation
 import OpenGLES
 import GLKit
 import SwiftGL
-
-struct ToolStringInfo {
-    var toolName:String = "pen"
-    var brushTexture:String = "brush"
-    init()
-    {
-        
-    }
-    init(tool:String,texture:String)
-    {
-        toolName = tool
-        brushTexture = texture
-    }
-}
-public struct ToolValueInfo:Initable{
-    init()
-    {
-        
-    }
-    init(color:Color, size:Float)
-    {
-        self.color = color
-        self.size = size
-    }
-    public var color:Color = Color(25,25,25,255)
-    public var size:Float = 0
-}
-
+import PaintStrokeData
 class PaintBrush:NSObject{
     
     var texture:Texture!
@@ -55,11 +28,11 @@ class PaintBrush:NSObject{
     
         switch (type)
         {
-        case .Pencil:
+        case .pencil:
             sInfo = ToolStringInfo(tool: "pen",texture: textureName)
-        case .Eraser:
+        case .eraser:
             sInfo = ToolStringInfo(tool: "eraser",texture: textureName)
-        case .OilBrush:
+        case .oilBrush:
             sInfo = ToolStringInfo(tool: "oil",texture: textureName)
         
         }
@@ -67,19 +40,19 @@ class PaintBrush:NSObject{
         vInfo = ToolValueInfo(color: color, size: size)
         self.toolType = type
     }
-    func changeTexture(name:String)
+    func changeTexture(_ name:String)
     {
         texture = BrushTextureLoader.instance.getTexture(name)
         self.name = name
     }
-    func changeColor(color:Color)
+    func changeColor(_ color:Color)
     {
         
         vInfo.color = color
         GLShaderBinder.instance.currentBrushShader.bindBrushColor(vInfo.color.vec)
     }
 
-    func changeSize(size:Float)
+    func changeSize(_ size:Float)
     {
         vInfo.size = size
         GLShaderBinder.instance.currentBrushShader.bindBrushSize(vInfo.size)

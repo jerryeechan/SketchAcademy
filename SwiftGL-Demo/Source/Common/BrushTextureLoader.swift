@@ -10,7 +10,7 @@ import Foundation
 
 import OpenGLES.ES2
 import SwiftGL
-
+import PaintStrokeData
 class BrushTextureLoader {
     static weak var instance:BrushTextureLoader!
     
@@ -38,13 +38,13 @@ class BrushTextureLoader {
         loadTexture("circle")
         loadTexture("oilbrush")
     }
-    func loadTexture(name:String)
+    func loadTexture(_ name:String)
     {
         //texture.append()
         textureDic[name] = Texture(filename: name+".png")
     }
     
-    func getTexture(name:String)->Texture
+    func getTexture(_ name:String)->Texture
     {
         let t:Texture! = textureDic[name]!
         if t == nil

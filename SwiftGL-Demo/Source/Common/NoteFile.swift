@@ -7,7 +7,8 @@
 //
 
 import Foundation
-class NoteFile: File {
+import PaintStrokeData
+public class NoteFile: File {
     
     //file format: example.nt
     //contain with the note tags
@@ -16,13 +17,13 @@ class NoteFile: File {
         
     }
 
-    func save(notes:[Int:Note],filename:String)
+    func save(_ notes:[Note],filename:String)
     {
         data = NSMutableData()
         print(notes, terminator: "")
         print("save: Note count\(notes.count)", terminator: "")
         encodeStruct(notes.count)       //1.note count
-        let notes = NoteManager.instance.getNoteArray()
+        //let notes = NoteManager.instance.getNoteArray()
         if(notes.count>0)
         {
             for note in notes
@@ -36,12 +37,12 @@ class NoteFile: File {
         
         let path = File.dirpath
         
-        data.writeToFile(path+"/"+filename+".nt", atomically: true)
+        data.write(toFile: path+"/"+filename+".nt", atomically: true)
     }
-    override func delete(filename: String) {
+    override func delete(_ filename: String) {
         super.delete(filename+".nt")
     }
-    func load(filename:String)->[Int:Note]
+    func load(_ filename:String)->[Int:Note]
     {
         // need to find the correct format first
         
@@ -49,7 +50,7 @@ class NoteFile: File {
         currentPtr = 0
         if checkFileExist(path)
         {
-            parseData = readFile(filename+".nt")
+            parseData = readFile(filename+".nt") as NSData!
             var notes:[Int:Note] = [Int:Note]()
             
             let length:Int = parseStruct() //1.note count
@@ -68,10 +69,10 @@ class NoteFile: File {
                 //print(valueData.strokeIndex)
                 if title == nil
                 {
-                    note = Note(title: "", description: description,valueData: valueData)
+                    note = Note(title: "", description: description!,valueData: valueData)
                 }
                 else{
-                    note = Note(title: title, description: description,valueData: valueData)
+                    note = Note(title: title!, description: description!,valueData: valueData)
                 }
                 
                 

@@ -12,7 +12,7 @@ class NoteTitleField:UITextField,UITextFieldDelegate,UIGestureRecognizerDelegate
     var editable = false
     
     
-    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer is UITapGestureRecognizer && (gestureRecognizer as! UITapGestureRecognizer).numberOfTapsRequired == 2
         {
             if gestureRecognizer == editTapRecognizer && editable == false

@@ -19,7 +19,7 @@ class PrimitiveShader:GLShaderWrapper
         addUniform("color")
     }
     
-    func bindColor(color:Vec4)
+    func bindColor(_ color:Vec4)
     {
         shader.bind(getUniform("color"), color)
     }

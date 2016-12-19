@@ -17,7 +17,7 @@ class ControlPointView: UIView{
         
         // Initialization code
         self.color = UIColor(red: 18.0/255.0, green: 173.0/255.0, blue: 251.0/255.0, alpha: 1)
-        self.opaque = false;
+        self.isOpaque = false;
         
     }
     
@@ -25,11 +25,11 @@ class ControlPointView: UIView{
         super.init(coder: aDecoder)
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         
         let context = UIGraphicsGetCurrentContext()
-        CGContextClearRect(context, rect)
-        CGContextSetRGBFillColor(context,18.0/255.0, 173.0/255.0, 251.0/255.0,1)
-        CGContextFillEllipseInRect(context, rect)
+        context?.clear(rect)
+        context?.setFillColor(red: 18.0/255.0, green: 173.0/255.0, blue: 251.0/255.0,alpha: 1)
+        context?.fillEllipse(in: rect)
     }
 }

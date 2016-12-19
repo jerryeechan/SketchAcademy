@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Jerry Chan. All rights reserved.
 //
 import SwiftGL
+import PaintStrokeData
 class BrushShader:GLShaderWrapper{
     
     override init(name:String)
@@ -28,20 +29,20 @@ class BrushShader:GLShaderWrapper{
     {
         shader.bind(getUniform("texture"), brushTexture,index: 0)
     }
-    func bindBrushColor(color:Vec4)
+    func bindBrushColor(_ color:Vec4)
     {
         shader.bind(getUniform("brushColor"), color)
     }
-    func bindBrushSize(size:Float)
+    func bindBrushSize(_ size:Float)
     {
         shader.bind(getUniform("brushSize"), size)
     }
-    func bindBrushTexture(texture:Texture)
+    func bindBrushTexture(_ texture:Texture)
     {
         shader.bind(getUniform("texture"), texture,index: 0)
         brushTexture = texture
     }
-    func bindBrushInfo(vInfo:ToolValueInfo)
+    func bindBrushInfo(_ vInfo:ToolValueInfo)
     {
         bindBrushColor(vInfo.color.vec)
         bindBrushSize(vInfo.size)

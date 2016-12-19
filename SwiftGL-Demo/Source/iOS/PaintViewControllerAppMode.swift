@@ -10,30 +10,30 @@ import Foundation
 import UIKit
 extension UIView
 {
-    func animateHide(duration:NSTimeInterval)
+    func animateHide(_ duration:TimeInterval)
     {
-        UIView.animateWithDuration(duration, animations: {
+        UIView.animate(withDuration: duration, animations: {
             self.alpha = 0
             }, completion: {finished in
-                self.hidden = true
+                self.isHidden = true
         })
     }
-    func animateShow(duration:NSTimeInterval)
+    func animateShow(_ duration:TimeInterval)
     {
-        self.hidden = false
-        UIView.animateWithDuration(duration, animations: {
+        self.isHidden = false
+        UIView.animate(withDuration: duration, animations: {
             self.alpha = 1
         })
     }
 }
 
-func snapShotFromView(view:UIView)->UIImage
+func snapShotFromView(_ view:UIView)->UIImage
 {
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0)
-    view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0)
+    view.layer.render(in: UIGraphicsGetCurrentContext()!)
     let img = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
-    return img
+    return img!
 }
 extension PaintViewController
 {

@@ -8,42 +8,42 @@
 //註解選項按鈕 handler
 extension PaintViewController:UIPopoverPresentationControllerDelegate
 {
-    @IBAction func optionButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func optionButtonTouched(_ sender: UIBarButtonItem) {
         
         hideKeyBoard()
         let optionViewController = getViewController("option") as! OptionTableViewController
         
-        optionViewController.modalPresentationStyle = .Popover
+        optionViewController.modalPresentationStyle = .popover
         
         optionViewController.delegate = self
         
         let popover = optionViewController.popoverPresentationController
         popover?.barButtonItem  = sender
-        popover?.permittedArrowDirections = .Up
+        popover?.permittedArrowDirections = .up
         popover?.delegate = self
         
-        self.presentViewController(optionViewController, animated: true, completion: {})
+        self.present(optionViewController, animated: true, completion: {})
  
     }
-    @IBAction func noteOptionButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func noteOptionButtonTouched(_ sender: UIBarButtonItem) {
         hideKeyBoard()
         let noteOptionViewController = getViewController("noteOption") as! NoteOptionTableViewController
         
-        noteOptionViewController.modalPresentationStyle = .Popover
+        noteOptionViewController.modalPresentationStyle = .popover
         
         noteOptionViewController.delegate = self
         
         
         let popover = noteOptionViewController.popoverPresentationController
         popover?.barButtonItem  = sender
-        popover?.permittedArrowDirections = .Up
+        popover?.permittedArrowDirections = .up
         popover?.delegate = self
     
-        self.presentViewController(noteOptionViewController, animated: true, completion: {})
+        self.present(noteOptionViewController, animated: true, completion: {})
         // popover?.delegate = self
         
     }
-    func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
        //_ = popoverPresentationController.presentedViewController as! NoteOptionTableViewController
        
         

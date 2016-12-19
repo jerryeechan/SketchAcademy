@@ -19,13 +19,12 @@ class GLRenderCanvas{
     var layers:[Layer] = []
     var caches:Dictionary<Int,LayerCache> = Dictionary<Int,LayerCache>()
     var revisionLayer:Layer!
-    //var drawBuffers:[GLenum] = [GL_COLOR_ATTACHMENT0]
+    //var drawBuffers:[] = [GL_COLOR_ATTACHMENT0]
     var framebuffer:GLuint = 0
     var width,height:GLsizei!
     var currentLayer:Layer!
     var backgroundLayer:Layer!
     var renderMode:RenderMode = .drawing
-    
     var primitiveLayer:Layer
 
     
@@ -59,7 +58,7 @@ class GLRenderCanvas{
     }
     
     
-    func changeBackground(filename:String)
+    func changeBackground(_ filename:String)
     {
         if(filename != "none")
         {
@@ -76,18 +75,18 @@ class GLRenderCanvas{
         layers.append(Layer(w: width, h: height))
         currentLayer = layers.last!
     }
-    func addImageLayer(filename:String,index:Int = 0)
+    func addImageLayer(_ filename:String,index:Int = 0)
     {
         
         let newLayer = Layer(texture: Texture(filename: filename))
-        layers.insert(newLayer, atIndex: 0)
+        layers.insert(newLayer, at: 0)
         //currentLayer = layers.last!
     }
     func selectRevisionLayer()
     {
         currentLayer = revisionLayer
     }
-    func setAllLayerAlpha(alpha:Float)
+    func setAllLayerAlpha(_ alpha:Float)
     {
         for layer in layers
         {
@@ -108,7 +107,7 @@ class GLRenderCanvas{
             layer.enabled = false
         }
     }
-    func selectLayer(index:Int)
+    func selectLayer(_ index:Int)
     {
         if (index >= 0 && index < layers.count)
         {
@@ -130,14 +129,14 @@ class GLRenderCanvas{
     {
         setTempBuffer()
         glClearColor(0, 0, 0, 0)
-        glClear(GL_COLOR_BUFFER_BIT )
+        glClear(GL_COLOR_BUFFER_BIT)
     }
     func blankCurrentLayer()
     {
         if(setBuffer(currentLayer)==true)
         {
             glClearColor(0, 0, 0, 0)
-            glClear(GL_COLOR_BUFFER_BIT )
+            glClear(GL_COLOR_BUFFER_BIT)
             
         }
         else
@@ -146,7 +145,7 @@ class GLRenderCanvas{
         }
         
     }
-    func genCacheFrame(atStroke:Int)->LayerCache!
+    func genCacheFrame(_ atStroke:Int)->LayerCache!
     {
         DLog("gen cache \(atStroke)")
         //check cache exist
@@ -158,11 +157,11 @@ class GLRenderCanvas{
         
     func getCaches()->[LayerCache]
     {
-        let array = Array(caches.values).sort({$0.atStroke < $1.atStroke})
+        let array = Array(caches.values).sorted(by: {$0.atStroke < $1.atStroke})
         return array
     }
-    func getNearestCacheIndex(targetIndex:Int)->Int{
-        let array = Array(caches.values).sort({$0.atStroke < $1.atStroke})
+    func getNearestCacheIndex(_ targetIndex:Int)->Int{
+        let array = Array(caches.values).sorted(by: {$0.atStroke < $1.atStroke})
         //the index in Layer Cache arraya
         
         if array.count != 0
@@ -184,15 +183,15 @@ class GLRenderCanvas{
     {
         return setBuffer(currentLayer)
     }
-    func setBuffer(layer:Layer)->Bool
+    func setBuffer(_ layer:Layer)->Bool
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, framebuffer)
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,layer.texture.id, 0)
+        glBindFramebuffer((GL_FRAMEBUFFER), framebuffer)
+        glFramebufferTexture2D((GL_FRAMEBUFFER), (GL_COLOR_ATTACHMENT0),(GL_TEXTURE_2D),layer.texture.id, 0)
         
-        return (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GLenum(GL_FRAMEBUFFER_COMPLETE))
+        return (glCheckFramebufferStatus((GL_FRAMEBUFFER)) == (GLenum(GL_FRAMEBUFFER_COMPLETE)))
     }
     
-    private func binarySearch(inputArr:[LayerCache], searchIndex: Int)->Int{
+    fileprivate func binarySearch(_ inputArr:[LayerCache], searchIndex: Int)->Int{
         var lowerIndex = 0;
         var upperIndex = inputArr.count - 1
         

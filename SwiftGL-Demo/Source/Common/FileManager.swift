@@ -10,7 +10,8 @@ import Foundation
 import SwiftGL
 import UIKit
 import SwiftHttp
-func uploadToGiphy(fileUrl:NSURL)
+import PaintStrokeData
+func uploadToGiphy(_ fileUrl:URL)
 {
     do {
         let opt = try HTTP.POST("http://upload.giphy.com/v1/gifs", parameters: ["api_key": "dc6zaTOxFJmzC", "file": Upload(fileUrl: fileUrl)])
@@ -30,11 +31,11 @@ func uploadToGiphy(fileUrl:NSURL)
     }
  
 }
-func upload(fileUrl:NSURL)
+func upload(_ fileUrl:URL)
 {
     do {
         print(Upload(fileUrl: fileUrl))
-        let opt = try HTTP.POST("http://140.114.217.36:3000/artworks/upload", parameters: ["name": "test", "file": Upload(fileUrl: fileUrl)])
+        let opt = try HTTP.POST("http://140.114.237.192:3000/artworks/upload", parameters: ["name": "test", "file": Upload(fileUrl: fileUrl)])
         opt.start { response in
             //do things...
             if let err = response.error {
@@ -62,52 +63,52 @@ class FileManager {
     let artworkFile = ArtworkFile()
     let imageFile = ImageFile()
     let noteFile = NoteFile()
-    private var fileNames:[String]!
+    fileprivate var fileNames:[String]!
     
-    func loadPaintArtWork(filename:String)->PaintArtwork
+    func loadPaintArtWork(_ filename:String)->PaintArtwork
     {
         return artworkFile.load(filename)
     }
-    func copyFile(filename:String)
+    func copyFile(_ filename:String)
     {
         for ext in [".nt",".paw" ,".png"]
         {
             do {
-                try NSFileManager.defaultManager().copyItemAtPath(File.dirpath+"/"+filename+ext, toPath: File.dirpath+"/"+filename+"copy"+ext)
+                try Foundation.FileManager.default.copyItem(atPath: File.dirpath+"/"+filename+ext, toPath: File.dirpath+"/"+filename+"copy"+ext)
             }catch
             {
                 
             }
         }
     }
-    func savePaintArtWork(filename:String,artwork:PaintArtwork, img:UIImage,noteDict:[Int:Note])
+    func savePaintArtWork(_ filename:String,artwork:PaintArtwork, img:UIImage,notes:[Note])
     {
         //let path = File.dirpath+"/"+filename
         
         artworkFile.save(filename, artwork: artwork)
-        imageFile.saveImg(scaleImage(img, scale: 0.2), filename: filename)
+        imageFile.saveImg(scaleImage(image: img, scale: 0.2), filename: filename)
         imageFile.saveImg(img, filename: filename+"_ori")
         //upload(path+".png")
         //upload(path+".paw")
-        noteFile.save(noteDict, filename: filename)
+        noteFile.save(notes, filename: filename)
         
         searchFiles()
     }
     
-    func uploadImage(img:UIImage)
+    func uploadImage(_ img:UIImage)
     {
-        let imageData:NSData = UIImagePNGRepresentation(img)!;
-        let fileUrl = NSURL(dataRepresentation: imageData, relativeToURL: nil)
-        upload(fileUrl)
+        let imageData:Data = UIImagePNGRepresentation(img)!;
+        let fileUrl = URL(dataRepresentation: imageData, relativeTo: nil)
+        upload(fileUrl!)
     }
     
-    func uploadFilePath(filePath:String)
+    func uploadFilePath(_ filePath:String)
     {
         
-        let fileUrl = NSURL(fileURLWithPath: filePath)
+        let fileUrl = URL(fileURLWithPath: filePath)
         upload(fileUrl)
     }
-        func deletePaintArtWork(filename:String)
+        func deletePaintArtWork(_ filename:String)
     {
         artworkFile.delete(filename)
         imageFile.delete(filename)
@@ -115,12 +116,12 @@ class FileManager {
         searchFiles()
     }
     
-    func loadImg(filename:String)->UIImage
+    func loadImg(_ filename:String)->UIImage
     {
         return imageFile.loadImg(filename)
     }
  
-    func loadNotes(filename:String)->[Int:Note]
+    func loadNotes(_ filename:String)->[Int:Note]
     {
         return noteFile.load(filename)
     }
@@ -138,7 +139,7 @@ class FileManager {
     {
         return fileNames
     }
-    func getFileName(index:Int)->String
+    func getFileName(_ index:Int)->String
     {
         return fileNames[index]
     }
@@ -146,13 +147,13 @@ class FileManager {
     {
         fileNames = self.getFileNames(".paw") as! [String]
     }
-    func getFileNames(format:String)->[AnyObject]
+    func getFileNames(_ format:String)->[AnyObject]
     {
-        let fm = NSFileManager.defaultManager()
+        let fm = Foundation.FileManager.default
         
         let dirContents: [AnyObject]?
         do {
-            dirContents = try fm.contentsOfDirectoryAtPath(File.dirpath)
+            dirContents = try fm.contentsOfDirectory(atPath: File.dirpath) as [AnyObject]?
         } catch _ {
             dirContents = nil
         }
@@ -161,15 +162,15 @@ class FileManager {
         print(dirContents!)
         
         let extPredicate = NSPredicate(format: "self ENDSWITH '\(format)'")
-        var fileNames = (dirContents! as NSArray).filteredArrayUsingPredicate(extPredicate) as! [String]
+        var fileNames = (dirContents! as NSArray).filtered(using: extPredicate) as! [String]
         
         for i in 0 ..< fileNames.count
         {
-            fileNames[i] = NSString(string: fileNames[i]).stringByDeletingPathExtension
+            fileNames[i] = NSString(string: fileNames[i]).deletingPathExtension
         }
         
         self.fileNames = fileNames
-        return fileNames
+        return fileNames as [AnyObject]
 
     }
     

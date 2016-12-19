@@ -6,48 +6,36 @@
 //  Copyright (c) 2015年 Jerry Chan. All rights reserved.
 //
 
-func DLog(message: String, filename: String = #file, line: Int = #line, function: String = #function){
-    #if DEBUG
-         print("\((filename as NSString).lastPathComponent):\(line):\(message)")
-    #else
-        print("not debug")
-    #endif
-}
+
 import AVKit
 import GLKit
 import SwiftGL
 import OpenGLES
-func getViewController(identifier:String)->UIViewController
-{
-    return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(identifier)
-    
-}
 
 
 
-
-var themeDarkColor = uIntColor(36, green: 53, blue: 62, alpha: 255)
-var themeLightColor = uIntColor(244, green: 149, blue: 40, alpha: 255)
 
 class PaintViewController:UIViewController, UIGestureRecognizerDelegate
 {
-    
-    static var appMode:ApplicationMode = ApplicationMode.ArtWorkCreation
+    static var instance:PaintViewController!
+    static var appMode:ApplicationMode = ApplicationMode.artWorkCreation
     static var courseTitle:String = "none"
     
+    var inited:Bool = false
     //UI size attributes
     var viewWidth:CGFloat!
     
     @IBOutlet weak var colorPicker: ColorPicker!
    
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
         
@@ -102,8 +90,8 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     @IBOutlet var singleTapSingleTouchGestureRecognizer: UITapGestureRecognizer!
     
-    @IBAction func dragBoundGestureHandler(sender: UIPanGestureRecognizer) {
-        let dis = sender.translationInView(boundBorderView)
+    @IBAction func dragBoundGestureHandler(_ sender: UIPanGestureRecognizer) {
+        let dis = sender.translation(in: boundBorderView)
         canvasBGLeadingConstraint.constant+=dis.x
             boundBorderViewLeadingConstraint.constant += dis.x
     }
@@ -115,21 +103,22 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     var eaglContext2:EAGLContext!
     func pathSetUp()
     {
-        if let path = NSBundle.mainBundle().resourcePath {
-            NSFileManager.defaultManager().changeCurrentDirectoryPath(path)
+        if let path = Bundle.main.resourcePath {
+            Foundation.FileManager.default.changeCurrentDirectoryPath(path)
         }
-        let path = NSBundle.mainBundle().bundlePath
-        let fm = NSFileManager.defaultManager()
+        let path = Bundle.main.bundlePath
+        let fm = Foundation.FileManager.default
         
         let dirContents: [AnyObject]?
         do {
-            dirContents = try fm.contentsOfDirectoryAtPath(path)
+            dirContents = try fm.contentsOfDirectory(atPath: path) as [AnyObject]?
         } catch _ {
             dirContents = nil
         }
         print(dirContents)
     }
     override func viewDidLoad() {
+        PaintViewController.instance = self
         pathSetUp()
         
         //the OpenCV
@@ -139,7 +128,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         toolBarItems = mainToolBar.items
         initAnimateState()
         
-        nearbyColorButtons = nearbyColorButtons.sort({b1,b2 in return b1.tag > b2.tag})
+        nearbyColorButtons = nearbyColorButtons.sorted(by: {b1,b2 in return (b1 as! UIView).tag > (b2 as! UIView).tag}) as NSArray!
         colorPicker.setup(hueView, colorGradientView: colorGradientView)
         colorPicker.onColorChange = {[weak self](color, finished) in
             if finished {
@@ -163,18 +152,18 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         }
         
         switch PaintViewController.appMode {
-        case ApplicationMode.CreateTutorial:
-            paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth/2), CGFloat(PaintViewController.canvasHeight)))
+        case ApplicationMode.createTutorial:
+            paintView = PaintView(frame: CGRect(x: 0, y: 0, width: CGFloat(PaintViewController.canvasWidth/2), height: CGFloat(PaintViewController.canvasHeight)))
             
         default:
-            paintView = PaintView(frame: CGRectMake(0, 0, CGFloat(PaintViewController.canvasWidth), CGFloat(PaintViewController.canvasHeight)))
+            paintView = PaintView(frame: CGRect(x: 0, y: 0, width: CGFloat(PaintViewController.canvasWidth), height: CGFloat(PaintViewController.canvasHeight)))
             
         }
         paintView.paintBuffer.paintToolManager.useCurrentTool()
         paintManager = PaintManager(paintView:paintView)
         /*1*/
         //paintView init
-        paintView.multipleTouchEnabled = true
+        paintView.isMultipleTouchEnabled = true
         canvasBGView.addSubview(paintView)
         paintView.addGestureRecognizer(singlePanGestureRecognizer)
         
@@ -185,16 +174,16 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             
             
             paintManager.loadArtwork(self.fileName)
-            paintManager.artwork.currentClip.onStrokeIDChanged = {[weak self](id,count) in
-                self!.onStrokeProgressChanged(id, totalStrokeCount: count)
-            }
+            inited = true
+           // paintManager.artwork.currentClip.onStrokeIDChanged = onStrokeProgressChanged
             paintView.glDraw()
             
             //TODO ***** 
             //need to remove the switch in paintManager, temporary have switch both
             switch PaintViewController.appMode {
-            case .InstructionTutorial:
+            case .instructionTutorial:
                     setTutorialStepContent()
+                    removeToolBarButton(addNoteButton)
             default:
                 break
             }
@@ -221,10 +210,11 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         else
         {
             paintManager.newArtwork(PaintViewController.canvasWidth,height: PaintViewController.canvasHeight)
-            paintManager.artwork.currentClip.onStrokeIDChanged = {[weak self](id,count) in
-                self!.onStrokeProgressChanged(id, totalStrokeCount: count)
-            }
-            
+            inited = true
+            //paintManager.artwork.currentClip.onStrokeIDChanged = {[weak self](id,count) in
+//                self!.onStrokeProgressChanged(id, totalStrokeCount: count)
+  //          }
+            //paintManager.artwork.currentClip.onStrokeIDChanged = onStrokeProgressChanged
             
             NoteManager.instance.empty()
             switch(PaintViewController.courseTitle)
@@ -254,7 +244,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         strokeSelecter.originalClip = paintManager.artwork.useMasterClip()
         strokeSelecter.selectRectView = selectRectView
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         colorPicker.setTheColor(UIColor(hue: 0, saturation: 0.0, brightness: 0.2, alpha: 1.0))
         
         //paintManager.playArtworkClip()
@@ -297,7 +287,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     var last_ori_pos:CGPoint = CGPoint(x: 0, y: 0)
     
     
-    @IBAction func brushScaleSliderChanged(sender: UISlider) {
+    @IBAction func brushScaleSliderChanged(_ sender: UISlider) {
         paintView.paintBuffer.paintToolManager.changeSize(sender.value)
     }
     
@@ -312,12 +302,12 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     @IBOutlet weak var editNoteButton: UIBarButtonItem!
     
-    @IBAction func editNoteButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func editNoteButtonTouched(_ sender: UIBarButtonItem) {
         editNote()
         noteTitleField.becomeFirstResponder()
     }
     
-    @IBAction func deleteNoteButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func deleteNoteButtonTouched(_ sender: UIBarButtonItem) {
         deleteNote(NoteManager.instance.selectedButtonIndex)
         
     }
@@ -333,7 +323,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     //@IBOutlet weak var canvasImageView: UIImageView!
     
-    func resetAnchor(targetPaintView:PaintView)
+    func resetAnchor(_ targetPaintView:PaintView)
     {
         targetPaintView.rotation = 0
         targetPaintView.translation = CGPoint.zero
@@ -353,12 +343,12 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     
     
-    func setAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
-        var newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y)
-        var oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x, view.bounds.size.height * view.layer.anchorPoint.y)
+    func setAnchorPoint(_ anchorPoint: CGPoint, forView view: UIView) {
+        var newPoint = CGPoint(x: view.bounds.size.width * anchorPoint.x, y: view.bounds.size.height * anchorPoint.y)
+        var oldPoint = CGPoint(x: view.bounds.size.width * view.layer.anchorPoint.x, y: view.bounds.size.height * view.layer.anchorPoint.y)
         
-        newPoint = CGPointApplyAffineTransform(newPoint, view.transform)
-        oldPoint = CGPointApplyAffineTransform(oldPoint, view.transform)
+        newPoint = newPoint.applying(view.transform)
+        oldPoint = oldPoint.applying(view.transform)
         
         var position = view.layer.position
         position.x -= oldPoint.x
@@ -390,14 +380,14 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     //var canvasCropView:CanvasCropView!
     
-    func getView(name:String)->UIView
+    func getView(_ name:String)->UIView
     {
-        return NSBundle.mainBundle().loadNibNamed(name, owner: self, options: nil)![0] as! UIView
+        return Bundle.main.loadNibNamed(name, owner: self, options: nil)![0] as! UIView
     }
     
     
     var doubleTap:Bool = false
-    @IBAction func doubleTapEraserHandler(sender: UIButton) {
+    @IBAction func doubleTapEraserHandler(_ sender: UIButton) {
         
         paintManager.clean()
         checkUndoRedo()
@@ -441,14 +431,14 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
       
     
     enum NoteEditMode{
-        case Edit
-        case New
+        case edit
+        case new
     }
-    var noteEditMode:NoteEditMode = .New
+    var noteEditMode:NoteEditMode = .new
     
     //var selectedNote:Int = -1
     //var selectedNoteCell:NoteDetailCell!
-    var selectedPath:NSIndexPath!
+    var selectedPath:IndexPath!
     
    
    
@@ -499,7 +489,8 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     
     deinit
-    {   
+    {
+        PaintViewController.instance = nil
         //PaintView.instance = nil
         //reviseDoneButton = nil
         //enterViewModeButton = nil
@@ -528,14 +519,10 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     @IBOutlet weak var tutorialControlPanel: UIView!
     
-    @IBAction func tutorialPlayPauseBtnTouched(sender: PlayPauseButton) {
-        paintManager.tutorialToggle()
-    }
-    @IBAction func tutorialRestartBtnTouched(sender: UIBarButtonItem) {
-    }
     
     
-    @IBAction func paperSwitchBtnTouched(sender: UIBarButtonItem) {
+    
+    @IBAction func paperSwitchBtnTouched(_ sender: UIBarButtonItem) {
         paintView.paintBuffer.switchBG()
         paintView.glDraw()
     }
@@ -549,12 +536,14 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
 }
 
 
-func isPointContain(vertices:[CGPoint],test:CGPoint)->Bool{
+func isPointContain(_ vertices:[CGPoint],test:CGPoint)->Bool{
     let nvert = vertices.count;
     var c:Bool = false
     
-    var i:Int,j:Int
-    for (i = 0, j = nvert-1; i < nvert; j = i, i += 1) {
+    var i:Int = 0,j:Int = nvert-1
+    
+    while i < nvert
+    {
         let verti = vertices[i]
         let vertj = vertices[j]
         if (( (verti.y > test.y) != (vertj.y > test.y) ) &&
@@ -562,18 +551,19 @@ func isPointContain(vertices:[CGPoint],test:CGPoint)->Bool{
         {
             c = !c;
         }
-        
+        j = i
+        i += 1
     }
     
     return c;
 }
 
-func CGPointToVec4(p:CGPoint)->Vec4
+func CGPointToVec4(_ p:CGPoint)->Vec4
 {
     return Vec4(x:Float(p.x),y: Float(p.y))
 }
 
-func CGPointToVec2(p:CGPoint)->Vec2
+func CGPointToVec2(_ p:CGPoint)->Vec2
 {
     return Vec2(x:Float(p.x),y: Float(p.y))
 }

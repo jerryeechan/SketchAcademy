@@ -18,7 +18,7 @@ class DotSet {
         }
         sortDots()
     }
-    func compareSet(dotSet:DotSet)->Float
+    func compareSet(_ dotSet:DotSet)->Float
     {
         sortDots()
         dotSet.sortDots()
@@ -34,20 +34,20 @@ class DotSet {
     
     func sortDots()
     {
-        dots.sortInPlace({$0.position.x > $1.position.x})
-        dots.sortInPlace({$0.position.y > $1.position.y})
+        dots.sort(by: {$0.position.x > $1.position.x})
+        dots.sort(by: {$0.position.y > $1.position.y})
     }
-    func addToNode(node:SKNode)
+    func addToNode(_ node:SKNode)
     {
         for dot in dots
         {
             node.addChild(dot)
         }
     }
-    func setMovable(isMovable:Bool)
+    func setMovable(_ isMovable:Bool)
     {
         for dot in dots{
-            dot.userInteractionEnabled = isMovable
+            dot.isUserInteractionEnabled = isMovable
         }
     }
     func removeFromParent()

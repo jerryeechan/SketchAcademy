@@ -9,25 +9,25 @@
 import Foundation
 import SwiftHttp
 class ImageFile: File {
-    func loadImg(filename:String)->UIImage!
+    func loadImg(_ filename:String)->UIImage!
     {
         
-        if let img = UIImage(contentsOfFile: File.dirpath+"/"+NSString(string: filename).stringByDeletingPathExtension+".png")
+        if let img = UIImage(contentsOfFile: File.dirpath+"/"+NSString(string: filename).deletingPathExtension+".png")
         {
             return img
         }
         return nil
         
     }
-    func loadImgWithExtension(filename:String,ext:String)->UIImage!
+    func loadImgWithExtension(_ filename:String,ext:String)->UIImage!
     {
-        if let img = UIImage(contentsOfFile: File.dirpath+"/"+NSString(string: filename).stringByDeletingPathExtension+ext)
+        if let img = UIImage(contentsOfFile: File.dirpath+"/"+NSString(string: filename).deletingPathExtension+ext)
         {
             return img
         }
         return nil
     }
-    func loadImg(filename:String, attribute:String = "original")->UIImage!
+    func loadImg(_ filename:String, attribute:String = "original")->UIImage!
     {
         switch attribute {
         case "original":
@@ -41,15 +41,15 @@ class ImageFile: File {
         }
     }
      
-    func saveImg(img:UIImage,filename:String)
+    func saveImg(_ img:UIImage,filename:String)
     {
         
-        let imageData:NSData = UIImagePNGRepresentation(img)!;
+        let imageData:Data = UIImagePNGRepresentation(img)!;
         let filePath = File.dirpath+"/"+filename+".png"
-        imageData.writeToFile(filePath, atomically: true)
+        try? imageData.write(to: URL(fileURLWithPath: filePath), options: [.atomic])
         
     }
-    override func delete(filename: String) {
+    override func delete(_ filename: String) {
         super.delete(filename+".png")
     }
     

@@ -9,6 +9,36 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>CGUtility.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>DotPlacementGame.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>GLFramework.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>PaintStrokeData.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>StrokeAnalysis.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>SwiftColorPicker.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>SwiftGL-Demo-iOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -24,9 +54,49 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>SwiftYoutubePlayer.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>C4177F921E08074A00A4AD32</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4177FA81E0808CD00A4AD32</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4177FC01E080AC500A4AD32</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4177FD51E080B2B00A4AD32</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4177FE61E080B8000A4AD32</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C417801B1E080DA200A4AD32</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C46C17461E06AEE6007CE6A0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C4C391071C7B5BB70018A1C9</key>
 		<dict>
 			<key>primary</key>

@@ -8,18 +8,18 @@
 
 extension PaintViewController
 {
-    @IBAction func paintToolSelect(sender: UISegmentedControl) {
+    @IBAction func paintToolSelect(_ sender: UISegmentedControl) {
         
         //PaintToolManager.instance.changeTool(sender.selectedSegmentIndex)
         
         // brushScaleSlider.value = tool.vInfo.size
         
     }
-    @IBAction func closeToolButtonTouched(sender: AnyObject) {
+    @IBAction func closeToolButtonTouched(_ sender: AnyObject) {
         toolViewState.animateHide(0.2)
     }
     
-    @IBAction func brushScaleSegmentControlValueChanged(sender: UISegmentedControl) {
+    @IBAction func brushScaleSegmentControlValueChanged(_ sender: UISegmentedControl) {
         var size:Float = 1;
         switch(sender.selectedSegmentIndex)
         {
@@ -39,17 +39,17 @@ extension PaintViewController
     
     
     
-    @IBAction func brushScaleSliderValueChanged(sender: UISlider) {
+    @IBAction func brushScaleSliderValueChanged(_ sender: UISlider) {
         let value = sender.value
         paintView.paintBuffer.paintToolManager.changeSize(value);
     }
     
-    @IBAction func nearByColorButtonClicked(sender:UIButton)
+    @IBAction func nearByColorButtonClicked(_ sender:UIButton)
     {
         colorPicker.setTheColor(sender.backgroundColor!)
     }
     
-    @IBAction func paintToolButtonTouched(sender: UIButton) {
+    @IBAction func paintToolButtonTouched(_ sender: UIButton) {
         
         
         if sender.tag <= 2 && sender.tag>=0
@@ -97,8 +97,8 @@ extension PaintViewController
     //
     //
     /////////////////////////////////////////////////////////
-    @IBAction func toolKnobPanGestureRecognized(sender: UIPanGestureRecognizer) {
-        let dis = sender.translationInView(view)
+    @IBAction func toolKnobPanGestureRecognized(_ sender: UIPanGestureRecognizer) {
+        let dis = sender.translation(in: view)
         
         //ToolKnob.layer.transform = CATransform3DTranslate(ToolKnob.layer.transform, dis.x, dis.y, 0)
         
@@ -106,6 +106,6 @@ extension PaintViewController
         
         ToolKnob.layer.position = CGPoint(x:ToolKnob.layer.position.x + dis.x , y:ToolKnob.layer.position.y + dis.y)
         print(ToolKnob.layer.position, terminator: "")
-        sender.setTranslation(CGPointZero, inView: view)
+        sender.setTranslation(CGPoint.zero, in: view)
     }
 }

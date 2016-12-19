@@ -31,13 +31,13 @@ public struct GLRect {
         _area = (leftTop.x-rightButtom.x)*(leftTop.y-rightButtom.y)
     }
     // intersect of another rectanble, include overlapping
-    public func intersect(rect:GLRect)->Bool
+    public func intersect(_ rect:GLRect)->Bool
     {
         return  intersect(rect.leftTop) || intersect(rect.rightButtom) || rect.intersect(leftTop) || rect.intersect(rightButtom)
     }
     
     // if the point inside the rect
-    public func intersect(point:Vec2)->Bool
+    public func intersect(_ point:Vec2)->Bool
     {
         if leftTop <= point && rightButtom >= point
         {
@@ -45,11 +45,11 @@ public struct GLRect {
         }
         return false
     }
-    public func getUnionRect(point:Vec2)->GLRect
+    public func getUnionRect(_ point:Vec2)->GLRect
     {
         return getUnionRect(GLRect(p1: point, p2: point))
     }
-    public func getUnionRect(rect:GLRect)->GLRect
+    public func getUnionRect(_ rect:GLRect)->GLRect
     {
         let ltx = min(leftTop.x, rect.leftTop.x)
         let lty = min(leftTop.y, rect.leftTop.y)
@@ -57,7 +57,7 @@ public struct GLRect {
         let rby = max(rightButtom.y, rect.rightButtom.y)
         return GLRect(p1: Vec2(ltx,lty), p2: Vec2(rbx,rby))
     }
-    public mutating func union(rect:GLRect)
+    public mutating func union(_ rect:GLRect)
     {
         let ltx = min(leftTop.x, rect.leftTop.x)
         let lty = min(leftTop.y, rect.leftTop.y)

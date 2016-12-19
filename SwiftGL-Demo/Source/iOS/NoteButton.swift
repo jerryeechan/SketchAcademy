@@ -12,15 +12,15 @@ class NoteButton:UIButton {
     let btnWidth:CGFloat = 40
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.frame = CGRectMake(0,-8,btnWidth,40)
-        setImage(UIImage(named: "chat-up"), forState: UIControlState.Normal)
+        self.frame = CGRect(x: 0,y: -8,width: btnWidth,height: 40)
+        setImage(UIImage(named: "chat-up"), for: UIControlState())
         
         layer.cornerRadius = 0.25 * btnWidth
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
         tintColor = themeDarkColor
         
         
-        layer.borderColor = UIColor.lightGrayColor().CGColor
+        layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 1
     }
 
@@ -28,11 +28,11 @@ class NoteButton:UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setPosition(position:CGFloat)
+    func setPosition(_ position:CGFloat)
     {
         let offset:CGFloat = 10
         
-        layer.transform = CATransform3DMakeTranslation(position - offset, 0, 0)
+        layer.transform  = CATransform3DMakeTranslation(position - offset, 0, 0)
     }
     
     func selectStyle()
@@ -41,9 +41,9 @@ class NoteButton:UIButton {
     }
     func deSelectStyle()
     {
-        UIView.animateWithDuration(1, animations: {
+        UIView.animate(withDuration: 1, animations: {
             self.layer.borderWidth = 1
-            self.layer.borderColor = UIColor.lightGrayColor().CGColor
+            self.layer.borderColor = UIColor.lightGray.cgColor
         })
 
     }

@@ -7,15 +7,14 @@
 //
 
 import Foundation
-protocol Initable {
-    init()
+func binarytotype <T> (_ value: [UInt8], _: T.Type) -> T {
+    return value.withUnsafeBufferPointer {
+        UnsafeRawPointer($0.baseAddress!).load(as: T.self)
+    }
 }
-extension Int:Initable
-{
-}
-public class File {
+open class File {
     
-    public static var nsFileManager:NSFileManager = NSFileManager.defaultManager()
+    open static var nsFileManager:Foundation.FileManager = Foundation.FileManager.default
     
     var currentPtr = 0
 
@@ -27,8 +26,9 @@ public class File {
     func parseInt()->Int
     {
         var length:Int = 0
-        parseData.getBytes(&length, range: NSMakeRange(currentPtr, sizeof(Int)))
-        currentPtr += sizeof(Int)
+        parseData.getBytes(&length, range: NSMakeRange(currentPtr, MemoryLayout<Int>.size))
+        //parseData.copyBytes(to: [length], from: NSMakeRange(currentPtr, MemoryLayout<Int>.size))
+        currentPtr += MemoryLayout<Int>.size
         return length
     }
     func parseString()->String!
@@ -41,17 +41,21 @@ public class File {
             return nil
         }
         
-        let str = NSString(data: parseData.subdataWithRange(NSMakeRange(currentPtr, length)), encoding: NSUTF8StringEncoding) as String!
+        
+        
+        let str = NSString.init(data: parseData.subdata(with:NSMakeRange(currentPtr,length)), encoding: String.Encoding.utf8.rawValue)
         currentPtr += length
-
-        return str
+        
+        return str as! String
     }
     func parseStruct<T:Initable>()->T{
         var t:T = T()
         //print("currentPtr \(currentPtr) parse struct \(strideof(T))")
-        parseData.getBytes(&t, range: NSMakeRange(currentPtr, strideof(T)))
-        currentPtr += sizeof(T)
-        //print(t)
+        
+        parseData.getBytes(&t, range: NSMakeRange(currentPtr, MemoryLayout<T>.size))
+        //parseData.copyBytes(to: &t, from: NSMakeRange(currentPtr, MemoryLayout<T>.stride))
+        currentPtr += MemoryLayout<T>.size
+        print(t)
         return t
     }
     
@@ -59,36 +63,40 @@ public class File {
     {
         let length = parseInt()
 
-        var array = [T](count:length,repeatedValue:T())
-        parseData.getBytes(&array, range: NSMakeRange(currentPtr, length * sizeof(T)))
-        currentPtr += length * sizeof(T)
+        var array = [T](repeating: T(),count: length)
+        ///?????????
+        print(MemoryLayout<T>.stride)
+        print(MemoryLayout<T>.size)
+        parseData.getBytes(&array, range: NSMakeRange(currentPtr,length*MemoryLayout<T>.stride))
+        //parseData.copyBytes(to: &array, from: NSMakeRange(currentPtr, length * MemoryLayout<T>.size))
+        currentPtr += length * MemoryLayout<T>.size
         return array
     }
 //end of parsing
 //--------------------------------------------
     
     
-    func encodeString(str:String)
+    func encodeString(_ str:String)
     {
         
-        let length = str.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+        let length = str.lengthOfBytes(using: String.Encoding.utf8)
 //        print("encode String \(length)")
-        data.appendBytes([length], length: sizeof(Int))
-        data.appendData(str.dataUsingEncoding(NSUTF8StringEncoding)!)
+        data.append([length], length: MemoryLayout<Int>.size)
+        data.append(str.data(using: String.Encoding.utf8)!)
     }
-    func encodeStruct<T>(value:T)
+    func encodeStruct<T>(_ value:T)
     {
      //   print("encode Struct \(value):\(strideof(T))")
-        data.appendBytes([value], length: strideof(T))
+        data.append([value], length: MemoryLayout<T>.stride)
     }
-    func encodeStructArray<T>(t:[T])
+    func encodeStructArray<T>(_ t:[T])
     {
-        data.appendBytes([t.count], length: sizeof(Int))
-        data.appendBytes(t, length: t.count*sizeof(T))
+        data.append([t.count], length: MemoryLayout<Int>.size)
+        data.append(t, length: t.count*MemoryLayout<T>.size)
     }
     
     
-    private static var _dirpath:String!
+    fileprivate static var _dirpath:String!
     static var dirpath:String{
         get
         {
@@ -108,30 +116,36 @@ public class File {
     
     //get the saving directory
 
-    private static func getDirPath()->String!
+    fileprivate static func getDirPath()->String!
     {
+        let dirs = NSSearchPathForDirectoriesInDomains(Foundation.FileManager.SearchPathDirectory.documentDirectory, Foundation.FileManager.SearchPathDomainMask.allDomainsMask, true)
         
-        if let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) {
-            let dir = dirs[0] //documents directory
+        let dir = dirs[0] //documents directory
             //let path = dir.stringByAppendingPathComponent(filename);
-            return dir
+        do {
+            try Foundation.FileManager.default.createDirectory(atPath: dir+"/zana_data", withIntermediateDirectories: false, attributes: nil)
+        } catch let error as NSError {
+            print(error.localizedDescription);
         }
-        return nil
+        return dir
     }
     
     //create the file path
-    func createPath(filename:String)->String
+    func createPath(_ filename:String)->String
     {
-        let dirs = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
+        let dirs = NSSearchPathForDirectoriesInDomains(Foundation.FileManager.SearchPathDirectory.documentDirectory, Foundation.FileManager.SearchPathDomainMask.allDomainsMask, true)
         
-        let dir: AnyObject = dirs[0] //documents directory
-        let path = dir.stringByAppendingPathComponent(filename);
+        let dir = dirs[0]//documents directory
+        
+        
+        //path may has problem
+        let path = dir.appending("/"+filename);
         return path
     }
     
-    func checkFileExist(path:String)->Bool
+    func checkFileExist(_ path:String)->Bool
     {
-        return File.nsFileManager.fileExistsAtPath(path)
+        return File.nsFileManager.fileExists(atPath: path)
     }
     
     
@@ -144,16 +158,16 @@ public class File {
     *   read part
     */
     //##################################################
-    func readFile(filename:String)->NSData!
+    func readFile(_ filename:String)->Data!
     {
-        var data:NSData
-        if let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) {
+        var data:Data
+        if let dirs : [String] = NSSearchPathForDirectoriesInDomains(Foundation.FileManager.SearchPathDirectory.documentDirectory, Foundation.FileManager.SearchPathDomainMask.allDomainsMask, true) {
             let dir = dirs[0] //documents directory
             
             
-            let path = NSString(string: dir).stringByAppendingPathComponent(filename)
+            let path = NSString(string: dir).appendingPathComponent(filename)
             
-            data = NSData(contentsOfFile: path)!
+            data = try! Data(contentsOf: URL(fileURLWithPath: path))
             return data
         }
         else
@@ -162,15 +176,15 @@ public class File {
             return nil
         }
     }
-    func readStringFile(filename:String)->String!
+    func readStringFile(_ filename:String)->String!
     {
         let content:String!
-        if let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) {
+        if let dirs : [String] = NSSearchPathForDirectoriesInDomains(Foundation.FileManager.SearchPathDirectory.documentDirectory, Foundation.FileManager.SearchPathDomainMask.allDomainsMask, true) {
             let dir = dirs[0] //documents directory
-            let path = NSString(string: dir).stringByAppendingPathComponent(filename);
+            let path = NSString(string: dir).appendingPathComponent(filename);
             
             do {
-                content = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+                content = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
             } catch _ {
                 content = nil
             }
@@ -190,12 +204,12 @@ public class File {
     }
     
     
-    func delete(filename:String)
+    func delete(_ filename:String)
     {
         let path = File.dirpath+"/"+filename
         do {
             print("deleting"+path)
-            try File.nsFileManager.removeItemAtPath(path)
+            try File.nsFileManager.removeItem(atPath: path)
         } catch _ {
             print("delete error")
         }

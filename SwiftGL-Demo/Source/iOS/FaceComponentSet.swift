@@ -20,7 +20,7 @@ class FaceComponentSet {
                 
         sortComponents()
     }
-    func compareSet(componentsSet:FaceComponentSet)->Float
+    func compareSet(_ componentsSet:FaceComponentSet)->Float
     {
         sortComponents()
         componentsSet.sortComponents()
@@ -34,13 +34,14 @@ class FaceComponentSet {
         return score
     }
     
-    func sortCGPoints(var array:[CGPoint])->[CGPoint]
+    func sortCGPoints(_ array:[CGPoint])->[CGPoint]
     {
-        array.sortInPlace({$0.x > $1.x})
-        array.sortInPlace({$0.y > $1.y})
+        var array = array
+        array.sort(by: {$0.x > $1.x})
+        array.sort(by: {$0.y > $1.y})
         return array
     }
-    func compareSet(positionArray:[CGPoint])->Float
+    func compareSet(_ positionArray:[CGPoint])->Float
     {
         var pos = positionArray
         var comps = components
@@ -60,8 +61,8 @@ class FaceComponentSet {
                 }
             }
             
-            comps.removeAtIndex(0)
-            pos.removeAtIndex(minId)
+            comps.remove(at: 0)
+            pos.remove(at: minId)
             print("mindis:"+"\(mindis)")
             score += mindis
         }
@@ -83,10 +84,10 @@ class FaceComponentSet {
     }
     func sortComponents()
     {
-        components.sortInPlace({$0.position.x > $1.position.x})
-        components.sortInPlace({$0.position.y > $1.position.y})
+        components.sort(by: {$0.position.x > $1.position.x})
+        components.sort(by: {$0.position.y > $1.position.y})
     }
-    func addToNode(node:SKNode)
+    func addToNode(_ node:SKNode)
     {
         for component in components
         {
@@ -94,10 +95,10 @@ class FaceComponentSet {
             node.addChild(component)
         }
     }
-    func setMovable(movable:Bool)
+    func setMovable(_ movable:Bool)
     {
         for component in components{
-            component.userInteractionEnabled = movable
+            component.isUserInteractionEnabled = movable
         }
     }
     func removeFromParent()

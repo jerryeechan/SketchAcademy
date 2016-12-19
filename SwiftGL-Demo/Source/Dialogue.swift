@@ -13,7 +13,7 @@ class Dialogue {
     {
         
     }
-    func addLine(line:DialogueLine)
+    func addLine(_ line:DialogueLine)
     {
         dialogueLines.append(line)
         

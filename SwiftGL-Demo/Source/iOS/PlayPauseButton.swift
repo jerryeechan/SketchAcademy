@@ -10,7 +10,7 @@ import UIKit
 class PlayPauseButton: UIBarButtonItem{
     let playImage = UIImage(named: "play-arrow")
     let pauseImage = UIImage(named: "pause")
-    func playing(state:Bool)
+    func playing(_ state:Bool)
     {
         if !state
         {

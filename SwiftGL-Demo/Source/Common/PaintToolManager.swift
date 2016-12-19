@@ -10,12 +10,16 @@ import Foundation
 import OpenGLES.ES2
 import SwiftGL
 import UIKit
-
+import PaintStrokeData
 /*
 enum PaintToolType:Int{
     case pen = 0,eraser,oil,smudge
 }*/
-public class PaintToolManager {
+enum BrushType:Int
+{
+    case pencil = 0,oilBrush,eraser
+}
+open class PaintToolManager {
     
     let brushTextureLoader:BrushTextureLoader = BrushTextureLoader()
     
@@ -34,49 +38,49 @@ public class PaintToolManager {
     {
         //pen = PaintBrush(textureName: "oilbrush",color: Color(25,25,25,25),size: 10,type:PaintToolType.pen)
         
-        pen = PaintBrush(textureName: "pencil",color: Color(25,25,25,25),size: 2,type:BrushType.Pencil)
-        eraser = PaintBrush(textureName: "circle", color: Color(255,255,255,0),size: 10,type:BrushType.Eraser)
-        oilbrush = PaintBrush(textureName: "oilbrush", color: Color(25,25,25,25), size: 20, type: BrushType.OilBrush)
-        brushDict[BrushType.Pencil] = pen
-        brushDict[BrushType.Eraser] = eraser
-        brushDict[BrushType.OilBrush] = oilbrush
-        useTool(BrushType.Pencil)
+        pen = PaintBrush(textureName: "pencil",color: Color(25,25,25,25),size: 2,type:BrushType.pencil)
+        eraser = PaintBrush(textureName: "circle", color: Color(255,255,255,0),size: 10,type:BrushType.eraser)
+        oilbrush = PaintBrush(textureName: "oilbrush", color: Color(25,25,25,25), size: 20, type: BrushType.oilBrush)
+        brushDict[BrushType.pencil] = pen
+        brushDict[BrushType.eraser] = eraser
+        brushDict[BrushType.oilBrush] = oilbrush
+        useTool(BrushType.pencil)
         
         //Painter.currentBrush = currentTool
     
     }
     var brushDict:[BrushType:PaintBrush] = [:]
-    func getTool(name:String)->BrushType{
+    func getTool(_ name:String)->BrushType{
         switch(name)
         {
         case "pen":
-            return .Pencil
+            return .pencil
         case "marker":
             pen.changeTexture("Particle")
-            return .Pencil
+            return .pencil
         case "oil":
-            return .OilBrush
+            return .oilBrush
         case "eraser":
-            return .Eraser
+            return .eraser
         default :
-            return .Pencil
+            return .pencil
         }
     }
-    public func usePreviousTool()
+    open func usePreviousTool()
     {
         useTool(lastBrush.toolType)
     }
-    public func useCurrentTool()
+    open func useCurrentTool()
     {
         useTool(currentTool.toolType)
     }
-    private func useTool(type:BrushType)->PaintBrush!
+    fileprivate func useTool(_ type:BrushType)->PaintBrush!
     {
         currentTool = brushDict[type]
         switch(type)
         {
         
-        case .Eraser:
+        case .eraser:
             useEraser()
         default:
             useBrush(type)
@@ -88,7 +92,7 @@ public class PaintToolManager {
         
     }
     
-    func changeTool(name:String)->PaintBrush
+    func changeTool(_ name:String)->PaintBrush
     {
         currentTool = useTool(getTool(name))
         return currentTool
@@ -101,38 +105,38 @@ public class PaintToolManager {
         return brush
     }
 */
-    func useBrush(type:BrushType)
+    func useBrush(_ type:BrushType)
     {
-        glEnable(GL_BLEND)
+        glEnable((GL_BLEND))
         GLShaderBinder.instance.useBrush(type)
         let brush = brushDict[type]
         brush!.useTool()
         brush?.changeColor(
             colorInPalette)
-        glBlendEquation(GLenum(GL_FUNC_ADD))
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+        glBlendEquation((GLenum(GL_FUNC_ADD)))
+        glBlendFunc((GL_ONE), (GL_ONE_MINUS_SRC_ALPHA))
     }
     func usePen()
     {
-        glEnable(GL_BLEND)
-        GLShaderBinder.instance.useBrush(BrushType.Pencil)
+        glEnable((GL_BLEND))
+        GLShaderBinder.instance.useBrush(BrushType.pencil)
         pen.useTool()
         pen.changeColor(colorInPalette)
-        glBlendEquation(GLenum(GL_FUNC_ADD))
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+        glBlendEquation((GLenum(GL_FUNC_ADD)))
+        glBlendFunc((GL_ONE), (GL_ONE_MINUS_SRC_ALPHA))
         currentTool = pen
     }
     
     func useEraser()
     {
-        glEnable(GLenum(GL_POINT_SMOOTH))
-        glDisable(GL_BLEND)
+        glEnable((GLenum(GL_POINT_SMOOTH)))
+        glDisable((GL_BLEND))
         //***blend function as problem
-        GLShaderBinder.instance.useBrush(BrushType.Eraser)
+        GLShaderBinder.instance.useBrush(BrushType.eraser)
         eraser.useTool()
-        //        glBlendEquation(GLenum(GL_FUNC_SUBTRACT))
+        //        glBlendEquation((GL_FUNC_SUBTRACT))
         
-        //glBlendEquation(GLenum(GL_FUNC_REVERSE_SUBTRACT))
+        //glBlendEquation((GL_FUNC_REVERSE_SUBTRACT))
         //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA)
         //currentTool.changeColor(Color(rf:0.5,gf: 0.5,bf: 0.5,af: 0.5))
         //glBlendFunc(GL_ONE,GL_ONE)
@@ -143,7 +147,7 @@ public class PaintToolManager {
         
     }
     // var isToolAttributeChanged:Bool = true
-    func loadToolValueInfo(valueInfo:ToolValueInfo)
+    func loadToolValueInfo(_ valueInfo:ToolValueInfo)
     {
         currentTool.changeColor(valueInfo.color)
         currentTool.changeSize(valueInfo.size)
@@ -151,13 +155,13 @@ public class PaintToolManager {
     }
     
     var alpha:Float = 0.5
-    func changeColor(color:UIColor)
+    func changeColor(_ color:UIColor)
     {
         
-        let rgb = CGColorGetComponents(color.CGColor)
-        let r = Float(rgb[0])*alpha
-        let g = Float(rgb[1])*alpha
-        let b = Float(rgb[2])*alpha
+        let rgb = color.cgColor.components
+        let r = Float((rgb?[0])!)*alpha
+        let g = Float((rgb?[1])!)*alpha
+        let b = Float((rgb?[2])!)*alpha
         let c = Color(rf: r,gf: g,bf: b,af: alpha)
         colorInPalette = c
         
@@ -171,7 +175,7 @@ public class PaintToolManager {
         
         currentTool.changeColor(c)
     }
-    func changeSize(size:Float)
+    func changeSize(_ size:Float)
     {
         currentTool.changeSize(size)
     }

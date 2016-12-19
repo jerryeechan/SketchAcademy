@@ -26,7 +26,7 @@ class Layer:NSObject{
         self.init()
         self.texture = texture
     }
-    func drawImage(glImage:GLImage,x:Int,y:Int)
+    func drawImage(_ glImage:GLImage,x:Int,y:Int)
     {
         
     }

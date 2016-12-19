@@ -19,7 +19,7 @@ struct Attribute{
         glType = T.glType
         glNormalized = T.glNormalized
         glSize = T.glSize
-        offset = sizeof(T)
+        offset = MemoryLayout<T>.size
     }
 }
 class GLShaderWrapper:ModelViewProjectionProtocol{
@@ -39,17 +39,17 @@ class GLShaderWrapper:ModelViewProjectionProtocol{
                 glDebug(#file, line: #line)
         }
     }
-    func addUniform(uniformName:String)
+    func addUniform(_ uniformName:String)
     {
         uniformDict[uniformName] = glGetUniformLocation(shader.id, uniformName)
     }
-    func addAttribute<T:GLType>(name:String,type:T.Type)
+    func addAttribute<T:GLType>(_ name:String,type:T.Type)
     {
         let iLoc = GLuint(glGetAttribLocation(shader.id, name))
         glEnableVertexAttribArray(iLoc)
         attributes.append(Attribute(i: iLoc, t: type))
     }
-    func getUniform(name:String)->GLint!
+    func getUniform(_ name:String)->GLint!
     {
         let uniform = uniformDict[name]
         if uniform == nil
@@ -59,7 +59,7 @@ class GLShaderWrapper:ModelViewProjectionProtocol{
         
         return uniform
     }
-    func bindVertexs<T>(vertextBuffer:[T])
+    func bindVertexs<T>(_ vertextBuffer:[T])
     {
         //bind vertex buffer to vertex buffer object
         let vao = GLShaderBinder.instance.vao
@@ -79,7 +79,7 @@ class GLShaderWrapper:ModelViewProjectionProtocol{
     {
         shader.useProgram()
     }
-    func bindMVP(mat4:Mat4)
+    func bindMVP(_ mat4:Mat4)
     {
         shader.bind(getUniform("MVP"), mat4)
     }

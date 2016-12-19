@@ -11,8 +11,8 @@ struct TextureMappingVertice{
     var textureUV:Vec2
 }
 enum ImageMode{
-    case Fill
-    case Fit
+    case fill
+    case fit
     
 }
 class TextureShader: GLShaderWrapper {
@@ -27,11 +27,11 @@ class TextureShader: GLShaderWrapper {
         addUniform("imageTexture")
         addUniform("alpha")
     }
-    func setSize(width:Float,height:Float)
+    func setSize(_ width:Float,height:Float)
     {
         initVertex(width, height: height)
     }
-    func genImageVertices(leftTop:Vec4,rightBottom:Vec4)
+    func genImageVertices(_ leftTop:Vec4,rightBottom:Vec4)
     {
         
         let ltx = leftTop.x / imgWidth
@@ -49,7 +49,7 @@ class TextureShader: GLShaderWrapper {
         imageVertices = [v1,v2,v3,v4]
     }
     
-    func genImageVertices(position:Vec4,size:Vec2)
+    func genImageVertices(_ position:Vec4,size:Vec2)
     {
         imageVertices[0].position = position
         imageVertices[1].position = Vec4(position.x+size.x,position.y)
@@ -74,7 +74,7 @@ class TextureShader: GLShaderWrapper {
 //    ]
     
 
-    func initVertex(width:Float,height:Float)
+    func initVertex(_ width:Float,height:Float)
     {
         imgWidth = width
         imgHeight = height
@@ -88,7 +88,7 @@ class TextureShader: GLShaderWrapper {
         imageVertices.append(TextureMappingVertice(position: Vec4(width,height), textureUV: Vec2(1,1)))
         
     }
-    func bindImageTexture(texture:Texture,alpha:Float,leftTop:Vec4,rightBottom:Vec4)
+    func bindImageTexture(_ texture:Texture,alpha:Float,leftTop:Vec4,rightBottom:Vec4)
     {
         shader.bind(getUniform("imageTexture")!,texture , index: 2)
         
@@ -97,7 +97,7 @@ class TextureShader: GLShaderWrapper {
         genImageVertices(leftTop, rightBottom: rightBottom)
         bindVertexs(imageVertices)
     }
-    func bindImageTexture(texture:Texture,alpha:Float,position:Vec4,size:Vec2)
+    func bindImageTexture(_ texture:Texture,alpha:Float,position:Vec4,size:Vec2)
     {
         
         shader.bind(getUniform("imageTexture")!,texture , index: 2)
@@ -108,7 +108,7 @@ class TextureShader: GLShaderWrapper {
         //genImageVertices(leftTop, rightBottom: rightBottom)
         bindVertexs(imageVertices)
     }
-    func bindImageTexture(texture:Texture,alpha:Float)
+    func bindImageTexture(_ texture:Texture,alpha:Float)
     {
         bindImageTexture(texture, alpha: alpha, position: Vec4(0,0), size: Vec2(imgWidth,imgHeight))
         }

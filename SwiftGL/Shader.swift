@@ -13,38 +13,38 @@ import OpenGL
 import Foundation
 import OpenGLES
 
-func glProgramUniform1i(program: GLuint, location: GLint, x: GLint)                                       {return glProgramUniform1iEXT(program, location, x)}
-func glProgramUniform2i(program: GLuint, location: GLint, x: GLint, y: GLint)                             {return glProgramUniform2iEXT(program, location, x, y)}
-func glProgramUniform3i(program: GLuint, location: GLint, x: GLint, y: GLint, z: GLint)                   {return glProgramUniform3iEXT(program, location, x, y, z)}
-func glProgramUniform4i(program: GLuint, location: GLint, x: GLint, y: GLint, z: GLint, w: GLint)         {return glProgramUniform4iEXT(program, location, x, y, z, w)}
+func glProgramUniform1i(_ program: GLuint, location: GLint, x: GLint)                                       {return glProgramUniform1iEXT(program, location, x)}
+func glProgramUniform2i(_ program: GLuint, location: GLint, x: GLint, y: GLint)                             {return glProgramUniform2iEXT(program, location, x, y)}
+func glProgramUniform3i(_ program: GLuint, location: GLint, x: GLint, y: GLint, z: GLint)                   {return glProgramUniform3iEXT(program, location, x, y, z)}
+func glProgramUniform4i(_ program: GLuint, location: GLint, x: GLint, y: GLint, z: GLint, w: GLint)         {return glProgramUniform4iEXT(program, location, x, y, z, w)}
 
-func glProgramUniform1iv(program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLint>)   {return glProgramUniform1ivEXT(program, location, count, value)}
-func glProgramUniform2iv(program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLint>)   {return glProgramUniform2ivEXT(program, location, count, value)}
-func glProgramUniform3iv(program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLint>)   {return glProgramUniform3ivEXT(program, location, count, value)}
-func glProgramUniform4iv(program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLint>)   {return glProgramUniform4ivEXT(program, location, count, value)}
+func glProgramUniform1iv(_ program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLint>)   {return glProgramUniform1ivEXT(program, location, count, value)}
+func glProgramUniform2iv(_ program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLint>)   {return glProgramUniform2ivEXT(program, location, count, value)}
+func glProgramUniform3iv(_ program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLint>)   {return glProgramUniform3ivEXT(program, location, count, value)}
+func glProgramUniform4iv(_ program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLint>)   {return glProgramUniform4ivEXT(program, location, count, value)}
 
-func glProgramUniform1f(program: GLuint, location: GLint, x: GLfloat)                                     {return glProgramUniform1fEXT(program, location, x)}
-func glProgramUniform2f(program: GLuint, location: GLint, x: GLfloat, y: GLfloat)                         {return glProgramUniform2fEXT(program, location, x, y)}
-func glProgramUniform3f(program: GLuint, location: GLint, x: GLfloat, y: GLfloat, z: GLfloat)             {return glProgramUniform3fEXT(program, location, x, y, z)}
-func glProgramUniform4f(program: GLuint, location: GLint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat) {return glProgramUniform4fEXT(program, location, x, y, z, w)}
+func glProgramUniform1f(_ program: GLuint, location: GLint, x: GLfloat)                                     {return glProgramUniform1fEXT(program, location, x)}
+func glProgramUniform2f(_ program: GLuint, location: GLint, x: GLfloat, y: GLfloat)                         {return glProgramUniform2fEXT(program, location, x, y)}
+func glProgramUniform3f(_ program: GLuint, location: GLint, x: GLfloat, y: GLfloat, z: GLfloat)             {return glProgramUniform3fEXT(program, location, x, y, z)}
+func glProgramUniform4f(_ program: GLuint, location: GLint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat) {return glProgramUniform4fEXT(program, location, x, y, z, w)}
 
-func glProgramUniform1fv(program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLfloat>) {return glProgramUniform1fvEXT(program, location, count, value)}
-func glProgramUniform2fv(program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLfloat>) {return glProgramUniform2fvEXT(program, location, count, value)}
-func glProgramUniform3fv(program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLfloat>) {return glProgramUniform3fvEXT(program, location, count, value)}
-func glProgramUniform4fv(program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLfloat>) {return glProgramUniform4fvEXT(program, location, count, value)}
+func glProgramUniform1fv(_ program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLfloat>) {return glProgramUniform1fvEXT(program, location, count, value)}
+func glProgramUniform2fv(_ program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLfloat>) {return glProgramUniform2fvEXT(program, location, count, value)}
+func glProgramUniform3fv(_ program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLfloat>) {return glProgramUniform3fvEXT(program, location, count, value)}
+func glProgramUniform4fv(_ program: GLuint, location: GLint, count: GLsizei, value: UnsafePointer<GLfloat>) {return glProgramUniform4fvEXT(program, location, count, value)}
 
-func glProgramUniformMatrix4fv(program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: UnsafePointer<GLfloat>) {
+func glProgramUniformMatrix4fv(_ program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: UnsafePointer<GLfloat>) {
     return glProgramUniformMatrix4fvEXT(program, location, count, transpose, value)
 }
 
 #endif
     
-public class Shader {
+open class Shader {
     public typealias GLprogram = GLuint
     public typealias GLattrib  = GLint
     public typealias GLuniform = GLint
     
-    public var id: GLprogram = 0
+    open var id: GLprogram = 0
     
     public init()
     {
@@ -72,7 +72,7 @@ public class Shader {
     }
     
     /// @return true on success
-    public func compile(vertexSource: String, _ fragmentSource: String) -> Bool {
+    open func compile(_ vertexSource: String, _ fragmentSource: String) -> Bool {
         glDeleteProgram(id)
         id = glCreateProgram();
         
@@ -93,7 +93,7 @@ public class Shader {
     }
     
     /// @return true on success
-    public func compile(vertexSource: String, _ fragmentSource: String, _ bindAttibutes: (GLprogram) -> ()) -> Bool {
+    open func compile(_ vertexSource: String, _ fragmentSource: String, _ bindAttibutes: (GLprogram) -> ()) -> Bool {
         glDeleteProgram(id)
         id = glCreateProgram();
         
@@ -117,11 +117,11 @@ public class Shader {
     }
     
     /// @return true on success
-    public func load(shader: String) -> Bool {
+    open func load(_ shader: String) -> Bool {
         do {
-            let vertexSource = try String(contentsOfFile: shader + ".vsh",   encoding: NSASCIIStringEncoding)
+            let vertexSource = try String(contentsOfFile: shader + ".vsh",   encoding: String.Encoding.ascii)
             do {
-                let fragmentSource = try String(contentsOfFile: shader + ".fsh", encoding: NSASCIIStringEncoding)
+                let fragmentSource = try String(contentsOfFile: shader + ".fsh", encoding: String.Encoding.ascii)
                 return self.compile(vertexSource, fragmentSource)
             } catch _ {
             }
@@ -132,11 +132,11 @@ public class Shader {
     }
     
     /// @return true on success
-    public func load(vertexFile: String, _ fragmentFile: String) -> Bool {
+    open func load(_ vertexFile: String, _ fragmentFile: String) -> Bool {
         do {
-            let vertexSource = try String(contentsOfFile: vertexFile,   encoding: NSASCIIStringEncoding)
+            let vertexSource = try String(contentsOfFile: vertexFile,   encoding: String.Encoding.ascii)
             do {
-                let fragmentSource = try String(contentsOfFile: fragmentFile, encoding: NSASCIIStringEncoding)
+                let fragmentSource = try String(contentsOfFile: fragmentFile, encoding: String.Encoding.ascii)
                 return self.compile(vertexSource, fragmentSource)
             } catch _ {
             }
@@ -147,11 +147,11 @@ public class Shader {
     }
     
     /// @return true on success
-    public func load(vertexFile: String, _ fragmentFile: String, _ bindAttibutes: (GLprogram) -> ()) -> Bool {
+    open func load(_ vertexFile: String, _ fragmentFile: String, _ bindAttibutes: (GLprogram) -> ()) -> Bool {
         do {
-            let vertexSource = try String(contentsOfFile: vertexFile,   encoding: NSASCIIStringEncoding)
+            let vertexSource = try String(contentsOfFile: vertexFile,   encoding: String.Encoding.ascii)
             do {
-                let fragmentSource = try String(contentsOfFile: fragmentFile, encoding: NSASCIIStringEncoding)
+                let fragmentSource = try String(contentsOfFile: fragmentFile, encoding: String.Encoding.ascii)
                 return self.compile(vertexSource, fragmentSource, bindAttibutes)
             } catch _ {
             }
@@ -161,31 +161,31 @@ public class Shader {
         return false
     }
     
-    public func useProgram() {
+    open func useProgram() {
         glUseProgram(id)
     }
     
-    public func attribute(name: String) -> GLint {
-        return glGetAttribLocation(id, UnsafePointer<CChar>(name.cStringUsingEncoding(NSASCIIStringEncoding)!))
+    open func attribute(_ name: String) -> GLint {
+        return glGetAttribLocation(id, UnsafePointer<CChar>(name.cString(using: String.Encoding.ascii)!))
     }
     
-    public func uniform(name: String) -> GLuniform {
-        let iLoc = glGetUniformLocation(id, UnsafePointer<CChar>(name.cStringUsingEncoding(NSASCIIStringEncoding)!))
+    open func uniform(_ name: String) -> GLuniform {
+        let iLoc = glGetUniformLocation(id, UnsafePointer<CChar>(name.cString(using: String.Encoding.ascii)!))
         return iLoc
     }
     
     // Bind Uniforms using Uniform Location
-    public func bind(uniform: GLuniform, _ x: Float) {glProgramUniform1f(id, location: uniform, x: x)}
-    public func bind(uniform: GLuniform, _ x: Float, _ y: Float) {glProgramUniform2f(id, location: uniform, x: x, y: y)}
-    public func bind(uniform: GLuniform, _ x: Float, _ y: Float, _ z: Float) {glProgramUniform3f(id, location: uniform, x: x, y: y, z: z)}
-    public func bind(uniform: GLuniform, _ x: Float, _ y: Float, _ z: Float, _ w: Float) {glProgramUniform4f(id, location: uniform, x: x, y: y, z: z, w: w)}
-    public func bind(uniform: GLuniform, _ v: Vec2) {glProgramUniform2fv(id, location: uniform, count: 1, value: UnsafePointer([v]))}
-    public func bind(uniform: GLuniform, _ v: Vec3) {glProgramUniform3fv(id, location: uniform, count: 1, value: UnsafePointer([v]))}
-    public func bind(uniform: GLuniform, _ v: Vec4) {glProgramUniform4fv(id, location: uniform, count: 1, value: UnsafePointer([v]))}
+    open func bind(_ uniform: GLuniform, _ x: Float) {glProgramUniform1f(id, location: uniform, x: x)}
+    open func bind(_ uniform: GLuniform, _ x: Float, _ y: Float) {glProgramUniform2f(id, location: uniform, x: x, y: y)}
+    open func bind(_ uniform: GLuniform, _ x: Float, _ y: Float, _ z: Float) {glProgramUniform3f(id, location: uniform, x: x, y: y, z: z)}
+    open func bind(_ uniform: GLuniform, _ x: Float, _ y: Float, _ z: Float, _ w: Float) {glProgramUniform4f(id, location: uniform, x: x, y: y, z: z, w: w)}
+    func bind(_ uniform: GLuniform, _ v: Vec2) {glProgramUniform2fv(id, location: uniform, count: 1, value: typetoGLfloat(v))}
+    func bind(_ uniform: GLuniform, _ v: Vec3) {glProgramUniform3fv(id, location: uniform, count: 1, value: typetoGLfloat(v))}
+    open func bind(_ uniform: GLuniform, _ v: Vec4) {glProgramUniform4fv(id, location: uniform, count: 1, value: typetoGLfloat(v))}
     
-    public func bind(uniform: GLuniform, _ m: Mat4, transpose: GLboolean = GL_FALSE) {glProgramUniformMatrix4fv(id, location: uniform, count: 1, transpose: transpose, value: UnsafePointer([m]))}
+    open func bind(_ uniform: GLuniform, _ m: Mat4, transpose: GLboolean = GL_FALSE) {glProgramUniformMatrix4fv(id, location: uniform, count: 1, transpose: transpose, value: typetoGLfloat(m))}
     
-    public func bind(uniform: GLuniform, _ texture: Texture, index: GLint = 0) {
+    open func bind(_ uniform: GLuniform, _ texture: Texture, index: GLint = 0) {
         glProgramUniform1i(id, location: uniform, x: index)
         glActiveTexture(GL_TEXTURE0 + GLenum(index))
         glBindTexture(GL_TEXTURE_2D, texture.id)
@@ -193,17 +193,17 @@ public class Shader {
     }
     
     // Bind Uniforms using String
-    public func bind(uniform: String, _ x: Float) {glProgramUniform1f(id, location: self.uniform(uniform), x: x)}
-    public func bind(uniform: String, _ x: Float, _ y: Float) {glProgramUniform2f(id, location: self.uniform(uniform), x: x, y: y)}
-    public func bind(uniform: String, _ x: Float, _ y: Float, _ z: Float) {glProgramUniform3f(id, location: self.uniform(uniform), x: x, y: y, z: z)}
-    public func bind(uniform: String, _ x: Float, _ y: Float, _ z: Float, _ w: Float) {glProgramUniform4f(id, location: self.uniform(uniform), x: x, y: y, z: z, w: w)}
-    public func bind(uniform: String, _ v: Vec2) {glProgramUniform2fv(id, location: self.uniform(uniform), count: 1, value: UnsafePointer([v]))}
-    public func bind(uniform: String, _ v: Vec3) {glProgramUniform3fv(id, location: self.uniform(uniform), count: 1, value: UnsafePointer([v]))}
-    public func bind(uniform: String, _ v: Vec4) {glProgramUniform4fv(id, location: self.uniform(uniform), count: 1, value: UnsafePointer([v]))}
+    open func bind(_ uniform: String, _ x: Float) {glProgramUniform1f(id, location: self.uniform(uniform), x: x)}
+    open func bind(_ uniform: String, _ x: Float, _ y: Float) {glProgramUniform2f(id, location: self.uniform(uniform), x: x, y: y)}
+    open func bind(_ uniform: String, _ x: Float, _ y: Float, _ z: Float) {glProgramUniform3f(id, location: self.uniform(uniform), x: x, y: y, z: z)}
+    open func bind(_ uniform: String, _ x: Float, _ y: Float, _ z: Float, _ w: Float) {glProgramUniform4f(id, location: self.uniform(uniform), x: x, y: y, z: z, w: w)}
+    open func bind(_ uniform: String, _ v: Vec2) {glProgramUniform2fv(id, location: self.uniform(uniform), count: 1, value: typetoGLfloat(v))}
+    open func bind(_ uniform: String, _ v: Vec3) {glProgramUniform3fv(id, location: self.uniform(uniform), count: 1, value: typetoGLfloat(v))}
+    open func bind(_ uniform: String, _ v: Vec4) {glProgramUniform4fv(id, location: self.uniform(uniform), count: 1, value: typetoGLfloat(v))}
     
-    public func bind(uniform: String, _ m: Mat4, transpose: GLboolean = GL_FALSE) {glProgramUniformMatrix4fv(id, location: self.uniform(uniform), count: 1, transpose: transpose, value: UnsafePointer([m]))}
+    open func bind(_ uniform: String, _ m: Mat4, transpose: GLboolean = GL_FALSE) {glProgramUniformMatrix4fv(id, location: self.uniform(uniform), count: 1, transpose: transpose, value:typetoGLfloat(m))}
     
-    public func bind(uniform: String, _ texture: Texture, index: GLint = 0) {
+    open func bind(_ uniform: String, _ texture: Texture, index: GLint = 0) {
         glProgramUniform1i(id, location: self.uniform(uniform), x: index)
         glActiveTexture(GL_TEXTURE0 + GLenum(index))
         glBindTexture(GL_TEXTURE_2D, texture.id)
@@ -213,22 +213,22 @@ public class Shader {
         }
     }
     
-    private class func ptr <T> (ptr: UnsafePointer<T>) -> UnsafePointer<T> {return ptr}
+    fileprivate class func ptr <T> (_ ptr: UnsafePointer<T>) -> UnsafePointer<T> {return ptr}
     
-    private class func compile(type: GLenum, _ source: String) -> GLprogram {
-        if let csource: [GLchar] = source.cStringUsingEncoding(NSASCIIStringEncoding) {
+    fileprivate class func compile(_ type: GLenum, _ source: String) -> GLprogram {
+        if let csource: [GLchar] = source.cString(using: String.Encoding.ascii) {
             var cptr = ptr(csource)
             
             let shader = glCreateShader(type)
-            glShaderSource(shader, 1, &cptr, nil)
+            glShaderSource(shader, 1, [cptr], nil)
             glCompileShader(shader)
             
             var logLength: GLint = 0
             glGetShaderiv(shader, GLenum(GL_INFO_LOG_LENGTH), &logLength)
             if logLength > 0 {
-                let log = UnsafeMutablePointer<CChar>(malloc(Int(logLength)))
+                let log = UnsafeMutablePointer<CChar>.allocate(capacity:Int(logLength))
                 glGetShaderInfoLog(shader, logLength, &logLength, log)
-                print("Shader compile log: \(String(CString: log, encoding: NSASCIIStringEncoding)!)")
+                print("Shader compile log: \(String(cString: log, encoding: String.Encoding.ascii)!)")
                 free(log)
             }
             
@@ -245,16 +245,17 @@ public class Shader {
         return 0
     }
     
-    private class func verify(program: GLprogram) -> Bool {
+    fileprivate class func verify(_ program: GLprogram) -> Bool {
 //        #if DEBUG
         // Assert that the program was successfully linked
         var logLength: GLint = 0
         glGetProgramiv(program, GLenum(GL_INFO_LOG_LENGTH), &logLength)
         
         if logLength > 0 {
-            let log = UnsafeMutablePointer<CChar>(malloc(Int(logLength)))
+            let log = UnsafeMutablePointer<CChar>.allocate(capacity: Int(logLength))
+            //let log = UnsafeMutablePointer<CChar>?(malloc(Int(logLength)))
             glGetProgramInfoLog(program, logLength, &logLength, log)
-            print("Program link log:\n\(String(CString: log, encoding: NSASCIIStringEncoding)!)")
+            print("Program link log:\n\(String.init(cString:  log, encoding: String.Encoding.ascii))")
             free(log)
         }
 //        #endif
@@ -269,4 +270,19 @@ public class Shader {
         
         return true
     }
+}
+func binarytotype <T> (_ value: [UInt8], _: T.Type) -> T {
+    return value.withUnsafeBufferPointer {
+        UnsafeRawPointer($0.baseAddress!).load(as: T.self)
+    }
+}
+
+
+
+func typetoGLfloat<T>(_ value: T) -> [GLfloat] {
+    var data = [GLfloat](repeating: 0, count: MemoryLayout<T>.size)
+    data.withUnsafeMutableBufferPointer {
+        UnsafeMutableRawPointer($0.baseAddress!).storeBytes(of: value, as: T.self)
+    }
+    return data
 }

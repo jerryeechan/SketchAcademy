@@ -10,7 +10,7 @@ import SwiftGL
 class SelectRectView: UIView{
     
     let enable = false
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         if enable
         {
             let context = UIGraphicsGetCurrentContext()
@@ -25,7 +25,7 @@ class SelectRectView: UIView{
         
     }
     var superFrame:CGRect!
-    func redraw(rect:GLRect)
+    func redraw(_ rect:GLRect)
     {
         DLog("\(rect)")
         
@@ -35,17 +35,18 @@ class SelectRectView: UIView{
         setNeedsDisplay()
     }
     var phase:CGFloat = 0
-    func drawDashedBorder(currentContext:CGContext) {
+    func drawDashedBorder(_ currentContext:CGContext) {
         //CGContextClearRect(currentContext, bounds)
         //let innerRect = CGRectInset(bounds, 20.0, 20.0)
         
         
         
-        CGContextSetRGBStrokeColor (currentContext, 0.0, 0.0, 0.0, 1.0) // Black
+        currentContext.setStrokeColor (red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0) // Black
         
-        CGContextSetLineWidth (currentContext, 1.0)
-        CGContextSetLineDash(currentContext, phase, [3,3], 2)
-        CGContextStrokeRect(currentContext, bounds)
+        currentContext.setLineWidth (1.0)
+        currentContext.setLineDash(phase: phase, lengths: [3,3])
+        
+        currentContext.stroke(bounds)
         //CGContextStrokeEllipseInRect (currentContext, innerRect)
     }
 

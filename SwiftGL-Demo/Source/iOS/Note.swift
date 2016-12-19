@@ -7,24 +7,24 @@
 //
 
 import Foundation
-enum NoteType{
-    case Note
-    case Question
-    case Revision
+public enum NoteType{
+    case note
+    case question
+    case revision
 }
-struct Note{
-    var title:String
-    var description:String
-    var value:NoteValueData
+public struct Note{
+    public var title:String
+    public var description:String
+    public var value:NoteValueData
     
-    init(title:String,description:String,strokeIndex:Int,type:NoteType)
+    public init(title:String,description:String,strokeIndex:Int,type:NoteType)
     {
         self.title = title
         self.description = description
         self.value = NoteValueData(strokeIndex: strokeIndex,timestamps: 0)
     }
     
-    init(title:String,description:String,valueData:NoteValueData)
+    public init(title:String,description:String,valueData:NoteValueData)
     {
         self.title = title
         self.description = description
@@ -32,9 +32,9 @@ struct Note{
     }
 }
 
-struct NoteValueData:Initable {
+public struct NoteValueData:Initable {
     var strokeIndex:Int
-    var timestamps:NSTimeInterval
+    var timestamps:TimeInterval
     //var type:NoteType
     init()
     {
@@ -42,7 +42,7 @@ struct NoteValueData:Initable {
         timestamps = 0
         //type = .Note
     }
-    init(strokeIndex:Int,timestamps:NSTimeInterval){
+    init(strokeIndex:Int,timestamps:TimeInterval){
         self.strokeIndex = strokeIndex
         self.timestamps = timestamps
         //self.type = type

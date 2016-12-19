@@ -9,15 +9,15 @@
 import UIKit
 extension UIView
 {
-    func getColorFromPoint(point:CGPoint) -> UIColor {
-        let colorSpace:CGColorSpace = CGColorSpaceCreateDeviceRGB()!
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
+    func getColorFromPoint(_ point:CGPoint) -> UIColor {
+        let colorSpace:CGColorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
         
         var pixelData:[UInt8] = [0, 0, 0, 0]
         
-        let context = CGBitmapContextCreate(&pixelData, 1, 1, 8, 4, colorSpace, bitmapInfo.rawValue)
-        CGContextTranslateCTM(context, -point.x, -point.y);
-        self.layer.renderInContext(context!)
+        let context = CGContext(data: &pixelData, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
+        context?.translateBy(x: -point.x, y: -point.y);
+        self.layer.render(in: context!)
         
         let red:CGFloat = CGFloat(pixelData[0])/CGFloat(255.0)
         let green:CGFloat = CGFloat(pixelData[1])/CGFloat(255.0)

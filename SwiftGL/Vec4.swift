@@ -538,6 +538,9 @@ extension Vec4: CustomStringConvertible, CustomDebugStringConvertible {
     public var description:      String {get {return "(\(x), \(y), \(z), \(w))"}}
     public var debugDescription: String {get {return "Vec4(x: \(x), y: \(y), z: \(z), w: \(w))"}}
 }
+extension Vec4{
+   public var tojson:String{get{return "{\"x\":\(x),\"y\":\(y),\"z\":\(z),\"w\":\(w)}"}}
+}
 
 // Vec2 Prefix Operators
 public prefix func - (v: Vec4) -> Vec4 {return Vec4(x: -v.x, y: -v.y, z: -v.z, w: -v.w)}
@@ -554,24 +557,24 @@ public func * (v: Vec4, s: Float) -> Vec4 {return Vec4(x: v.x * s, y: v.y * s, z
 public func / (v: Vec4, s: Float) -> Vec4 {return Vec4(x: v.x / s, y: v.y / s, z: v.z / s, w: v.w / s)}
 
 // Vec4 Assignment Operators
-public func += (inout a: Vec4, b: Vec4) {a = a + b}
-public func -= (inout a: Vec4, b: Vec4) {a = a - b}
-public func *= (inout a: Vec4, b: Vec4) {a = a * b}
-public func /= (inout a: Vec4, b: Vec4) {a = a / b}
+public func += (a: inout Vec4, b: Vec4) {a = a + b}
+public func -= (a: inout Vec4, b: Vec4) {a = a - b}
+public func *= (a: inout Vec4, b: Vec4) {a = a * b}
+public func /= (a: inout Vec4, b: Vec4) {a = a / b}
 
-public func *= (inout a: Vec4, b: Float) {a = a * b}
-public func /= (inout a: Vec4, b: Float) {a = a / b}
+public func *= (a: inout Vec4, b: Float) {a = a * b}
+public func /= (a: inout Vec4, b: Float) {a = a / b}
 
 // Functions which operate on Vec2
-public func length(v: Vec4) -> Float {return v.length}
-public func length2(v: Vec4) -> Float {return v.length2}
-public func normalize(v: Vec4) -> Vec4 {return v / v.length}
-public func dot(a: Vec4, b: Vec4) -> Float {return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w}
+public func length(_ v: Vec4) -> Float {return v.length}
+public func length2(_ v: Vec4) -> Float {return v.length2}
+public func normalize(_ v: Vec4) -> Vec4 {return v / v.length}
+public func dot(_ a: Vec4, b: Vec4) -> Float {return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w}
 
-public func clamp(value: Vec4, min: Float, max: Float) -> Vec4 {return Vec4(clamp(value.x, min: min, max: max), clamp(value.y, min: min, max: max), clamp(value.z, min: min, max: max), clamp(value.w, min: min, max: max))}
-public func mix(a: Vec4, b: Vec4, t: Float) -> Vec4 {return a + (b - a) * t}
-public func smoothstep(a: Vec4, b: Vec4, t: Float) -> Vec4 {return mix(a, b: b, t: t * t * (3 - 2 * t))}
+public func clamp(_ value: Vec4, min: Float, max: Float) -> Vec4 {return Vec4(clamp(value.x, min: min, max: max), clamp(value.y, min: min, max: max), clamp(value.z, min: min, max: max), clamp(value.w, min: min, max: max))}
+public func mix(_ a: Vec4, b: Vec4, t: Float) -> Vec4 {return a + (b - a) * t}
+public func smoothstep(_ a: Vec4, b: Vec4, t: Float) -> Vec4 {return mix(a, b: b, t: t * t * (3 - 2 * t))}
 
-public func clamp(value: Vec4, min: Vec4, max: Vec4) -> Vec4 {return Vec4(clamp(value.x, min: min.x, max: max.x), clamp(value.y, min: min.y, max: max.y), clamp(value.z, min: min.z, max: max.z), clamp(value.w, min: min.w, max: max.w))}
-public func mix(a: Vec4, b: Vec4, t: Vec4) -> Vec4 {return a + (b - a) * t}
-public func smoothstep(a: Vec4, b: Vec4, t: Vec4) -> Vec4 {return mix(a, b: b, t: t * t * (Vec4(s: 3) - 2 * t))}
+public func clamp(_ value: Vec4, min: Vec4, max: Vec4) -> Vec4 {return Vec4(clamp(value.x, min: min.x, max: max.x), clamp(value.y, min: min.y, max: max.y), clamp(value.z, min: min.z, max: max.z), clamp(value.w, min: min.w, max: max.w))}
+public func mix(_ a: Vec4, b: Vec4, t: Vec4) -> Vec4 {return a + (b - a) * t}
+public func smoothstep(_ a: Vec4, b: Vec4, t: Vec4) -> Vec4 {return mix(a, b: b, t: t * t * (Vec4(s: 3) - 2 * t))}

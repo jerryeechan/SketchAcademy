@@ -6,23 +6,23 @@
 //  Copyright © 2016年 Jerry Chan. All rights reserved.
 //
 extension Array where Element: Equatable {
-    mutating func removeObject(object: Element) {
-        if let index = self.indexOf(object) {
-            self.removeAtIndex(index)
+    mutating func removeObject(_ object: Element) {
+        if let index = self.index(of: object) {
+            self.remove(at: index)
         }
     }
     
-    mutating func removeObjectsInArray(array: [Element]) {
+    mutating func removeObjectsInArray(_ array: [Element]) {
         for object in array {
             self.removeObject(object)
         }
     }
 }
 let eps:Float = 0.001
-public class NodePair: Comparable {
-    public let node:BVHNode
-    public let inducedCost:Float
-    public let priority:Float
+open class NodePair: Comparable {
+    open let node:BVHNode
+    open let inducedCost:Float
+    open let priority:Float
     public init(node:BVHNode,inducedCost:Float)
     {
         self.node = node
@@ -50,13 +50,13 @@ public func >=(lhs: NodePair, rhs: NodePair) -> Bool
 {
     return lhs.priority - rhs.priority >= 0
 }
-public class BVHTree {
+open class BVHTree {
     var root:BVHNode!
     public init()
     {
         
     }
-    public func searchNodes(point:Vec2)->[HasBound]
+    open func searchNodes(_ point:Vec2)->[HasBound]
     {
         var coverNode:[HasBound] = []
         
@@ -89,7 +89,7 @@ public class BVHTree {
         }
         return coverNode
     }
-    private func addNodeToTree(node:BVHNode)
+    fileprivate func addNodeToTree(_ node:BVHNode)
     {
      //   print(node.data.rect)
         if root == nil
@@ -169,7 +169,7 @@ public class BVHTree {
         
         
     }
-    public func buildTree(data:[HasBound])
+    open func buildTree(_ data:[HasBound])
     {
         for obj in data{
             addNodeToTree(BVHNode(rect: obj.bound, data: obj))

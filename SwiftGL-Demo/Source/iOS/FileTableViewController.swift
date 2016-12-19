@@ -10,30 +10,30 @@ import UIKit
 
 class FileTableViewController: UITableViewController {
     weak var delegate:PaintViewController!
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FileCell", forIndexPath: indexPath) 
-        let fName = FileManager.instance.getFileNames()[indexPath.row]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath) 
+        let fName = FileManager.instance.getFileNames()[(indexPath as NSIndexPath).row]
         
         cell.imageView?.image = FileManager.instance.loadImg(fName)
         cell.textLabel?.text = fName
         
         return cell
     }
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         print("file counts:\(FileManager.instance.getFileNames().count)", terminator: "")
         
         return FileManager.instance.getFileNames().count
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let fileName = FileManager.instance.getFileNames()[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let fileName = FileManager.instance.getFileNames()[(indexPath as NSIndexPath).row]
         //self.delegate.resetAnchor()
        // paintManager.loadArtwork(fileName)
         //FileManager.instance.loadPaintArtWork(fileName).replayAll()
         delegate.noteListTableView.reloadData()
         
-        self.dismissViewControllerAnimated(true, completion:{
+        self.dismiss(animated: true, completion:{
         })
     }
 }

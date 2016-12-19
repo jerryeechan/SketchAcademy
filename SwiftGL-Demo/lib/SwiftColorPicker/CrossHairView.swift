@@ -21,18 +21,18 @@ class CrossHairView: UIView {
     init(frame: CGRect, color: UIColor!) {
         super.init(frame: frame)
         // Set this views backgroundColor to clear to ensure that the color gradient underneath it is visible
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         // Call setColor passing it the color that this view was init with
         setTheColor(color);
     }
 
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         circleRadius = 20.0
         // Set reference to the location of the touch in member point
         let touch = touches.first
-        point = touch!.locationInView(self)
+        point = touch!.location(in: self)
         print(point, terminator: "")
         
         // Notify delegate of the new new color selection
@@ -41,11 +41,11 @@ class CrossHairView: UIView {
         setNeedsDisplay()
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         // Set reference to the location of the touchesMoved in member point
         let touch = touches.first
-        point = touch!.locationInView(self)
+        point = touch!.location(in: self)
         // Notify delegate of the new new color selection
         delegate?.colorSaturationAndBrightnessSelected(point)
         // Update display when possible
@@ -53,18 +53,18 @@ class CrossHairView: UIView {
         setNeedsDisplay()
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         circleRadius = 10.0
         // Set reference to the location of the touch in member point
         let touch = touches.first
-        point = touch!.locationInView(self)
+        point = touch!.location(in: self)
         // Notify delegate of the new new color selection
         delegate?.colorSaturationAndBrightnessSelected(point)
         // Update display when possible
         setNeedsDisplay()
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         if (point != nil) {
             let context = UIGraphicsGetCurrentContext()
             // Drawing properties:
@@ -102,7 +102,7 @@ class CrossHairView: UIView {
             
             
             // Set color to black
-            CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
+            context?.setStrokeColor(UIColor.black.cgColor)
             
             // Draw selected color circle
             // Set the coordinates for the circle origin
@@ -111,30 +111,30 @@ class CrossHairView: UIView {
             
             let rect = CGRect(origin: p, size: CGSize(width: circleRadius * 2, height: circleRadius * 2))
             // Add a circle to the previously defined rect
-            CGContextAddEllipseInRect(context, rect)
+            context?.addEllipse(in: rect)
             // Fill with color
-            CGContextSetFillColorWithColor(context, color.CGColor)
-            CGContextFillEllipseInRect(context, rect)
+            context?.setFillColor(color.cgColor)
+            context?.fillEllipse(in: rect)
             // Add the rect to the drawing context
-            CGContextAddRect(context, rect)
+            context?.addRect(rect)
             
             
         }
     }
     
-    func setTheColor(color: UIColor!) {
+    func setTheColor(_ color: UIColor!) {
         // Set member color to the new UIColor coming in
         self.color = color
         // Set point by inferring it from the color by calling getPointFromColor()
         point = getPointFromColor(self.color)
         // Update display when possible
-        self.layer.backgroundColor = color.CGColor
-        self.layer.borderColor = UIColor.whiteColor().CGColor
+        self.layer.backgroundColor = color.cgColor
+        self.layer.borderColor = UIColor.white.cgColor
         self.layer.borderWidth = 2
         //setNeedsDisplay()
     }
     
-    func getCoordinate(coord: CGFloat) -> CGFloat {
+    func getCoordinate(_ coord: CGFloat) -> CGFloat {
         if (coord < 0) {
             return 0
         }
@@ -145,7 +145,7 @@ class CrossHairView: UIView {
         return coord
     }
     // Determine crosshair coordinates from a color
-    func getPointFromColor(color: UIColor) -> CGPoint {
+    func getPointFromColor(_ color: UIColor) -> CGPoint {
         var hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
         let ok: Bool = color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         if (!ok) {

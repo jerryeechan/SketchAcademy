@@ -69,12 +69,12 @@ class SubViewAnimationGestureHandler:NSObject {
         toolView.addGestureRecognizer(toolViewPanGestureRecognizer)
         
         let leftEdgeGestureReconizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(SubViewAnimationGestureHandler.handleLeftEdgePan(_:)))
-        leftEdgeGestureReconizer.edges = UIRectEdge.Left
+        leftEdgeGestureReconizer.edges = UIRectEdge.left
         mainView.addGestureRecognizer(leftEdgeGestureReconizer)
         
         let leftEdgeGestureReconizer2 = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(SubViewAnimationGestureHandler.handleLeftEdgePan(_:)))
         
-        leftEdgeGestureReconizer2.edges = UIRectEdge.Left
+        leftEdgeGestureReconizer2.edges = UIRectEdge.left
         
         paintView.addGestureRecognizer(leftEdgeGestureReconizer2)
         
@@ -94,20 +94,20 @@ class SubViewAnimationGestureHandler:NSObject {
     
     
     
-    func handlePan(sender:UIPanGestureRecognizer)
+    func handlePan(_ sender:UIPanGestureRecognizer)
     {
-        let delta = sender.translationInView(mainView)
-        let vel = sender.velocityInView(mainView)
+        let delta = sender.translation(in: mainView)
+        let vel = sender.velocity(in: mainView)
         switch sender.state
         {
-        case UIGestureRecognizerState.Changed:
+        case UIGestureRecognizerState.changed:
             print("tool view pan", terminator: "")
             toolViewLeadingConstraint.constant = delta.x
             if toolViewLeadingConstraint.constant > 0
             {
                 toolViewLeadingConstraint.constant = 0
             }
-        case .Ended:
+        case .ended:
             if vel.x < -100
             {
                 print("hide", terminator: "")
@@ -125,20 +125,20 @@ class SubViewAnimationGestureHandler:NSObject {
     }
         
     
-    func handleLeftEdgePan(sender:UIScreenEdgePanGestureRecognizer)
+    func handleLeftEdgePan(_ sender:UIScreenEdgePanGestureRecognizer)
     {
         if isToolPanelLocked
         {
             return
         }
         
-        let delta = sender.translationInView(mainView)
+        let delta = sender.translation(in: mainView)
         switch sender.state
         {
         //case UIGestureRecognizerState.Changed:
             
            // toolView.center = CGPointMake(toolView_center.x + delta.x, toolView_center.y)
-        case .Ended:
+        case .ended:
             
             if delta.x > 0
             {
@@ -151,9 +151,9 @@ class SubViewAnimationGestureHandler:NSObject {
         
     }
     var isToolViewHidden:Bool = false
-    func showToolView(duration:NSTimeInterval)
+    func showToolView(_ duration:TimeInterval)
     {
-        UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.toolViewLeadingConstraint.constant = 0
             self.toolView.layoutIfNeeded()
             }, completion: {
@@ -162,11 +162,11 @@ class SubViewAnimationGestureHandler:NSObject {
             }
         )
     }
-    func hideToolView(duration:NSTimeInterval)
+    func hideToolView(_ duration:TimeInterval)
     {
         if isToolViewHidden == false
         {
-            UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+            UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 self.toolViewLeadingConstraint.constant = self.toolViewHideLeadingX
                 self.toolView.layoutIfNeeded()
                 }, completion: {
@@ -180,15 +180,15 @@ class SubViewAnimationGestureHandler:NSObject {
     
     
     
-    func handleBottemEdgePan(sender:UIScreenEdgePanGestureRecognizer)
+    func handleBottemEdgePan(_ sender:UIScreenEdgePanGestureRecognizer)
     {
-        let delta = sender.translationInView(mainView)
+        let delta = sender.translation(in: mainView)
         switch sender.state
         {
             //case UIGestureRecognizerState.Changed:
             
             // toolView.center = CGPointMake(toolView_center.x + delta.x, toolView_center.y)
-        case .Ended:
+        case .ended:
             
             if delta.y < 0
             {
@@ -200,15 +200,15 @@ class SubViewAnimationGestureHandler:NSObject {
         }
     }
     
-    func handlePlayBackPanelPan(sender:UIPanGestureRecognizer)
+    func handlePlayBackPanelPan(_ sender:UIPanGestureRecognizer)
     {
-        let delta = sender.translationInView(mainView)
-        let vel = sender.velocityInView(mainView)
+        let delta = sender.translation(in: mainView)
+        let vel = sender.velocity(in: mainView)
         
         
         switch sender.state
         {
-        case UIGestureRecognizerState.Changed:
+        case UIGestureRecognizerState.changed:
             
             
             playBackPanelBottomConstraint.constant = delta.y
@@ -218,7 +218,7 @@ class SubViewAnimationGestureHandler:NSObject {
                 playBackPanelBottomConstraint.constant = -playBackPanelHeight
             }
             
-        case .Ended:
+        case .ended:
             if vel.y > 10
             {
                 hidePlayBackView(0.2)
@@ -233,9 +233,9 @@ class SubViewAnimationGestureHandler:NSObject {
         
     }
     
-    func showPlayBackView(duration:NSTimeInterval)
+    func showPlayBackView(_ duration:TimeInterval)
     {
-        UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.playBackPanelBottomConstraint.constant = 0
             }, completion: {
                 finished in
@@ -244,9 +244,9 @@ class SubViewAnimationGestureHandler:NSObject {
         )
     }
     
-    func hidePlayBackView(duration:NSTimeInterval)
+    func hidePlayBackView(_ duration:TimeInterval)
     {
-        UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.playBackPanelBottomConstraint.constant = self.playBackPanelHideBottomY
             }, completion: {
                 finished in

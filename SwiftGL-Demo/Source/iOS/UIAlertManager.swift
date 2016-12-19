@@ -20,14 +20,14 @@ class UIAlertManager{
     /**
     *  display open file aleart window, input the file name and return if success of loading the file.
     */
-    func displayloadView(viewController:UIViewController)
+    func displayloadView(_ viewController:UIViewController)
     {
-        let loadAlertController = UIAlertController(title: "Load Artwork", message: "type in the file name", preferredStyle: UIAlertControllerStyle.Alert)
+        let loadAlertController = UIAlertController(title: "Load Artwork", message: "type in the file name", preferredStyle: UIAlertControllerStyle.alert)
         
         
         var inputTextField: UITextField?
         
-        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
             
             let fName = inputTextField?.text
             
@@ -44,10 +44,10 @@ class UIAlertManager{
         
         
         
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
         }
         
-        loadAlertController.addTextFieldWithConfigurationHandler{ (textField) -> Void in
+        loadAlertController.addTextField{ (textField) -> Void in
             inputTextField = textField
             // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
         }
@@ -56,13 +56,13 @@ class UIAlertManager{
         loadAlertController.addAction(ok)
         loadAlertController.addAction(cancel)
         
-        viewController.presentViewController(loadAlertController, animated: true, completion: nil)
+        viewController.present(loadAlertController, animated: true, completion: nil)
     }
     
-    func displayError(viewController:UIViewController)
+    func displayError(_ viewController:UIViewController)
     {
-        let saveAlertController = UIAlertController(title: "Save File", message: "type in the file name", preferredStyle: UIAlertControllerStyle.Alert)
+        let saveAlertController = UIAlertController(title: "Save File", message: "type in the file name", preferredStyle: UIAlertControllerStyle.alert)
         
-        viewController.presentViewController(saveAlertController, animated: true, completion: nil)
+        viewController.present(saveAlertController, animated: true, completion: nil)
     }
 }

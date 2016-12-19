@@ -26,7 +26,7 @@ class Dot: SKNode {
         //self.addChild(image)
         
         let Circle = SKShapeNode(circleOfRadius: 20) // Size of Circle
-        Circle.position = CGPointMake(0,0)  //Middle of Screen
+        Circle.position = CGPoint(x: 0,y: 0)  //Middle of Screen
         
         //Circle.strokeColor = uIntColor(0, 0, 0, 0)//SKColor(red: 0.2, green: 0.5, blue: 0.6, alpha: 1)
         
@@ -36,7 +36,7 @@ class Dot: SKNode {
         Circle.fillColor = uIntColor(80, green: 151, blue: 255, alpha: 255)
 
         self.addChild(Circle)
-        userInteractionEnabled = true
+        isUserInteractionEnabled = true
         shape = Circle
         
     }
@@ -49,7 +49,7 @@ class Dot: SKNode {
         super.init(coder: aDecoder)
     }
     
-    func changeColor(color:UIColor)
+    func changeColor(_ color:UIColor)
     {
         shape.fillColor = color
     }
@@ -63,21 +63,21 @@ class Dot: SKNode {
     }
     
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         //let touch = touches.first as UITouch?
         //let loc = touch!.locationInNode(self)
         
     }
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         let touch = touches.first as UITouch?
-        let loc = touch!.locationInNode(self)
-        let prev_loc = touch!.previousLocationInNode(self)
+        let loc = touch!.location(in: self)
+        let prev_loc = touch!.previousLocation(in: self)
         //let node = selectNodeForTouch(prev_loc)
         
         let p = position
-        position = CGPointMake(p.x+loc.x-prev_loc.x, p.y+loc.y-prev_loc.y)
+        position = CGPoint(x: p.x+loc.x-prev_loc.x, y: p.y+loc.y-prev_loc.y)
         
     }
     

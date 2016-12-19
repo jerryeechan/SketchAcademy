@@ -8,7 +8,7 @@
 
 extension PaintViewController:UITextFieldDelegate
 {
-    @IBAction func switchModeBtnTouched(sender: UIBarButtonItem) {
+    @IBAction func switchModeBtnTouched(_ sender: UIBarButtonItem) {
         switch(appState)
         {
         case .drawArtwork,.drawRevision:
@@ -51,26 +51,26 @@ extension PaintViewController:UITextFieldDelegate
         enterViewMode()
 
     }
-    @IBAction func enterDrawModeButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func enterDrawModeButtonTouched(_ sender: UIBarButtonItem) {
         switchToDrawMode()
     }
     
-    @IBAction func enterViewModeButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func enterViewModeButtonTouched(_ sender: UIBarButtonItem) {
         switchToViewMode()
     }
     
-    @IBAction func addNoteButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func addNoteButtonTouched(_ sender: UIBarButtonItem) {
         let at = paintManager.getCurrentStrokeID()
         let note = newNote(at)
         noteTitleField.becomeFirstResponder()
         noteDetailView.animateShow(0.2)
         createNoteButton(note)
         
-        selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount-1, inSection: 0)
+        selectedPath = IndexPath(row: NoteManager.instance.noteCount-1, section: 0)
         noteListTableView.reloadData()
     }
 
-    @IBAction func reviseDoneButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func reviseDoneButtonTouched(_ sender: UIBarButtonItem) {
         switch appState {
         case AppState.drawRevision,AppState.viewRevision:
             appState = .viewArtwork
@@ -85,14 +85,14 @@ extension PaintViewController:UITextFieldDelegate
     }
     
     
-    @IBAction func showToolViewButtonTouched(sender: UIButton) {
+    @IBAction func showToolViewButtonTouched(_ sender: UIButton) {
         toolViewState.animateShow(0.2)
     }
-    @IBAction func hideToolViewButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func hideToolViewButtonTouched(_ sender: UIBarButtonItem) {
         toolViewState.animateHide(0.2)
     }
     
-    @IBAction func trashButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func trashButtonTouched(_ sender: UIBarButtonItem) {
         paintManager.clear()
     }
     
@@ -102,23 +102,23 @@ extension PaintViewController:UITextFieldDelegate
         
         if currentStrokeID == 0 && paintManager.artwork.currentClip.op.count == 0
         {
-            undoButton.enabled = false
+            undoButton.isEnabled = false
         }
         else
         {
-            undoButton.enabled = true
+            undoButton.isEnabled = true
         }
         
         if currentStrokeID == totalStrokeCount && paintManager.artwork.currentClip.redoOp.count == 0
         {
-            redoButton.enabled = false
+            redoButton.isEnabled = false
         }
         else
         {
-            redoButton.enabled = true
+            redoButton.isEnabled = true
         }
     }
-    @IBAction func undoButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func undoButtonTouched(_ sender: UIBarButtonItem) {
         if appState == .drawArtwork
         {
             paintManager.undo()
@@ -126,21 +126,22 @@ extension PaintViewController:UITextFieldDelegate
         }
     }
     
-    @IBAction func redoButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func redoButtonTouched(_ sender: UIBarButtonItem) {
         if appState == .drawArtwork
         {
             paintManager.redo()
             checkUndoRedo()
         }
     }
-    func onStrokeProgressChanged(currentStrokeID:Int,totalStrokeCount:Int)
+    func onStrokeProgressChanged(_ currentStrokeID:Int,totalStrokeCount:Int)
     {
         checkUndoRedo()
         paintManager.currentReplayer.last_endIndex = currentStrokeID
         
     }
     
-    @IBAction func dismissButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func dismissButtonTouched(_ sender: UIBarButtonItem) {
+        PaintViewController.instance = nil
         if strokeSelecter.isSelectingClip
         {
             //strokeSelecter.exitSelectionMode()
@@ -170,18 +171,18 @@ extension PaintViewController:UITextFieldDelegate
     func share()
     {
        let acv = UIActivityViewController(activityItems: [FileManager.instance.imageFile.loadImg(fileName, attribute: "gif")], applicationActivities: nil)
-        presentViewController(acv, animated: true, completion: nil)
+        present(acv, animated: true, completion: nil)
     }
     func takeScreenShot() {
         //Create the UIImage
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
-        view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
+        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        let imageData:NSData = UIImagePNGRepresentation(image)!;
+        let imageData:Data = UIImagePNGRepresentation(image!)!;
         let filePath = File.dirpath+"/screen.png"
-        imageData.writeToFile(filePath, atomically: true)
+        try? imageData.write(to: URL(fileURLWithPath: filePath), options: [.atomic])
         
         FileManager.instance.uploadFilePath(filePath)
         //Save it to the camera roll
@@ -189,7 +190,7 @@ extension PaintViewController:UITextFieldDelegate
     }
     
     //Save file
-    func saveFile(fileName:String)
+    func saveFile(_ fileName:String)
     {
         let img = paintView.snapshot//paintView.paintBuffer.contextImage()
         
@@ -202,15 +203,15 @@ extension PaintViewController:UITextFieldDelegate
     func saveFileIOS9()
     {
         switch PaintViewController.appMode {
-        case .InstructionTutorial:
+        case .instructionTutorial:
             //don't save when doing tutoriral practice
             if((navigationController) != nil)
             {
-                navigationController?.popViewControllerAnimated(true)
+                navigationController?.popViewController(animated: true)
             }
             else
             {
-                presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                presentingViewController?.dismiss(animated: true, completion: nil)
             }
         default:
             if fileName != nil
@@ -218,32 +219,32 @@ extension PaintViewController:UITextFieldDelegate
                 saveFile(fileName)
                 if((navigationController) != nil)
                 {
-                    navigationController?.popViewControllerAnimated(true)
+                    navigationController?.popViewController(animated: true)
                 }
                 else
                 {
-                    presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                    presentingViewController?.dismiss(animated: true, completion: nil)
                 }
             }
             else
             {
-                let saveAlertController = UIAlertController(title: "Save File", message: "type in the file name", preferredStyle: UIAlertControllerStyle.Alert)
+                let saveAlertController = UIAlertController(title: "Save File", message: "type in the file name", preferredStyle: UIAlertControllerStyle.alert)
                 
                 
                 
                 var inputTextField: UITextField?
-                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
                     self.saveFile(inputTextField!.text!)
-                    self.navigationController?.popViewControllerAnimated(true)
+                    self.navigationController?.popViewController(animated: true)
                 })
                 
                 
                 
-                let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
-                    self.navigationController?.popViewControllerAnimated(true)
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+                    self.navigationController?.popViewController(animated: true)
                 }
                 
-                saveAlertController.addTextFieldWithConfigurationHandler{ (textField) -> Void in
+                saveAlertController.addTextField{ (textField) -> Void in
                     inputTextField = textField
                     // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
                 }
@@ -251,7 +252,7 @@ extension PaintViewController:UITextFieldDelegate
                 saveAlertController.addAction(ok)
                 saveAlertController.addAction(cancel)
                 
-                presentViewController(saveAlertController, animated: true, completion: nil)
+                present(saveAlertController, animated: true, completion: nil)
             }
         }
         

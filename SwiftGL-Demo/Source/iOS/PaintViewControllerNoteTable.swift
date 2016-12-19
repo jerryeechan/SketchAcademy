@@ -11,41 +11,41 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
     
     
     //tableViewStart
-    func genNoteCell(tableView: UITableView,indexPath:NSIndexPath)->UITableViewCell
+    func genNoteCell(_ tableView: UITableView,indexPath:IndexPath)->UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteTableCell
-        let note = NoteManager.instance.getOrderedNote(indexPath.row)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableCell
+        let note = NoteManager.instance.getOrderedNote((indexPath as NSIndexPath).row)
         
-        if paintManager.artwork.revisionClips[note.value.strokeIndex] != nil
+        if paintManager.artwork.revisionClips[(note?.value.strokeIndex)!] != nil
         {
-            cell.iconButton.setImage(UIImage(named: "Pen-50.png"), forState: UIControlState.Normal)
+            cell.iconButton.setImage(UIImage(named: "Pen-50.png"), for: UIControlState())
         }
         else
         {
-            cell.iconButton.setImage(UIImage(named: "bubble-chat"), forState: UIControlState.Normal)
+            cell.iconButton.setImage(UIImage(named: "bubble-chat"), for: UIControlState())
         }
-        cell.titleLabel.text = note.title
+        cell.titleLabel.text = note?.title
         return cell
     }
-    func genNoteDetailCell(tableView: UITableView,indexPath:NSIndexPath)->UITableViewCell
+    func genNoteDetailCell(_ tableView: UITableView,indexPath:IndexPath)->UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NoteDetailCell", forIndexPath: indexPath) as! NoteDetailCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NoteDetailCell", for: indexPath) as! NoteDetailCell
         
-        let note = NoteManager.instance.getOrderedNote(indexPath.row)
-        cell.title.text = note.title
-        cell.textView.text = note.description
-        cell.strokeID = note.value.strokeIndex
-        if paintManager.artwork.revisionClips[note.value.strokeIndex] != nil
+        let note = NoteManager.instance.getOrderedNote((indexPath as NSIndexPath).row)
+        cell.title.text = note?.title
+        cell.textView.text = note?.description
+        cell.strokeID = note?.value.strokeIndex
+        if paintManager.artwork.revisionClips[(note?.value.strokeIndex)!] != nil
         {
-            cell.iconButton.setImage(UIImage(named: "Play-50"), forState: UIControlState.Normal)
+            cell.iconButton.setImage(UIImage(named: "Play-50"), for: UIControlState())
         }
         else
         {
-            cell.iconButton.setImage(UIImage(named: "bubble-chat"), forState: UIControlState.Normal)
+            cell.iconButton.setImage(UIImage(named: "bubble-chat"), for: UIControlState())
         }
         return cell
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if(selectedPath == nil)
         {
@@ -53,7 +53,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            if(indexPath.row == selectedPath.row)
+            if((indexPath as NSIndexPath).row == selectedPath.row)
             {
                 return genNoteDetailCell(tableView, indexPath: indexPath)
             }
@@ -64,11 +64,11 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return NoteManager.instance.noteCount
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if (selectedPath != nil)
         {
            if indexPath == selectedPath
@@ -79,10 +79,10 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         
         return false
     }
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if(editingStyle == .Delete)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if(editingStyle == .delete)
         {
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! NoteDetailCell
+            let cell = tableView.cellForRow(at: indexPath) as! NoteDetailCell
             deleteNote(cell.strokeID)
             /*
             NoteManager.instance.deleteNoteAtStroke(cell.strokeID)
@@ -93,11 +93,11 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         
     }
     
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle.Delete
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.delete
     }
     
-    func clickOnRow(indexPath:NSIndexPath)
+    func clickOnRow(_ indexPath:IndexPath)
     {
         if appState == .viewRevision
         {
@@ -110,10 +110,10 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
             selectRow(indexPath)
         }
             //選到自己, deselect
-        else if(indexPath.row == selectedPath.row)
+        else if((indexPath as NSIndexPath).row == selectedPath.row)
         {
             selectedPath = nil
-            noteListTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            noteListTableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         }
             //選到別人, select and deselect
         else
@@ -122,14 +122,14 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         }
     }
     
-    func selectRow(indexPath:NSIndexPath)
+    func selectRow(_ indexPath:IndexPath)
     {
         if appState == .viewRevision
         {
             return
         }
-        let note = NoteManager.instance.getOrderedNote(indexPath.row)
-        var paths:[NSIndexPath] = [indexPath]
+        let note = NoteManager.instance.getOrderedNote((indexPath as NSIndexPath).row)
+        var paths:[IndexPath] = [indexPath]
         if(selectedPath != nil)
         {
             if selectedPath == indexPath
@@ -148,7 +148,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         }
         
         selectedPath = indexPath
-        noteListTableView.reloadRowsAtIndexPaths(paths, withRowAnimation: UITableViewRowAnimation.Automatic)
+        noteListTableView.reloadRows(at: paths, with: UITableViewRowAnimation.automatic)
         
         if appState == .drawRevision
         {
@@ -161,7 +161,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            paintManager.drawStrokeProgress(note.value.strokeIndex)
+            paintManager.drawStrokeProgress((note?.value.strokeIndex)!)
             //progressSlider.value = Float(note.value.strokeIndex)/Float(paintManager.currentReplayer.clip.strokes.count)
             
         }
@@ -170,19 +170,19 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
     
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         clickOnRow(indexPath)
                 
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if(selectedPath == nil)
         {
             return 44
         }
         else
         {
-            if(indexPath.row == selectedPath.row)
+            if((indexPath as NSIndexPath).row == selectedPath.row)
             {
                 return 240
             }
@@ -194,7 +194,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         
     }
     
-    @IBAction func playRevisionButtonTouched(sender: UIButton) {
+    @IBAction func playRevisionButtonTouched(_ sender: UIButton) {
         let cell = sender.superview?.superview as! NoteDetailCell
         
         appState = .viewRevision
@@ -205,7 +205,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         
     }
     
-    @IBAction func editNoteCellButtonTouched(sender: UIButton) {
+    @IBAction func editNoteCellButtonTouched(_ sender: UIButton) {
         let cell = sender.superview?.superview as! NoteDetailCell
         let note = NoteManager.instance.getNoteAtStroke(cell.strokeID)
         /*
@@ -214,10 +214,10 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         noteEditTextView.text = note.description
         */
         NoteManager.instance.editingNoteIndex = cell.strokeID
-        noteEditMode = .Edit
+        noteEditMode = .edit
     }
     
-    @IBAction func deleteNoteCellButtonTouched(sender: UIButton) {
+    @IBAction func deleteNoteCellButtonTouched(_ sender: UIButton) {
        
     }
     
@@ -227,10 +227,10 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
     
     func showNoteEditView()
     {
-        paintView.layer.position = CGPointZero
-        paintView.layer.anchorPoint = CGPointZero
+        paintView.layer.position = CGPoint.zero
+        paintView.layer.anchorPoint = CGPoint.zero
         
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             let transform = CATransform3DMakeScale(0.5, 0.5, 1)
             self.paintView.layer.transform = transform
             
@@ -252,7 +252,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
     
     func hideNoteEditView()
     {
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             let transform = CATransform3DMakeScale(1, 1, 1)
             //transform = CATransform3DTranslate(transform,-512, -384, 0)
             self.paintView.layer.transform = transform
@@ -264,27 +264,27 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         })
     }
 
-    @IBAction func noteEditViewCompleteButtonTouched(sender: AnyObject) {
+    @IBAction func noteEditViewCompleteButtonTouched(_ sender: AnyObject) {
         hideNoteEditView()
         
         switch(noteEditMode)
         {
-        case NoteEditMode.Edit:
+        case NoteEditMode.edit:
             NoteManager.instance.updateOrderedNote(selectedPath.row, title: noteEditTitleTextField.text!,description: noteEditTextView.text)
-        case NoteEditMode.New:
+        case NoteEditMode.new:
             print("New Note", terminator: "")
             let at = paintManager.getCurrentStrokeID()
             let note = NoteManager.instance.getNoteAtStroke(at)
             if  note != nil
             {
-                note.value.strokeIndex
+                note?.value.strokeIndex
                 //if the stroke index has been occupied
-                NoteManager.instance.updateNote(note.value.strokeIndex, title: noteEditTitleTextField.text!, description: noteEditTextView.text)
+                NoteManager.instance.updateNote((note?.value.strokeIndex)!, title: noteEditTitleTextField.text!, description: noteEditTextView.text)
             }
             else
             {
                 NoteManager.instance.addNote(at,title: noteEditTitleTextField.text!, description: noteEditTextView.text)
-                selectedPath = NSIndexPath(forRow: NoteManager.instance.noteCount-1, inSection: 0)
+                selectedPath = IndexPath(row: NoteManager.instance.noteCount-1, section: 0)
                 
             }
         }
@@ -307,7 +307,7 @@ extension PaintViewController:UITableViewDelegate,UITableViewDataSource
         view.endEditing(true)
     }
     
-    @IBAction func noteEditViewCancelButtonTouched(sender: UIBarButtonItem) {
+    @IBAction func noteEditViewCancelButtonTouched(_ sender: UIBarButtonItem) {
         hideNoteEditView()
         view.endEditing(true)
     }

@@ -9,10 +9,7 @@
 import UIKit
 import SpriteKit
 import SwiftGL
-func uIntColor(red:UInt8,green:UInt8,blue:UInt8,alpha:UInt8)->UIColor
-{
-    return UIColor(red: CGFloat(red)/255, green: CGFloat(green)/255, blue: CGFloat(blue)/255, alpha: CGFloat(alpha)/255)
-}
+
 class DotGameScene: SKScene {
     
     let player = SKSpriteNode(imageNamed: "doraemon")
@@ -26,9 +23,9 @@ class DotGameScene: SKScene {
     var pointNum:Int!
     var difficulty = 1
     
-    override func didMoveToView(view: SKView) {
-        scaleMode = SKSceneScaleMode.AspectFill
-        backgroundColor = SKColor.whiteColor()
+    override func didMove(to view: SKView) {
+        scaleMode = SKSceneScaleMode.aspectFill
+        backgroundColor = SKColor.white
         //player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
         //addChild(player)
         
@@ -58,15 +55,15 @@ class DotGameScene: SKScene {
         
         let scorePercentString = NSString(format: "%.1f", score) as String
         scoreLabel.text = scorePercentString+"%"
-        scoreLabel.hidden = false
+        scoreLabel.isHidden = false
         scoreLabel.fontSize = 100
-        scoreLabel.position = CGPointMake(size.width/2, size.height/2)
+        scoreLabel.position = CGPoint(x: size.width/2, y: size.height/2)
         scoreLabel.fontColor = uIntColor(80, green: 151, blue: 255, alpha: 255)
         
         
         return Float(score)
     }
-    func changeDifficulty(d:Int)
+    func changeDifficulty(_ d:Int)
     {
         difficulty = d
         
@@ -93,7 +90,7 @@ class DotGameScene: SKScene {
         
         setFixPoint()
         
-        scoreLabel.hidden = true
+        scoreLabel.isHidden = true
     }
     
     func restart()
@@ -109,7 +106,7 @@ class DotGameScene: SKScene {
         
         setFixPoint()
         
-        scoreLabel.hidden = true
+        scoreLabel.isHidden = true
     }
     
     
@@ -120,7 +117,7 @@ class DotGameScene: SKScene {
             ansDots.dots[i].position = quesDots.dots[i].position
             ansDots.dots[i].setAsFixedPoint()
             quesDots.dots[i].setAsFixedPoint()
-            ansDots.dots[i].userInteractionEnabled = false
+            ansDots.dots[i].isUserInteractionEnabled = false
         }
         /*
         ansDots.dots[0].position = fixPoint.position
@@ -131,17 +128,17 @@ class DotGameScene: SKScene {
     
     func prepareScene()
     {
-        let quesRect = SKShapeNode(rect: CGRectMake(0, 0, size.width/2, size.height))
+        let quesRect = SKShapeNode(rect: CGRect(x: 0, y: 0, width: size.width/2, height: size.height))
         
-        quesRect.fillColor = SKColor.whiteColor()//uIntColor(231,green: 234,blue: 179,alpha: 255)
-        quesRect.position = CGPointMake(0,0)
+        quesRect.fillColor = SKColor.white//uIntColor(231,green: 234,blue: 179,alpha: 255)
+        quesRect.position = CGPoint(x: 0,y: 0)
         //quesRect.userInteractionEnabled = false
         addChild(quesRect)
         
-        let ansRect = SKShapeNode(rect: CGRectMake(0, 0, size.width/2, size.height))
+        let ansRect = SKShapeNode(rect: CGRect(x: 0, y: 0, width: size.width/2, height: size.height))
         
-        ansRect.fillColor = SKColor.whiteColor()
-        ansRect.position = CGPointMake(size.width/2,0)
+        ansRect.fillColor = SKColor.white
+        ansRect.position = CGPoint(x: size.width/2,y: 0)
         //ansRect.userInteractionEnabled = false
         addChild(ansRect)
         

@@ -21,15 +21,15 @@ class SubViewPanelAnimateState {
         self.showValue = showValue
         self.constraint = constraint
         self.view = view
-        self.view!.hidden = true
+        self.view!.isHidden = true
     }
     
     enum AnimateDir{
-        case X
-        case Y
+        case x
+        case y
     }
     var animateDir:AnimateDir!
-    func registerPanMove(dir:AnimateDir)
+    func registerPanMove(_ dir:AnimateDir)
     {
         animateDir = dir
         let viewPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
@@ -37,15 +37,15 @@ class SubViewPanelAnimateState {
         
     }
     
-    func handlePan(sender:UIPanGestureRecognizer)
+    func handlePan(_ sender:UIPanGestureRecognizer)
     {
         
-        let delta = sender.translationInView(view)
-        let vel = sender.velocityInView(view)
+        let delta = sender.translation(in: view)
+        let vel = sender.velocity(in: view)
         
         switch sender.state
         {
-        case UIGestureRecognizerState.Changed:
+        case UIGestureRecognizerState.changed:
             
             
             constraint.constant = delta.x
@@ -53,7 +53,7 @@ class SubViewPanelAnimateState {
             {
                 constraint.constant = 0
             }
-        case .Ended:
+        case .ended:
             if vel.x < -100
             {
                 print("hide", terminator: "")
@@ -75,27 +75,27 @@ class SubViewPanelAnimateState {
         
     }
     
-    func animateShow(dur:NSTimeInterval)
+    func animateShow(_ dur:TimeInterval)
     {
-        self.view!.hidden = false
+        self.view!.isHidden = false
         animate(constraint,value: showValue,duration: dur,hidden: false)
     }
     
-    func animateHide(dur:NSTimeInterval)
+    func animateHide(_ dur:TimeInterval)
     {
         animate(constraint,value: hideValue,duration: dur,hidden: true)
     }
     
-    func animate(constraint:NSLayoutConstraint,value:CGFloat,duration:NSTimeInterval,hidden:Bool = false)
+    func animate(_ constraint:NSLayoutConstraint,value:CGFloat,duration:TimeInterval,hidden:Bool = false)
     {
         
         UIView.setAnimationsEnabled(true)
-        UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {
             constraint.constant = value
             
             }, completion: {
             (value: Bool) in
-                self.view!.hidden = hidden
+                self.view!.isHidden = hidden
             }
         )
     }

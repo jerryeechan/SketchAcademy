@@ -19,11 +19,11 @@ extension PaintViewController
         }
     }
     
-    func createNoteButton(note:Note)
+    func createNoteButton(_ note:Note)
     {
-        let noteButton = NoteButton(type: UIButtonType.System)
+        let noteButton = NoteButton(type: UIButtonType.system)
         
-        noteButton.addTarget(self, action: #selector(PaintViewController.noteButtonTouchUpInside(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        noteButton.addTarget(self, action: #selector(PaintViewController.noteButtonTouchUpInside(_:)), for: UIControlEvents.touchUpInside)
         noteButton.note = note
         noteButton.tag = note.value.strokeIndex
         
@@ -36,7 +36,7 @@ extension PaintViewController
         selectNoteButton(note.value.strokeIndex)
     }
     
-    func selectNoteButton(atStroke:Int)
+    func selectNoteButton(_ atStroke:Int)
     {
         let lastIndex = NoteManager.instance.selectedButtonIndex
         
@@ -49,16 +49,16 @@ extension PaintViewController
             }
             
             //deselect last Button
-            let lastButton = NoteManager.instance.getNoteButton(lastIndex)
-            lastButton.deSelectStyle()
+            let lastButton = NoteManager.instance.getNoteButton(lastIndex!)
+            lastButton?.deSelectStyle()
         }
 
         let selectedButton = NoteManager.instance.getNoteButton(atStroke)
         //select current Button
         if selectedButton != nil{
-            UIView.animateWithDuration(1, animations: {
-                selectedButton.layer.borderWidth = 4
-                selectedButton.layer.borderColor = themeLightColor.CGColor
+            UIView.animate(withDuration: 1, animations: {
+                selectedButton?.layer.borderWidth = 4
+                selectedButton?.layer.borderColor = themeLightColor.cgColor
             })
             NoteManager.instance.selectedButtonIndex = atStroke
         }
@@ -68,7 +68,7 @@ extension PaintViewController
         }
         
     }
-    func noteButtonTouchUpInside(sender: UIButton!)
+    func noteButtonTouchUpInside(_ sender: UIButton!)
     {
         paintManager.drawStrokeProgress(sender.tag)
     }
@@ -79,7 +79,7 @@ extension PaintViewController
             updateNoteButton(button)
         }
     }
-    func updateNoteButton(noteButton:NoteButton)
+    func updateNoteButton(_ noteButton:NoteButton)
     {
         let percentage = CGFloat(noteButton.note.value.strokeIndex)/CGFloat(paintManager.currentReplayer.strokeCount())
         

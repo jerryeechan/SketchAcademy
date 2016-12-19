@@ -13,7 +13,7 @@ class ShadeView :UIView{
     override init(frame:CGRect)
     {
         super.init(frame: frame)
-        self.opaque = false
+        self.isOpaque = false
         alpha = 0.5
     }
     
@@ -21,18 +21,18 @@ class ShadeView :UIView{
         super.init(coder: aDecoder)
     }
     
-    func setCropArea(_clearArea: CGRect) {
+    func setCropArea(_ _clearArea: CGRect) {
         cropArea = _clearArea
         self.setNeedsDisplay()
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         
-        UIColor.blackColor().setFill()
+        UIColor.black.setFill()
         UIRectFill(rect)
         //let intersection = CGRectIntersection(cropArea, rect)
         
-        UIColor.clearColor().setFill()
+        UIColor.clear.setFill()
         UIRectFill(cropArea)
         //let layer = self.blurredImageView.layer;
         

@@ -17,21 +17,21 @@ class GLRenderBuffer {
     var eaglLayer:CAEAGLLayer!
     init(view:UIView)
     {
-        self.glcontext = EAGLContext(API: EAGLRenderingAPI.OpenGLES3)
+        self.glcontext = EAGLContext(api: EAGLRenderingAPI.openGLES3)
         if self.glcontext == nil {
             print("Failed to create ES context", terminator: "")
         }
         
-        EAGLContext.setCurrentContext(self.glcontext)
+        EAGLContext.setCurrent(self.glcontext)
         eaglLayer = view.layer as! CAEAGLLayer
         
-        eaglLayer.opaque = false
+        eaglLayer.isOpaque = false
         
         eaglLayer.drawableProperties = [kEAGLDrawablePropertyColorFormat:kEAGLColorFormatRGBA8,kEAGLDrawablePropertyRetainedBacking:true]
         
         glGenRenderbuffers(1, &viewRenderbuffer)
         glBindRenderbuffer(GL_RENDERBUFFER_ENUM, viewRenderbuffer);
-        glcontext.renderbufferStorage(Int(GL_RENDERBUFFER), fromDrawable: eaglLayer)
+        glcontext.renderbufferStorage(Int(GL_RENDERBUFFER), from: eaglLayer)
 
     }
 }

@@ -29,9 +29,9 @@ class FaceGameScene: SKScene {
     var hintImg:SKSpriteNode!//(imageNamed: "imghint")
     
     var levelName: FaceGameViewController.FaceGameLevelName!
-    override func didMoveToView(view: SKView) {
-        scaleMode = SKSceneScaleMode.AspectFill
-        backgroundColor = SKColor.whiteColor()
+    override func didMove(to view: SKView) {
+        scaleMode = SKSceneScaleMode.aspectFill
+        backgroundColor = SKColor.white
         view.showsDrawCount = true
         view.showsFPS = true
         //player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
@@ -49,15 +49,15 @@ class FaceGameScene: SKScene {
     func prepareScene()
     {
         //Question Area
-        let quesRect = SKShapeNode(rect: CGRectMake(0, 0, size.width/2, size.height))
-        quesRect.position = CGPointMake(0,0)
+        let quesRect = SKShapeNode(rect: CGRect(x: 0, y: 0, width: size.width/2, height: size.height))
+        quesRect.position = CGPoint(x: 0,y: 0)
         addChild(quesRect)
         
         
         //Answer Area
-        let ansRect = SKShapeNode(rect: CGRectMake(0, 0, size.width/2, size.height))
-        ansRect.fillColor = SKColor.whiteColor()
-        ansRect.position = CGPointMake(size.width/2,0)
+        let ansRect = SKShapeNode(rect: CGRect(x: 0, y: 0, width: size.width/2, height: size.height))
+        ansRect.fillColor = SKColor.white
+        ansRect.position = CGPoint(x: size.width/2,y: 0)
         addChild(ansRect)
         
         
@@ -80,9 +80,9 @@ class FaceGameScene: SKScene {
         
         let scorePercentString = NSString(format: "%.1f", score) as String
         scoreLabel.text = scorePercentString+"%"
-        scoreLabel.hidden = false
+        scoreLabel.isHidden = false
         scoreLabel.fontSize = 100
-        scoreLabel.position = CGPointMake(size.width/2, size.height/2)
+        scoreLabel.position = CGPoint(x: size.width/2, y: size.height/2)
         scoreLabel.fontColor = UIColor(red: 80/255, green: 151/255, blue: 1, alpha: 1)
         //scoreLabel.fontColor = uIntColor(80, green: 151, blue: 255, alpha: 255)
         
@@ -107,7 +107,7 @@ class FaceGameScene: SKScene {
         hintImg.removeFromParent()
     }
     
-    func changeDifficulty(d:Int)
+    func changeDifficulty(_ d:Int)
     {
         difficulty = d
         
@@ -148,7 +148,7 @@ class FaceGameScene: SKScene {
         
         setFixPoint()
         
-        scoreLabel.hidden = true
+        scoreLabel.isHidden = true
     }
     
     func restart()
@@ -164,7 +164,7 @@ class FaceGameScene: SKScene {
         
         setFixPoint()
         
-        scoreLabel.hidden = true
+        scoreLabel.isHidden = true
     }
     
     
@@ -174,7 +174,7 @@ class FaceGameScene: SKScene {
         
         ansComponents.components[index].position = quesPositions[index]
         
-        ansComponents.components[index].userInteractionEnabled = false
+        ansComponents.components[index].isUserInteractionEnabled = false
         
         
     }

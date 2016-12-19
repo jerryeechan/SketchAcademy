@@ -24,13 +24,13 @@ class FaceComponent : SKNode {
         self.init()
         sprite = SKSpriteNode(imageNamed: name)
         self.filename = name
-        sprite.position = CGPointMake(0, 0)
+        sprite.position = CGPoint(x: 0, y: 0)
         sprite.setScale(0.2)
         self.addChild(sprite)
         
-        sprite.userInteractionEnabled = false    //?
+        sprite.isUserInteractionEnabled = false    //?
         
-        userInteractionEnabled = true
+        isUserInteractionEnabled = true
         
     }
     
@@ -40,7 +40,7 @@ class FaceComponent : SKNode {
         super.init(coder: aDecoder)
     }
 
-    func changeColor(color:UIColor) -> FaceComponent
+    func changeColor(_ color:UIColor) -> FaceComponent
     {
         sprite.color = color
         sprite.colorBlendFactor = 0.5;
@@ -59,22 +59,22 @@ class FaceComponent : SKNode {
         return Vec2(Float(self.position.x),Float(self.position.y))
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         //let touch = touches.first as UITouch?
         //let loc = touch!.locationInNode(self)
         print(filename, terminator: "")
         
     }
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         let touch = touches.first as UITouch?
-        let loc = touch!.locationInNode(self)
-        let prev_loc = touch!.previousLocationInNode(self)
+        let loc = touch!.location(in: self)
+        let prev_loc = touch!.previousLocation(in: self)
         //let node = selectNodeForTouch(prev_loc)
         
         let p = position
-        position = CGPointMake(p.x+loc.x-prev_loc.x, p.y+loc.y-prev_loc.y)
+        position = CGPoint(x: p.x+loc.x-prev_loc.x, y: p.y+loc.y-prev_loc.y)
         
     }
     

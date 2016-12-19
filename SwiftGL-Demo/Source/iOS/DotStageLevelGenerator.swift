@@ -18,7 +18,7 @@ class DotStageLevelGenerator {
         dotNum = num
     }
     
-    func setDotNum(num:Int)
+    func setDotNum(_ num:Int)
     {
         dotNum = num
     }
@@ -28,7 +28,7 @@ class DotStageLevelGenerator {
         
         for dot in dotSet.dots
         {
-            dot.position = CGPointMake(CGFloat(arc4random())/CGFloat(UINT32_MAX) * (size.width / 4)+(size.width / 8),CGFloat(arc4random())/CGFloat(UINT32_MAX) * (size.height / 2)+(size.height / 4))
+            dot.position = CGPoint(x: CGFloat(arc4random())/CGFloat(UINT32_MAX) * (size.width / 4)+(size.width / 8),y: CGFloat(arc4random())/CGFloat(UINT32_MAX) * (size.height / 2)+(size.height / 4))
         }
         
         return dotSet
@@ -41,7 +41,7 @@ class DotStageLevelGenerator {
         var count = 0
         for dot in dotSet.dots
         {
-            dot.position = CGPointMake(size.width / 8 + dis*CGFloat(count),size.height / 8)
+            dot.position = CGPoint(x: size.width / 8 + dis*CGFloat(count),y: size.height / 8)
             count += 1
         }
         return dotSet

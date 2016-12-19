@@ -22,7 +22,7 @@ extension PaintViewController
         
         //noteEditViewState.animateHide(0)
         
-        noteListTableView.separatorStyle = .None
+        noteListTableView.separatorStyle = .none
         //drawGreyBorder(noteListTableView)
         //drawGreyBorder(toolView)
         
@@ -34,7 +34,7 @@ extension PaintViewController
     func drawNoteEditTextViewStyle()
     {
         
-        noteEditTextView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        noteEditTextView.layer.borderColor = UIColor.lightGray.cgColor
         noteEditTextView.layer.borderWidth = 1
         noteEditTextView.layer.cornerRadius = 5
         noteEditTextView.clipsToBounds = true
@@ -42,20 +42,20 @@ extension PaintViewController
         
     }
     
-    func drawGreyBorder(view:UIView)
+    func drawGreyBorder(_ view:UIView)
     {
-        view.layer.borderColor = UIColor.lightGrayColor().CGColor
+        view.layer.borderColor = UIColor.lightGray.cgColor
         view.layer.borderWidth = 1
         
         //view.layer.cornerRadius =
         
     }
     
-    func circleButton(button:UIButton)
+    func circleButton(_ button:UIButton)
     {
         button.layer.cornerRadius = 0.5 * button.frame.width
-        button.backgroundColor = UIColor.whiteColor()
-        button.layer.borderColor = UIColor.lightGrayColor().CGColor
+        button.backgroundColor = UIColor.white
+        button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1
         //var tintedImage = button.imageForState(UIControlState.Normal)
         

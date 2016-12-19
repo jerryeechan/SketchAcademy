@@ -13,6 +13,6 @@ class SaveFileDialogViewController: UIViewController{
         self.providesPresentationContextTransitionStyle = true
         self.definesPresentationContext = true
         
-        modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
     }
 }

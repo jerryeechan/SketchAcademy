@@ -10,11 +10,11 @@ import SpriteKit
 class ReferenceImageScene: SKScene {
     
     var refImg:SKSpriteNode!
-    override func didMoveToView(view: SKView) {
-        self.scaleMode = SKSceneScaleMode.AspectFit;
-        backgroundColor = SKColor.whiteColor()
+    override func didMove(to view: SKView) {
+        self.scaleMode = SKSceneScaleMode.aspectFit;
+        backgroundColor = SKColor.white
         refImg = SKSpriteNode(imageNamed: "spongebob.png")
-        refImg.position = CGPointMake(self.size.width/2, self.size.height/2)
+        refImg.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         addChild(refImg)
         print("2- didMoveToView", terminator: "")
         
@@ -28,7 +28,7 @@ class ReferenceImageScene: SKScene {
     {
         if refImg.parent != self
         {
-            insertChild(refImg, atIndex: 0)
+            insertChild(refImg, at: 0)
         }
         
     }
@@ -43,23 +43,23 @@ class ReferenceImageScene: SKScene {
     
     var rectToolMode:RectToolMode = .draw
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch =  touches.first as UITouch?
         
         switch rectToolMode
         {
         case .draw:
             
-            tempRect = SKShapeNode(rectOfSize: CGSizeMake(0, 0))
-            tempRect.strokeColor = UIColor.blackColor()
-            tempRect.position = touch!.locationInNode(self)
+            tempRect = SKShapeNode(rectOf: CGSize(width: 0, height: 0))
+            tempRect.strokeColor = UIColor.black
+            tempRect.position = touch!.location(in: self)
             beganPoint = tempRect.position
             
             addChild(tempRect)
             rects.append(tempRect)
             
         case .erase:
-            let rectNode = nodeAtPoint(touch!.locationInNode(self))
+            let rectNode = atPoint(touch!.location(in: self))
             if rectNode != refImg
             {
                 rectNode.removeFromParent()
@@ -69,21 +69,23 @@ class ReferenceImageScene: SKScene {
     }
     
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch =  touches.first as UITouch?
         switch rectToolMode
         {
         case .draw:
+            /*
+            let pos = touch!.location(in: self)
             
-            let pos = touch!.locationInNode(self)
+            let path:CGMutablePath = CGMutablePath()
             
-            let path:CGMutablePathRef = CGPathCreateMutable()
-            
-            CGPathAddRect(path, nil, CGRectMake(0, 0, pos.x - beganPoint.x, pos.y-beganPoint.y))
+            CGPathAddRect(path, nil, CGRect(x: 0, y: 0, width: pos.x - beganPoint.x, height: pos.y-beganPoint.y))
             
             tempRect.path = path
+ */
+            break
         case .erase:
-            let rectNode = nodeAtPoint(touch!.locationInNode(self))
+            let rectNode = atPoint(touch!.location(in: self))
             if rectNode != refImg
             {
                 rectNode.removeFromParent()
@@ -92,13 +94,13 @@ class ReferenceImageScene: SKScene {
         
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         switch rectToolMode
         {
         case .draw:
             let touch =  touches.first as UITouch?
-            let pos = touch!.locationInNode(self)
+            let pos = touch!.location(in: self)
             
             
             let rectData = SliceRect(p: tempRect.position, width:pos.x - beganPoint.x , height: pos.y-beganPoint.y,rectSKNode: tempRect)
@@ -116,7 +118,7 @@ class ReferenceImageScene: SKScene {
     }
     func cleanUp()
     {
-        removeChildrenInArray(rects)
+        removeChildren(in: rects)
     }
     
     

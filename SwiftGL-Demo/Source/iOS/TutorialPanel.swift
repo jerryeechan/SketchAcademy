@@ -9,32 +9,39 @@
 extension PaintViewController
  {
     //tutorail replay
-    @IBAction func tutorialNextStepBtnTouched(sender: UIBarButtonItem) {
+    @IBAction func tutorialNextStepBtnTouched(_ sender: UIBarButtonItem) {
+        
         if !paintManager.tutorialNextStep()
         {
-            tutorialNextStepButton.enabled = false
+            tutorialNextStepButton.isEnabled = false
         }
-        tutorialLastStepButton.enabled = true
+        tutorialLastStepButton.isEnabled = true
         setTutorialStepContent()
     }
-    @IBAction func tutorialLastStepBtnTouched(sender: UIBarButtonItem) {
+    @IBAction func tutorialLastStepBtnTouched(_ sender: UIBarButtonItem) {
+        
         if !paintManager.tutorialLastStep()
         {
-            tutorialLastStepButton.enabled = false
+            tutorialLastStepButton.isEnabled = false
         }
-        tutorialNextStepButton.enabled = true
+        tutorialNextStepButton.isEnabled = true
         setTutorialStepContent()
         
     }
     func setTutorialStepContent()
     {
         let note = paintManager.tutorialArtwork.currentNote
-        tutorialDescriptionTextView.text = note.description
-        tutorialTitleLabel.text = note.title
+        if((note) != nil)
+        {
+            tutorialDescriptionTextView.text = note?.description
+            tutorialTitleLabel.text = note?.title
+        }
+        
     }
-    @IBAction func tutorialPlayPauseTouched(sender: PlayPauseButton) {
+    @IBAction func tutorialPlayPauseTouched(_ sender: PlayPauseButton) {
+        paintManager.tutorialToggle()
     }
 
-    @IBAction func tutorialReplayBtnTouched(sender: UIBarButtonItem) {
+    @IBAction func tutorialReplayBtnTouched(_ sender: UIBarButtonItem) {
     }
 }

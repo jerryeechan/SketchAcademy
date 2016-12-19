@@ -17,14 +17,14 @@ class SelectedColorView: UIView {
     init(frame: CGRect, color: UIColor) {
         super.init(frame: frame)
         
-        layer.borderColor = UIColor.blackColor().CGColor
+        layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1
         
         setTheColor(color);
     }
 
     
-    func setTheColor(_color: UIColor) {
+    func setTheColor(_ _color: UIColor) {
         self.color = _color
         
         setBackgroundColor()

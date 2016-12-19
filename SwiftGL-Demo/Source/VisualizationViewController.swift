@@ -7,13 +7,14 @@
 //
 
 import UIKit
-import Charts
+//import Charts
 
 class VisualizationViewController:UIViewController
 {
+    /*
     weak var delegate:PaintViewController!
     var graphView = ScrollableGraphView()
-    var currentGraphType = GraphType.Dark
+    var currentGraphType = GraphType.dark
     var graphConstraints = [NSLayoutConstraint]()
     
     var label = UILabel()
@@ -59,7 +60,7 @@ class VisualizationViewController:UIViewController
         //setChart(months, values: unitsSold)
         setArtwork(delegate.paintManager.artwork)
     }
-    func addDataSet(name:String,values: [Double],color:UIColor){
+    func addDataSet(_ name:String,values: [Double],color:UIColor){
         var lineDataEntries:[ChartDataEntry] = []
         for i in 0..<values.count {
             lineDataEntries.append(ChartDataEntry(x: Double(i), y: values[i]))
@@ -69,7 +70,7 @@ class VisualizationViewController:UIViewController
         
         lineChartDataSet.setColor(color)
         lineChartDataSet.fillColor = color
-        lineChartDataSet.mode = .CubicBezier
+        lineChartDataSet.mode = .cubicBezier
         lineChartDataSet.drawFilledEnabled = true
         lineChartDataSet.drawCirclesEnabled = false
         
@@ -85,7 +86,7 @@ class VisualizationViewController:UIViewController
         lineChartView.data = lineChartData
     }
     var lineChartData:LineChartData!
-    func setChart(dataPoints: [String], values: [Double]) {
+    func setChart(_ dataPoints: [String], values: [Double]) {
         //barChartView.noDataTextDescription = "GIVE REASON"
         var dataEntries: [BarChartDataEntry] = []
         var lineDataEntries:[ChartDataEntry] = []
@@ -110,21 +111,24 @@ class VisualizationViewController:UIViewController
         let lineChartData = LineChartData(dataSet: lineChartDataSet)
         
         lineChartView.data = lineChartData
-        lineChartView.gridBackgroundColor = NSUIColor.blackColor()
-        lineChartView.backgroundColor = UIColor.grayColor()
+        lineChartView.gridBackgroundColor = NSUIColor.black
+        lineChartView.backgroundColor = UIColor.gray
         
         
     }
-    func setArtwork(artwork:PaintArtwork)
+    func setArtwork(_ artwork:PaintArtwork)
     {
         let analyzer = StrokeAnalyzer()
         analyzer.analyze(artwork.currentClip.strokes)
-        addDataSet("Force", values: analyzer.briefForces(),color:UIColor.cyanColor())
-        addDataSet("Speed", values: analyzer.briefSpeeds(),color:UIColor.brownColor())
-        addDataSet("Length", values: analyzer.briefLength(),color:UIColor.greenColor())
+        if(analyzer.lengths.count>0)
+        {
+            addDataSet("Force", values: analyzer.briefForces(),color:UIColor.cyan)
+            addDataSet("Speed", values: analyzer.briefSpeeds(),color:UIColor.brown)
+            addDataSet("Length", values: analyzer.briefLength(),color:UIColor.green)    
+        }
         //setChart([], values: )
     }
-    func didTap(gesture: UITapGestureRecognizer) {
+    func didTap(_ gesture: UITapGestureRecognizer) {
         
         currentGraphType.next()
         
@@ -153,34 +157,34 @@ class VisualizationViewController:UIViewController
         setupConstraints()
     }
 
-    private func createDarkGraph(frame: CGRect) -> ScrollableGraphView {
+    fileprivate func createDarkGraph(_ frame: CGRect) -> ScrollableGraphView {
         let graphView = ScrollableGraphView(frame: frame)
         //graphView.backgroundFillColor = UIColor.colorFromHex("#333333")
         graphView.backgroundFillColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0)
         graphView.lineWidth = 1
         graphView.lineColor = UIColor.colorFromHex("#777777")
-        graphView.lineStyle = ScrollableGraphViewLineStyle.Smooth
+        graphView.lineStyle = ScrollableGraphViewLineStyle.smooth
         
         graphView.shouldFill = true
-        graphView.fillType = ScrollableGraphViewFillType.Gradient
+        graphView.fillType = ScrollableGraphViewFillType.gradient
         graphView.fillColor = UIColor.colorFromHex("#555555")
-        graphView.fillGradientType = ScrollableGraphViewGradientType.Linear
+        graphView.fillGradientType = ScrollableGraphViewGradientType.linear
         graphView.fillGradientStartColor = UIColor.colorFromHex("#555555")
         graphView.fillGradientEndColor = UIColor.colorFromHex("#444444")
         
         graphView.dataPointSpacing = 2
         graphView.dataPointSize = 1
-        graphView.dataPointFillColor = UIColor.whiteColor()
+        graphView.dataPointFillColor = UIColor.white
         
-        graphView.referenceLineLabelFont = UIFont.boldSystemFontOfSize(8)
-        graphView.referenceLineColor = UIColor.whiteColor().colorWithAlphaComponent(0.2)
-        graphView.referenceLineLabelColor = UIColor.whiteColor()
+        graphView.referenceLineLabelFont = UIFont.boldSystemFont(ofSize: 8)
+        graphView.referenceLineColor = UIColor.white.withAlphaComponent(0.2)
+        graphView.referenceLineLabelColor = UIColor.white
         graphView.numberOfIntermediateReferenceLines = 5
-        graphView.dataPointLabelColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
+        graphView.dataPointLabelColor = UIColor.white.withAlphaComponent(0.5)
         
         graphView.shouldAnimateOnStartup = false
         graphView.shouldAdaptRange = true
-        graphView.adaptAnimationType = ScrollableGraphViewAnimationType.Elastic
+        graphView.adaptAnimationType = ScrollableGraphViewAnimationType.elastic
         graphView.animationDuration = 0.1
         graphView.rangeMax = 50
         graphView.shouldRangeAlwaysStartAtZero = true
@@ -189,15 +193,15 @@ class VisualizationViewController:UIViewController
     }
 
     
-    private func setupConstraints() {
+    fileprivate func setupConstraints() {
         
         self.graphView.translatesAutoresizingMaskIntoConstraints = false
         graphConstraints.removeAll()
         
-        let topConstraint = NSLayoutConstraint(item: self.graphView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
-        let rightConstraint = NSLayoutConstraint(item: self.graphView, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: 0)
-        let bottomConstraint = NSLayoutConstraint(item: self.graphView, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
-        let leftConstraint = NSLayoutConstraint(item: self.graphView, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
+        let topConstraint = NSLayoutConstraint(item: self.graphView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+        let rightConstraint = NSLayoutConstraint(item: self.graphView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0)
+        let bottomConstraint = NSLayoutConstraint(item: self.graphView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
+        let leftConstraint = NSLayoutConstraint(item: self.graphView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
         
         //let heightConstraint = NSLayoutConstraint(item: self.graphView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0)
         
@@ -212,18 +216,18 @@ class VisualizationViewController:UIViewController
     }
     
     // Adding and updating the graph switching label in the top right corner of the screen.
-    private func addLabel(withText text: String) {
+    fileprivate func addLabel(withText text: String) {
         
         label.removeFromSuperview()
         label = createLabel(withText: text)
-        label.userInteractionEnabled = true
+        label.isUserInteractionEnabled = true
         
-        let rightConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: -20)
+        let rightConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -20)
         
-        let topConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 20)
+        let topConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 20)
         
-        let heightConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40)
-        let widthConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: label.frame.width * 1.5)
+        let heightConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 40)
+        let widthConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: label.frame.width * 1.5)
         
         let tapGestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(didTap))
         label.addGestureRecognizer(tapGestureRecogniser)
@@ -232,15 +236,15 @@ class VisualizationViewController:UIViewController
         self.view.addConstraints([rightConstraint, topConstraint, heightConstraint, widthConstraint])
     }
     
-    private func createLabel(withText text: String) -> UILabel {
+    fileprivate func createLabel(withText text: String) -> UILabel {
         let label = UILabel()
         
-        label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        label.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         
         label.text = text
-        label.textColor = UIColor.whiteColor()
-        label.textAlignment = NSTextAlignment.Center
-        label.font = UIFont.boldSystemFontOfSize(14)
+        label.textColor = UIColor.white
+        label.textAlignment = NSTextAlignment.center
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         
         label.layer.cornerRadius = 2
         label.clipsToBounds = true
@@ -251,10 +255,10 @@ class VisualizationViewController:UIViewController
         
         return label
     }
-    private func generateRandomData(numberOfItems: Int, max: Double) -> [Double] {
+    fileprivate func generateRandomData(_ numberOfItems: Int, max: Double) -> [Double] {
         var data = [Double]()
         for _ in 0 ..< numberOfItems {
-            var randomNumber = Double(random()) % max
+            var randomNumber = Double(random()).truncatingRemainder(dividingBy: max)
             
             if(random() % 100 < 10) {
                 randomNumber *= 3
@@ -264,7 +268,7 @@ class VisualizationViewController:UIViewController
         }
         return data
     }
-    private func generateSequentialLabels(numberOfItems: Int, text: String) -> [String] {
+    fileprivate func generateSequentialLabels(_ numberOfItems: Int, text: String) -> [String] {
         var labels = [String]()
         for i in 0 ..< numberOfItems {
             labels.append("\(text) \(i+1)")
@@ -274,27 +278,27 @@ class VisualizationViewController:UIViewController
     
     // The type of the current graph we are showing.
     enum GraphType {
-        case Dark
-        case Bar
-        case Dot
-        case Pink
+        case dark
+        case bar
+        case dot
+        case pink
         
         mutating func next() {
             switch(self) {
-            case .Dark:
-                self = GraphType.Bar
-            case .Bar:
-                self = GraphType.Dot
-            case .Dot:
-                self = GraphType.Pink
-            case .Pink:
-                self = GraphType.Dark
+            case .dark:
+                self = GraphType.bar
+            case .bar:
+                self = GraphType.dot
+            case .dot:
+                self = GraphType.pink
+            case .pink:
+                self = GraphType.dark
             }
         }
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
-
+*/
 }
