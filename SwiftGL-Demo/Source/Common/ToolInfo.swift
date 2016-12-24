@@ -9,8 +9,8 @@
 import Foundation
 import SwiftGL
 public struct ToolStringInfo {
-    var toolName:String = "pen"
-    var brushTexture:String = "brush"
+    public var toolName:String = "pen"
+    public var brushTexture:String = "brush"
     public init()
     {
         

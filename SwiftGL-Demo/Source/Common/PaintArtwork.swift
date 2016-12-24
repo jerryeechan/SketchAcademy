@@ -11,7 +11,7 @@ enum ArtworkType:String{
     
 }
 import Foundation
-import PaintStrokeData
+import GLFramework
 class PaintArtwork
 {
     var artworkType:ArtworkType = .Artwork
@@ -43,7 +43,7 @@ class PaintArtwork
     var isFileExist:Bool = false
     
     var currentNoteIndex:Int = 0
-    var currentNote:Note!
+    var currentNote:SANote!
     
     init(width:Int,height:Int)
     {
@@ -133,6 +133,7 @@ class PaintArtwork
     func addRevisionClip(_ atStroke:Int)
     {
         let newClip = PaintClip(name: "revision",branchAt: atStroke)
+        newClip.strokeDelegate = _masterClip.strokeDelegate
         _revisionClips[atStroke] =  newClip
     }
     

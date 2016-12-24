@@ -8,12 +8,12 @@
 
 import SwiftGL
 import OpenGLES.ES2
-class Layer:NSObject{
+public class Layer:NSObject{
     var texture:Texture!
     var alpha:Float = 1
     var w,h:GLsizei!
     var enabled:Bool = true
-    convenience init(w: GLsizei, h: GLsizei)
+    public convenience init(w: GLsizei, h: GLsizei)
     {
         self.init()
         texture = Texture(w: w, h: h)
@@ -21,21 +21,21 @@ class Layer:NSObject{
         self.h = h
         
     }
-    convenience init(texture:Texture)
+    public convenience init(texture:Texture)
     {
         self.init()
         self.texture = texture
     }
-    func drawImage(_ glImage:GLImage,x:Int,y:Int)
+    public func drawImage(_ glImage:GLImage,x:Int,y:Int)
     {
         
     }
-    override init()
+    public override init()
     {
         super.init()
     }
     
-    func clean()
+    public func clean()
     {
         //texture = Texture(w: w, h: h)
         texture.empty()

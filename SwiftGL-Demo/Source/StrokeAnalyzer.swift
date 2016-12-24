@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import PaintStrokeData
+import GLFramework
 class StrokeAnalyzer{
     
     var speeds:[Double] = []
@@ -17,7 +17,7 @@ class StrokeAnalyzer{
         
         for stroke in strokes
         {
-            let result = pointAnalyzer.analyze(stroke.pointData);
+            let result = pointAnalyzer.analyze(points: stroke.pointData);
             speeds.append(Double(result.speed))
             forces.append(Double(result.paintPoint.force))
             lengths.append(Double(result.length))

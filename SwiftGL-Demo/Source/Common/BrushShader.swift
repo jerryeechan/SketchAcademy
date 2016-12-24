@@ -7,9 +7,9 @@
 //
 import SwiftGL
 import PaintStrokeData
-class BrushShader:GLShaderWrapper{
+public class BrushShader:GLShaderWrapper{
     
-    override init(name:String)
+    public override init(name:String)
     {
         super.init(name: name)
         addAttribute( "vertexPosition", type: Vec4.self)
@@ -25,24 +25,24 @@ class BrushShader:GLShaderWrapper{
     }
     
     var brushTexture:Texture!
-    func bindBrush()
+    public func bindBrush()
     {
         shader.bind(getUniform("texture"), brushTexture,index: 0)
     }
-    func bindBrushColor(_ color:Vec4)
+    public func bindBrushColor(_ color:Vec4)
     {
         shader.bind(getUniform("brushColor"), color)
     }
-    func bindBrushSize(_ size:Float)
+    public func bindBrushSize(_ size:Float)
     {
         shader.bind(getUniform("brushSize"), size)
     }
-    func bindBrushTexture(_ texture:Texture)
+    public func bindBrushTexture(_ texture:Texture)
     {
         shader.bind(getUniform("texture"), texture,index: 0)
         brushTexture = texture
     }
-    func bindBrushInfo(_ vInfo:ToolValueInfo)
+    public func bindBrushInfo(_ vInfo:ToolValueInfo)
     {
         bindBrushColor(vInfo.color.vec)
         bindBrushSize(vInfo.size)

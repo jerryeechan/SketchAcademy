@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import GLFramework
 class NoteButton:UIButton {
-    var note:Note!
+    var note:SANote!
     let btnWidth:CGFloat = 40
     override init(frame: CGRect) {
         super.init(frame: frame)

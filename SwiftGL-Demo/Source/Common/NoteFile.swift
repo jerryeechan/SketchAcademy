@@ -13,11 +13,11 @@ public class NoteFile: File {
     //file format: example.nt
     //contain with the note tags
     
-    override init() {
+    public override init() {
         
     }
 
-    func save(_ notes:[Note],filename:String)
+    public func save(_ notes:[SANote],filename:String)
     {
         data = NSMutableData()
         print(notes, terminator: "")
@@ -39,10 +39,10 @@ public class NoteFile: File {
         
         data.write(toFile: path+"/"+filename+".nt", atomically: true)
     }
-    override func delete(_ filename: String) {
+    override public func delete(_ filename: String) {
         super.delete(filename+".nt")
     }
-    func load(_ filename:String)->[Int:Note]
+    public func load(_ filename:String)->[Int:SANote]
     {
         // need to find the correct format first
         
@@ -51,7 +51,7 @@ public class NoteFile: File {
         if checkFileExist(path)
         {
             parseData = readFile(filename+".nt") as NSData!
-            var notes:[Int:Note] = [Int:Note]()
+            var notes:[Int:SANote] = [Int:SANote]()
             
             let length:Int = parseStruct() //1.note count
             for _ in 0 ..< length
@@ -64,15 +64,15 @@ public class NoteFile: File {
                 let valueData:NoteValueData = parseStruct()
                 //print("valueData")
                 
-                var note:Note
+                var note:SANote
                 
                 //print(valueData.strokeIndex)
                 if title == nil
                 {
-                    note = Note(title: "", description: description!,valueData: valueData)
+                    note = SANote(title: "", description: description!,valueData: valueData)
                 }
                 else{
-                    note = Note(title: title!, description: description!,valueData: valueData)
+                    note = SANote(title: title!, description: description!,valueData: valueData)
                 }
                 
                 
@@ -84,7 +84,7 @@ public class NoteFile: File {
         }
         else
         {
-            return [Int:Note]()
+            return [Int:SANote]()
         }
         
     }

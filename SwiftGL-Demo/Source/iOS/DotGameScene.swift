@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 import SwiftGL
-
+import GLFramework
 class DotGameScene: SKScene {
     
     let player = SKSpriteNode(imageNamed: "doraemon")

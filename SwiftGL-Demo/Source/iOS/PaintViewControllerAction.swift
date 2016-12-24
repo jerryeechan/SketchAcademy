@@ -5,7 +5,7 @@
 //  Created by jerry on 2015/12/5.
 //  Copyright © 2015年 Jerry Chan. All rights reserved.
 //
-
+import GLFramework
 extension PaintViewController:UITextFieldDelegate
 {
     @IBAction func switchModeBtnTouched(_ sender: UIBarButtonItem) {

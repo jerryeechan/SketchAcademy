@@ -9,6 +9,7 @@
 import OpenGLES.ES3
 import GLKit
 import SwiftGL
+import GLFramework
 class PaintView: GLKView {
     var glcontext:EAGLContext!
     var eaglLayer:CAEAGLLayer!

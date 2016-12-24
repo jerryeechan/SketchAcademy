@@ -10,7 +10,7 @@ import SwiftGL
 import Darwin
 import Foundation
 import UIKit
-import PaintStrokeData
+import GLFramework
 /**
     record the given input data and save into PaintArtwork
 */
@@ -38,18 +38,21 @@ class PaintRecorder {
     
     func startPoint(_ sender:UIPanGestureRecognizer,view:PaintView)
     {
-        
-        stroke = PaintStroke(tool: context.paintToolManager.currentTool)
+        let tool = context.paintToolManager.currentTool
+        strokeStartTime = CFAbsoluteTimeGetCurrent()
+        stroke = PaintStroke(s: (tool?.sInfo)!, v: (tool?.vInfo)!,startTime: strokeStartTime)
         context.paintToolManager.useCurrentTool()
         stroke.addPoint(genPaintPoint(sender, view: view,context: context), time: 0)
-        strokeStartTime = CFAbsoluteTimeGetCurrent()
+        
     }
     func startPoint(_ touch:UITouch,view:PaintView)
     {
-        stroke = PaintStroke(tool: context.paintToolManager.currentTool)
+        let tool = context.paintToolManager.currentTool
+        strokeStartTime = CFAbsoluteTimeGetCurrent()
+        stroke = PaintStroke(s: (tool?.sInfo)!, v: (tool?.vInfo)!,startTime: strokeStartTime)
         context.paintToolManager.useCurrentTool()
         stroke.addPoint(genPaintPoint(touch, view: view,context: context), time: 0)
-        strokeStartTime = CFAbsoluteTimeGetCurrent()
+        
     }
     var isTemp:Bool = false
     var tempLastPoint:PaintPoint!
@@ -174,6 +177,7 @@ func genPaintPoint(_ touch:UITouch,view:PaintView,context:GLContextBuffer)->Pain
             force = touch.force/touch.maximumPossibleForce
             altitude = touch.altitudeAngle
             azimuth = touch.azimuthUnitVector(in: view)
+            //context.azimuth = Vec4(Float(azimuth.dx),Float(-azimuth.dy),0,0)
             location.y = CGFloat(view.bounds.height) - location.y
             //print(Vec2(point: dir).length)
             //DLog("Azimuth: \(azimuth)")

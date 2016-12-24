@@ -9,12 +9,12 @@
 import OpenGLES.ES2
 import SwiftGL
 
-enum RenderMode{
+public enum RenderMode{
     case direct
     case drawing
 }
 
-class GLRenderCanvas{
+public class GLRenderCanvas{
     var tempLayer:Layer!
     var layers:[Layer] = []
     var caches:Dictionary<Int,LayerCache> = Dictionary<Int,LayerCache>()
@@ -28,7 +28,7 @@ class GLRenderCanvas{
     var primitiveLayer:Layer
 
     
-    init(w:GLint,h:GLint)
+    public init(w:GLint,h:GLint)
     {
         self.width = w
         self.height = h
@@ -58,7 +58,7 @@ class GLRenderCanvas{
     }
     
     
-    func changeBackground(_ filename:String)
+   public  func changeBackground(_ filename:String)
     {
         if(filename != "none")
         {
@@ -70,44 +70,44 @@ class GLRenderCanvas{
         }
         
     }
-    func addEmptyLayer()
+    public func addEmptyLayer()
     {
         layers.append(Layer(w: width, h: height))
         currentLayer = layers.last!
     }
-    func addImageLayer(_ filename:String,index:Int = 0)
+    public func addImageLayer(_ filename:String,index:Int = 0)
     {
         
         let newLayer = Layer(texture: Texture(filename: filename))
         layers.insert(newLayer, at: 0)
         //currentLayer = layers.last!
     }
-    func selectRevisionLayer()
+   public  func selectRevisionLayer()
     {
         currentLayer = revisionLayer
     }
-    func setAllLayerAlpha(_ alpha:Float)
+    public func setAllLayerAlpha(_ alpha:Float)
     {
         for layer in layers
         {
             layer.alpha = alpha
         }
     }
-    func enableAllLayer()
+    public func enableAllLayer()
     {
         for layer in layers
         {
             layer.enabled = true
         }
     }
-    func disableAllLayer()
+    public func disableAllLayer()
     {
         for layer in layers
         {
             layer.enabled = false
         }
     }
-    func selectLayer(_ index:Int)
+    public func selectLayer(_ index:Int)
     {
         if (index >= 0 && index < layers.count)
         {
@@ -117,21 +117,27 @@ class GLRenderCanvas{
             
         }
     }
-    func setPrimitiveBuffer()->Bool
+    public func setPrimitiveBuffer()->Bool
     {
         return setBuffer(primitiveLayer)
     }
-    func setTempBuffer()->Bool
+    public func setTempBuffer()->Bool
     {
         return setBuffer(tempLayer)
     }
-    func blankTempLayer()
+    public func blankTempLayer()
     {
-        setTempBuffer()
-        glClearColor(0, 0, 0, 0)
-        glClear(GL_COLOR_BUFFER_BIT)
+        if(setTempBuffer())
+        {
+            glClearColor(0, 0, 0, 0)
+            glClear(GL_COLOR_BUFFER_BIT)
+        }
+        else{
+            print("error");
+        }
+        
     }
-    func blankCurrentLayer()
+    public func blankCurrentLayer()
     {
         if(setBuffer(currentLayer)==true)
         {
@@ -145,7 +151,7 @@ class GLRenderCanvas{
         }
         
     }
-    func genCacheFrame(_ atStroke:Int)->LayerCache!
+    public func genCacheFrame(_ atStroke:Int)->LayerCache!
     {
         DLog("gen cache \(atStroke)")
         //check cache exist
@@ -155,12 +161,12 @@ class GLRenderCanvas{
     }
     
         
-    func getCaches()->[LayerCache]
+    public func getCaches()->[LayerCache]
     {
         let array = Array(caches.values).sorted(by: {$0.atStroke < $1.atStroke})
         return array
     }
-    func getNearestCacheIndex(_ targetIndex:Int)->Int{
+    public func getNearestCacheIndex(_ targetIndex:Int)->Int{
         let array = Array(caches.values).sorted(by: {$0.atStroke < $1.atStroke})
         //the index in Layer Cache arraya
         
@@ -176,14 +182,14 @@ class GLRenderCanvas{
         }
         
     }
-    func cloneLayer(){
+    public func cloneLayer(){
         
     }
-    func setBuffer()->Bool
+    public func setBuffer()->Bool
     {
         return setBuffer(currentLayer)
     }
-    func setBuffer(_ layer:Layer)->Bool
+    public func setBuffer(_ layer:Layer)->Bool
     {
         glBindFramebuffer((GL_FRAMEBUFFER), framebuffer)
         glFramebufferTexture2D((GL_FRAMEBUFFER), (GL_COLOR_ATTACHMENT0),(GL_TEXTURE_2D),layer.texture.id, 0)

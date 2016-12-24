@@ -7,11 +7,14 @@
 //
 
 import Foundation
-protocol Initable {
+public protocol Initable {
     init()
 }
 extension Int:Initable
 {
 }
-
+extension Double:Initable
+{
+    
+}
 

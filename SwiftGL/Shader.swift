@@ -52,19 +52,19 @@ open class Shader {
     }
     
     public init(vertexSource: String, fragmentSource: String) {
-        compile(vertexSource, fragmentSource)
+        _ = compile(vertexSource, fragmentSource)
     }
     
     public init(vertexSource: String, fragmentSource: String, bindAttibutes: (GLprogram) -> ()) {
-        compile(vertexSource, fragmentSource, bindAttibutes)
+        _ = compile(vertexSource, fragmentSource, bindAttibutes)
     }
     
     public init(vertexFile: String, fragmentFile: String) {
-        load(vertexFile, fragmentFile)
+        _ = load(vertexFile, fragmentFile)
     }
     
     public init(vertexFile: String, fragmentFile: String, bindAttibutes: (GLprogram) -> ()) {
-        load(vertexFile, fragmentFile, bindAttibutes)
+        _ = load(vertexFile, fragmentFile, bindAttibutes)
     }
     
     deinit {

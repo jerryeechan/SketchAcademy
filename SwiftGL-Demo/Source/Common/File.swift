@@ -16,14 +16,18 @@ open class File {
     
     open static var nsFileManager:Foundation.FileManager = Foundation.FileManager.default
     
-    var currentPtr = 0
+    public var currentPtr = 0
 
     //utility
-    var data:NSMutableData!
-    var parseData:NSData!
+    public var data:NSMutableData!
+    public var parseData:NSData!
 //----------------------------------------
 //start of parsing
-    func parseInt()->Int
+    public init()
+    {
+        
+    }
+    public func parseInt()->Int
     {
         var length:Int = 0
         parseData.getBytes(&length, range: NSMakeRange(currentPtr, MemoryLayout<Int>.size))
@@ -31,7 +35,7 @@ open class File {
         currentPtr += MemoryLayout<Int>.size
         return length
     }
-    func parseString()->String!
+    public func parseString()->String!
     {
         
         let length:Int = parseStruct()
@@ -48,7 +52,7 @@ open class File {
         
         return str as! String
     }
-    func parseStruct<T:Initable>()->T{
+    public func parseStruct<T:Initable>()->T{
         var t:T = T()
         //print("currentPtr \(currentPtr) parse struct \(strideof(T))")
         
@@ -59,7 +63,7 @@ open class File {
         return t
     }
     
-    func parseStructArray<T:Initable>()->[T]
+    public func parseStructArray<T:Initable>()->[T]
     {
         let length = parseInt()
 
@@ -76,7 +80,7 @@ open class File {
 //--------------------------------------------
     
     
-    func encodeString(_ str:String)
+    public func encodeString(_ str:String)
     {
         
         let length = str.lengthOfBytes(using: String.Encoding.utf8)
@@ -84,12 +88,12 @@ open class File {
         data.append([length], length: MemoryLayout<Int>.size)
         data.append(str.data(using: String.Encoding.utf8)!)
     }
-    func encodeStruct<T>(_ value:T)
+    public func encodeStruct<T>(_ value:T)
     {
      //   print("encode Struct \(value):\(strideof(T))")
         data.append([value], length: MemoryLayout<T>.stride)
     }
-    func encodeStructArray<T>(_ t:[T])
+    public func encodeStructArray<T>(_ t:[T])
     {
         data.append([t.count], length: MemoryLayout<Int>.size)
         data.append(t, length: t.count*MemoryLayout<T>.size)
@@ -97,7 +101,7 @@ open class File {
     
     
     fileprivate static var _dirpath:String!
-    static var dirpath:String{
+    public static var dirpath:String{
         get
         {
             if (_dirpath != nil)
@@ -131,7 +135,7 @@ open class File {
     }
     
     //create the file path
-    func createPath(_ filename:String)->String
+    public func createPath(_ filename:String)->String
     {
         let dirs = NSSearchPathForDirectoriesInDomains(Foundation.FileManager.SearchPathDirectory.documentDirectory, Foundation.FileManager.SearchPathDomainMask.allDomainsMask, true)
         
@@ -143,7 +147,7 @@ open class File {
         return path
     }
     
-    func checkFileExist(_ path:String)->Bool
+    public func checkFileExist(_ path:String)->Bool
     {
         return File.nsFileManager.fileExists(atPath: path)
     }
@@ -158,7 +162,7 @@ open class File {
     *   read part
     */
     //##################################################
-    func readFile(_ filename:String)->Data!
+    public func readFile(_ filename:String)->Data!
     {
         var data:Data
         if let dirs : [String] = NSSearchPathForDirectoriesInDomains(Foundation.FileManager.SearchPathDirectory.documentDirectory, Foundation.FileManager.SearchPathDomainMask.allDomainsMask, true) {
@@ -176,7 +180,7 @@ open class File {
             return nil
         }
     }
-    func readStringFile(_ filename:String)->String!
+    public func readStringFile(_ filename:String)->String!
     {
         let content:String!
         if let dirs : [String] = NSSearchPathForDirectoriesInDomains(Foundation.FileManager.SearchPathDirectory.documentDirectory, Foundation.FileManager.SearchPathDomainMask.allDomainsMask, true) {
@@ -204,7 +208,7 @@ open class File {
     }
     
     
-    func delete(_ filename:String)
+    open func delete(_ filename:String)
     {
         let path = File.dirpath+"/"+filename
         do {

@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Jerry Chan. All rights reserved.
 //
 import SwiftGL
+import GLFramework
 class StrokeSelecter {
     var area:GLRect!
     var selectRectView:SelectRectView!
@@ -17,6 +18,7 @@ class StrokeSelecter {
     init()
     {
         selectingClip = PaintClip(name: "selecting", branchAt: 0)
+        selectingClip.strokeDelegate = PaintViewController.instance
     }
     convenience init(selectRectView:SelectRectView)
     {

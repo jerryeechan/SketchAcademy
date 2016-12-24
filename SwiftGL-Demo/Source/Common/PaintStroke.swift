@@ -10,9 +10,6 @@ import Foundation
 import GLKit
 import SwiftGL
 
-public struct StrokeInfo{
-    var timeAfterLast:Double
-}
 
 /*
 if _bound == nil
@@ -43,36 +40,30 @@ public class PaintStroke:HasBound
             _bound = newValue
         }
     }
-    var points:[PaintPoint] = []
+    public var points:[PaintPoint] = []
     //var position:[Vec2]=[]
     //var timestamps:[CFTimeInterval]=[]
     //var velocities:[Vec2] = []
     
-    var pointData:[PointData] = []
+    public var pointData:[PointData] = []
     
-    var startTime:Double!
-    var texture:Texture!
-    var valueInfo:ToolValueInfo
-    var stringInfo:ToolStringInfo
-    var strokeInfo:StrokeInfo!
+    public var startTime:Double
+    public var texture:Texture!
+    public var valueInfo:ToolValueInfo
+    public var stringInfo:ToolStringInfo
     
     //init(tool:PaintBrush)   //use when recording
-    init(stringInfo:ToolStringInfo,valueInfo:ToolValueInfo)   //use when recording
-    {
-        self.stringInfo = stringInfo
-        self.valueInfo = valueInfo
-        //stringInfo = tool.sInfo
-        //valueInfo = tool.vInfo
-        startTime =  CFAbsoluteTimeGetCurrent()
-    }
-    init(s:ToolStringInfo,v:ToolValueInfo) //use when load data
+    
+    //startTime
+    public init(s:ToolStringInfo,v:ToolValueInfo,startTime:Double) //use when load data
     {
         //let brush = PaintToolManager.instance.getTool(s.toolName)
         stringInfo = s
         valueInfo = v
+        self.startTime = startTime
         //strokeInfo = sti
     }
-    func genPointsFromPointData()
+    public func genPointsFromPointData()
     {
         points = []
         for i in 0 ..< pointData.count 
@@ -80,15 +71,15 @@ public class PaintStroke:HasBound
             points.append(pointData[i].paintPoint)
         }
     }
-    func isPaintingAvalible()->Bool
+    public func isPaintingAvalible()->Bool
     {
         return points.count>2
     }
-    func last()->PaintPoint!
+    public func last()->PaintPoint!
     {
         return points.last!
     }
-    func lastTwo()->[PaintPoint]
+    public func lastTwo()->[PaintPoint]
     {
         if(points.count>1)
         {
@@ -98,7 +89,7 @@ public class PaintStroke:HasBound
         }
         return []
     }
-    func lastThree()->[PaintPoint]
+    public func lastThree()->[PaintPoint]
     {
         if(points.count>2)
         {
@@ -108,7 +99,7 @@ public class PaintStroke:HasBound
         }
         return []
     }
-    func addPoint(_ point:PaintPoint,time:CFAbsoluteTime)
+    public func addPoint(_ point:PaintPoint,time:CFAbsoluteTime)
     {
         points+=[point]
         pointData.append(PointData(paintPoint: point,t: time))
@@ -118,7 +109,7 @@ public class PaintStroke:HasBound
         }
         expandBound(point.position)
     }
-    func expandBound(_ position:Vec4)
+    public func expandBound(_ position:Vec4)
     {
         if position.x < _bound.leftTop.x
         {
@@ -153,13 +144,30 @@ public class PaintStroke:HasBound
     {
         
     }
-    
+    public var jsonStrokeInfo:String
+    {
+        get{
+            let s = "{\"tool\":\(stringInfo.toolName),\"startTime\":\(startTime),\"endTime\":\(pointData.last?.timestamps)}"
+            return s
+        }
+    }
+
 }
 extension Sequence where Iterator.Element == PaintStroke
 {
-    var tojson:String{
+    public var tojson:String{
         get{
-            return "[" + self.map {$0.pointData.jsonArray}.joined(separator: ",") + "]"
+            var s = "["
+            s += self.map {$0.pointData.jsonArray}.joined(separator: ",")
+            s += "]"
+            return s
         }
     }
+    public var tojsonStrokeInfo:String{
+        var s = "["
+        s += self.map {$0.jsonStrokeInfo}.joined(separator: ",")
+        s += "]"
+        return s
+    }
 }
+

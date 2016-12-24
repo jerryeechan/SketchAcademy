@@ -8,9 +8,6 @@
 
 import SwiftGL
 import UIKit
-public func + (a: CGPoint, b: CGPoint) -> CGPoint {return CGPoint(x: a.x + b.x, y: a.y + b.y)}
-public func += (a: inout CGPoint, b: CGPoint) {a = a + b};
-
 enum TwoSwipeState{
     case unknown
     case fastSwipe
@@ -123,7 +120,7 @@ extension PaintViewController {
                 location.y = CGFloat(paintView.bounds.height) - location.y
                 strokeSelecter.addSelectPoint(Vec2(point: location)*Float(paintView.contentScaleFactor))
             case UIGestureRecognizerState.ended:
-                strokeSelecter.selectStrokesInPolygon()
+                _ = strokeSelecter.selectStrokesInPolygon()
             default :
                 break
             }

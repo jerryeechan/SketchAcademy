@@ -7,8 +7,8 @@
 //
 
 import Foundation
-class NoteTextView:UIVisualEffectView{
-    override func awakeFromNib() {
+public class NoteTextView:UIVisualEffectView{
+    public override func awakeFromNib() {
         for view in subviews
         {
             view.layer.cornerRadius = 5

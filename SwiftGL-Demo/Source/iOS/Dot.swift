@@ -8,6 +8,7 @@
 
 import SpriteKit
 import SwiftGL
+import CGUtility
 class Dot: SKNode {
     
     

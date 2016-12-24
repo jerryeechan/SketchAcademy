@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CGUtility
 class PlayBackControlPanel:UIView {
     var enabled:Bool = true
     var UITimer:Timer!

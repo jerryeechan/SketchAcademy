@@ -65,9 +65,9 @@ extension PaintViewController
         {
         case 0:
             
-            paintView.paintBuffer.paintToolManager.changeTool("oil")
+            _ = paintView.paintBuffer.paintToolManager.changeTool("oil")
         case 1:
-           paintView.paintBuffer.paintToolManager.changeTool("pen")
+            _ = paintView.paintBuffer.paintToolManager.changeTool("pen")
             
         case 2:
            break
@@ -75,7 +75,7 @@ extension PaintViewController
         case -1:
             if !doubleTap
             {
-                paintView.paintBuffer.paintToolManager.changeTool("eraser")
+               _ =  paintView.paintBuffer.paintToolManager.changeTool("eraser")
                 paintView.paintBuffer.setBrushDrawSetting(paintView.paintBuffer.paintToolManager.currentTool.toolType)
                 
             }

@@ -331,7 +331,7 @@
                                             <constraint firstAttribute="width" constant="240" id="xhL-6T-IB7"/>
                                         </constraints>
                                     </imageView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SV6-a0-g61" customClass="YTPlayerView">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SV6-a0-g61" customClass="YouTubePlayerView" customModule="SwiftYoutubePlayer">
                                         <rect key="frame" x="0.0" y="46" width="1024" height="516"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -594,7 +594,7 @@
                                             <constraint firstItem="Wfk-wO-yV3" firstAttribute="leading" secondItem="0hW-m0-vRJ" secondAttribute="leading" constant="-80" id="sM7-1M-ZU5"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2CA-XT-VkX" customClass="ColorPicker" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2CA-XT-VkX" customClass="ColorPicker" customModule="SwiftColorPicker">
                                         <rect key="frame" x="0.0" y="51" width="200" height="381"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iV9-oV-7Ad" userLabel="NearColorView">
@@ -660,7 +660,7 @@
                                                     <constraint firstAttribute="width" constant="200" id="hFX-oE-rcx"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HM2-rj-SlN" customClass="HueView" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HM2-rj-SlN" customClass="HueView" customModule="SwiftColorPicker">
                                                 <rect key="frame" x="0.0" y="216" width="200" height="28"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -668,7 +668,7 @@
                                                     <constraint firstAttribute="width" constant="200" id="v3C-aD-FA7"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhP-HB-Oyp" userLabel="ColorGradientView" customClass="ColorGradientView" customModule="SwiftGL_Demo_iOS" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhP-HB-Oyp" userLabel="ColorGradientView" customClass="ColorGradientView" customModule="SwiftColorPicker">
                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>

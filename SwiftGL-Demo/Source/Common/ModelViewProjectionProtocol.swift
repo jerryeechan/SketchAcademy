@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Jerry Chan. All rights reserved.
 //
 import SwiftGL
-protocol ModelViewProjectionProtocol
+public protocol ModelViewProjectionProtocol
 {
     func bindMVP(_ mat4:Mat4)
 }

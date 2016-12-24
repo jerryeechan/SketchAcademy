@@ -12,7 +12,7 @@ public enum NoteType{
     case question
     case revision
 }
-public struct Note{
+public struct SANote{
     public var title:String
     public var description:String
     public var value:NoteValueData
@@ -33,16 +33,16 @@ public struct Note{
 }
 
 public struct NoteValueData:Initable {
-    var strokeIndex:Int
-    var timestamps:TimeInterval
+    public var strokeIndex:Int
+    public var timestamps:TimeInterval
     //var type:NoteType
-    init()
+    public init()
     {
         strokeIndex = 0
         timestamps = 0
         //type = .Note
     }
-    init(strokeIndex:Int,timestamps:TimeInterval){
+    public init(strokeIndex:Int,timestamps:TimeInterval){
         self.strokeIndex = strokeIndex
         self.timestamps = timestamps
         //self.type = type

@@ -36,7 +36,7 @@ class CrossHairView: UIView {
         print(point, terminator: "")
         
         // Notify delegate of the new new color selection
-        delegate?.colorSaturationAndBrightnessSelected(point)
+        _ = delegate?.colorSaturationAndBrightnessSelected(point)
         // Update display when possible
         setNeedsDisplay()
     }
@@ -47,7 +47,7 @@ class CrossHairView: UIView {
         let touch = touches.first
         point = touch!.location(in: self)
         // Notify delegate of the new new color selection
-        delegate?.colorSaturationAndBrightnessSelected(point)
+        _ = delegate?.colorSaturationAndBrightnessSelected(point)
         // Update display when possible
         //self.layer.backgroundColor =
         setNeedsDisplay()
@@ -59,7 +59,7 @@ class CrossHairView: UIView {
         let touch = touches.first
         point = touch!.location(in: self)
         // Notify delegate of the new new color selection
-        delegate?.colorSaturationAndBrightnessSelected(point)
+        _ = delegate?.colorSaturationAndBrightnessSelected(point)
         // Update display when possible
         setNeedsDisplay()
     }

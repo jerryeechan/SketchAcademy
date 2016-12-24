@@ -7,9 +7,9 @@
 //
 
 import UIKit
-class LayerCache:Layer {
-    var atStroke:Int = 0
-    convenience init(atStroke:Int,w: GLsizei, h: GLsizei)
+public class LayerCache:Layer {
+    public var atStroke:Int = 0
+    public convenience init(atStroke:Int,w: GLsizei, h: GLsizei)
     {
         self.init(w: w, h: h)
         self.atStroke = atStroke

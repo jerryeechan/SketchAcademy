@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Jerry Chan. All rights reserved.
 //
 import SwiftGL
-struct Attribute{
+public struct Attribute{
     var iLoc:GLuint
     var glType:GLenum
     var glNormalized:GLboolean
@@ -22,13 +22,13 @@ struct Attribute{
         offset = MemoryLayout<T>.size
     }
 }
-class GLShaderWrapper:ModelViewProjectionProtocol{
+public class GLShaderWrapper:ModelViewProjectionProtocol{
     var shader:Shader!
     var uniformDict:[String:GLint] = [String:GLint]()
     var attributes = [Attribute]()
     
     //only load the shader, inherite custom class to add attribute and uniform
-    init(name:String)
+    public init(name:String)
     {
         shader = Shader()
         if !(shader.load( "\(name).vsh","\(name).fsh") {
@@ -39,17 +39,17 @@ class GLShaderWrapper:ModelViewProjectionProtocol{
                 glDebug(#file, line: #line)
         }
     }
-    func addUniform(_ uniformName:String)
+    public func addUniform(_ uniformName:String)
     {
         uniformDict[uniformName] = glGetUniformLocation(shader.id, uniformName)
     }
-    func addAttribute<T:GLType>(_ name:String,type:T.Type)
+    public func addAttribute<T:GLType>(_ name:String,type:T.Type)
     {
         let iLoc = GLuint(glGetAttribLocation(shader.id, name))
         glEnableVertexAttribArray(iLoc)
         attributes.append(Attribute(i: iLoc, t: type))
     }
-    func getUniform(_ name:String)->GLint!
+    public func getUniform(_ name:String)->GLint!
     {
         let uniform = uniformDict[name]
         if uniform == nil
@@ -59,7 +59,7 @@ class GLShaderWrapper:ModelViewProjectionProtocol{
         
         return uniform
     }
-    func bindVertexs<T>(_ vertextBuffer:[T])
+    public func bindVertexs<T>(_ vertextBuffer:[T])
     {
         //bind vertex buffer to vertex buffer object
         let vao = GLShaderBinder.instance.vao
@@ -75,11 +75,11 @@ class GLShaderWrapper:ModelViewProjectionProtocol{
             offset+=attrib.offset
         }
     }
-    func useShader()
+    public func useShader()
     {
         shader.useProgram()
     }
-    func bindMVP(_ mat4:Mat4)
+    public func bindMVP(_ mat4:Mat4)
     {
         shader.bind(getUniform("MVP"), mat4)
     }

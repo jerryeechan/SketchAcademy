@@ -7,8 +7,8 @@
 //
 
 import Foundation
-class NoteProgressView:UIView{
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+public class NoteProgressView:UIView{
+    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         setNeedsDisplay()
         for subview in subviews
         {
@@ -19,7 +19,7 @@ class NoteProgressView:UIView{
         }
         return super.point(inside: point, with: event)
     }
-    override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         DLog("droaw")
       
     }

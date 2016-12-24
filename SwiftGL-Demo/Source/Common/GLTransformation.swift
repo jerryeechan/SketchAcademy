@@ -10,18 +10,18 @@ import Foundation
 import SwiftGL
 import OpenGLES.ES2
 
-class GLTransformation{
+public class GLTransformation{
     var projectionMatrix = Mat4.identity()
     var modelViewMatrix = Mat4.identity()
-    static var instance:GLTransformation!
-    init()
+    public static var instance:GLTransformation!
+    public init()
     {
         GLTransformation.instance = self
         //qubeTest()
     }
-    var width:Float!
-    var height:Float!
-    func getTransformPercentMatrix(_ left:Float,right:Float,top:Float,bottom:Float)->Mat4
+    public var width:Float!
+    public var height:Float!
+    public func getTransformPercentMatrix(_ left:Float,right:Float,top:Float,bottom:Float)->Mat4
     {
         
         projectionMatrix = Mat4.ortho(left: left*width, right: right*width, bottom: bottom*height, top:top*height, near: -1, far: 1 );
@@ -30,7 +30,7 @@ class GLTransformation{
         mvpMatrix = projectionMatrix * modelViewMatrix
         return mvpMatrix
     }
-    func resize(_ width:GLint,height:GLint)
+    public func resize(_ width:GLint,height:GLint)
     {
         self.width = Float(width)
         self.height = Float(height)
@@ -61,7 +61,7 @@ class GLTransformation{
     }
     var mvpShiftedMatrix:Mat4 = Mat4.identity()
     var mvpMatrix:Mat4 = Mat4.identity()
-    func calTransformMat(_ translation:Vec2,rotation:Float,scale:Float)
+    public func calTransformMat(_ translation:Vec2,rotation:Float,scale:Float)
     {
         modelview = Mat4.identity()*Mat4.translate(translation) * Mat4.rotateZ(rotation) * Mat4.scale(scale)
         //GLShaderBinder.instance.bindMVP(MVPMatrix)

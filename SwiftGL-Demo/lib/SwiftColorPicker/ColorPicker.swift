@@ -11,13 +11,13 @@
 
 import UIKit
 
-class ColorPicker: UIView {
+public class ColorPicker: UIView {
     var crossHairView: CrossHairView!
     weak var colorView: ColorGradientView!
     weak var hueView: HueView!
     var selectedColorView: SelectedColorView!
-    var onColorChange:((_ color:UIColor, _ finished:Bool)->Void)? = nil
-    var color: UIColor!
+    public var onColorChange:((_ color:UIColor, _ finished:Bool)->Void)? = nil
+    public var color: UIColor!
     var hue: CGFloat = 1.0
     var saturation: CGFloat = 1.0
     var brightness: CGFloat = 1.0
@@ -26,7 +26,7 @@ class ColorPicker: UIView {
     
     var smallestDim: CGFloat = 200.0
     
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         isOpaque = false
         backgroundColor = UIColor.clear
         
@@ -34,7 +34,7 @@ class ColorPicker: UIView {
         color = UIColor.red
     }
     
-    func setTheColor(_ color: UIColor) {
+    public func setTheColor(_ color: UIColor) {
         var hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
         let ok: Bool = color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         if (!ok) {
@@ -49,7 +49,7 @@ class ColorPicker: UIView {
         notifyViews(color,hue:hue)
     }
     
-    func setup(_ hueView:HueView,colorGradientView:ColorGradientView) {
+    public func setup(_ hueView:HueView,colorGradientView:ColorGradientView) {
         // Remove all subviews
         self.hueView = hueView
         self.colorView = colorGradientView
@@ -97,7 +97,7 @@ class ColorPicker: UIView {
     }
     
     
-    func mainColorSelected(_ color: UIColor, point: CGPoint) {
+    public func mainColorSelected(_ color: UIColor, point: CGPoint) {
         
         var hue:CGFloat = 0
         var sat:CGFloat = 0
@@ -113,7 +113,7 @@ class ColorPicker: UIView {
     
     
     
-    func colorSaturationAndBrightnessSelected(_ point: CGPoint)->UIColor {
+    public func colorSaturationAndBrightnessSelected(_ point: CGPoint)->UIColor {
         
         // Determine the brightness and saturation of the selected color based upon the selection coordinates and the dimensions of the container
         
@@ -128,7 +128,7 @@ class ColorPicker: UIView {
         return color
     }
     
-    func notifyViews(_ selectedColor: UIColor,hue:CGFloat) {
+    public func notifyViews(_ selectedColor: UIColor,hue:CGFloat) {
         
         colorView.setColor(selectedColor,hue:hue)
         //crossHairView.setTheColor(selectedColor)
@@ -148,7 +148,7 @@ class ColorPicker: UIView {
     }
 }
 
-func getNearByColor(_ color:UIColor)->[UIColor]
+public func getNearByColor(_ color:UIColor)->[UIColor]
 {
     var hue:CGFloat = 0
     var sat:CGFloat = 0

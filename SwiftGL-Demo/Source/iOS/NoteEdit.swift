@@ -5,6 +5,7 @@
 //  Created by jerry on 2016/2/13.
 //  Copyright © 2016年 Jerry Chan. All rights reserved.
 //
+import GLFramework
 extension PaintViewController:UITextViewDelegate
 {
     func noteEditSetUp()
@@ -52,7 +53,7 @@ extension PaintViewController:UITextViewDelegate
         return true
     }
     
-     func newNote(_ atStroke:Int)->Note
+     func newNote(_ atStroke:Int)->SANote
      {
         noteTitleField.text = ""
         noteDescriptionTextView.clear()

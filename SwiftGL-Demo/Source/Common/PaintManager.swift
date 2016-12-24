@@ -14,7 +14,7 @@ enum ViewingClipType
     case artwork
     case revision
 }
-import PaintStrokeData
+import GLFramework
 class PaintManager {
     
     weak var paintView:PaintView!
@@ -236,6 +236,8 @@ class PaintManager {
                 currentClip.undoClean()
                 artwork.currentReplayer.drawAll()
                 paintView.glDraw()
+            default:
+                break
             }
         }
         else
@@ -257,6 +259,8 @@ class PaintManager {
             case Operation.clean:
                 clean()
                 DLog("\(artwork.currentClip.currentStrokeID) \(artwork.currentClip.strokes.count) \(currentClip.redoOp)")
+            default:
+                break
             }
         }
         else{

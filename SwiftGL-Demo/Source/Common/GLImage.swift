@@ -7,12 +7,12 @@
 //
 
 import SwiftGL
-class GLImage{
+public class GLImage{
     
     var texture:Texture!
     var alpha:Float = 1
     var enabled:Bool = true
-    convenience init(texture:Texture)
+    public convenience init(texture:Texture)
     {
         self.init()
         self.texture = texture

@@ -13,9 +13,10 @@ import SwiftGL
 import OpenGLES
 
 
+import SwiftColorPicker
+import GLFramework
 
-
-class PaintViewController:UIViewController, UIGestureRecognizerDelegate
+class PaintViewController:UIViewController, UIGestureRecognizerDelegate,StrokeProgressChangeDelegate
 {
     static var instance:PaintViewController!
     static var appMode:ApplicationMode = ApplicationMode.artWorkCreation
@@ -26,7 +27,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     var viewWidth:CGFloat!
     
     @IBOutlet weak var colorPicker: ColorPicker!
-   
+    
     override var prefersStatusBarHidden : Bool {
         return true
     }
@@ -119,6 +120,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     }
     override func viewDidLoad() {
         PaintViewController.instance = self
+        strokeSelecter = StrokeSelecter()
         pathSetUp()
         
         //the OpenCV
@@ -173,9 +175,13 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
             NoteManager.instance.loadNotes(fileName)
             
             
-            paintManager.loadArtwork(self.fileName)
+            if(!paintManager.loadArtwork(self.fileName))
+            {
+                print("load error:");
+            }
             inited = true
-           // paintManager.artwork.currentClip.onStrokeIDChanged = onStrokeProgressChanged
+            paintManager.artwork.currentClip.strokeDelegate = self
+            //paintManager.artwork.currentClip.onStrokeIDChanged = onStrokeProgressChanged
             paintView.glDraw()
             
             //TODO ***** 
@@ -232,7 +238,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         //initMode(paintMode)
 
     }
-    func setup()
+    public func setup()
     {
         viewWidth = view.contentScaleFactor * view.frame.width
         noteListTableView.reloadData()
@@ -244,7 +250,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
         strokeSelecter.originalClip = paintManager.artwork.useMasterClip()
         strokeSelecter.selectRectView = selectRectView
     }
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         colorPicker.setTheColor(UIColor(hue: 0, saturation: 0.0, brightness: 0.2, alpha: 1.0))
         
         //paintManager.playArtworkClip()
@@ -532,7 +538,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate
     
     //select tool
     @IBOutlet weak var selectRectView: SelectRectView!
-    let strokeSelecter = StrokeSelecter()
+    var strokeSelecter:StrokeSelecter!
 }
 
 

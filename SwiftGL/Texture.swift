@@ -36,11 +36,18 @@ open class Texture {
     }
     open func check()->Bool
     {
-        if glIsTexture(id) == GL_FALSE        {
+        if glIsTexture(id) == GL_FALSE{
             glGenTextures(1, &id)
             if filename != nil
             {
-                load(filename: filename)
+                if(load(filename: filename))
+                {
+                    return true
+                }
+                else
+                {
+                    return false
+                }
             }
             return false
         }

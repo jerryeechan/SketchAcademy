@@ -13,9 +13,11 @@ extension GLContextBuffer
     func setLineAttribute(){
         
     }
-    func drawLine(_ start:Vec4,end:Vec4){
+    
+    //Vec4 W need to be 1
+    public func drawLine(_ start:Vec4,end:Vec4){
         let vertexBuffer:[Vec4] = [start,end]
-        
+        shaderBinder.primitiveShader.bindMVP(mvpOffset)
         shaderBinder.primitiveShader.bindColor(Vec4(0,0,0,1))
         shaderBinder.primitiveShader.bindVertexs(vertexBuffer)
         shaderBinder.primitiveShader.useShader()
@@ -25,14 +27,15 @@ extension GLContextBuffer
         glDrawArrays(GL_LINES, 0, GLsizei(size))
 
     }
-    func drawLines(_ points:[Vec4])
+    public func drawLines(_ points:[Vec4])
     {
+        shaderBinder.primitiveShader.bindMVP(mvpOffset)
         shaderBinder.primitiveShader.bindColor(Vec4(0,0,0,1))
         shaderBinder.primitiveShader.bindVertexs(points)
         shaderBinder.primitiveShader.useShader()
         glDrawArrays(GL_LINES, 0, GLsizei(points.count))
     }
-    func drawGrid(_ size:Float){
+    public func drawGrid(_ size:Float){
         shaderBinder.primitiveShader.bindMVP(mvpOffset)
         let height = Float(imgHeight)
         let width = Float(imgWidth)
@@ -54,7 +57,7 @@ extension GLContextBuffer
         glDrawArrays(GL_LINES, 0, GLsizei(vertexBuffer.count))
     }
     
-    func drawLineRectangle(_ rect:GLRect,color:Vec4)
+    public func drawLineRectangle(_ rect:GLRect,color:Vec4)
     {
         let leftTop = rect.leftTop
         let rightButtom = rect.rightButtom
@@ -75,7 +78,7 @@ extension GLContextBuffer
         glLineWidth(8)
         glDrawArrays(GL_LINE_LOOP, 0, 4)
     }
-    func drawFillRectangle(_ rect:GLRect,color:Vec4)
+    public func drawFillRectangle(_ rect:GLRect,color:Vec4)
     {
         let leftTop = rect.leftTop
         let rightButtom = rect.rightButtom

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GLFramework
 extension PaintViewController
 {
     
@@ -19,7 +20,7 @@ extension PaintViewController
         }
     }
     
-    func createNoteButton(_ note:Note)
+    func createNoteButton(_ note:SANote)
     {
         let noteButton = NoteButton(type: UIButtonType.system)
         

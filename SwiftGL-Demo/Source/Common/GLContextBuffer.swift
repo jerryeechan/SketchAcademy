@@ -10,27 +10,27 @@ import SwiftGL
 import OpenGLES.ES3
 
 import GLKit
-enum ApplicationMode{
+public enum ApplicationMode{
     case artWorkCreation
     case instructionTutorial
     case createTutorial
 }
-class GLContextBuffer{
+public class GLContextBuffer{
     
-    var paintToolManager:PaintToolManager!
-    var imgWidth:GLint = 0
-    var imgHeight:GLint = 0
-    var paintCanvas:GLRenderCanvas!
+    public var paintToolManager:PaintToolManager!
+    public var imgWidth:GLint = 0
+    public var imgHeight:GLint = 0
+    public var paintCanvas:GLRenderCanvas!
     
     var rectTexture:Texture!
-    var layer:CAEAGLLayer!
+    public var layer:CAEAGLLayer!
     let shaderBinder:GLShaderBinder
     let createCacheInterval = 400
     var lastCacheIndex = 0
     
     
-    var canvasShiftX:Float = 0
-    init() 
+    public var canvasShiftX:Float = 0
+    public init()
     {
         paintToolManager = PaintToolManager()
         if GLShaderBinder.instance != nil
@@ -41,11 +41,10 @@ class GLContextBuffer{
         {
             shaderBinder = GLShaderBinder()
         }
-        
     }
     var mvp:Mat4!
     var mvpOffset:Mat4!
-    func resizeLayer(_ width:GLint,height:GLint,offsetX:Float)
+    public func resizeLayer(_ width:GLint,height:GLint,offsetX:Float)
     {
         mvp = GLTransformation.instance.mvpMatrix
         if offsetX == 0
@@ -77,7 +76,7 @@ class GLContextBuffer{
         no need to bind any framebuffer, defaut done by GLKView
      */
     var currentBG = false
-    func switchBG()
+    public func switchBG()
     {
         if currentBG
         {paintCanvas.changeBackground("paper_sketch")}
@@ -86,8 +85,9 @@ class GLContextBuffer{
         currentBG = !currentBG
         display()
     }
-    func drawLayersOfCanvas(_ canvas:GLRenderCanvas,mvp:Mat4)
+    public func drawLayersOfCanvas(_ canvas:GLRenderCanvas,mvp:Mat4)
     {
+        //start of drawing loop
         shaderBinder.textureShader.bindMVP(mvp)
         if canvas.backgroundLayer != nil
         {
@@ -117,21 +117,31 @@ class GLContextBuffer{
             drawTexture(canvas.revisionLayer.texture, alpha: 1)
         }
         
-        //drawGrid(40)
+        /*
+        if((penAzimuth) != nil)
+        {
+            
+            //drawFillRectangle(GLRect(p1: Vec2(Float(imgWidth/2),Float(imgHeight/2)),p2: azimuth.xy), color: Vec4(1,0,0,0))
+            //let center = Vec4(Float(imgWidth/2),Float(imgHeight/2))
+            print("drawline\(penPos)\(penAzimuth)")
+            drawLine(penPos+Vec4(0,0,0,1),end:penPos+Vec4(penAzimuth.x,-penAzimuth.y,0,0)*100+Vec4(0,0,0,1))
+            //drawGrid(60)
+        }
+ */
+        
     }
-    
-    
-    
+    public var penAzimuth:Vec2!
+    public var penPos:Vec4!
     /**
         draw the points
      */
     var drawVertexCount:Int = 0;
-    func setReplayDrawSetting()
+    public func setReplayDrawSetting()
     {
         paintCanvas.renderMode = RenderMode.direct
     }
     
-    func setBrushDrawSetting(_ toolType:BrushType)
+    public func setBrushDrawSetting(_ toolType:BrushType)
     {
         switch(toolType)
         {
@@ -146,7 +156,7 @@ class GLContextBuffer{
         }
         
     }
-    var renderMode:RenderMode{
+    public var renderMode:RenderMode{
         get{
             return paintCanvas.renderMode
         }
@@ -154,13 +164,13 @@ class GLContextBuffer{
     
     
     var currentLayer = 0
-    func renderStaticLine(_ points:[PaintPoint])
+    public func renderStaticLine(_ points:[PaintPoint])
     {
         let vertexBuffer = interpolatePoints(points)
         drawBrushVertex(vertexBuffer,layer: currentLayer)
     }
     
-    func drawBrushVertex(_ vertexBuffer:[PaintPoint],layer:Int)
+    public func drawBrushVertex(_ vertexBuffer:[PaintPoint],layer:Int)
     {
         if paintCanvas.renderMode == RenderMode.direct
         {
@@ -176,11 +186,11 @@ class GLContextBuffer{
         }
         renderVertex(vertexBuffer)
     }
-    func renderLine(_ points:[PaintPoint])
+    public func renderLine(_ points:[PaintPoint])
     {
         
     }
-    func renderVertex(_ vertexBuffer:[PaintPoint])
+    public func renderVertex(_ vertexBuffer:[PaintPoint])
     {
         shaderBinder.currentBrushShader.bindBrush()
         shaderBinder.currentBrushShader.bindVertexs(vertexBuffer)
@@ -191,7 +201,7 @@ class GLContextBuffer{
         drawVertexCount += vertexBuffer.count
 
     }
-    func renderStroke(_ stroke:PaintStroke)
+    public func renderStroke(_ stroke:PaintStroke)
     {
         
         drawStroke(stroke, layer: currentLayer)
@@ -199,9 +209,12 @@ class GLContextBuffer{
     /**
      draw a stroke into paintCanvas
      */
-    func drawStroke(_ stroke:PaintStroke,layer:Int)
+    public func drawStroke(_ stroke:PaintStroke,layer:Int)
     {
-        paintToolManager.changeTool(stroke.stringInfo.toolName)
+        penAzimuth = stroke.points.last?.azimuth
+        
+        penPos = stroke.points.last?.position
+        _ = paintToolManager.changeTool(stroke.stringInfo.toolName)
         paintToolManager.loadToolValueInfo(stroke.valueInfo)
         paintToolManager.useCurrentTool()
         //glBlendFunc(GL_ONE, GL_ZERO)
@@ -227,21 +240,21 @@ class GLContextBuffer{
     /**
     when stroke end, draw the temp layer to the current layer
     */
-    func endStroke()
+    public func endStroke()
     {
         drawTextureOnCurrentLayer(paintCanvas.tempLayer.texture, alpha: 1)
         paintCanvas.blankTempLayer()
     }
-    func endStroke(_ leftTop:Vec4,rightBottom:Vec4)
+    public func endStroke(_ leftTop:Vec4,rightBottom:Vec4)
     {
         drawTextureOnCurrentLayer(paintCanvas.tempLayer.texture,alpha: 1,leftTop:leftTop,rightBottom:rightBottom)
         paintCanvas.blankTempLayer()
     }
-    func cleanTemp()
+    public func cleanTemp()
     {
         paintCanvas.blankTempLayer()
     }
-    func interpolatePoints(_ points:[PaintPoint])->[PaintPoint]
+    public func interpolatePoints(_ points:[PaintPoint])->[PaintPoint]
     {
         let size:Float = 1
         var vertexBuffer:[PaintPoint] = []
@@ -329,7 +342,7 @@ class GLContextBuffer{
     }
     
         //draw texture on the paintCanvas layer
-    func loadCacheFrame(_ atStroke:Int)
+    public func loadCacheFrame(_ atStroke:Int)
     {
         if paintCanvas.setBuffer()==false{
             DLog("Framebuffer fail")
@@ -338,7 +351,7 @@ class GLContextBuffer{
         drawTexture(paintCanvas.caches[atStroke]!.texture,alpha:1)
     }
     
-    func checkCache(_ strokeNum:Int)
+    public func checkCache(_ strokeNum:Int)
     {
         if strokeNum - lastCacheIndex > createCacheInterval
         {
@@ -348,7 +361,7 @@ class GLContextBuffer{
         }
     }
     var image:UIImage!
-    func saveCacheFrame(_ atStroke:Int)
+    public func saveCacheFrame(_ atStroke:Int)
     {
         let layer = paintCanvas.genCacheFrame(atStroke)
         if paintCanvas.setBuffer(layer!)==false{
@@ -357,16 +370,16 @@ class GLContextBuffer{
         clear()
         drawTexture(paintCanvas.currentLayer.texture, alpha: 1)
     }
-    func clearCacheAll()
+    public func clearCacheAll()
     {
         paintCanvas.caches = [:]
     }
-    func clearCacheFrame(_ atStroke:Int)
+    public func clearCacheFrame(_ atStroke:Int)
     {
         
     }
    
-    func drawTextureOnCurrentLayer(_ texture:Texture,alpha:Float)
+    public func drawTextureOnCurrentLayer(_ texture:Texture,alpha:Float)
     {
         glEnable(GL_BLEND);
         glBlendEquation((GLenum(GL_FUNC_ADD)))
@@ -379,7 +392,7 @@ class GLContextBuffer{
         shaderBinder.textureShader.bindImageTexture(texture, alpha: alpha)
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     }
-    func drawTextureOnCurrentLayer(_ texture:Texture,alpha:Float,leftTop:Vec4,rightBottom:Vec4)
+    public func drawTextureOnCurrentLayer(_ texture:Texture,alpha:Float,leftTop:Vec4,rightBottom:Vec4)
     {
         glEnable(GL_BLEND);
         glBlendEquation((GLenum(GL_FUNC_ADD)))
@@ -393,7 +406,7 @@ class GLContextBuffer{
         glDrawArrays((GL_TRIANGLE_STRIP), 0, 4);
     }
    
-    func drawTexture(_ texture:Texture,alpha:Float)
+    public func drawTexture(_ texture:Texture,alpha:Float)
     {
         glEnable((GL_BLEND));
         glBlendEquation((GLenum(GL_FUNC_ADD)))
@@ -403,7 +416,7 @@ class GLContextBuffer{
         glDrawArrays((GL_TRIANGLE_STRIP), 0, 4)
     }
         
-    func setRenderBufferToTarget()
+    public func setRenderBufferToTarget()
     {
         /*
         glBindFramebuffer(GL_FRAMEBUFFER, viewFramebuffer);
@@ -412,7 +425,7 @@ class GLContextBuffer{
         */
 
     }
-    func display()
+    public func display()
     {
         //setRenderBufferToTarget()
         
@@ -422,30 +435,30 @@ class GLContextBuffer{
         
         drawVertexCount = 0
     }
-    func clear()
+    public func clear()
     {
         glClearColor(0, 0, 0, 0)
         glClear(GL_COLOR_BUFFER_BIT)//| GL_DEPTH_BUFFER_BIT)
     }
-    func blank()
+    public func blank()
     {
         paintCanvas.blankTempLayer()
         paintCanvas.blankCurrentLayer()    
     }
     
-    func setArtworkMode()
+    public func setArtworkMode()
     {
         paintCanvas.revisionLayer.enabled = false
         paintCanvas.selectLayer(0)
         paintCanvas.setAllLayerAlpha(1)
     }
-    func setRevisionMode()
+    public func setRevisionMode()
     {
         paintCanvas.revisionLayer.enabled = true
         paintCanvas.setAllLayerAlpha(0.5)
         paintCanvas.selectRevisionLayer()
     }
-    func getPixelColor(_ x:GLint,y:GLint)->UIColor
+    public func getPixelColor(_ x:GLint,y:GLint)->UIColor
     {
         var pixels:[GLubyte] = [0,0,0,0]
         glReadPixels(x, y, 1, 1, (GLenum(GL_RGBA)), (GL_UNSIGNED_BYTE), &pixels)
@@ -453,7 +466,7 @@ class GLContextBuffer{
         return UIColor(red: CGFloat(pixels[0])/255, green: CGFloat(pixels[1])/255, blue: CGFloat(pixels[2])/255, alpha: CGFloat(pixels[3])/255)
     }
     var imgBuffer:UnsafeMutablePointer<GLubyte>!
-    func contextImage()->UIImage!
+    public func contextImage()->UIImage!
     {
         let tick = CFAbsoluteTimeGetCurrent()
         let width = Int(self.imgWidth)
@@ -488,7 +501,7 @@ class GLContextBuffer{
         return img
     }
     
-    func releaseImgBuffer()
+    public func releaseImgBuffer()
     {
         free(imgBuffer)
     }

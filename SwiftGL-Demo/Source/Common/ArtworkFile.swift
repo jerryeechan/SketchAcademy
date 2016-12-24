@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import PaintStrokeData
+import GLFramework
+public class ArtworkFile:File{
 
-class ArtworkFile:File{
-
-    override init()
+    public override init()
     {
         
     }
@@ -62,7 +61,8 @@ class ArtworkFile:File{
         
         data = NSMutableData()
         DLog("\(artwork.canvasWidth) \(artwork.canvasHeight) \(artwork.artworkType.rawValue)")
-        encodeString("VERSION_1")
+        //current Version
+        encodeString("VERSION_2")
         encodeStruct(artwork.canvasWidth)
         encodeStruct(artwork.canvasHeight)
         encodeString(artwork.artworkType.rawValue)
@@ -81,13 +81,13 @@ class ArtworkFile:File{
         data.write(toFile: path+"/"+filename+".paw", atomically: true)
         
         //safe stroke data into text file(json?)
-        //saveText(filename, artwork: artwork)
+        saveText(filename, artwork: artwork)
     }
     func saveText(_ filename:String,artwork:PaintArtwork)
     {
         
         let clip = artwork.useMasterClip()
-        let text = clip.strokes.tojson
+        let text = clip.strokes.tojsonStrokeInfo
         
         print(text)
         
@@ -112,21 +112,23 @@ class ArtworkFile:File{
             let strInfo = strokes[i].stringInfo
             let pointData = strokes[i].pointData
             
+            encodeStruct(strokes[i].startTime)
             encodeString(strInfo.toolName)
             encodeString(strInfo.brushTexture)
             encodeStruct(strokes[i].valueInfo)
             encodeStructArray(pointData)
         }
     }
+    override public func delete(_ filename: String) {
+        super.delete(filename+".paw")
+    }
+    
+    var fileVersion:String!
+    
     //---------------------------------------------------------------
     //  load
     //
     //---------------------------------------------------------------
-    
-    override func delete(_ filename: String) {
-        super.delete(filename+".paw")
-    }
-    
     
     func load(_ filename:String)->PaintArtwork!
     {
@@ -144,23 +146,23 @@ class ArtworkFile:File{
             //temp: canvaswidth...
             
             
-            let version = parseString()
-            let canvasWidth:Int
-            let canvasHeight:Int
+            let version = parseString()!
+            fileVersion = version
+            var canvasWidth:Int = 2048
+            var canvasHeight:Int = 1567
             if version == nil
             {
                 currentPtr -= MemoryLayout<Int>.size
               
             }
-            else if version == "VERSION_1"
-            {
+            switch version{
+            case "VERSION_1","VERSION_2":
                 canvasWidth = parseStruct()
                 canvasHeight = parseStruct()
                 let artworkType:String = parseString()
-            }
-            else
-            {
+            default:
                 DLog("\(version)")
+                break
             }
             /*
             
@@ -168,7 +170,7 @@ class ArtworkFile:File{
             //let artwork =  PaintArtwork(width: PaintViewController.canvasWidth,height: PaintViewController.canvasHeight)
             let artwork =  PaintArtwork(width: canvasWidth,height: canvasHeight)
             
-            parseClip(artwork.useMasterClip())
+            _ = parseClip(artwork.useMasterClip())
             
             /*
             let revisionCount:Int = parseStruct()
@@ -193,7 +195,14 @@ class ArtworkFile:File{
         
         let strokeCount:Int = parseStruct()
         for _ in 0 ..< strokeCount {
-            
+            var time:Double = 0.0
+            switch(fileVersion)
+            {
+                case "VERSION_2":
+                    time = parseStruct()
+                default:
+                    break
+            }
             //parse string info, check type
             var tSI = parseToolStringInfo(parseData as Data)
             var tVI:ToolValueInfo
@@ -208,7 +217,7 @@ class ArtworkFile:File{
                 tVI = parseToolValueInfo(parseData as Data)
             }
             
-            let stroke = PaintStroke(s: tSI!, v: tVI)
+            let stroke = PaintStroke(s: tSI!, v: tVI,startTime:time)
             
             
             

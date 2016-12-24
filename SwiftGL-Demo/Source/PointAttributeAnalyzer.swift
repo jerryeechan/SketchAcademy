@@ -8,7 +8,7 @@
 
 import Foundation
 import SwiftGL
-import PaintStrokeData
+import GLFramework
 struct PointAnalyzeResult {
     init()
     {
@@ -51,19 +51,19 @@ class PointAttributeAnalyzer{
         _sumCaled = false
     }
     var result:PointAnalyzeResult!
-    func analyze(_ points:[PointData])->PointAnalyzeResult
-    {
-        
-        clear()
-        addPoints(points)
-        return analyze()
-    }
     func analyze()->PointAnalyzeResult
     {
         //var pAnalyzeResult:PointAnalyzeResult;
         result = average
         return result
     }
+    func analyze(points:[PointData])->PointAnalyzeResult
+    {
+        clear()
+        addPoints(points)
+        return analyze()
+    }
+    
     
     var _averageData:PointAnalyzeResult!
     var _averageCaled:Bool = false

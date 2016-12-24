@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GLFramework
 class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
     
     @IBOutlet weak var showView: UIView!

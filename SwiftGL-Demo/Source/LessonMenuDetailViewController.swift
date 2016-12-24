@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GLFramework
 class LessonMenuDetailViewController: UIViewController {
     
     var lessonData:LessonData!{

@@ -8,16 +8,24 @@
 
 import SwiftGL
 
-struct PaintPoint{
+public struct PaintPoint{
     //struct to send in OpenGL
-    var position: Vec4
-    var force:Float
-    var altitude:Float
-    var azimuth:Vec2
-    var velocity:Vec2
+    public var position: Vec4
+    public var force:Float
+    public var altitude:Float
+    public var azimuth:Vec2
+    public var velocity:Vec2
     
+    public init(position:Vec4, force:Float, altitude:Float, azimuth:Vec2, velocity:Vec2)
+    {
+        self.position = position
+        self.force = force
+        self.altitude = altitude
+        self.azimuth = azimuth
+        self.velocity = velocity
+    }
     
-    var tojson : String {
+    public var tojson : String {
         
         return "{\"p\":\(position.tojson),\"f\":\(force),\"alti\":\(altitude)}"
     }

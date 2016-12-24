@@ -15,7 +15,7 @@ import PaintStrokeData
 enum PaintToolType:Int{
     case pen = 0,eraser,oil,smudge
 }*/
-enum BrushType:Int
+public enum BrushType:Int
 {
     case pencil = 0,oilBrush,eraser
 }
@@ -27,14 +27,15 @@ open class PaintToolManager {
     var pen:PaintBrush!
     var eraser:PaintBrush!
     var oilbrush:PaintBrush!
-    var currentTool:PaintBrush!
-    var lastBrush:PaintBrush!
+    
+    public var lastBrush:PaintBrush!
+    public var currentTool:PaintBrush!
 //    static var instance:PaintToolManager!
-    init()
+    public init()
     {
 //        PaintToolManager.instance = self
     }
-    func load()
+    public func load()
     {
         //pen = PaintBrush(textureName: "oilbrush",color: Color(25,25,25,25),size: 10,type:PaintToolType.pen)
         
@@ -44,13 +45,13 @@ open class PaintToolManager {
         brushDict[BrushType.pencil] = pen
         brushDict[BrushType.eraser] = eraser
         brushDict[BrushType.oilBrush] = oilbrush
-        useTool(BrushType.pencil)
+        _ = useTool(BrushType.pencil)
         
         //Painter.currentBrush = currentTool
     
     }
     var brushDict:[BrushType:PaintBrush] = [:]
-    func getTool(_ name:String)->BrushType{
+    public func getTool(_ name:String)->BrushType{
         switch(name)
         {
         case "pen":
@@ -66,15 +67,15 @@ open class PaintToolManager {
             return .pencil
         }
     }
-    open func usePreviousTool()
+    public func usePreviousTool()
     {
         useTool(lastBrush.toolType)
     }
-    open func useCurrentTool()
+    public func useCurrentTool()
     {
         useTool(currentTool.toolType)
     }
-    fileprivate func useTool(_ type:BrushType)->PaintBrush!
+    public func useTool(_ type:BrushType)->PaintBrush!
     {
         currentTool = brushDict[type]
         switch(type)
@@ -92,7 +93,7 @@ open class PaintToolManager {
         
     }
     
-    func changeTool(_ name:String)->PaintBrush
+    public func changeTool(_ name:String)->PaintBrush
     {
         currentTool = useTool(getTool(name))
         return currentTool
@@ -105,7 +106,7 @@ open class PaintToolManager {
         return brush
     }
 */
-    func useBrush(_ type:BrushType)
+    public func useBrush(_ type:BrushType)
     {
         glEnable((GL_BLEND))
         GLShaderBinder.instance.useBrush(type)
@@ -116,7 +117,7 @@ open class PaintToolManager {
         glBlendEquation((GLenum(GL_FUNC_ADD)))
         glBlendFunc((GL_ONE), (GL_ONE_MINUS_SRC_ALPHA))
     }
-    func usePen()
+    public func usePen()
     {
         glEnable((GL_BLEND))
         GLShaderBinder.instance.useBrush(BrushType.pencil)
@@ -127,7 +128,7 @@ open class PaintToolManager {
         currentTool = pen
     }
     
-    func useEraser()
+    public func useEraser()
     {
         glEnable((GLenum(GL_POINT_SMOOTH)))
         glDisable((GL_BLEND))
@@ -147,7 +148,7 @@ open class PaintToolManager {
         
     }
     // var isToolAttributeChanged:Bool = true
-    func loadToolValueInfo(_ valueInfo:ToolValueInfo)
+    public func loadToolValueInfo(_ valueInfo:ToolValueInfo)
     {
         currentTool.changeColor(valueInfo.color)
         currentTool.changeSize(valueInfo.size)
@@ -155,7 +156,7 @@ open class PaintToolManager {
     }
     
     var alpha:Float = 0.5
-    func changeColor(_ color:UIColor)
+    public func changeColor(_ color:UIColor)
     {
         
         let rgb = color.cgColor.components
@@ -175,7 +176,7 @@ open class PaintToolManager {
         
         currentTool.changeColor(c)
     }
-    func changeSize(_ size:Float)
+    public func changeSize(_ size:Float)
     {
         currentTool.changeSize(size)
     }

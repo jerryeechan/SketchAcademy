@@ -17,16 +17,16 @@ public class PaintClip:NSObject{
    public var redoStrokes:[PaintStroke] = []
     
    public var cleanStrokes:[PaintStroke] = []
-   var op:[Operation] = []
-   var redoOp:[Operation] = []
+   public var op:[Operation] = []
+   public var redoOp:[Operation] = []
     
     /**
         not sure need current time or not
      */
-    var currentTime:CFAbsoluteTime = 0
-    var currentPointID:Int = 0
-    var current_vInfo:ToolValueInfo!
-   public var currentStrokeID:Int = 0
+    public var currentTime:CFAbsoluteTime = 0
+    public var currentPointID:Int = 0
+    public var current_vInfo:ToolValueInfo!
+    public var currentStrokeID:Int = 0
         {
         didSet{
             handleStrokeIDChanged();
@@ -35,22 +35,22 @@ public class PaintClip:NSObject{
 
     //    branch related
 
-    var clipName:String
-    var branchAtIndex:Int = 0
-    var parentClip:PaintClip!
-    var branchClip:Dictionary<String,PaintClip> = Dictionary<String,PaintClip>()
-    var strokeDelegate:StrokeProgressChangeDelegate!
+    public var clipName:String
+    public var branchAtIndex:Int = 0
+    public var parentClip:PaintClip!
+    public var branchClip:Dictionary<String,PaintClip> = Dictionary<String,PaintClip>()
+    public weak var strokeDelegate:StrokeProgressChangeDelegate!
     
     func defaultOnStrokeIDChanged(a:Int,b:Int)->Void
     {
         
     }
     
-    init(name:String,branchAt:Int,delegate:StrokeProgressChangeDelegate)
+    public init(name:String,branchAt:Int)
     {
         self.clipName = name
         self.branchAtIndex = branchAt
-        self.strokeDelegate = delegate
+        //self.strokeDelegate = delegate
         //self.onStrokeIDChanged = defaultOnStrokeIDChanged
         super.init()
         
@@ -61,7 +61,7 @@ public class PaintClip:NSObject{
     {
         
     }
-    func addPaintStroke(_ stroke:PaintStroke)
+    public func addPaintStroke(_ stroke:PaintStroke)
     {
         if(stroke.pointData.count>0 )
         {
@@ -77,17 +77,18 @@ public class PaintClip:NSObject{
         currentStrokeID = strokes.count
         //DLog("\(currentStrokeID)")
     }
-    func addBranchClip(_ branchName:String,branchAt:Int,delegate:StrokeProgressChangeDelegate)
+    public func addBranchClip(_ branchName:String,branchAt:Int)
     {
-        branchClip[branchName] = PaintClip(name: branchName,branchAt: branchAt,delegate: delegate)
+        branchClip[branchName] = PaintClip(name: branchName,branchAt: branchAt)
         branchClip[branchName]?.parentClip = self
+        
     }
-    func switchToBranch(_ branchName:String)
+    public func switchToBranch(_ branchName:String)
     {
         
     }
     //when user start drawing again, remove all the redo strokes and can't
-    func cleanRedos()
+    public func cleanRedos()
     {
         redoStrokes = []
         redoOp = []
@@ -96,20 +97,20 @@ public class PaintClip:NSObject{
     }
     
     //enum ClipState{case Drawing,case Cleaned,case UndoCleaned}
-    func clean()
+    public func clean()
     {
         cleanStrokes = strokes
         strokes = []
         currentStrokeID = 0
         op += [Operation.clean]
     }
-    func undoClean()
+    public func undoClean()
     {
         strokes = cleanStrokes
         redoStrokes = []
         redoOp += [Operation.clean]
     }
-    func undo()
+    public func undo()
     {
         
         if strokes.count > 0
@@ -119,7 +120,7 @@ public class PaintClip:NSObject{
         
         
     }
-    func redo()->PaintStroke!
+    public func redo()->PaintStroke!
     {
         
         if redoStrokes.count > 0
@@ -150,11 +151,11 @@ public class PaintClip:NSObject{
 
     }
     var bvhTree:BVHTree = BVHTree()
-    func buildBVHTree()
+    public func buildBVHTree()
     {
         bvhTree.buildTree(strokes)
     }
-    func selectStrokes(_ point:Vec2)->[PaintStroke]
+    public func selectStrokes(_ point:Vec2)->[PaintStroke]
     {
         return bvhTree.searchNodes(point) as! [PaintStroke]
     }
@@ -164,7 +165,7 @@ public class PaintClip:NSObject{
     }
 }
 
-protocol StrokeProgressChangeDelegate {
+public protocol StrokeProgressChangeDelegate:class {
     func onStrokeProgressChanged(_ currentStrokeID:Int,totalStrokeCount:Int);
     
 }

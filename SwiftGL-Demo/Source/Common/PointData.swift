@@ -9,21 +9,21 @@
 import Foundation
 import SwiftGL
 
-struct PointData:Initable {
+public struct PointData:Initable {
     //the struct to store basic paint unit, saving data
-    var paintPoint:PaintPoint!
-    var timestamps:Double = 0
+    public var paintPoint:PaintPoint!
+    public var timestamps:Double = 0
 
-    init(){
+    public init(){
         
     }
-    init(paintPoint:PaintPoint,t:Double)
+    public init(paintPoint:PaintPoint,t:Double)
     {
         self.paintPoint = paintPoint
         timestamps = t
     }
     
-    var tojson:String
+    public var tojson:String
     {
         var str = "{"
         str += "\"time\":\(timestamps)"
@@ -38,7 +38,7 @@ struct PointData:Initable {
 }
 extension Sequence where Iterator.Element == PointData
 {
-    var jsonArray:String
+    public var jsonArray:String
     {
         return "{\"points\":[" + self.map {$0.tojson}.joined(separator: ",") + "]}"
     }

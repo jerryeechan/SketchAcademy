@@ -12,7 +12,7 @@ import YouTubeiOSPlayerHelper
 
 class YoubuteViewController: UIViewController,YTPlayerViewDelegate  {
 
-    @IBOutlet var playerView: YTPlayerView!
+    @IBOutlet var playerView: YouTubePlayerView!
     @IBOutlet var playButton: UIButton!
 
     override func viewDidLoad() {
@@ -57,7 +57,7 @@ class YoubuteViewController: UIViewController,YTPlayerViewDelegate  {
     {
         //print(playerView.getAvailablePlaybackRates())
         //playerView.setPlaybackRate(suggestedRate: 0.25);
-        playerView.setPlaybackRate(0.25)
+        //playerView.setPlaybackRate(0.25)
     }
 
     @IBAction func loadVideo(_ sender: UIButton) {
@@ -67,12 +67,12 @@ class YoubuteViewController: UIViewController,YTPlayerViewDelegate  {
             "controls": "1" as AnyObject,
             "showinfo": "1" as AnyObject
         ]
-        playerView.load(withVideoId: "bHQqvYy5KYo", playerVars: vars)
-        //playerView.playerVars = vars
+        //playerView.load(withVideoId: "bHQqvYy5KYo", playerVars: vars)
+        playerView.playerVars = vars
         
         
         //playerView.loadVideoID()
-        //playerView.loadVideoID("4DVf8CtoQSY")
+        playerView.loadVideoID("4DVf8CtoQSY")
     }
 
     @IBAction func loadPlaylist(_ sender: UIButton) {

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import PaintStrokeData
+import GLFramework
 class NoteManager {
     class var instance:NoteManager{
         struct Singleton{
@@ -17,12 +17,12 @@ class NoteManager {
     }
     var noteButtonDict:[Int:NoteButton] = [Int:NoteButton]()
     var selectedButtonIndex:Int!
-    fileprivate var noteDict:[Int:Note] = [Int:Note]()
+    fileprivate var noteDict:[Int:SANote] = [Int:SANote]()
     func getNoteButton(_ atStroke:Int)->NoteButton!
     {
         return noteButtonDict[atStroke]
     }
-    func addNoteButton(_ noteButton:NoteButton,note:Note)
+    func addNoteButton(_ noteButton:NoteButton,note:SANote)
     {
         noteButton.note = note
         noteButtonDict[note.value.strokeIndex] = noteButton
@@ -33,13 +33,13 @@ class NoteManager {
     var editingNoteIndex:Int = -1
     func empty()
     {
-        noteDict = [Int:Note]()
+        noteDict = [Int:SANote]()
         editingNoteIndex = -1
     }
     func loadNotes(_ filename:String)
     {
         noteDict = FileManager.instance.loadNotes(filename)
-        getSortedKeys()
+        _ = getSortedKeys()
     }
     /*
     func getNotes()->[Note]
@@ -53,7 +53,7 @@ class NoteManager {
             button.removeFromSuperview()
         }
     }
-    func getNoteArray()->[Note]
+    func getNoteArray()->[SANote]
     {
         let sortedArray = Array(noteDict.values).sorted(by: {$0.value.strokeIndex < $1.value.strokeIndex})
         return sortedArray
@@ -64,7 +64,7 @@ class NoteManager {
         return sortedKeys
     }
     var sortedKeys:[Int] = []
-    func getOrderedNote(_ index:Int)->Note!
+    func getOrderedNote(_ index:Int)->SANote!
     {
         getSortedKeys()
         if index < sortedKeys.count
@@ -108,14 +108,14 @@ class NoteManager {
         editingNoteIndex = -1
 */
     }
-    func addNote(_ at:Int,title:String,description:String)->Note
+    func addNote(_ at:Int,title:String,description:String)->SANote
     {
-        noteDict[at] = Note(title: "\(title)", description: description, strokeIndex: at,type: NoteType.note)
+        noteDict[at] = SANote(title: "\(title)", description: description, strokeIndex: at,type: NoteType.note)
         sortedKeys = getSortedKeys()
         return noteDict[at]!
         //noteList.sortInPlace({$0.value.strokeIndex < $1.value.strokeIndex})
     }
-    func getNotes()->[Int:Note]
+    func getNotes()->[Int:SANote]
     {
         return noteDict
     }
@@ -125,7 +125,7 @@ class NoteManager {
     func getFloorNoteIndexFromStrokeID(_ strokeID:Int)->Int
     {
         getSortedKeys()
-        DLog("\(sortedKeys)")
+        //DLog("\(sortedKeys)")
         for i in 0 ..< sortedKeys.count
         {
             if strokeID < sortedKeys[i]
@@ -161,7 +161,7 @@ class NoteManager {
         //selectedNoteIndex = index
         return getNote(at)
     }*/
-    func getNoteAtStroke(_ at:Int)->Note!
+    func getNoteAtStroke(_ at:Int)->SANote!
     {
         return noteDict[at]
     }
@@ -172,10 +172,12 @@ class NoteManager {
             return noteDict.count
         }
     }
+    /*
     func saveNotes()
     {
-        FileManager.instance
+        //FileManager.instance
     }
+ */
     
 }
 

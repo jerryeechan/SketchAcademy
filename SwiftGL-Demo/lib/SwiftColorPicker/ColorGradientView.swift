@@ -5,20 +5,20 @@
 //  Created by cstad on 12/10/14.
 //
 import UIKit
-
-class ColorGradientView: UIView {
+import CGUtility
+public class ColorGradientView: UIView {
     var colorLayer: ColorLayer!
     weak var delegate: ColorPicker?
     var point:CGPoint!
     var knob:UIView!
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
     }
     
     let knobWidth:CGFloat = 30
     var hasLayouted = false
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         
         if !hasLayouted
@@ -50,7 +50,7 @@ class ColorGradientView: UIView {
 
     
     var isTouchDown = false;
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         let point = touch!.location(in: self)
         _ = delegate?.colorSaturationAndBrightnessSelected(point)
@@ -64,7 +64,7 @@ class ColorGradientView: UIView {
         })
         
     }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if(isTouchDown)
         {
             let touch = touches.first
@@ -76,7 +76,7 @@ class ColorGradientView: UIView {
         }
         
     }
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         isTouchDown = false
         let touch = touches.first
         var point = touch!.location(in: self)
@@ -88,7 +88,7 @@ class ColorGradientView: UIView {
         })
         
     }
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
 
         //drawCoreGraphic()
         
@@ -121,7 +121,7 @@ class ColorGradientView: UIView {
         self.layer.insertSublayer(grayScaleLayer, at: 1)
         setNeedsDisplay()
     }
-    func setColor(_ _color: UIColor!,hue:CGFloat) {
+    public func setColor(_ _color: UIColor!,hue:CGFloat) {
         // Set member color to the new UIColor coming in
         
         colorLayer.layer.removeFromSuperlayer()

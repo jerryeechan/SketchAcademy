@@ -10,7 +10,7 @@ import Foundation
 import SwiftGL
 import UIKit
 import SwiftHttp
-import PaintStrokeData
+import GLFramework
 func uploadToGiphy(_ fileUrl:URL)
 {
     do {
@@ -81,7 +81,7 @@ class FileManager {
             }
         }
     }
-    func savePaintArtWork(_ filename:String,artwork:PaintArtwork, img:UIImage,notes:[Note])
+    func savePaintArtWork(_ filename:String,artwork:PaintArtwork, img:UIImage,notes:[SANote])
     {
         //let path = File.dirpath+"/"+filename
         
@@ -121,7 +121,7 @@ class FileManager {
         return imageFile.loadImg(filename)
     }
  
-    func loadNotes(_ filename:String)->[Int:Note]
+    func loadNotes(_ filename:String)->[Int:SANote]
     {
         return noteFile.load(filename)
     }

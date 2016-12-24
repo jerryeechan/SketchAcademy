@@ -23,7 +23,7 @@ extension PaintViewController
         
         
         //paintView.glDraw()
-        removeToolBarButton(reviseDoneButton)
+        _ = removeToolBarButton(reviseDoneButton)
         appState = AppState.viewArtwork
         enterViewMode()
     }

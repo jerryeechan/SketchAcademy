@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C401FAED1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401FAEB1B8D6D9A00B6F177 /* GLRenderBuffer.swift */; };
 		C4024B6B1B56CF2E00761BB1 /* DrawDetailNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4024B691B56CEE500761BB1 /* DrawDetailNavigationController.swift */; };
 		C40C2E5C1C703195006A165F /* PlayPauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C2E5B1C703195006A165F /* PlayPauseButton.swift */; };
 		C40C2E5E1C7086B4006A165F /* TopToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C2E5D1C7086B4006A165F /* TopToolBar.swift */; };
@@ -85,11 +84,6 @@
 		C417804F1E08163900A4AD32 /* PaintReplayerRevisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45222F71C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift */; };
 		C41780501E08165800A4AD32 /* PaintRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404FA9C1B1AF8F9004C2D8C /* PaintRecorder.swift */; };
 		C41780511E08191F00A4AD32 /* NoteProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FCE1C6AD87A0014E141 /* NoteProgressButton.swift */; };
-		C41780521E08191F00A4AD32 /* NoteProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */; };
-		C41780531E08191F00A4AD32 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */; };
-		C41780541E08191F00A4AD32 /* NoteTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BBE6B91C6EFD9600E731A1 /* NoteTextArea.swift */; };
-		C41780551E08191F00A4AD32 /* NoteTitleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */; };
-		C41780561E08191F00A4AD32 /* NoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C2E601C711D5B006A165F /* NoteButton.swift */; };
 		C41780571E08192400A4AD32 /* PaintPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404FA921B144851004C2D8C /* PaintPoint.swift */; };
 		C41780581E08192400A4AD32 /* PaintStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AE3C441B0CF54F00C959C2 /* PaintStroke.swift */; };
 		C41780591E08192400A4AD32 /* PointData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C478D8551B1F7F1900FFF3D9 /* PointData.swift */; };
@@ -98,25 +92,38 @@
 		C417805C1E08192400A4AD32 /* Initable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41780351E08104B00A4AD32 /* Initable.swift */; };
 		C417805D1E08192800A4AD32 /* ToolInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C417803B1E08128C00A4AD32 /* ToolInfo.swift */; };
 		C41780611E08192F00A4AD32 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = C447477C1B8317120093F019 /* Note.swift */; };
-		C41780631E08192F00A4AD32 /* NoteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */; };
 		C41780671E08199300A4AD32 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404FA9F1B1AFB98004C2D8C /* FileManager.swift */; };
 		C41780681E0819D200A4AD32 /* NoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0A9A31B8C1E7200190A33 /* NoteManager.swift */; };
 		C41780691E081AD800A4AD32 /* ArtworkFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FE45E91BDFDE6F008CE7D0 /* ArtworkFile.swift */; };
 		C417806A1E081AF300A4AD32 /* NoteDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A7213A1C11B51C007B0B2E /* NoteDetailCell.swift */; };
+		C417806B1E08239200A4AD32 /* GLContextBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B10D771B0E3FC0001BAAAB /* GLContextBuffer.swift */; };
+		C417806C1E08242D00A4AD32 /* GLRenderCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E21661B5E3E6D00D5A821 /* GLRenderCanvas.swift */; };
+		C417806D1E08245800A4AD32 /* GLTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5B9B71B0EFB1200D6AD4B /* GLTransformation.swift */; };
+		C417806E1E08245800A4AD32 /* GLLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEBA1B5D332F00D5175F /* GLLine.swift */; };
+		C417806F1E08245E00A4AD32 /* GLRenderBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401FAEB1B8D6D9A00B6F177 /* GLRenderBuffer.swift */; };
+		C41780701E08249F00A4AD32 /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C73BD51B5F1EC8008C0D36 /* Layer.swift */; };
+		C41780711E08249F00A4AD32 /* LayerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEDC0A1BB3D1C900BE7F1C /* LayerCache.swift */; };
+		C41780721E08249F00A4AD32 /* GLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42E35A11CD4B61E001EDC02 /* GLImage.swift */; };
+		C41780731E0824AD00A4AD32 /* GLPrimitiveRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD53B1C95A29400317E41 /* GLPrimitiveRenderer.swift */; };
+		C41780741E0824C300A4AD32 /* NoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C2E601C711D5B006A165F /* NoteButton.swift */; };
+		C41780751E091C7900A4AD32 /* PaintArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AE3C411B0CF53600C959C2 /* PaintArtwork.swift */; };
+		C41780761E091D9400A4AD32 /* utilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41780281E080DB600A4AD32 /* utilityFunctions.swift */; };
+		C41780771E0921B200A4AD32 /* NoteProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD01C6AE1560014E141 /* NoteProgressView.swift */; };
+		C41780781E0921C600A4AD32 /* NoteTitleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB0D81C6F4A18003F3337 /* NoteTitleField.swift */; };
+		C41780791E0921D800A4AD32 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FD31C6B099E0014E141 /* NoteTextView.swift */; };
+		C417807A1E09235E00A4AD32 /* NoteTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BBE6B91C6EFD9600E731A1 /* NoteTextArea.swift */; };
+		C417807B1E0938E400A4AD32 /* NoteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41805E31B9F2F4000B69EF5 /* NoteTableCell.swift */; };
 		C41936F11CC8658A00B06E1F /* ColorBlockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936F01CC8658A00B06E1F /* ColorBlockButton.swift */; };
 		C41936F61CD1225500B06E1F /* LessonDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936F51CD1225500B06E1F /* LessonDescriptionViewController.swift */; };
 		C41936F81CD126F200B06E1F /* LessonMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936F71CD126F200B06E1F /* LessonMenuViewController.swift */; };
 		C41936FA1CD2E0C400B06E1F /* LessonMenuSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936F91CD2E0C400B06E1F /* LessonMenuSplitViewController.swift */; };
 		C41936FE1CD33FB900B06E1F /* LessonMenuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41936FD1CD33FB900B06E1F /* LessonMenuDetailViewController.swift */; };
-		C41AD53C1C95A29500317E41 /* GLPrimitiveRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41AD53B1C95A29400317E41 /* GLPrimitiveRenderer.swift */; };
 		C4235B761C0F406F00C32531 /* ArtworkMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4235B741C0F3C4900C32531 /* ArtworkMenuViewController.swift */; };
 		C42BB0DD1C6F8770003F3337 /* CleanToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB0DB1C6F876D003F3337 /* CleanToolBar.swift */; };
 		C42BB0DF1C6F87D7003F3337 /* PlayBackControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB0DE1C6F87D7003F3337 /* PlayBackControlPanel.swift */; };
-		C42E35A21CD4B61E001EDC02 /* GLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42E35A11CD4B61E001EDC02 /* GLImage.swift */; };
 		C42E35A41CD7675B001EDC02 /* TutorialPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42E35A31CD7675A001EDC02 /* TutorialPanel.swift */; };
 		C433EEB61B5BC05900D5175F /* ImageSlicedRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB41B5BC05900D5175F /* ImageSlicedRectangles.swift */; };
 		C433EEB91B5BC13000D5175F /* SliceRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEB71B5BC13000D5175F /* SliceRect.swift */; };
-		C433EEBC1B5D332F00D5175F /* GLLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EEBA1B5D332F00D5175F /* GLLine.swift */; };
 		C4382C6E1E045A720061F3EF /* PaintViewControllerAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4382C6D1E045A720061F3EF /* PaintViewControllerAudioRecorder.swift */; };
 		C442A8931B7B3B75000BB98F /* primitive.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8921B7B3B75000BB98F /* primitive.vsh */; };
 		C442A8951B7B3B87000BB98F /* primitive.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8941B7B3B87000BB98F /* primitive.fsh */; };
@@ -164,7 +171,6 @@
 		C491EC701C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491EC6E1C129F5D00154CC6 /* PaintViewControllerAction.swift */; };
 		C49404771B2A045600BB975E /* FileBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49404751B2A039500BB975E /* FileBrowseViewController.swift */; };
 		C49404791B2A0D7400BB975E /* SaveFileDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49404781B2A0D7400BB975E /* SaveFileDialogViewController.swift */; };
-		C49E21671B5E3E6D00D5A821 /* GLRenderCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E21661B5E3E6D00D5A821 /* GLRenderCanvas.swift */; };
 		C4A0A9A61B8D3EFA00190A33 /* SubViewAnimationGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0A9A51B8D3EFA00190A33 /* SubViewAnimationGestureHandler.swift */; };
 		C4A2DF331BA3506E00805CE6 /* GetPointColorInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2DF311BA3503700805CE6 /* GetPointColorInView.swift */; };
 		C4A721351C0F59C3007B0B2E /* ArtworkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A721341C0F59C3007B0B2E /* ArtworkCollectionViewCell.swift */; };
@@ -172,7 +178,6 @@
 		C4A721391C11B464007B0B2E /* PaintViewControllerNoteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A721381C11B464007B0B2E /* PaintViewControllerNoteTable.swift */; };
 		C4A947011D9AFBB900BF42A3 /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AE9194536CF00655A34 /* Shader.swift */; };
 		C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AE3C351B0CF26100C959C2 /* Painter.swift */; };
-		C4B10D791B0E3FC0001BAAAB /* GLContextBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B10D771B0E3FC0001BAAAB /* GLContextBuffer.swift */; };
 		C4B4D4191B4E3211004B926D /* FileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B4D4171B4E320D004B926D /* FileTableViewController.swift */; };
 		C4B6C76C1B563CD50052BFC3 /* ReferenceImageScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B6C76A1B563C7F0052BFC3 /* ReferenceImageScene.swift */; };
 		C4BBE6B71C6EE89300E731A1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F664131ADD7607003C1925 /* main.swift */; };
@@ -186,8 +191,6 @@
 		C4C3912B1C7B5C1D0018A1C9 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C391241C7B5C1D0018A1C9 /* Upload.swift */; };
 		C4C3912D1C7B5D020018A1C9 /* SwiftHttp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C391081C7B5BB70018A1C9 /* SwiftHttp.framework */; };
 		C4C3912E1C7B5D020018A1C9 /* SwiftHttp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4C391081C7B5BB70018A1C9 /* SwiftHttp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C4C5B9B81B0EFB1200D6AD4B /* GLTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5B9B71B0EFB1200D6AD4B /* GLTransformation.swift */; };
-		C4C73BD61B5F1EC8008C0D36 /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C73BD51B5F1EC8008C0D36 /* Layer.swift */; };
 		C4CEB91D1B5F7C2E00EEDD9C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2F663F71ADD7607003C1925 /* MainMenu.xib */; };
 		C4DD1FCD1C68EC500014E141 /* NoteProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD1FCC1C68EC500014E141 /* NoteProgress.swift */; };
 		C4E5658B1CDEB319004D1D70 /* StrokeSelecter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5658A1CDEB319004D1D70 /* StrokeSelecter.swift */; };
@@ -215,7 +218,6 @@
 		C4F1D2CF1B8EB79000634626 /* FaceGameStageLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1D2C91B8EB79000634626 /* FaceGameStageLevelGenerator.swift */; };
 		C4F1D2D01B8EB79000634626 /* FaceGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1D2CA1B8EB79000634626 /* FaceGameViewController.swift */; };
 		C4F1D2D31B8EB9D200634626 /* GameLevelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1D2D21B8EB9D200634626 /* GameLevelData.swift */; };
-		C4FEDC0B1BB3D1C900BE7F1C /* LayerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEDC0A1BB3D1C900BE7F1C /* LayerCache.swift */; };
 		C4FFAB7D1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FFAB7C1B8B7987009282FF /* TutorialIntrodutionPageViewController.swift */; };
 		D262B7FE19663A37004A2997 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CA623219512D24007B2DC2 /* Constants.swift */; };
 		D262B7FF19663A37004A2997 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB3AE71945263000655A34 /* Float.swift */; };
@@ -707,8 +709,8 @@
 				C4177FDD1E080B2B00A4AD32 /* PaintStrokeData.framework in Frameworks */,
 				C46C174E1E06AEE6007CE6A0 /* SwiftYoutubePlayer.framework in Frameworks */,
 				C4C3912D1C7B5D020018A1C9 /* SwiftHttp.framework in Frameworks */,
-				C4177F891E06CC9D00A4AD32 /* YouTubeiOSPlayerHelper.framework in Frameworks */,
 				C40FB5C21C663234004A7731 /* SwiftGL.framework in Frameworks */,
+				C4177F891E06CC9D00A4AD32 /* YouTubeiOSPlayerHelper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1873,7 +1875,7 @@
 			attributes = {
 				LastSwiftMigration = 0720;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Jerry Chan";
 				TargetAttributes = {
 					C4177F921E08074A00A4AD32 = {
@@ -1882,6 +1884,7 @@
 					};
 					C4177FA81E0808CD00A4AD32 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = C2V9ET57N8;
 						ProvisioningStyle = Automatic;
 					};
 					C4177FC01E080AC500A4AD32 = {
@@ -2144,35 +2147,38 @@
 			files = (
 				C41780451E08158300A4AD32 /* PrimitiveShader.swift in Sources */,
 				C417802F1E080FF100A4AD32 /* PaintToolManager.swift in Sources */,
+				C417806B1E08239200A4AD32 /* GLContextBuffer.swift in Sources */,
 				C41780421E08155400A4AD32 /* GLShaderBinder.swift in Sources */,
 				C41780371E08108B00A4AD32 /* BrushTextureLoader.swift in Sources */,
 				C417805B1E08192400A4AD32 /* PaintOperation.swift in Sources */,
+				C41780711E08249F00A4AD32 /* LayerCache.swift in Sources */,
 				C417805C1E08192400A4AD32 /* Initable.swift in Sources */,
+				C417806D1E08245800A4AD32 /* GLTransformation.swift in Sources */,
 				C41780461E08158300A4AD32 /* BrushShader.swift in Sources */,
 				C417804D1E08160100A4AD32 /* ModelViewProjectionProtocol.swift in Sources */,
 				C417805A1E08192400A4AD32 /* PaintClip.swift in Sources */,
 				C41780591E08192400A4AD32 /* PointData.swift in Sources */,
+				C417806E1E08245800A4AD32 /* GLLine.swift in Sources */,
 				C41780381E08108B00A4AD32 /* PaintBrush.swift in Sources */,
-				C41780561E08191F00A4AD32 /* NoteButton.swift in Sources */,
-				C41780531E08191F00A4AD32 /* NoteTextView.swift in Sources */,
 				C417804A1E08159100A4AD32 /* GLShaderWrapper.swift in Sources */,
 				C41780571E08192400A4AD32 /* PaintPoint.swift in Sources */,
 				C417803E1E08144A00A4AD32 /* utilityFunctions.swift in Sources */,
 				C417805D1E08192800A4AD32 /* ToolInfo.swift in Sources */,
 				C41780481E08158300A4AD32 /* OilBrushShader.swift in Sources */,
-				C41780541E08191F00A4AD32 /* NoteTextArea.swift in Sources */,
+				C417806C1E08242D00A4AD32 /* GLRenderCanvas.swift in Sources */,
 				C41780331E080FFB00A4AD32 /* File.swift in Sources */,
+				C417806F1E08245E00A4AD32 /* GLRenderBuffer.swift in Sources */,
 				C41780511E08191F00A4AD32 /* NoteProgressButton.swift in Sources */,
 				C41780581E08192400A4AD32 /* PaintStroke.swift in Sources */,
-				C41780521E08191F00A4AD32 /* NoteProgressView.swift in Sources */,
 				C41780311E080FFB00A4AD32 /* NoteFile.swift in Sources */,
-				C41780551E08191F00A4AD32 /* NoteTitleField.swift in Sources */,
-				C41780631E08192F00A4AD32 /* NoteTableCell.swift in Sources */,
 				C41780611E08192F00A4AD32 /* Note.swift in Sources */,
+				C41780701E08249F00A4AD32 /* Layer.swift in Sources */,
 				C41780441E08158300A4AD32 /* TextureShader.swift in Sources */,
 				C41780341E080FFB00A4AD32 /* ImageFile.swift in Sources */,
 				C41780471E08158300A4AD32 /* EraserShader.swift in Sources */,
 				C41780431E08158300A4AD32 /* PencilShader.swift in Sources */,
+				C41780721E08249F00A4AD32 /* GLImage.swift in Sources */,
+				C41780731E0824AD00A4AD32 /* GLPrimitiveRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2256,15 +2262,14 @@
 				C433EEB91B5BC13000D5175F /* SliceRect.swift in Sources */,
 				C4BBE6B71C6EE89300E731A1 /* main.swift in Sources */,
 				C48306801B4BFE15006743DC /* UIAlertManager.swift in Sources */,
+				C417807B1E0938E400A4AD32 /* NoteTableCell.swift in Sources */,
 				C49404771B2A045600BB975E /* FileBrowseViewController.swift in Sources */,
 				C4EB7A811B8645D600A33651 /* DialogueManager.swift in Sources */,
-				C42E35A21CD4B61E001EDC02 /* GLImage.swift in Sources */,
 				C41780691E081AD800A4AD32 /* ArtworkFile.swift in Sources */,
 				C4E565D51CE86151004D1D70 /* PaintViewStrokeSelect.swift in Sources */,
 				C4A0A9A61B8D3EFA00190A33 /* SubViewAnimationGestureHandler.swift in Sources */,
 				C4E5658B1CDEB319004D1D70 /* StrokeSelecter.swift in Sources */,
 				C4EB7A851B86483A00A33651 /* PanGestureHandler.swift in Sources */,
-				C41AD53C1C95A29500317E41 /* GLPrimitiveRenderer.swift in Sources */,
 				C46DCD271BA477110038014F /* SubViewPanelAnimateState.swift in Sources */,
 				C4F1D2CF1B8EB79000634626 /* FaceGameStageLevelGenerator.swift in Sources */,
 				C417804E1E08162200A4AD32 /* PaintReplayer.swift in Sources */,
@@ -2280,17 +2285,21 @@
 				C44747831B8334300093F019 /* ControlPointView.swift in Sources */,
 				C47D71051BB5A033002BFE0A /* PaintViewControllerAppMode.swift in Sources */,
 				C4E904151CB923FC00175B60 /* ArtworkFileExporter.swift in Sources */,
+				C41780791E0921D800A4AD32 /* NoteTextView.swift in Sources */,
 				C46B3AD91CDAEF82002E6387 /* LessonBuilder.swift in Sources */,
 				C4F1D2CC1B8EB79000634626 /* FaceComponent.swift in Sources */,
-				C433EEBC1B5D332F00D5175F /* GLLine.swift in Sources */,
 				C46CB8681B0DA8BC008C378B /* PaintViewController.swift in Sources */,
 				C458F5A81B54AB6000FC1235 /* CroppedRectangleManager.swift in Sources */,
 				C417804C1E0815EB00A4AD32 /* PaintManager.swift in Sources */,
+				C41780761E091D9400A4AD32 /* utilityFunctions.swift in Sources */,
 				C42E35A41CD7675B001EDC02 /* TutorialPanel.swift in Sources */,
+				C417807A1E09235E00A4AD32 /* NoteTextArea.swift in Sources */,
 				C4918E3E1B6383F600539433 /* RefImgManager.swift in Sources */,
 				C4E7C8EF1BF9058200CC1EAA /* LearnMenuViewController.swift in Sources */,
 				C4B6C76C1B563CD50052BFC3 /* ReferenceImageScene.swift in Sources */,
+				C41780751E091C7900A4AD32 /* PaintArtwork.swift in Sources */,
 				C458F5A61B54AA9500FC1235 /* ReferenceImageViewController.swift in Sources */,
+				C41780781E0921C600A4AD32 /* NoteTitleField.swift in Sources */,
 				C41780681E0819D200A4AD32 /* NoteManager.swift in Sources */,
 				C4E5658D1CDF2BF9004D1D70 /* OptionTableViewController.swift in Sources */,
 				C491EC641C129C0700154CC6 /* PaintViewControllerInitStyle.swift in Sources */,
@@ -2301,10 +2310,6 @@
 				C40C2E5E1C7086B4006A165F /* TopToolBar.swift in Sources */,
 				C4A721391C11B464007B0B2E /* PaintViewControllerNoteTable.swift in Sources */,
 				C4A721351C0F59C3007B0B2E /* ArtworkCollectionViewCell.swift in Sources */,
-				C401FAED1B8D6D9A00B6F177 /* GLRenderBuffer.swift in Sources */,
-				C4B10D791B0E3FC0001BAAAB /* GLContextBuffer.swift in Sources */,
-				C4C5B9B81B0EFB1200D6AD4B /* GLTransformation.swift in Sources */,
-				C4FEDC0B1BB3D1C900BE7F1C /* LayerCache.swift in Sources */,
 				C4EB7A821B8645D600A33651 /* TypeWriter.swift in Sources */,
 				C4BBE6BC1C6F123A00E731A1 /* NoteEdit.swift in Sources */,
 				C41936FA1CD2E0C400B06E1F /* LessonMenuSplitViewController.swift in Sources */,
@@ -2321,17 +2326,18 @@
 				C41936F61CD1225500B06E1F /* LessonDescriptionViewController.swift in Sources */,
 				C4235B761C0F406F00C32531 /* ArtworkMenuViewController.swift in Sources */,
 				C491EC6A1C129C9C00154CC6 /* ReplayControl.swift in Sources */,
+				C41780741E0824C300A4AD32 /* NoteButton.swift in Sources */,
 				C46DAEFD1C7700530047A7B7 /* NoteOptionTableViewController.swift in Sources */,
 				C4F1D2D31B8EB9D200634626 /* GameLevelData.swift in Sources */,
 				C41780501E08165800A4AD32 /* PaintRecorder.swift in Sources */,
 				C44747811B8333EC0093F019 /* ShadeView.swift in Sources */,
 				C41780671E08199300A4AD32 /* FileManager.swift in Sources */,
 				C4A721371C0F6B69007B0B2E /* CollectionViewCell.swift in Sources */,
+				C41780771E0921B200A4AD32 /* NoteProgressView.swift in Sources */,
 				C4EB7A7F1B86450F00A33651 /* Dialogue.swift in Sources */,
 				C4DD1FCD1C68EC500014E141 /* NoteProgress.swift in Sources */,
 				C40C2E5C1C703195006A165F /* PlayPauseButton.swift in Sources */,
 				C4AE3C3C1B0CF41500C959C2 /* Painter.swift in Sources */,
-				C49E21671B5E3E6D00D5A821 /* GLRenderCanvas.swift in Sources */,
 				C44747781B83065E0093F019 /* CanvasCropView.swift in Sources */,
 				C491EC701C129F5D00154CC6 /* PaintViewControllerAction.swift in Sources */,
 				C4C390F41C7A54A60018A1C9 /* QTouchposeApplication.m in Sources */,
@@ -2341,7 +2347,6 @@
 				C4BD8CA91B274DA0000A20A4 /* TouchClassifier.swift in Sources */,
 				C45BF5E31B9B6CB9000DD389 /* AngleGradientLayer.m in Sources */,
 				C46C17591E06B004007CE6A0 /* YoutubeViewController.swift in Sources */,
-				C4C73BD61B5F1EC8008C0D36 /* Layer.swift in Sources */,
 				C42BB0DF1C6F87D7003F3337 /* PlayBackControlPanel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2455,7 +2460,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: pupu1416@yahoo.com.tw (SJB74TH2V6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2484,7 +2489,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2516,6 +2521,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = C2V9ET57N8;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2542,9 +2548,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = C2V9ET57N8;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2571,7 +2578,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: pupu1416@yahoo.com.tw (SJB74TH2V6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2600,7 +2607,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2629,7 +2636,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: pupu1416@yahoo.com.tw (SJB74TH2V6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = C2V9ET57N8;
@@ -2659,7 +2666,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = C2V9ET57N8;
@@ -2689,7 +2696,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: pupu1416@yahoo.com.tw (SJB74TH2V6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = C2V9ET57N8;
@@ -2719,7 +2726,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = C2V9ET57N8;
@@ -2750,7 +2757,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: pupu1416@yahoo.com.tw (SJB74TH2V6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2758,7 +2765,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CGUtility/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.easyman.CGUtility;
@@ -2780,7 +2787,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2788,7 +2795,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CGUtility/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.easyman.CGUtility;
@@ -2810,13 +2817,18 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: pupu1416@yahoo.com.tw (SJB74TH2V6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = C2V9ET57N8;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/framework",
+				);
+				HEADERMAP_USES_VFS = YES;
 				INFOPLIST_FILE = SwiftYoutubePlayer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
@@ -2841,13 +2853,18 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = C2V9ET57N8;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/framework",
+				);
+				HEADERMAP_USES_VFS = YES;
 				INFOPLIST_FILE = SwiftYoutubePlayer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;

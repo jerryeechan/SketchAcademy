@@ -11,17 +11,17 @@ import OpenGLES
 import GLKit
 import SwiftGL
 import PaintStrokeData
-class PaintBrush:NSObject{
+public class PaintBrush:NSObject{
     
     var texture:Texture!
     var name:String
     
-    var sInfo:ToolStringInfo
-    var vInfo:ToolValueInfo
+    public var sInfo:ToolStringInfo
+    public var vInfo:ToolValueInfo
     
-    var toolType:BrushType
+    public var toolType:BrushType
     
-    init(textureName:String,color:Color,size:Float = 5,type:BrushType)
+    public init(textureName:String,color:Color,size:Float = 5,type:BrushType)
     {
         texture = BrushTextureLoader.instance.getTexture(textureName)
         name = textureName
@@ -40,25 +40,25 @@ class PaintBrush:NSObject{
         vInfo = ToolValueInfo(color: color, size: size)
         self.toolType = type
     }
-    func changeTexture(_ name:String)
+    public func changeTexture(_ name:String)
     {
         texture = BrushTextureLoader.instance.getTexture(name)
         self.name = name
     }
-    func changeColor(_ color:Color)
+    public func changeColor(_ color:Color)
     {
         
         vInfo.color = color
         GLShaderBinder.instance.currentBrushShader.bindBrushColor(vInfo.color.vec)
     }
 
-    func changeSize(_ size:Float)
+    public func changeSize(_ size:Float)
     {
         vInfo.size = size
         GLShaderBinder.instance.currentBrushShader.bindBrushSize(vInfo.size)
     }
     
-    func useTool()
+    public func useTool()
     {
         //print("Tool color: \(vInfo.color.vec)")
         //print(texture)

@@ -33,7 +33,7 @@ extension UIView
         return coord
     }
 }
-class HueView: UIView {
+public class HueView: UIView {
     var color: UIColor!
     var point: CGPoint!
     var knob:UIView!
@@ -51,7 +51,7 @@ class HueView: UIView {
     var width:CGFloat!
     var width_2:CGFloat!
     var hasLayouted = false
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         
         if !hasLayouted
@@ -107,14 +107,14 @@ class HueView: UIView {
         }
         
     }
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
             }
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Set reference to the location of the touch in member point
         let  touch = touches.first
         
@@ -138,7 +138,7 @@ class HueView: UIView {
     
     
 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Set reference to the location of the touchesMoved in member point
         let  touch = touches.first
         moveKnob(touch!,duration: 0.1)
@@ -158,7 +158,7 @@ class HueView: UIView {
     func getColorFromPoint(_ point: CGPoint) -> UIColor {
         return UIColor(hue: point.x/frame.width, saturation: 1, brightness: 1, alpha: 1)
     }
-     override func draw(_ rect: CGRect) {
+     override public func draw(_ rect: CGRect) {
         /*
         if (point != nil) {
             let context = UIGraphicsGetCurrentContext()

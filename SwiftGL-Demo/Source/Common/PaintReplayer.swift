@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import PaintStrokeData
+import GLFramework
 class PaintReplayer:NSObject
 {
     //private var strokes:[PaintStroke] = []
@@ -175,14 +175,17 @@ class PaintReplayer:NSObject
         currentPoints = strokes[strokeID].points
         c_PointData = strokes[strokeID].pointData
         
-        let strokeStartTime = strokes[clip.currentStrokeID].startTime
+        //let strokeStartTime = strokes[clip.currentStrokeID].startTime
+        /*
         if strokeStartTime != nil
         {
-            firstTimeStamps = strokeStartTime! //c_PointData[0].timestamps
+            firstTimeStamps = strokeStartTime //c_PointData[0].timestamps
         }
         else{
-            firstTimeStamps = strokes[clip.currentStrokeID].pointData[0].timestamps
         }
+ */
+        firstTimeStamps = strokes[clip.currentStrokeID].pointData[0].timestamps
+        
         timeCounter = firstTimeStamps//c_PointData[0].timestamps
     }
     
@@ -198,13 +201,15 @@ class PaintReplayer:NSObject
                 //DLog("timestamps: \(c_PointData[currentPointID].timestamps + firstTimeStamps)")
                 if currentPointID >= c_PointData.count
                 {
-                    testNextPoint()
+                    _ = testNextPoint()
                 }
                 
                 if currentPointID >= 2
                 {
                     let i = currentPointID
                     context.renderStaticLine([currentPoints[i-2],currentPoints[i-1],currentPoints[i]])
+                    context.penAzimuth = currentPoints[i].azimuth
+                    context.penPos = currentPoints[i].position
                     //draw(strokes[clip.currentStrokeID], p1: currentPoints[i-2], p2: currentPoints[i-1], p3: currentPoints[i])
                 }
                 
@@ -320,6 +325,7 @@ class PaintReplayer:NSObject
     //0 as blank, 1 as first stroke, stroke.count as all
     func drawStrokeProgress(_ index:Int)->Bool
     {
+        
         let strokes = clip.strokes
         
         currentPointID = 0

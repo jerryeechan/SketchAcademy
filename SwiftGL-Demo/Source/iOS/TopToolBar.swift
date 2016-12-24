@@ -5,7 +5,7 @@
 //  Created by jerry on 2016/2/14.
 //  Copyright © 2016年 Jerry Chan. All rights reserved.
 //
-
+import GLFramework
 extension PaintViewController
 {
     func removeToolBarButton(_ button:UIBarButtonItem)->Int!

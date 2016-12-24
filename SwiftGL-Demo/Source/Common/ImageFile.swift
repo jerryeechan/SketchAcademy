@@ -8,8 +8,12 @@
 
 import Foundation
 import SwiftHttp
-class ImageFile: File {
-    func loadImg(_ filename:String)->UIImage!
+public class ImageFile: File {
+    public override init()
+    {
+        
+    }
+    public func loadImg(_ filename:String)->UIImage!
     {
         
         if let img = UIImage(contentsOfFile: File.dirpath+"/"+NSString(string: filename).deletingPathExtension+".png")
@@ -19,7 +23,7 @@ class ImageFile: File {
         return nil
         
     }
-    func loadImgWithExtension(_ filename:String,ext:String)->UIImage!
+    public func loadImgWithExtension(_ filename:String,ext:String)->UIImage!
     {
         if let img = UIImage(contentsOfFile: File.dirpath+"/"+NSString(string: filename).deletingPathExtension+ext)
         {
@@ -27,7 +31,7 @@ class ImageFile: File {
         }
         return nil
     }
-    func loadImg(_ filename:String, attribute:String = "original")->UIImage!
+    public func loadImg(_ filename:String, attribute:String = "original")->UIImage!
     {
         switch attribute {
         case "original":
@@ -41,7 +45,7 @@ class ImageFile: File {
         }
     }
      
-    func saveImg(_ img:UIImage,filename:String)
+    public func saveImg(_ img:UIImage,filename:String)
     {
         
         let imageData:Data = UIImagePNGRepresentation(img)!;
@@ -49,7 +53,7 @@ class ImageFile: File {
         try? imageData.write(to: URL(fileURLWithPath: filePath), options: [.atomic])
         
     }
-    override func delete(_ filename: String) {
+    override public func delete(_ filename: String) {
         super.delete(filename+".png")
     }
     
