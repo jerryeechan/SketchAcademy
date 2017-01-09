@@ -87,6 +87,7 @@ public class ArtworkFile:File{
     {
         
         let clip = artwork.useMasterClip()
+        clip.strokeInfoAnalysis()
         let text = clip.strokes.tojsonStrokeInfo
         
         print(text)

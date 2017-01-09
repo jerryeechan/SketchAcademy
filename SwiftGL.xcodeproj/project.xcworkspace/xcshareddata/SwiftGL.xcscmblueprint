@@ -5,17 +5,24 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "8C35D2321C4F0D971D334AB17A2C22DD70B8CE02" : 0,
-    "2F981810B96881551DBB3286CBCAF8FE3DBD8155" : 0
+    "2F981810B96881551DBB3286CBCAF8FE3DBD8155" : 0,
+    "0092CB4F3BC32457315FA328CA7F0D6142F25152" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A0E9BF19-99B7-4372-B3D2-CCEBAF523808",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "8C35D2321C4F0D971D334AB17A2C22DD70B8CE02" : "SwiftGL",
-    "2F981810B96881551DBB3286CBCAF8FE3DBD8155" : "SwiftGL-master\/"
+    "2F981810B96881551DBB3286CBCAF8FE3DBD8155" : "SwiftGL-master\/",
+    "0092CB4F3BC32457315FA328CA7F0D6142F25152" : "SwiftGL-master\/StrokeAnalysis\/SigmaSwiftStatistics\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "SwiftGL",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SwiftGL.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/evgenyneu\/SigmaSwiftStatistics.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0092CB4F3BC32457315FA328CA7F0D6142F25152"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jerrypupu111\/LearnDrawingToolSet.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

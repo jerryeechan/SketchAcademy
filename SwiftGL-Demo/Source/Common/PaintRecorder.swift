@@ -11,12 +11,14 @@ import Darwin
 import Foundation
 import UIKit
 import GLFramework
+import StrokeAnalysis
 /**
     record the given input data and save into PaintArtwork
 */
 class PaintRecorder {
     var stroke:PaintStroke!
     fileprivate var recordClip:PaintClip!
+    let strokeDiagnoser:RealTimeStrokeDiagnoser = RealTimeStrokeDiagnoser()
     //var artwork:PaintArtwork!
     /**
     * 
@@ -24,10 +26,13 @@ class PaintRecorder {
         
     
     */
+    var soundGenerator = SoundGenerator()
     weak var context:GLContextBuffer!
     init(canvas:GLContextBuffer)
     {
         self.context = canvas
+        strokeDiagnoser.forceLabel = PaintViewController.instance.strokeDiagnosisForceLabel
+        strokeDiagnoser.altitudeLabel = PaintViewController.instance.strokeDiagnosisAltitudeLabel
     }
     func setRecordClip(_ clip:PaintClip)
     {
@@ -51,7 +56,11 @@ class PaintRecorder {
         strokeStartTime = CFAbsoluteTimeGetCurrent()
         stroke = PaintStroke(s: (tool?.sInfo)!, v: (tool?.vInfo)!,startTime: strokeStartTime)
         context.paintToolManager.useCurrentTool()
-        stroke.addPoint(genPaintPoint(touch, view: view,context: context), time: 0)
+        var point = genPaintPoint(touch, view: view,context: context)
+        //FAKE
+        point?.force = 0
+        stroke.addPoint(point!, time: 0)
+        soundGenerator.start()
         
     }
     var isTemp:Bool = false
@@ -81,7 +90,7 @@ class PaintRecorder {
                 if(!points.isEmpty){
                     context.renderStaticLine(points)
                 }
-                
+                soundGenerator.play(point: newPoint)
             }
             tempLastPoint = newPoint
         }
@@ -102,13 +111,16 @@ class PaintRecorder {
         for touch in touches
         {
             let newPoint = genPaintPoint(touch,view: view,context: context)
+            
             if ((newPoint?.position)!-(lastPoint?.position)!).length2>10
             {
                 //DLog("\(time - strokeStartTime)")
                 points.append(newPoint!)
+                strokeDiagnoser.newPoint(point: newPoint!)
                 stroke.addPoint(newPoint!, time: time - strokeStartTime)
                 lastPoint = newPoint
             }
+            soundGenerator.play(point: newPoint!)
         }
         //PaintToolManager.instance.useCurrentTool()
         if(!points.isEmpty){
@@ -138,13 +150,22 @@ class PaintRecorder {
             recordClip.cleanRedos()
             recordClip.currentTime += strokeEndTime - strokeStartTime
             context.endStroke()
+            if recordClip.strokes.count == 0
+            {
+                strokeDiagnoser.refStroke = stroke
+            }
             recordClip.addPaintStroke(stroke)
+            
             context.checkCache(recordClip.strokes.count)
             stroke = nil
+            soundGenerator.stop()
             return oldStroke
             //PaintView.display()
         }
         return nil
+    }
+    deinit {
+        print("deinit")
     }
     
     
@@ -179,9 +200,10 @@ func genPaintPoint(_ touch:UITouch,view:PaintView,context:GLContextBuffer)->Pain
             azimuth = touch.azimuthUnitVector(in: view)
             //context.azimuth = Vec4(Float(azimuth.dx),Float(-azimuth.dy),0,0)
             location.y = CGFloat(view.bounds.height) - location.y
-            //print(Vec2(point: dir).length)
+            print(Vec2(point: dir))
             //DLog("Azimuth: \(azimuth)")
             //DLog("altitude: \(altitude)")
+            
             return PaintPoint(position: Vec4(point: location)*Float(view.contentScaleFactor)-Vec4(context.canvasShiftX,0,0,0), force:Float(force), altitude: Float(altitude), azimuth: normalize(Vec2(cgVector:azimuth)),velocity: Vec2(point: dir))
         }
     }

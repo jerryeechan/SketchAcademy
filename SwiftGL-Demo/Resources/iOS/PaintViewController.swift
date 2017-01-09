@@ -539,6 +539,19 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate,StrokePr
     //select tool
     @IBOutlet weak var selectRectView: SelectRectView!
     var strokeSelecter:StrokeSelecter!
+    
+    
+    
+    //stroke diagnosis
+    
+    @IBOutlet weak var strokeDiagnosisForceLabel: UILabel!
+    
+    @IBOutlet weak var strokeDiagnosisAltitudeLabel: UILabel!
+    
+    @IBOutlet weak var strokeDiagnosisAzimuthLabel: UILabel!
+    
+    @IBOutlet weak var strokeDiagnosisSpeedLabel: UILabel!
+    
 }
 
 

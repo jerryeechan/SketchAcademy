@@ -64,12 +64,13 @@ extension PaintViewController
         switch(sender.tag)
         {
         case 0:
-            
-            _ = paintView.paintBuffer.paintToolManager.changeTool("oil")
+            paintView.paintBuffer.paintToolManager.changeTool("oilbrush")
         case 1:
-            _ = paintView.paintBuffer.paintToolManager.changeTool("pen")
-            
+            paintView.paintBuffer.paintToolManager.changeTool("calligraphy")
         case 2:
+            paintView.paintBuffer.paintToolManager.changeTool("flatpen")
+        case 3:
+            paintView.paintBuffer.paintToolManager.changeTool("pencil")
            break
             
         case -1:

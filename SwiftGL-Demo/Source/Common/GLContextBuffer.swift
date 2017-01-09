@@ -32,6 +32,7 @@ public class GLContextBuffer{
     public var canvasShiftX:Float = 0
     public init()
     {
+        
         paintToolManager = PaintToolManager()
         if GLShaderBinder.instance != nil
         {
@@ -117,17 +118,17 @@ public class GLContextBuffer{
             drawTexture(canvas.revisionLayer.texture, alpha: 1)
         }
         
-        /*
+        
         if((penAzimuth) != nil)
         {
             
             //drawFillRectangle(GLRect(p1: Vec2(Float(imgWidth/2),Float(imgHeight/2)),p2: azimuth.xy), color: Vec4(1,0,0,0))
             //let center = Vec4(Float(imgWidth/2),Float(imgHeight/2))
-            print("drawline\(penPos)\(penAzimuth)")
-            drawLine(penPos+Vec4(0,0,0,1),end:penPos+Vec4(penAzimuth.x,-penAzimuth.y,0,0)*100+Vec4(0,0,0,1))
+            //print("drawline\(penPos)\(penAzimuth)")
+            //drawLine(penPos+Vec4(0,0,0,1),end:penPos+Vec4(penAzimuth.x,-penAzimuth.y,0,0)*100+Vec4(0,0,0,1))
             //drawGrid(60)
         }
- */
+ 
         
     }
     public var penAzimuth:Vec2!
@@ -166,6 +167,7 @@ public class GLContextBuffer{
     var currentLayer = 0
     public func renderStaticLine(_ points:[PaintPoint])
     {
+        
         let vertexBuffer = interpolatePoints(points)
         drawBrushVertex(vertexBuffer,layer: currentLayer)
     }
@@ -190,12 +192,15 @@ public class GLContextBuffer{
     {
         
     }
+    
     public func renderVertex(_ vertexBuffer:[PaintPoint])
     {
+       
         shaderBinder.currentBrushShader.bindBrush()
         shaderBinder.currentBrushShader.bindVertexs(vertexBuffer)
         shaderBinder.currentBrushShader.useShader()
-        
+       
+
         paintToolManager.useCurrentTool()
         glDrawArrays((GL_POINTS), 0, Int32(vertexBuffer.count));
         drawVertexCount += vertexBuffer.count
@@ -312,7 +317,8 @@ public class GLContextBuffer{
             let ydis2 = powf(disy,2)
             
             // Add points to the buffer so there are drawing points every X pixels
-            let pnum = ceil(sqrt(xdis2 + ydis2) / kBrushPixelStep)
+            let dis = sqrt(xdis2+ydis2)
+            let pnum = ceil(dis / kBrushPixelStep)
             
             count = max(Int(pnum),1);
             if(count == 1)

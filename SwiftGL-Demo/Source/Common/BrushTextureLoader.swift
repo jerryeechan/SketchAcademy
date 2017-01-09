@@ -33,7 +33,7 @@ class BrushTextureLoader {
         loadTexture("Particle")
         loadTexture("pencil")
         loadTexture("crayonTexture")
-        loadTexture("markerTexture")
+        loadTexture("marker")
         loadTexture("circleTexture")
         loadTexture("circle")
         loadTexture("oilbrush")

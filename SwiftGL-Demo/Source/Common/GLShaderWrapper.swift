@@ -31,6 +31,7 @@ public class GLShaderWrapper:ModelViewProjectionProtocol{
     public init(name:String)
     {
         shader = Shader()
+        DLog(name)
         if !(shader.load( "\(name).vsh","\(name).fsh") {
             program in
             }) {

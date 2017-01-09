@@ -147,7 +147,7 @@ public class PaintClip:NSObject{
         }
         //onStrokeIDChanged(currentStrokeID, strokes.count + redoStrokes.count)
         
-        DLog("current\(currentStrokeID) strokes:\(strokes.count) redo:\(redoStrokes.count)")
+        //DLog("current\(currentStrokeID) strokes:\(strokes.count) redo:\(redoStrokes.count)")
 
     }
     var bvhTree:BVHTree = BVHTree()
@@ -162,6 +162,39 @@ public class PaintClip:NSObject{
     deinit
     {
         DLog("clip deinit")
+    }
+    
+    public func strokeInfoAnalysis()
+    {
+        var eraserCount = 0
+        var pencilCount = 0
+        
+        var eraserTime = 0.0
+        var pencilTime = 0.0
+        
+        var pencilLength = 0
+        var eraserLength = 0
+        
+        
+        for stroke in strokes {
+            if stroke.stringInfo.toolName=="eraser"
+            {
+                eraserCount += 1
+                eraserTime += (stroke.pointData.last?.timestamps)!
+            }
+            else if stroke.stringInfo.toolName=="pen"
+            {
+                pencilCount += 1
+                pencilTime += (stroke.pointData.last?.timestamps)!
+            }
+            else
+            {
+                print("other tool\(stroke.stringInfo.toolName)")
+                print("zz")
+            }
+            
+        }
+        print("Stroke Analysis:\(pencilCount) \(eraserCount) \(pencilTime) \(eraserTime)")
     }
 }
 

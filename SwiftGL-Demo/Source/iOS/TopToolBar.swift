@@ -56,12 +56,12 @@ extension PaintViewController
     {
         if PaintViewController.appMode != ApplicationMode.instructionTutorial
         {
-            removeToolBarButton(demoAreaText)
+            _ = removeToolBarButton(demoAreaText)
             removeToolBarButton(practiceAreaText)
         }
         
-        removeToolBarButton(reviseDoneButton)
-        removeToolBarButton(addNoteButton)
+        _ = removeToolBarButton(reviseDoneButton)
+        _ = removeToolBarButton(addNoteButton)
         //removeToolBarButton(addNoteButton)
         //removeToolBarButton(enterDrawModeButton)
         //addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
@@ -74,7 +74,7 @@ extension PaintViewController
         //reviseDoneButton.enabled = true
         
         addToolBarButton(reviseDoneButton, atIndex: 0)
-        removeToolBarButton(dismissButton)
+        _ = removeToolBarButton(dismissButton)
         //removeToolBarButton(enterDrawModeButton)
         //addToolBarButton(enterViewModeButton, atIndex: toolBarItems.count)
         //removeToolBarButton(addNoteButton)

@@ -99,7 +99,8 @@ open class Shader {
         
         let vertexShader   = Shader.compile(GL_VERTEX_SHADER,   vertexSource)
         let fragmentShader = Shader.compile(GL_FRAGMENT_SHADER, fragmentSource)
-        
+        print(vertexShader)
+        print(fragmentShader)
         // Call the external function to bind all of the default shader attributes
         bindAttibutes(id)
         
@@ -152,6 +153,7 @@ open class Shader {
             let vertexSource = try String(contentsOfFile: vertexFile,   encoding: String.Encoding.ascii)
             do {
                 let fragmentSource = try String(contentsOfFile: fragmentFile, encoding: String.Encoding.ascii)
+                
                 return self.compile(vertexSource, fragmentSource, bindAttibutes)
             } catch _ {
             }
@@ -217,7 +219,7 @@ open class Shader {
     
     fileprivate class func compile(_ type: GLenum, _ source: String) -> GLprogram {
         if let csource: [GLchar] = source.cString(using: String.Encoding.ascii) {
-            var cptr = ptr(csource)
+            let cptr = ptr(csource)
             
             let shader = glCreateShader(type)
             glShaderSource(shader, 1, [cptr], nil)

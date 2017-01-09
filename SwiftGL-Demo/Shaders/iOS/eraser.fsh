@@ -54,7 +54,7 @@ uniform sampler2D texture;
 
 varying lowp float angle;
 //uniform float vRotation;
-varying lowp vec4 color;
+//varying lowp vec4 color;
 
 void main()
 {

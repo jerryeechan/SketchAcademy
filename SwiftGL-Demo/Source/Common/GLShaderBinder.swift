@@ -36,13 +36,14 @@ public class GLShaderBinder{
         primitiveShader = PrimitiveShader()
         
         shaderWrappers = [textureShader,primitiveShader]
-        //brushShaders = [pencilShader,eraserShader]
         
+        brushShaderDict[BrushType.oilBrush] = BrushShader(name: "oilbrush")
+        brushShaderDict[BrushType.flatpen] = BrushShader(name: "flatpen")
+        brushShaderDict[BrushType.calligraphy] = BrushShader(name: "calligraphy")
         
         brushShaderDict[BrushType.pencil] = PencilShader()
         brushShaderDict[BrushType.eraser] = EraserShader()
-        brushShaderDict[BrushType.oilBrush] = BrushShader(name: "oilbrush")
-            
+        
         currentBrushShader = brushShaderDict[BrushType.pencil]!
         GLShaderBinder.instance = self
         useBrush(BrushType.pencil)

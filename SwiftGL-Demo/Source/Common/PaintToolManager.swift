@@ -15,9 +15,9 @@ import PaintStrokeData
 enum PaintToolType:Int{
     case pen = 0,eraser,oil,smudge
 }*/
-public enum BrushType:Int
+public enum BrushType:String
 {
-    case pencil = 0,oilBrush,eraser
+    case pencil = "pencil",oilBrush="oilbrush",eraser="eraser",calligraphy="calligraphy",flatpen="flatpen"
 }
 open class PaintToolManager {
     
@@ -41,19 +41,29 @@ open class PaintToolManager {
         
         pen = PaintBrush(textureName: "pencil",color: Color(25,25,25,25),size: 2,type:BrushType.pencil)
         eraser = PaintBrush(textureName: "circle", color: Color(255,255,255,0),size: 10,type:BrushType.eraser)
-        oilbrush = PaintBrush(textureName: "oilbrush", color: Color(25,25,25,25), size: 20, type: BrushType.oilBrush)
+        oilbrush = PaintBrush(textureName: "circle", color: Color(25,25,25,25), size: 20, type: BrushType.oilBrush)
+        
+        brushDict[BrushType.calligraphy] = PaintBrush(textureName: "circleTexture", color: Color(25,25,25,25), size: 20, type: BrushType.calligraphy)
+        
+        brushDict[BrushType.flatpen] = PaintBrush(textureName: "marker", color: Color(25,25,25,25), size: 20, type: BrushType.flatpen)
+        
         brushDict[BrushType.pencil] = pen
         brushDict[BrushType.eraser] = eraser
         brushDict[BrushType.oilBrush] = oilbrush
-        _ = useTool(BrushType.pencil)
+        
+        _ = useTool(BrushType.oilBrush)
         
         //Painter.currentBrush = currentTool
     
     }
     var brushDict:[BrushType:PaintBrush] = [:]
+    
+    /*
     public func getTool(_ name:String)->BrushType{
         switch(name)
         {
+        case "pencil":
+            return .pencil
         case "pen":
             return .pencil
         case "marker":
@@ -61,12 +71,16 @@ open class PaintToolManager {
             return .pencil
         case "oil":
             return .oilBrush
+        case "calligraphy":
+            return .calligraphy
+        case "flatpen":
+            return .flatpen
         case "eraser":
             return .eraser
         default :
             return .pencil
         }
-    }
+    }*/
     public func usePreviousTool()
     {
         useTool(lastBrush.toolType)
@@ -75,7 +89,7 @@ open class PaintToolManager {
     {
         useTool(currentTool.toolType)
     }
-    public func useTool(_ type:BrushType)->PaintBrush!
+    public func useTool(_ type:BrushType)
     {
         currentTool = brushDict[type]
         switch(type)
@@ -89,14 +103,12 @@ open class PaintToolManager {
             
         }
         
-        return currentTool
         
     }
     
-    public func changeTool(_ name:String)->PaintBrush
+    public func changeTool(_ name:String)
     {
-        currentTool = useTool(getTool(name))
-        return currentTool
+        useTool(BrushType.init(rawValue: name)!)
     }
     /*
     func changeTool(index:Int)->PaintBrush
