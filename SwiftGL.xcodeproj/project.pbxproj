@@ -129,6 +129,8 @@
 		C44747811B8333EC0093F019 /* ShadeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44747801B8333EC0093F019 /* ShadeView.swift */; };
 		C44747831B8334300093F019 /* ControlPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44747821B8334300093F019 /* ControlPointView.swift */; };
 		C44A27991B5E21EB00A78C8E /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B38FAE194E063800722470 /* Texture.swift */; };
+		C44DA4E21E250E0C00544779 /* chinesebrush.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C44DA4E11E250E0C00544779 /* chinesebrush.vsh */; };
+		C44DA4E41E250E1A00544779 /* chinesebrush.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C44DA4E31E250E1A00544779 /* chinesebrush.fsh */; };
 		C458F5A61B54AA9500FC1235 /* ReferenceImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458F5A51B54AA9500FC1235 /* ReferenceImageViewController.swift */; };
 		C458F5A81B54AB6000FC1235 /* CroppedRectangleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458F5A71B54AB6000FC1235 /* CroppedRectangleManager.swift */; };
 		C45BF5E31B9B6CB9000DD389 /* AngleGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C45BF5E21B9B6CB9000DD389 /* AngleGradientLayer.m */; };
@@ -163,8 +165,8 @@
 		C47271AC1E211C990089166C /* primitive.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C442A8921B7B3B75000BB98F /* primitive.vsh */; };
 		C47271AD1E211C990089166C /* eraser.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C40C2E621C723760006A165F /* eraser.vsh */; };
 		C47271AE1E211C990089166C /* eraser.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C4626BD71C7254F800C62586 /* eraser.fsh */; };
-		C47271AF1E211C990089166C /* calligraphy.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C459042C1E20E50300CED97E /* calligraphy.vsh */; };
-		C47271B01E211C990089166C /* calligraphy.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C459042A1E20E4DF00CED97E /* calligraphy.fsh */; };
+		C47271AF1E211C990089166C /* calligraphyColor.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C459042C1E20E50300CED97E /* calligraphyColor.vsh */; };
+		C47271B01E211C990089166C /* calligraphyColor.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C459042A1E20E4DF00CED97E /* calligraphyColor.fsh */; };
 		C47271B11E211C990089166C /* flatpen.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C459042E1E20E55B00CED97E /* flatpen.vsh */; };
 		C47271B21E211C990089166C /* flatpen.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C45904301E20E58000CED97E /* flatpen.fsh */; };
 		C47271BA1E224A3B0089166C /* SoundGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47271B91E224A3B0089166C /* SoundGenerator.swift */; };
@@ -173,6 +175,16 @@
 		C47271C11E224E2B0089166C /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47271BE1E224DFB0089166C /* AudioKit.framework */; };
 		C47271C21E224E390089166C /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47271BE1E224DFB0089166C /* AudioKit.framework */; };
 		C47271C31E224FDD0089166C /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C47271BE1E224DFB0089166C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C47271C71E23D2240089166C /* calligraphyInk.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C47271C61E23D2240089166C /* calligraphyInk.vsh */; };
+		C47271C81E23D2250089166C /* calligraphyInk.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C47271C61E23D2240089166C /* calligraphyInk.vsh */; };
+		C47271CA1E23D23A0089166C /* calligraphyInk.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C47271C91E23D23A0089166C /* calligraphyInk.fsh */; };
+		C47271CB1E23D23A0089166C /* calligraphyInk.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C47271C91E23D23A0089166C /* calligraphyInk.fsh */; };
+		C47271CD1E23D2590089166C /* calligraphyEdge.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C47271CC1E23D2590089166C /* calligraphyEdge.vsh */; };
+		C47271CE1E23D2590089166C /* calligraphyEdge.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C47271CC1E23D2590089166C /* calligraphyEdge.vsh */; };
+		C47271D01E23D26D0089166C /* calligraphyEdge.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C47271CF1E23D26D0089166C /* calligraphyEdge.fsh */; };
+		C47271D11E23D26D0089166C /* calligraphyEdge.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C47271CF1E23D26D0089166C /* calligraphyEdge.fsh */; };
+		C47271D41E2412F80089166C /* pencil.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C47271D31E2412F80089166C /* pencil.aiff */; };
+		C47271D51E2412F80089166C /* pencil.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C47271D31E2412F80089166C /* pencil.aiff */; };
 		C478D8521B1F4C3A00FFF3D9 /* brush1.png in Resources */ = {isa = PBXBuildFile; fileRef = C478D84F1B1F4C3A00FFF3D9 /* brush1.png */; };
 		C478D8531B1F4C3A00FFF3D9 /* brush2.png in Resources */ = {isa = PBXBuildFile; fileRef = C478D8501B1F4C3A00FFF3D9 /* brush2.png */; };
 		C478D8541B1F4C3A00FFF3D9 /* Particle.png in Resources */ = {isa = PBXBuildFile; fileRef = C478D8511B1F4C3A00FFF3D9 /* Particle.png */; };
@@ -456,6 +468,8 @@
 		C44CF0971B85B84D00D6C43E /* CrossHairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CrossHairView.swift; path = "../SwiftGL-Demo/lib/SwiftColorPicker/CrossHairView.swift"; sourceTree = "<group>"; };
 		C44CF0981B85B84D00D6C43E /* HueView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HueView.swift; path = "../SwiftGL-Demo/lib/SwiftColorPicker/HueView.swift"; sourceTree = "<group>"; };
 		C44CF0991B85B84D00D6C43E /* SelectedColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectedColorView.swift; path = "../SwiftGL-Demo/lib/SwiftColorPicker/SelectedColorView.swift"; sourceTree = "<group>"; };
+		C44DA4E11E250E0C00544779 /* chinesebrush.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = chinesebrush.vsh; sourceTree = "<group>"; };
+		C44DA4E31E250E1A00544779 /* chinesebrush.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = chinesebrush.fsh; sourceTree = "<group>"; };
 		C45222F41C0CA90A00506B82 /* PaintClip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintClip.swift; sourceTree = "<group>"; };
 		C45222F71C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaintReplayerRevisionExtension.swift; path = "../SwiftGL-Demo/Source/Common/PaintReplayerRevisionExtension.swift"; sourceTree = "<group>"; };
 		C45222FA1C0D6D6100506B82 /* PaintManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaintManager.swift; path = ../Common/PaintManager.swift; sourceTree = "<group>"; };
@@ -466,8 +480,8 @@
 		C458F5DE1B54C93100FC1235 /* DotSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DotSet.swift; path = "../SwiftGL-Demo/Source/iOS/DotSet.swift"; sourceTree = "<group>"; };
 		C458F5E01B54CD7B00FC1235 /* Dot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dot.swift; path = "../SwiftGL-Demo/Source/iOS/Dot.swift"; sourceTree = "<group>"; };
 		C458F5E21B54DE5800FC1235 /* DotStageLevelGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DotStageLevelGenerator.swift; path = "../SwiftGL-Demo/Source/iOS/DotStageLevelGenerator.swift"; sourceTree = "<group>"; };
-		C459042A1E20E4DF00CED97E /* calligraphy.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = calligraphy.fsh; sourceTree = "<group>"; };
-		C459042C1E20E50300CED97E /* calligraphy.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = calligraphy.vsh; sourceTree = "<group>"; };
+		C459042A1E20E4DF00CED97E /* calligraphyColor.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = calligraphyColor.fsh; sourceTree = "<group>"; };
+		C459042C1E20E50300CED97E /* calligraphyColor.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = calligraphyColor.vsh; sourceTree = "<group>"; };
 		C459042E1E20E55B00CED97E /* flatpen.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = flatpen.vsh; sourceTree = "<group>"; };
 		C45904301E20E58000CED97E /* flatpen.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = flatpen.fsh; sourceTree = "<group>"; };
 		C45BF5E01B9B6CB9000DD389 /* SwiftGL-Demo-iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SwiftGL-Demo-iOS-Bridging-Header.h"; path = "lib/SwiftColorPicker/SwiftGL-Demo-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -504,6 +518,11 @@
 		C46DCD251BA4768C0038014F /* SubViewPanelAnimateState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubViewPanelAnimateState.swift; sourceTree = "<group>"; };
 		C47271B91E224A3B0089166C /* SoundGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundGenerator.swift; sourceTree = "<group>"; };
 		C47271BE1E224DFB0089166C /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = framework/AudioKit.framework; sourceTree = "<group>"; };
+		C47271C61E23D2240089166C /* calligraphyInk.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = calligraphyInk.vsh; sourceTree = "<group>"; };
+		C47271C91E23D23A0089166C /* calligraphyInk.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = calligraphyInk.fsh; sourceTree = "<group>"; };
+		C47271CC1E23D2590089166C /* calligraphyEdge.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = calligraphyEdge.vsh; sourceTree = "<group>"; };
+		C47271CF1E23D26D0089166C /* calligraphyEdge.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = calligraphyEdge.fsh; sourceTree = "<group>"; };
+		C47271D31E2412F80089166C /* pencil.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = pencil.aiff; sourceTree = "<group>"; };
 		C4755F451CC7235A0082C723 /* PaintOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintOperation.swift; sourceTree = "<group>"; };
 		C4755F471CC73B5A0082C723 /* oilbrush.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = oilbrush.fsh; sourceTree = "<group>"; };
 		C4755F491CC73B670082C723 /* oilbrush.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = oilbrush.vsh; sourceTree = "<group>"; };
@@ -1151,6 +1170,29 @@
 			name = Audio;
 			sourceTree = "<group>";
 		};
+		C47271C51E23D2030089166C /* Calligraphy */ = {
+			isa = PBXGroup;
+			children = (
+				C459042C1E20E50300CED97E /* calligraphyColor.vsh */,
+				C459042A1E20E4DF00CED97E /* calligraphyColor.fsh */,
+				C47271C61E23D2240089166C /* calligraphyInk.vsh */,
+				C47271C91E23D23A0089166C /* calligraphyInk.fsh */,
+				C47271CC1E23D2590089166C /* calligraphyEdge.vsh */,
+				C47271CF1E23D26D0089166C /* calligraphyEdge.fsh */,
+				C44DA4E11E250E0C00544779 /* chinesebrush.vsh */,
+				C44DA4E31E250E1A00544779 /* chinesebrush.fsh */,
+			);
+			name = Calligraphy;
+			sourceTree = "<group>";
+		};
+		C47271D21E2412CF0089166C /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				C47271D31E2412F80089166C /* pencil.aiff */,
+			);
+			name = Sound;
+			sourceTree = "<group>";
+		};
 		C478D8431B1E3A2800FFF3D9 /* File */ = {
 			isa = PBXGroup;
 			children = (
@@ -1489,6 +1531,7 @@
 		D2F663ED1ADD7607003C1925 /* SwiftGL-Demo-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C47271D21E2412CF0089166C /* Sound */,
 				C46B3AD21CDA56C2002E6387 /* Localizable.strings */,
 				C44BB31B1BBA7E870027D9F1 /* Supporting Files */,
 				D2F663EE1ADD7607003C1925 /* nib */,
@@ -1541,6 +1584,7 @@
 		D2F663FC1ADD7607003C1925 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C47271C51E23D2030089166C /* Calligraphy */,
 				C44BB0931B48E17D001B158A /* RenderTexture.fsh */,
 				C44BB0941B48E17D001B158A /* RenderTexture.vsh */,
 				C44BB08F1B48E0EF001B158A /* pencil.fsh */,
@@ -1553,8 +1597,6 @@
 				C442A8921B7B3B75000BB98F /* primitive.vsh */,
 				C40C2E621C723760006A165F /* eraser.vsh */,
 				C4626BD71C7254F800C62586 /* eraser.fsh */,
-				C459042C1E20E50300CED97E /* calligraphy.vsh */,
-				C459042A1E20E4DF00CED97E /* calligraphy.fsh */,
 				C459042E1E20E55B00CED97E /* flatpen.vsh */,
 				C45904301E20E58000CED97E /* flatpen.fsh */,
 			);
@@ -1922,6 +1964,10 @@
 		D2AB3AAC1944F05700655A34 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					0,
+					1,
+				);
 				LastSwiftMigration = 0720;
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0820;
@@ -2057,6 +2103,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47271C81E23D2250089166C /* calligraphyInk.vsh in Resources */,
+				C47271CB1E23D23A0089166C /* calligraphyInk.fsh in Resources */,
+				C47271D51E2412F80089166C /* pencil.aiff in Resources */,
+				C47271CE1E23D2590089166C /* calligraphyEdge.vsh in Resources */,
+				C47271D11E23D26D0089166C /* calligraphyEdge.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2111,18 +2162,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C44DA4E21E250E0C00544779 /* chinesebrush.vsh in Resources */,
 				C46B3ADB1CDAF62E002E6387 /* Lesson1.json in Resources */,
-				C47271AF1E211C990089166C /* calligraphy.vsh in Resources */,
+				C47271AF1E211C990089166C /* calligraphyColor.vsh in Resources */,
 				D2F664161ADD7607003C1925 /* LaunchScreen.xib in Resources */,
 				D2F664181ADD7607003C1925 /* Main.storyboard in Resources */,
 				C47271A91E211C990089166C /* DemoShader1.vsh in Resources */,
 				D2F6641A1ADD7607003C1925 /* Images.xcassets in Resources */,
-				C47271B01E211C990089166C /* calligraphy.fsh in Resources */,
+				C47271B01E211C990089166C /* calligraphyColor.fsh in Resources */,
 				C47271AB1E211C990089166C /* primitive.fsh in Resources */,
 				C47271A61E211C990089166C /* pencil.vsh in Resources */,
 				C478D8531B1F4C3A00FFF3D9 /* brush2.png in Resources */,
 				C478D8521B1F4C3A00FFF3D9 /* brush1.png in Resources */,
+				C47271C71E23D2240089166C /* calligraphyInk.vsh in Resources */,
+				C47271D41E2412F80089166C /* pencil.aiff in Resources */,
 				C47271A71E211C990089166C /* oilbrush.fsh in Resources */,
+				C47271CA1E23D23A0089166C /* calligraphyInk.fsh in Resources */,
+				C44DA4E41E250E1A00544779 /* chinesebrush.fsh in Resources */,
 				C47271A31E211C990089166C /* RenderTexture.fsh in Resources */,
 				C47271AE1E211C990089166C /* eraser.fsh in Resources */,
 				C47271A51E211C990089166C /* pencil.fsh in Resources */,
@@ -2135,6 +2191,8 @@
 				C47271A81E211C990089166C /* oilbrush.vsh in Resources */,
 				C47271B11E211C990089166C /* flatpen.vsh in Resources */,
 				C47271AC1E211C990089166C /* primitive.vsh in Resources */,
+				C47271CD1E23D2590089166C /* calligraphyEdge.vsh in Resources */,
+				C47271D01E23D26D0089166C /* calligraphyEdge.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

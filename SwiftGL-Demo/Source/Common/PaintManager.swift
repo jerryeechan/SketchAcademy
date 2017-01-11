@@ -77,10 +77,10 @@ class PaintManager {
         FileManager.instance.savePaintArtWork(filename, artwork: artwork, img: img, notes:NoteManager.instance.getNoteArray())
         
     }
-    func loadArtwork(_ filename:String)->Bool
+    func loadArtwork(_ filename:String,appMode:ApplicationMode)->Bool
     {
         NoteManager.instance.loadNotes(filename)
-        switch PaintViewController.appMode
+        switch appMode
         {
         case .artWorkCreation:
             artwork = FileManager.instance.loadPaintArtWork(filename)
@@ -95,19 +95,28 @@ class PaintManager {
             artwork.masterReplayer.drawAll()
             currentReplayer = artwork.masterReplayer
             //add create tutorial
-            break
+            
         case .instructionTutorial:
             artwork = PaintArtwork(width: PaintViewController.canvasWidth/2,height:PaintViewController.canvasHeight)
             artwork.setReplayer(paintView)
             artwork.loadMasterClip()
             
             tutorialArtwork = FileManager.instance.loadPaintArtWork(filename)
-            
-            
             tutorialArtwork.setReplayer(paintView,type: ArtworkType.Tutorial)
             tutorialArtwork.loadMasterClip()
             currentReplayer = tutorialArtwork.masterReplayer
             tutorialGotoStep(0)
+        case .practiceCalligraphy:
+            
+            artwork = FileManager.instance.loadPaintArtWork(filename)
+            artwork.setReplayer(paintView)
+            
+            artwork.loadMasterClip()
+            artwork.masterReplayer.context.forceBrush = true
+            artwork.masterReplayer.drawAll()
+            artwork.masterReplayer.context.forceBrush = false
+            currentReplayer = artwork.masterReplayer
+
             break
         }
         
@@ -168,20 +177,33 @@ class PaintManager {
         //self.paintMode = .Revision
         
         let id = NoteManager.instance.selectedButtonIndex
-        if(artwork.revisionClips[id!] == nil){
-            DLog("Revision Clip Branch at \(id) created")
-            artwork.addRevisionClip(id!)
-            let newClip = artwork.useRevisionClip(id!)
-            paintRecorder.setRecordClip(newClip)
-            artwork.loadRevisionClip(id!)
+        if(id != nil)
+        {
+            if(artwork.revisionClips[id!] == nil){
+                DLog("Revision Clip Branch at \(id) created")
+                artwork.addRevisionClip(id!)
+                let newClip = artwork.useRevisionClip(id!)
+                paintRecorder.setRecordClip(newClip)
+                artwork.loadRevisionClip(id!)
+            }
+            else
+            {
+                DLog("Revision Clip Branch at \(id) exist")
+                let clip = artwork.revisionClips[id!]
+                paintRecorder.setRecordClip(clip!)
+                artwork.loadRevisionClip(id!)
+            }
+            
         }
         else
         {
-            DLog("Revision Clip Branch at \(id) exist")
-            let clip = artwork.revisionClips[id!]
-            paintRecorder.setRecordClip(clip!)
-            artwork.loadRevisionClip(id!)
+            //FAKE calligraphy pracitce
+            artwork.addRevisionClip(0)
+            let newClip = artwork.useRevisionClip(0)
+            paintRecorder.setRecordClip(newClip)
+            artwork.loadRevisionClip(0)
         }
+        
         
         //OpenGL setting
         paintView.paintBuffer.setRevisionMode()

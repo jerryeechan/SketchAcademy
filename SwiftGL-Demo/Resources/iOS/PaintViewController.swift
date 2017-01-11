@@ -175,7 +175,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate,StrokePr
             NoteManager.instance.loadNotes(fileName)
             
             
-            if(!paintManager.loadArtwork(self.fileName))
+            if(!paintManager.loadArtwork(self.fileName,appMode: PaintViewController.appMode))
             {
                 print("load error:");
             }
@@ -186,12 +186,16 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate,StrokePr
             
             //TODO ***** 
             //need to remove the switch in paintManager, temporary have switch both
-            switch PaintViewController.appMode {
-            case .instructionTutorial:
-                    setTutorialStepContent()
-                    removeToolBarButton(addNoteButton)
-            default:
-                break
+            switch PaintViewController.appMode{
+                case .practiceCalligraphy:
+                    paintManager.revisionDrawModeSetUp()
+                    appState = .drawRevision
+                case .instructionTutorial:
+                        setTutorialStepContent()
+                        _ = removeToolBarButton(addNoteButton)
+                
+                default:
+                    break
             }
             
             setup()

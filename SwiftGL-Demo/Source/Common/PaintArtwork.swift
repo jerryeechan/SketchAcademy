@@ -8,7 +8,7 @@
 enum ArtworkType:String{
     case Artwork = "Artwork"
     case Tutorial = "Tutorial"
-    
+    case Trace = "Trace"
 }
 import Foundation
 import GLFramework
@@ -59,6 +59,10 @@ class PaintArtwork
         self.artworkType = type
         var buffer:GLContextBuffer = paintView.paintBuffer
         if type == .Tutorial
+        {
+            buffer = paintView.tutorialBuffer
+        }
+        else if type == .Trace
         {
             buffer = paintView.tutorialBuffer
         }
@@ -133,7 +137,7 @@ class PaintArtwork
     func addRevisionClip(_ atStroke:Int)
     {
         let newClip = PaintClip(name: "revision",branchAt: atStroke)
-        newClip.strokeDelegate = _masterClip.strokeDelegate
+        //newClip.strokeDelegate = _masterClip.strokeDelegate
         _revisionClips[atStroke] =  newClip
     }
     

@@ -39,7 +39,10 @@ public class GLShaderBinder{
         
         brushShaderDict[BrushType.oilBrush] = BrushShader(name: "oilbrush")
         brushShaderDict[BrushType.flatpen] = BrushShader(name: "flatpen")
-        brushShaderDict[BrushType.calligraphy] = BrushShader(name: "calligraphy")
+        brushShaderDict[BrushType.calligraphy] = BrushShader(name: "calligraphyInk")
+        brushShaderDict[BrushType.calligraphyColor] = BrushShader(name: "calligraphyColor")
+        brushShaderDict[BrushType.calligraphyEdge] = BrushShader(name: "calligraphyEdge")
+        brushShaderDict[BrushType.chinesebrush] = BrushShader(name: "chinesebrush")
         
         brushShaderDict[BrushType.pencil] = PencilShader()
         brushShaderDict[BrushType.eraser] = EraserShader()

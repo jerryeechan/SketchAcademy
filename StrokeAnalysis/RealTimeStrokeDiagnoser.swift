@@ -65,18 +65,20 @@ public class RealTimeStrokeDiagnoser {
     func parseStroke(stroke:PaintStroke)
     {
         let forces = stroke.points.map({Double($0.force)})
-        forceAvg = Sigma.average(forces)!
+        let altitudes = stroke.points.map({Double($0.altitude)})
         if forces.count>1
         {
+            forceAvg = Sigma.average(forces)!
             forceStd = Sigma.standardDeviationSample(forces)!
+            altitudeAvg = Sigma.average(altitudes)!
         }
         else
         {
             forceStd = 0
         }
         
-        let altitudes = stroke.points.map({Double($0.altitude)})
-        altitudeAvg = Sigma.average(altitudes)!
+        
+        
         
         
     }

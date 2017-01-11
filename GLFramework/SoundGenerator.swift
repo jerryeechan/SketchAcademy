@@ -15,7 +15,19 @@ public class SoundGenerator{
         oscillator = AKOscillator()
         AudioKit.output = oscillator
         AudioKit.start()
+        /*
+        do{
+            let pencil = try AKAudioFile(readFileName: "pencil.aiff")
+            try audioPlayer = AKAudioPlayer(file: pencil, looping: true, completionHandler: nil)
+        }
+        catch
+        {
+            
+        }*/
+        //audioPlayer.play()
     }
+    
+    
     var oscillator:AKOscillator
     public func start()
     {    
@@ -36,5 +48,13 @@ public class SoundGenerator{
         AudioKit.stop()
     }
     
+    var audioPlayer:AKAudioPlayer!
+    public func playSOund(){
+        
+        
+    }
     
+    func playBlaster() {
+       
+    }
 }

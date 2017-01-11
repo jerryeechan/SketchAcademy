@@ -67,7 +67,7 @@ class PaintView: GLKView {
         context = glcontext
         contentScaleFactor = UIScreen.main.scale;
       //  Painter.scale = Float(contentScaleFactor)
-        initGL()
+        _ = initGL()
         
     }
     

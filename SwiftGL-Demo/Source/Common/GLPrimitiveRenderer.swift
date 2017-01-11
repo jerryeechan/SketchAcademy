@@ -30,10 +30,21 @@ extension GLContextBuffer
     public func drawLines(_ points:[Vec4])
     {
         shaderBinder.primitiveShader.bindMVP(mvpOffset)
-        shaderBinder.primitiveShader.bindColor(Vec4(0,0,0,1))
+        shaderBinder.primitiveShader.bindColor(Vec4(1,0,0,1))
         shaderBinder.primitiveShader.bindVertexs(points)
         shaderBinder.primitiveShader.useShader()
-        glDrawArrays(GL_LINES, 0, GLsizei(points.count))
+        glLineWidth(4)
+        glDrawArrays(GL_LINE_STRIP, 0, GLsizei(points.count))
+    }
+    
+    public func drawLines(_ points:[Vec4], lineType:GLenum,width:GLfloat,color:Vec4)
+    {
+        shaderBinder.primitiveShader.bindMVP(mvpOffset)
+        shaderBinder.primitiveShader.bindColor(color)
+        shaderBinder.primitiveShader.bindVertexs(points)
+        shaderBinder.primitiveShader.useShader()
+        glLineWidth(width)
+        glDrawArrays(lineType, 0, GLsizei(points.count))
     }
     public func drawGrid(_ size:Float){
         shaderBinder.primitiveShader.bindMVP(mvpOffset)

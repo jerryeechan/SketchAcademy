@@ -205,8 +205,8 @@ class ArtworkMenuViewController: UIViewController,UICollectionViewDelegate{
         let paintViewController = getViewController("paintview") as! PaintViewController
         let fileName = FileManager.instance.getFileName(selectedIndexPath.row-1)
         paintViewController.fileName = fileName
-        PaintViewController.appMode = ApplicationMode.instructionTutorial
-        
+        //PaintViewController.appMode = ApplicationMode.instructionTutorial
+        PaintViewController.appMode = ApplicationMode.practiceCalligraphy
         navigationController?.dismiss(animated: true, completion: nil)
         
         navigationController?.pushViewController(paintViewController, animated: true)

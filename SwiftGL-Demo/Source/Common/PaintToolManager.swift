@@ -17,7 +17,7 @@ enum PaintToolType:Int{
 }*/
 public enum BrushType:String
 {
-    case pencil = "pencil",oilBrush="oilbrush",eraser="eraser",calligraphy="calligraphy",flatpen="flatpen"
+    case pencil = "pencil",oilBrush="oilbrush",eraser="eraser",calligraphy="calligraphy",flatpen="flatpen",calligraphyEdge="calligraphyEdge",calligraphyColor="calligraphyColor",chinesebrush="chinesebrush"
 }
 open class PaintToolManager {
     
@@ -44,8 +44,15 @@ open class PaintToolManager {
         oilbrush = PaintBrush(textureName: "circle", color: Color(25,25,25,25), size: 20, type: BrushType.oilBrush)
         
         brushDict[BrushType.calligraphy] = PaintBrush(textureName: "circleTexture", color: Color(25,25,25,25), size: 20, type: BrushType.calligraphy)
+        brushDict[BrushType.calligraphyEdge] = PaintBrush(textureName: "rim", color: Color(25,25,25,25), size: 20, type: BrushType.calligraphyEdge)
+
+        brushDict[BrushType.chinesebrush] = PaintBrush(textureName: "brush", color: Color(25,25,25,25), size: 20, type: BrushType.chinesebrush)
         
-        brushDict[BrushType.flatpen] = PaintBrush(textureName: "marker", color: Color(25,25,25,25), size: 20, type: BrushType.flatpen)
+        
+        //brushDict[BrushType.calligraphy] = PaintBrush(textureName: "rim", color: Color(25,25,25,25), size: 20, type: BrushType.calligraphy)
+        
+        
+        brushDict[BrushType.flatpen] = PaintBrush(textureName: "marker", color: Color(25,25,25,25), size: 16, type: BrushType.flatpen)
         
         brushDict[BrushType.pencil] = pen
         brushDict[BrushType.eraser] = eraser
@@ -100,10 +107,7 @@ open class PaintToolManager {
         default:
             useBrush(type)
             lastBrush = currentTool
-            
         }
-        
-        
     }
     
     public func changeTool(_ name:String)
@@ -120,6 +124,9 @@ open class PaintToolManager {
 */
     public func useBrush(_ type:BrushType)
     {
+        
+        
+        
         glEnable((GL_BLEND))
         GLShaderBinder.instance.useBrush(type)
         let brush = brushDict[type]
@@ -129,9 +136,10 @@ open class PaintToolManager {
         glBlendEquation((GLenum(GL_FUNC_ADD)))
         glBlendFunc((GL_ONE), (GL_ONE_MINUS_SRC_ALPHA))
     }
+    
     public func usePen()
     {
-        glEnable((GL_BLEND))
+        //glEnable((GL_BLEND))
         GLShaderBinder.instance.useBrush(BrushType.pencil)
         pen.useTool()
         pen.changeColor(colorInPalette)

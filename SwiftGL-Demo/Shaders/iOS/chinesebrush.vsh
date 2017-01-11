@@ -1,5 +1,5 @@
 /*
- File: flatpen.vsh
+ File: calligraphy.vsh
  
  */
 #define M_PI 3.141592
@@ -11,8 +11,6 @@ attribute float pencilForce;
 attribute float pencilAltitude;
 attribute vec2 pencilAzimuth;
 attribute vec2 vertexVelocity;
-
-
 uniform mat4 MVP;
 uniform float brushSize;
 uniform vec4 brushColor;
@@ -41,6 +39,14 @@ vec4 speedToColor(float speed)
 {
     return vec4(1.0-(5.0-speed)/5.0,(10.0-speed)/10.0,(5.0-speed)/5.0,1.0);
 }
+vec4 speedForceToColor(float speed,float force)
+{
+    return vec4(1.0-(5.0-speed)/5.0,force,(5.0-speed)/5.0,1.0);
+}
+vec4 speedForceTiltToColor(float speed,float force,float altitude)
+{
+    return vec4(1.0-(5.0-speed)/5.0,force,altitude,1.0);
+}
 void main()
 {
     
@@ -50,22 +56,18 @@ void main()
     
     float altitude;
     altitude = float(pencilAltitude < Altitude_Limit) * (pencilAltitude/Altitude_Limit * M_PI_2 - M_PI_2) + M_PI_2;
-    
-    //if (pencilAltitude > Altitude_Limit)
-    //    altitude = M_PI_2;
-    //else
-    //    altitude = pencilAltitude/Altitude_Limit * M_PI_2;
-    
     float tiltValue = easein(0.0,1.0,-(altitude-M_PI_2));
     vec2 tiltVec = tiltValue*pencilAzimuth*5.0;
-    float f = pencilForce;
-    angle = atan(pencilAzimuth.y,pencilAzimuth.x);
+    float easeoutForce = easeout(0.0,1.0,pencilForce);
+    angle = atan(pencilAzimuth.y,pencilAzimuth.x)+M_PI_2;
     //speed fade may be remove
+    //color = speedToColor(speed);//*easeout(0.2,1.0,pencilForce);
+    //color = speedForceToColor(speed,easeoutForce);
+    color = (5.0+easeoutForce)*vec4(0,0,0,1)*0.005; //speedForceTiltToColor(speed,easeoutForce,tiltValue);
+    //with force
+    float finalSize = brushSize * (1.0+tiltValue*10.0)*easeoutForce*10.0;
+    gl_PointSize = (finalSize>300.0)?300.0:finalSize;
     
-    color = speedToColor(speed);//*easeout(0.2,1.0,pencilForce);
-    //easeout(0.1,0.5,pencilForce)
-    gl_PointSize = brushSize * 5.0; //(1.0+tiltValue) * 3.0;
-    
-    gl_Position = MVP * (vertexPosition);
+    gl_Position = MVP * (vertexPosition+ gl_PointSize/2.0 * vec4(pencilAzimuth.x/2.0,-pencilAzimuth.y,0.0,0.0));
     
 }

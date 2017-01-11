@@ -14,6 +14,7 @@ public enum ApplicationMode{
     case artWorkCreation
     case instructionTutorial
     case createTutorial
+    case practiceCalligraphy
 }
 public class GLContextBuffer{
     
@@ -86,6 +87,52 @@ public class GLContextBuffer{
         currentBG = !currentBG
         display()
     }
+    
+    func EnglishCalligraphyHelpingLine()
+    {
+        var ps1:[Vec4] = []
+        let height = imgHeight/2-600
+        for i in [0,2,4,5,6]
+        {
+            ps1.append(Vec4(0.0,Float(i*200+height)))
+            ps1.append(Vec4(Float(imgWidth),Float(i*200+height)))
+    
+        }
+        drawLines(ps1, lineType: GL_LINES,width: 4,color: Vec4(1,0,0,1))
+    }
+    func ChineseCalligraphyHelpingLine()
+    {
+        let size:Float = 1200
+        let x_offset = Float(imgWidth/2) - size/2
+        let y_offset = Float(imgHeight/2) - size/2
+        let topLeft = Vec4(x_offset,y_offset)
+        let topRight = Vec4(x_offset+size,y_offset)
+        let bottomLeft = Vec4(x_offset,y_offset+size)
+        let bottomRight = Vec4(x_offset+size,y_offset+size)
+        
+        let top1 = topLeft+Vec4(size/3,0,0,0)
+        let top2 = topLeft+Vec4(size/3*2,0,0,0)
+        
+        let bottom1 = bottomLeft+Vec4(size/3,0,0,0)
+        let bottom2 = bottomLeft+Vec4(size/3*2,0,0,0)
+        
+        let left1 = topLeft+Vec4(0,size/3,0,0)
+        let left2 = topLeft+Vec4(0,size/3*2,0,0)
+        
+        let right1 = topRight+Vec4(0,size/3,0,0)
+        let right2 = topRight+Vec4(0,size/3*2,0,0)
+        
+        
+        let ps1:[Vec4] = [topLeft,topRight,bottomRight,bottomLeft]
+        //let ps2:[Vec4] = [bottomRight,topLeft,bottomLeft,topRight]
+        let ps2:[Vec4] = [top1,bottom1,top2,bottom2,left1,right1,left2,right2]
+        
+        //drawLines([centerTop,centerBottom,centerleft,centerRight], lineType: GL_LINES,width: 4,color: Vec4(1,0,0,1))
+        drawLines(ps1, lineType: GL_LINE_LOOP,width: 4,color: Vec4(1,0,0,1))
+        
+        drawLines(ps2, lineType: GL_LINES,width: 2,color: Vec4(1,0,0,1))
+    }
+    var helpingLine = 1;
     public func drawLayersOfCanvas(_ canvas:GLRenderCanvas,mvp:Mat4)
     {
         //start of drawing loop
@@ -100,6 +147,13 @@ public class GLContextBuffer{
             glClearColor(1, 0, 1, 1)
             glClear(GL_COLOR_BUFFER_BIT)
         }
+        
+        //
+        
+        EnglishCalligraphyHelpingLine()
+       
+        
+        
         for i in 0 ..< 1
         {
             let layer = canvas.layers[i]
@@ -121,6 +175,7 @@ public class GLContextBuffer{
         
         if((penAzimuth) != nil)
         {
+            
             
             //drawFillRectangle(GLRect(p1: Vec2(Float(imgWidth/2),Float(imgHeight/2)),p2: azimuth.xy), color: Vec4(1,0,0,0))
             //let center = Vec4(Float(imgWidth/2),Float(imgHeight/2))
@@ -167,7 +222,6 @@ public class GLContextBuffer{
     var currentLayer = 0
     public func renderStaticLine(_ points:[PaintPoint])
     {
-        
         let vertexBuffer = interpolatePoints(points)
         drawBrushVertex(vertexBuffer,layer: currentLayer)
     }
@@ -208,18 +262,29 @@ public class GLContextBuffer{
     }
     public func renderStroke(_ stroke:PaintStroke)
     {
-        
+        if(stroke.points.count<2)
+        {return}
         drawStroke(stroke, layer: currentLayer)
     }
     /**
      draw a stroke into paintCanvas
      */
+    
+    public var forceBrush:Bool = false
     public func drawStroke(_ stroke:PaintStroke,layer:Int)
     {
         penAzimuth = stroke.points.last?.azimuth
         
         penPos = stroke.points.last?.position
-        _ = paintToolManager.changeTool(stroke.stringInfo.toolName)
+        if forceBrush
+        {
+            paintToolManager.changeTool(BrushType.calligraphyEdge.rawValue)
+        }
+        else
+        {
+            paintToolManager.changeTool(stroke.stringInfo.toolName)
+        }
+        
         paintToolManager.loadToolValueInfo(stroke.valueInfo)
         paintToolManager.useCurrentTool()
         //glBlendFunc(GL_ONE, GL_ZERO)
@@ -451,7 +516,12 @@ public class GLContextBuffer{
         paintCanvas.blankTempLayer()
         paintCanvas.blankCurrentLayer()    
     }
-    
+    public func setTraceMode()
+    {
+        paintCanvas.revisionLayer.enabled = true
+        paintCanvas.setAllLayerAlpha(1)
+        paintCanvas.selectRevisionLayer()
+    }
     public func setArtworkMode()
     {
         paintCanvas.revisionLayer.enabled = false

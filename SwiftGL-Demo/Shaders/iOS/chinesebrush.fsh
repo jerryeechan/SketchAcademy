@@ -1,6 +1,6 @@
 /*
  File: calligraphy.fsh
-  */
+ */
 
 #extension GL_EXT_shader_framebuffer_fetch : require
 #define BlendOverlay(a, b) ( (b<0.5) ? (2.0*b*a) : (1.0-2.0*(1.0-a)*(1.0-b)) )
@@ -21,7 +21,15 @@ void main()
     float mid = 0.5;
     
     vec2 rotated = vec2(cos(vRotation) * (gl_PointCoord.x - mid) + sin(vRotation) * (gl_PointCoord.y - mid) + mid,cos(vRotation) * (gl_PointCoord.y - mid) - sin(vRotation) * (gl_PointCoord.x - mid) + mid);
-    gl_FragColor = color * texture2D(texture, rotated);// - destColor;
+    //gl_FragColor = ?(vec4(0.0,0.0,0.0,1.0)):(-destColor);
+    //gl_FragColor = color * texture2D(texture, rotated);// - destColor;
+    
+    //gl_FragColor = vec4(0.0,0.0,0.0,1.0) * texture2D(texture, rotated);
+    
+    
+    gl_FragColor = color * texture2D(texture, rotated);
+    
+    
     //gl_FragColor = color * texture2D(texture, gl_PointCoord);// - destColor;
     
     

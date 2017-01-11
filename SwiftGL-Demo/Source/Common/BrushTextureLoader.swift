@@ -37,6 +37,8 @@ class BrushTextureLoader {
         loadTexture("circleTexture")
         loadTexture("circle")
         loadTexture("oilbrush")
+        loadTexture("rim")
+        loadTexture("brush")
     }
     func loadTexture(_ name:String)
     {

@@ -90,6 +90,7 @@ extension PaintViewController
                     if let coalescedTouches = event?.coalescedTouches(for: touchRaw) {
                         toucharray = coalescedTouches
                     }
+                    
                     /*
                     for touch in toucharray
                     {

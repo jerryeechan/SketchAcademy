@@ -77,7 +77,14 @@ public class PaintStroke:HasBound
     }
     public func last()->PaintPoint!
     {
-        return points.last!
+        if points.count>0
+        {
+            return points.last
+        }
+        else
+        {
+            return nil
+        }
     }
     public func lastTwo()->[PaintPoint]
     {
