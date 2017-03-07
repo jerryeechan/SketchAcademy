@@ -69,7 +69,7 @@ public class NoteFile: File {
                 //print(valueData.strokeIndex)
                 if title == nil
                 {
-                    note = SANote(title: "", description: description!,valueData: valueData)
+                    note = SANote(title: "", description: "",valueData: valueData)
                 }
                 else{
                     note = SANote(title: title!, description: description!,valueData: valueData)

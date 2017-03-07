@@ -5,7 +5,7 @@
 //  Created by jerry on 2015/12/5.
 //  Copyright © 2015年 Jerry Chan. All rights reserved.
 //
-
+import StrokeAnalysis
 extension PaintViewController
 {
     func gestureHandlerSetUp()
@@ -34,6 +34,7 @@ extension PaintViewController
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         if appState == AppState.viewArtwork || appState == AppState.viewRevision
         {
             return
@@ -47,7 +48,18 @@ extension PaintViewController
                 {
                     currentTouchType = "Stylus"
                     //disableGesture()
-                    paintManager.paintRecorder.startPoint(touchRaw, view: paintView)
+                    
+                    
+                    if isColorPikerOn
+                    {
+                        let pos = genPaintPoint(touchRaw, view: paintView, context: paintManager.paintRecorder.context).position
+                        colorPickerPick(color:paintManager.paintRecorder.context.getPixelColor(GLint(pos.x), y:GLint(pos.y)))
+                        paintView.glDraw()
+                    }
+                    else
+                    {
+                        paintManager.paintRecorder.startPoint(touchRaw, view: paintView)
+                    }
                 }
                 else
                 {
@@ -79,10 +91,21 @@ extension PaintViewController
         {
             return
         }
+        
+        
         for touchRaw in touches
         {
             var toucharray = [UITouch]()
             if #available(iOS 9.1, *) {
+                
+                if isColorPikerOn
+                {
+                    /*
+                    let pos = genPaintPoint(touchRaw, view: paintView, context: paintManager.paintRecorder.context).position
+                    colorPickerPick(color:paintManager.paintRecorder.context.getPixelColor(GLint(pos.x), y:GLint(pos.y)))
+                    */
+                    return
+                }
                 
                 if touchRaw.type == .stylus
                 {
@@ -107,7 +130,7 @@ extension PaintViewController
                     }
                     
                     */
-                    
+                    strokeDiagnosisAzimuthLabel.text = "Azimuth:\(RealTimeStrokeDiagnoser.instance.realtime())"
                     paintView.glDraw()
                 }
                 
@@ -121,12 +144,13 @@ extension PaintViewController
         if #available(iOS 9.1, *) {
             if touchRaw.type == .stylus
             {
+                nextSuggestion()
                 paintManager.paintRecorder.endStroke()
                 paintView.addGestureRecognizer(singlePanGestureRecognizer)
                 //enableGesture()
                 currentTouchType = "None"
             }
-            
+            //strokeDiagnosisAzimuthLabel.text = "Azimuth: \(Int(RealTimeStrokeDiagnoser.instance.result() * 100))% Correct"
             
         }
     }

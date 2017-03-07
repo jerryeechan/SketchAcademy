@@ -131,6 +131,8 @@
 		C44A27991B5E21EB00A78C8E /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B38FAE194E063800722470 /* Texture.swift */; };
 		C44DA4E21E250E0C00544779 /* chinesebrush.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C44DA4E11E250E0C00544779 /* chinesebrush.vsh */; };
 		C44DA4E41E250E1A00544779 /* chinesebrush.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C44DA4E31E250E1A00544779 /* chinesebrush.fsh */; };
+		C44DA4E71E26372800544779 /* flatpenFeedback.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C44DA4E61E26372800544779 /* flatpenFeedback.vsh */; };
+		C44DA4E91E26374100544779 /* flatpenFeedback.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C44DA4E81E26374100544779 /* flatpenFeedback.fsh */; };
 		C458F5A61B54AA9500FC1235 /* ReferenceImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458F5A51B54AA9500FC1235 /* ReferenceImageViewController.swift */; };
 		C458F5A81B54AB6000FC1235 /* CroppedRectangleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458F5A71B54AB6000FC1235 /* CroppedRectangleManager.swift */; };
 		C45BF5E31B9B6CB9000DD389 /* AngleGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C45BF5E21B9B6CB9000DD389 /* AngleGradientLayer.m */; };
@@ -188,6 +190,9 @@
 		C478D8521B1F4C3A00FFF3D9 /* brush1.png in Resources */ = {isa = PBXBuildFile; fileRef = C478D84F1B1F4C3A00FFF3D9 /* brush1.png */; };
 		C478D8531B1F4C3A00FFF3D9 /* brush2.png in Resources */ = {isa = PBXBuildFile; fileRef = C478D8501B1F4C3A00FFF3D9 /* brush2.png */; };
 		C478D8541B1F4C3A00FFF3D9 /* Particle.png in Resources */ = {isa = PBXBuildFile; fileRef = C478D8511B1F4C3A00FFF3D9 /* Particle.png */; };
+		C47D113F1E66AED7003762EF /* CGUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C417801C1E080DA200A4AD32 /* CGUtility.framework */; };
+		C47D11401E66AEF1003762EF /* GLFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4177FE71E080B8000A4AD32 /* GLFramework.framework */; };
+		C47D11411E66AF4D003762EF /* GLFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4177FE71E080B8000A4AD32 /* GLFramework.framework */; };
 		C47D71051BB5A033002BFE0A /* PaintViewControllerAppMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47D71031BB59FB7002BFE0A /* PaintViewControllerAppMode.swift */; };
 		C48306801B4BFE15006743DC /* UIAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C483067F1B4BFE15006743DC /* UIAlertManager.swift */; };
 		C48F98AA1C0F38B200D6CE60 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F98A81C0F38B200D6CE60 /* MenuViewController.swift */; };
@@ -470,6 +475,8 @@
 		C44CF0991B85B84D00D6C43E /* SelectedColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectedColorView.swift; path = "../SwiftGL-Demo/lib/SwiftColorPicker/SelectedColorView.swift"; sourceTree = "<group>"; };
 		C44DA4E11E250E0C00544779 /* chinesebrush.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = chinesebrush.vsh; sourceTree = "<group>"; };
 		C44DA4E31E250E1A00544779 /* chinesebrush.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = chinesebrush.fsh; sourceTree = "<group>"; };
+		C44DA4E61E26372800544779 /* flatpenFeedback.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = flatpenFeedback.vsh; sourceTree = "<group>"; };
+		C44DA4E81E26374100544779 /* flatpenFeedback.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = flatpenFeedback.fsh; sourceTree = "<group>"; };
 		C45222F41C0CA90A00506B82 /* PaintClip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintClip.swift; sourceTree = "<group>"; };
 		C45222F71C0CCAC200506B82 /* PaintReplayerRevisionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaintReplayerRevisionExtension.swift; path = "../SwiftGL-Demo/Source/Common/PaintReplayerRevisionExtension.swift"; sourceTree = "<group>"; };
 		C45222FA1C0D6D6100506B82 /* PaintManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaintManager.swift; path = ../Common/PaintManager.swift; sourceTree = "<group>"; };
@@ -659,6 +666,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47D11401E66AEF1003762EF /* GLFramework.framework in Frameworks */,
 				C47271C11E224E2B0089166C /* AudioKit.framework in Frameworks */,
 				C4177FBB1E080A6D00A4AD32 /* SwiftGL.framework in Frameworks */,
 			);
@@ -668,6 +676,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47D113F1E66AED7003762EF /* CGUtility.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,6 +684,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47D11411E66AF4D003762EF /* GLFramework.framework in Frameworks */,
 				C47271C21E224E390089166C /* AudioKit.framework in Frameworks */,
 				C4177FF31E080C6300A4AD32 /* PaintStrokeData.framework in Frameworks */,
 			);
@@ -1040,6 +1050,17 @@
 				C44BB32C1BBA83790027D9F1 /* SwiftGL-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C44DA4E51E2636DD00544779 /* FlatGroup */ = {
+			isa = PBXGroup;
+			children = (
+				C459042E1E20E55B00CED97E /* flatpen.vsh */,
+				C45904301E20E58000CED97E /* flatpen.fsh */,
+				C44DA4E61E26372800544779 /* flatpenFeedback.vsh */,
+				C44DA4E81E26374100544779 /* flatpenFeedback.fsh */,
+			);
+			name = FlatGroup;
 			sourceTree = "<group>";
 		};
 		C458F5A41B54AA5E00FC1235 /* ReferenceImage */ = {
@@ -1584,6 +1605,7 @@
 		D2F663FC1ADD7607003C1925 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C44DA4E51E2636DD00544779 /* FlatGroup */,
 				C47271C51E23D2030089166C /* Calligraphy */,
 				C44BB0931B48E17D001B158A /* RenderTexture.fsh */,
 				C44BB0941B48E17D001B158A /* RenderTexture.vsh */,
@@ -1597,8 +1619,6 @@
 				C442A8921B7B3B75000BB98F /* primitive.vsh */,
 				C40C2E621C723760006A165F /* eraser.vsh */,
 				C4626BD71C7254F800C62586 /* eraser.fsh */,
-				C459042E1E20E55B00CED97E /* flatpen.vsh */,
-				C45904301E20E58000CED97E /* flatpen.fsh */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -1993,7 +2013,6 @@
 					};
 					C4177FE61E080B8000A4AD32 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = C2V9ET57N8;
 						ProvisioningStyle = Automatic;
 					};
 					C417801B1E080DA200A4AD32 = {
@@ -2026,7 +2045,6 @@
 					};
 					D2F663131ADD7417003C1925 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = C2V9ET57N8;
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
@@ -2163,6 +2181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C44DA4E21E250E0C00544779 /* chinesebrush.vsh in Resources */,
+				C44DA4E71E26372800544779 /* flatpenFeedback.vsh in Resources */,
 				C46B3ADB1CDAF62E002E6387 /* Lesson1.json in Resources */,
 				C47271AF1E211C990089166C /* calligraphyColor.vsh in Resources */,
 				D2F664161ADD7607003C1925 /* LaunchScreen.xib in Resources */,
@@ -2183,6 +2202,7 @@
 				C47271AE1E211C990089166C /* eraser.fsh in Resources */,
 				C47271A51E211C990089166C /* pencil.fsh in Resources */,
 				C47271AA1E211C990089166C /* DemoShader1.fsh in Resources */,
+				C44DA4E91E26374100544779 /* flatpenFeedback.fsh in Resources */,
 				C47271A41E211C990089166C /* RenderTexture.vsh in Resources */,
 				C46B3AD01CDA56C2002E6387 /* Localizable.strings in Resources */,
 				C47271AD1E211C990089166C /* eraser.vsh in Resources */,
@@ -2700,9 +2720,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: pupu1416@yahoo.com.tw (SJB74TH2V6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = C2V9ET57N8;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2736,6 +2757,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = C2V9ET57N8;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3191,7 +3213,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = SwiftGL/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3237,7 +3259,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = SwiftGL/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3315,6 +3337,7 @@
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: pupu1416@yahoo.com.tw (SJB74TH2V6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = C2V9ET57N8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/framework",
@@ -3368,6 +3391,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = C2V9ET57N8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/framework",

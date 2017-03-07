@@ -18,7 +18,7 @@ import StrokeAnalysis
 class PaintRecorder {
     var stroke:PaintStroke!
     fileprivate var recordClip:PaintClip!
-    let strokeDiagnoser:RealTimeStrokeDiagnoser = RealTimeStrokeDiagnoser()
+    let strokeDiagnoser:RealTimeStrokeDiagnoser = RealTimeStrokeDiagnoser.instance
     //var artwork:PaintArtwork!
     /**
     * 
@@ -67,7 +67,7 @@ class PaintRecorder {
         point?.force = 0
         point?.altitude = 0
         //stroke.addPoint(point!, time: 0)
-        soundGenerator.start()
+//        soundGenerator.start()
         
     }
     var isTemp:Bool = false
@@ -97,7 +97,7 @@ class PaintRecorder {
                 if(!points.isEmpty){
                     context.renderStaticLine(points)
                 }
-                soundGenerator.play(point: newPoint)
+                //soundGenerator.play(point: newPoint)
             }
             tempLastPoint = newPoint
         }
@@ -138,7 +138,7 @@ class PaintRecorder {
                 stroke.addPoint(newPoint!, time: time - strokeStartTime)
                 lastPoint = newPoint
             //}
-            soundGenerator.play(point: newPoint!)
+            //soundGenerator.play(point: newPoint!)
         }
         //PaintToolManager.instance.useCurrentTool()
         if(!points.isEmpty){
@@ -180,7 +180,7 @@ class PaintRecorder {
             
             context.checkCache(recordClip.strokes.count)
             stroke = nil
-            soundGenerator.stop()
+            //soundGenerator.stop()
             return oldStroke
             //PaintView.display()
         }

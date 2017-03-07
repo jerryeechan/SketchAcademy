@@ -8,17 +8,58 @@
 
 import UIKit
 import GLFramework
+import SwiftGL
 public class RealTimeStrokeDiagnoser {
     
+    public class var instance:RealTimeStrokeDiagnoser{
+        struct Singleton{
+            static let instance = RealTimeStrokeDiagnoser()
+        }
+        return Singleton.instance
+    }
     public init()
     {
-    
+        
+        
     }
     
+    public func reset()
+    {
+        pointCount = 0
+        azimuthCorrect = 0
+    }
+    public func result()->Float
+    {
+        var r = Float(azimuthCorrect)/Float(pointCount)
+        if pointCount == 0
+        {
+            r = 1
+        }
+        reset()
+        return r
+    }
+    public func realtime()->Float
+    {
+        return current
+    }
     public weak var forceLabel:UILabel!
     public weak var altitudeLabel:UILabel!
+    
+    var pointCount:Int = 0
+    var azimuthCorrect:Int = 0
+    var current:Float = 0
     public func newPoint(point:PaintPoint)
     {
+        print(point.azimuth.unit)
+        pointCount = pointCount+1
+        let diff = (point.azimuth.unit-Vec2(0.7,0.7)).length2
+        
+        current = diff
+        if(diff < 0.025)
+        {
+            azimuthCorrect = azimuthCorrect+1
+        }
+        
         var forceText = "剛好";
         let forceRatio = point.force/Float(forceAvg)
         
@@ -31,7 +72,7 @@ public class RealTimeStrokeDiagnoser {
             forceText = "用力點"
         }
         
-        forceLabel.text = "force:\(forceText)"
+        //forceLabel.text = "force:\(forceText)"
         
         var altitudeText = "剛好"
         let altRatio = point.altitude/Float(altitudeAvg)
@@ -45,7 +86,7 @@ public class RealTimeStrokeDiagnoser {
             altitudeText = "直一點"
         }
         
-        altitudeLabel.text = "altitude:\(altitudeText)"
+        //altitudeLabel.text = "altitude:\(altitudeText)"
     }
     var _refStroke:PaintStroke!
     public var refStroke:PaintStroke{

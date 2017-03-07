@@ -91,19 +91,19 @@ public class GLContextBuffer{
     func EnglishCalligraphyHelpingLine()
     {
         var ps1:[Vec4] = []
-        let height = imgHeight/2-600
+        let height = imgHeight/2-300
         for i in [0,2,4,5,6]
         {
-            ps1.append(Vec4(0.0,Float(i*200+height)))
-            ps1.append(Vec4(Float(imgWidth),Float(i*200+height)))
+            ps1.append(Vec4(0.0,Float(i*100+height)))
+            ps1.append(Vec4(Float(imgWidth),Float(i*100+height)))
     
         }
-        drawLines(ps1, lineType: GL_LINES,width: 4,color: Vec4(1,0,0,1))
+        drawLines(ps1, lineType: GL_LINES,width: 4,color: Vec4(0.2,0.2,0.2,0.5))
     }
-    func ChineseCalligraphyHelpingLine()
+    func ChineseCalligraphyHelpingLine(offsetX:Float)
     {
         let size:Float = 1200
-        let x_offset = Float(imgWidth/2) - size/2
+        let x_offset = Float(imgWidth/2) - size/2 + offsetX
         let y_offset = Float(imgHeight/2) - size/2
         let topLeft = Vec4(x_offset,y_offset)
         let topRight = Vec4(x_offset+size,y_offset)
@@ -150,8 +150,9 @@ public class GLContextBuffer{
         
         //
         
-        EnglishCalligraphyHelpingLine()
-       
+        //EnglishCalligraphyHelpingLine()
+        //ChineseCalligraphyHelpingLine(offsetX: -700.0)
+        //ChineseCalligraphyHelpingLine(offsetX: 700.0)
         
         
         for i in 0 ..< 1
@@ -172,19 +173,44 @@ public class GLContextBuffer{
             drawTexture(canvas.revisionLayer.texture, alpha: 1)
         }
         
-        
-        if((penAzimuth) != nil)
+        if cp1 != nil
         {
+            drawColorPicker(x: cp1.x, y: cp1.y,color:Vec4(0,0,1,1))
+        }
+        if cp2 != nil
+        {
+            drawColorPicker(x: cp2.x, y: cp2.y,color:Vec4(1,0,0,1))
+        }
+        
+        
+        if((penPos) != nil)
+        {
+            /*
+            let diff = (penAzimuth-Vec2(0.7,0.7)).length2
             
-            
+            var color = Vec4(0.2,0.8,0.2,1)
+            if(diff > 0.025)
+            {
+                color = Vec4(0.8,0.2,0.2,1)
+            }
+            DLog("\(diff)")
+            let dir = Vec4(0.7,-0.7,0,0)
+            drawLines([penPos-dir*90,penPos-dir*50,penPos,penPos+dir*800], lineType: GL_LINES, width: 40, color: color)
+            */
+            //drawLine(,end:+Vec4(0,0,0,0))
             //drawFillRectangle(GLRect(p1: Vec2(Float(imgWidth/2),Float(imgHeight/2)),p2: azimuth.xy), color: Vec4(1,0,0,0))
             //let center = Vec4(Float(imgWidth/2),Float(imgHeight/2))
             //print("drawline\(penPos)\(penAzimuth)")
-            //drawLine(penPos+Vec4(0,0,0,1),end:penPos+Vec4(penAzimuth.x,-penAzimuth.y,0,0)*100+Vec4(0,0,0,1))
+            
             //drawGrid(60)
         }
- 
         
+        
+    }
+    func drawColorPicker(x:Float,y:Float,color:Vec4)
+    {
+        let size:Float = 40.0
+        drawLineRectangle(GLRect(p1: Vec2(Float(x)-size,Float(y)-size),p2:Vec2(Float(x)+size,Float(y)+size)), color: color)
     }
     public var penAzimuth:Vec2!
     public var penPos:Vec4!
@@ -246,19 +272,25 @@ public class GLContextBuffer{
     {
         
     }
-    
+    var colorPicker:UIColor!
     public func renderVertex(_ vertexBuffer:[PaintPoint])
     {
        
         shaderBinder.currentBrushShader.bindBrush()
         shaderBinder.currentBrushShader.bindVertexs(vertexBuffer)
         shaderBinder.currentBrushShader.useShader()
-       
-
+        penPos = vertexBuffer.last?.position
+        penAzimuth = vertexBuffer.last?.azimuth
+        
+        
+        if penPos != nil
+        {
+           //colorPicker = getPixelColor(GLint((penPos.x)), y: GLint((penPos.y)))
+        }
+        
         paintToolManager.useCurrentTool()
         glDrawArrays((GL_POINTS), 0, Int32(vertexBuffer.count));
         drawVertexCount += vertexBuffer.count
-
     }
     public func renderStroke(_ stroke:PaintStroke)
     {
@@ -534,10 +566,29 @@ public class GLContextBuffer{
         paintCanvas.setAllLayerAlpha(0.5)
         paintCanvas.selectRevisionLayer()
     }
+    var cp1:Vec2!
+    var cp2:Vec2!
+    var turn:Int = 0
     public func getPixelColor(_ x:GLint,y:GLint)->UIColor
     {
+        if turn == 0
+        {
+            cp1 = Vec2(Float(x),Float(y))
+            turn = 1
+        }
+        else
+        {
+            cp2 = Vec2(Float(x),Float(y))
+            turn = 0
+            
+        }
+        
+        
+        _ = paintCanvas.setBuffer()
         var pixels:[GLubyte] = [0,0,0,0]
         glReadPixels(x, y, 1, 1, (GLenum(GL_RGBA)), (GL_UNSIGNED_BYTE), &pixels)
+        DLog("\(pixels)")
+        paintCanvas.setTempBuffer()
         
         return UIColor(red: CGFloat(pixels[0])/255, green: CGFloat(pixels[1])/255, blue: CGFloat(pixels[2])/255, alpha: CGFloat(pixels[3])/255)
     }

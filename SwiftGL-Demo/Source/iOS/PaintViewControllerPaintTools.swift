@@ -66,11 +66,19 @@ extension PaintViewController
         case 0:
             paintView.paintBuffer.paintToolManager.changeTool("chinesebrush")
         case 1:
-            paintView.paintBuffer.paintToolManager.changeTool("calligraphy")
+            if FeedbackBrushModeOn
+            {
+                paintView.paintBuffer.paintToolManager.changeTool("calligraphyColor")
+            }
+            else
+            {
+                paintView.paintBuffer.paintToolManager.changeTool("calligraphy")
+            }
+            
         case 2:
             paintView.paintBuffer.paintToolManager.changeTool("flatpen")
         case 3:
-            paintView.paintBuffer.paintToolManager.changeTool("pencil")
+            paintView.paintBuffer.paintToolManager.changeTool("pen")
            break
             
         case -1:

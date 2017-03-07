@@ -37,7 +37,7 @@ open class Vbo {
         glBufferData(GL_ARRAY_BUFFER, 0, nil, GL_DYNAMIC_DRAW)
     }
 }
-
+ 
 // NOTE: You cannot bind both vertex data and element data to the same VBO,
 //       Two separate VBOs must be used (then bound to the same VAO)
 
@@ -47,9 +47,7 @@ public extension Vbo {
         self.stride = MemoryLayout<T>.size
         glBindBuffer(GL_ARRAY_BUFFER, id)
         glBufferData(GL_ARRAY_BUFFER, stride * count, data, GL_STATIC_DRAW)
-        
     }
-    
     public func bindSubData <T> (_ data: UnsafePointer<T>, start: GLsizeiptr, count: GLsizeiptr) {
         self.count  = count
         self.stride = MemoryLayout<T>.size

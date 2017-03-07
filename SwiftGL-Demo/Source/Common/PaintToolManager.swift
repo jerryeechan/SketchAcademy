@@ -17,7 +17,7 @@ enum PaintToolType:Int{
 }*/
 public enum BrushType:String
 {
-    case pencil = "pencil",oilBrush="oilbrush",eraser="eraser",calligraphy="calligraphy",flatpen="flatpen",calligraphyEdge="calligraphyEdge",calligraphyColor="calligraphyColor",chinesebrush="chinesebrush"
+    case pencil = "pen",oilBrush="oilbrush",eraser="eraser",calligraphy="calligraphy",flatpen="flatpen",calligraphyEdge="calligraphyEdge",calligraphyColor="calligraphyColor",chinesebrush="chinesebrush"
 }
 open class PaintToolManager {
     
@@ -43,6 +43,10 @@ open class PaintToolManager {
         eraser = PaintBrush(textureName: "circle", color: Color(255,255,255,0),size: 10,type:BrushType.eraser)
         oilbrush = PaintBrush(textureName: "circle", color: Color(25,25,25,25), size: 20, type: BrushType.oilBrush)
         
+        brushDict[BrushType.calligraphyColor] = PaintBrush(textureName: "circleTexture", color: Color(25,25,25,25), size: 20, type: BrushType.calligraphyColor)
+        
+        
+        
         brushDict[BrushType.calligraphy] = PaintBrush(textureName: "circleTexture", color: Color(25,25,25,25), size: 20, type: BrushType.calligraphy)
         brushDict[BrushType.calligraphyEdge] = PaintBrush(textureName: "rim", color: Color(25,25,25,25), size: 20, type: BrushType.calligraphyEdge)
 
@@ -52,7 +56,7 @@ open class PaintToolManager {
         //brushDict[BrushType.calligraphy] = PaintBrush(textureName: "rim", color: Color(25,25,25,25), size: 20, type: BrushType.calligraphy)
         
         
-        brushDict[BrushType.flatpen] = PaintBrush(textureName: "marker", color: Color(25,25,25,25), size: 16, type: BrushType.flatpen)
+        brushDict[BrushType.flatpen] = PaintBrush(textureName: "marker", color: Color(25,25,25,25), size: 8, type: BrushType.flatpen)
         
         brushDict[BrushType.pencil] = pen
         brushDict[BrushType.eraser] = eraser
@@ -124,9 +128,6 @@ open class PaintToolManager {
 */
     public func useBrush(_ type:BrushType)
     {
-        
-        
-        
         glEnable((GL_BLEND))
         GLShaderBinder.instance.useBrush(type)
         let brush = brushDict[type]

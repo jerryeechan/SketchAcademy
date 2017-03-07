@@ -36,10 +36,10 @@ public class GLTransformation{
         self.height = Float(height)
         
         //orthoview of full screen, original width
-        projectionMatrix = Mat4.ortho(left: 0, right:self.width, bottom: 0, top:Float(height), near: -1, far: 1 );
+        mvpMatrix = Mat4.ortho(left: 0, right:self.width, bottom: 0, top:Float(height), near: -1, far: 1 );
         // this sample uses a constant identity modelView matrix
-        modelViewMatrix = Mat4.identity();
-        mvpMatrix = projectionMatrix * modelViewMatrix
+        //modelViewMatrix = Mat4.identity();
+        //mvpMatrix = projectionMatrix * modelViewMatrix
         
         //GLContextBuffer.shader.bind("MVP", MVPMatrix)
         

@@ -664,11 +664,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/PaintToolManager.swift"
-            timestampString = "505761079.957199"
+            timestampString = "508229814.119959"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "usePen()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2231,11 +2231,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/GestureHandler.swift"
-            timestampString = "505747683.370924"
+            timestampString = "505857865.482165"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "275"
+            endingLineNumber = "275"
             landmarkName = "doubleTapSingleTouchGestureHandler(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2247,11 +2247,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/GestureHandler.swift"
-            timestampString = "505747683.370924"
+            timestampString = "505857865.482165"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "doubleTapSingleTouchGestureHandler(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2263,11 +2263,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/GestureHandler.swift"
-            timestampString = "505747683.370924"
+            timestampString = "505857865.482165"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "doubleTapSingleTouchGestureHandler(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2279,11 +2279,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/GestureHandler.swift"
-            timestampString = "505747683.370924"
+            timestampString = "505857865.482165"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
             landmarkName = "doubleTapSingleTouchGestureHandler(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2743,13 +2743,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "577"
-            endingLineNumber = "577"
-            landmarkName = "contextImage()"
-            landmarkType = "7">
+            startingLineNumber = "630"
+            endingLineNumber = "630"
+            landmarkName = "GLContextBuffer"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2759,13 +2759,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "579"
-            endingLineNumber = "579"
-            landmarkName = "GLContextBuffer"
-            landmarkType = "3">
+            startingLineNumber = "632"
+            endingLineNumber = "632"
+            landmarkName = "releaseImgBuffer()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2823,12 +2823,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "543"
-            endingLineNumber = "543"
-            landmarkName = "getPixelColor(_:y:)"
+            startingLineNumber = "596"
+            endingLineNumber = "596"
+            landmarkName = "contextImage()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3586,11 +3586,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "GLContextBuffer"
             landmarkType = "3">
          </BreakpointContent>
@@ -3762,12 +3762,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "512"
-            endingLineNumber = "512"
-            landmarkName = "clear()"
+            startingLineNumber = "546"
+            endingLineNumber = "546"
+            landmarkName = "blank()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3858,12 +3858,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "583"
-            endingLineNumber = "583"
-            landmarkName = "releaseImgBuffer()"
+            startingLineNumber = "636"
+            endingLineNumber = "636"
+            landmarkName = "deinit"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4242,11 +4242,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505851667.144002"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "drawLayersOfCanvas(_:mvp:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4686,11 +4686,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
             landmarkName = "renderVertex(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4702,11 +4702,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/GestureHandler.swift"
-            timestampString = "505747683.370924"
+            timestampString = "505855821.663732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "touchesMoved(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4718,11 +4718,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/PaintToolManager.swift"
-            timestampString = "505761079.957199"
+            timestampString = "505819833.697037"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "useTool(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4734,11 +4734,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "drawBrushVertex(_:layer:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4750,11 +4750,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "drawBrushVertex(_:layer:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4766,11 +4766,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "drawBrushVertex(_:layer:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4894,11 +4894,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/PaintToolManager.swift"
-            timestampString = "505761079.957199"
+            timestampString = "508229814.119959"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "useEraser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4926,11 +4926,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "renderVertex(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4990,11 +4990,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/iOS/PaintViewControllerPaintTools.swift"
-            timestampString = "505483484.766985"
+            timestampString = "505820112.248836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "paintToolButtonTouched(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -5006,11 +5006,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/PaintToolManager.swift"
-            timestampString = "505761079.957199"
+            timestampString = "505819833.697037"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "load()"
             landmarkType = "7">
          </BreakpointContent>
@@ -6140,11 +6140,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505854857.794267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "drawLayersOfCanvas(_:mvp:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6156,11 +6156,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505854857.794267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "drawLayersOfCanvas(_:mvp:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6172,11 +6172,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505854857.794267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "drawLayersOfCanvas(_:mvp:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6268,11 +6268,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StrokeAnalysis/RealTimeStrokeDiagnoser.swift"
-            timestampString = "504554592.294119"
+            timestampString = "505850395.745366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "newPoint(point:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6332,11 +6332,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "renderStaticLine(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6380,11 +6380,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/PaintToolManager.swift"
-            timestampString = "505761079.957199"
+            timestampString = "505819833.697037"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "useBrush(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6732,11 +6732,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505851667.144002"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "drawLayersOfCanvas(_:mvp:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6780,11 +6780,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505851667.144002"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "drawLayersOfCanvas(_:mvp:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -6796,11 +6796,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
+            startingLineNumber = "567"
+            endingLineNumber = "567"
             landmarkName = "setRevisionMode()"
             landmarkType = "7">
          </BreakpointContent>
@@ -6812,11 +6812,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
             landmarkName = "setArtworkMode()"
             landmarkType = "7">
          </BreakpointContent>
@@ -6824,16 +6824,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
-            timestampString = "505764128.041201"
+            timestampString = "505855283.766227"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
+            startingLineNumber = "555"
+            endingLineNumber = "555"
             landmarkName = "setTraceMode()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftGL-Demo/Source/iOS/PaintViewControllerPaintTools.swift"
+            timestampString = "505820039.4845"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "paintToolButtonTouched(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
+            timestampString = "505855283.766227"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "renderVertex(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftGL-Demo/Source/Common/GLContextBuffer.swift"
+            timestampString = "505855463.774879"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
+            landmarkName = "getPixelColor(_:y:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

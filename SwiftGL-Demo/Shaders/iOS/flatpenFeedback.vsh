@@ -62,7 +62,7 @@ void main()
     angle = atan(pencilAzimuth.y,pencilAzimuth.x);
     //speed fade may be remove
     
-    color = brushColor*easeout(0.5,1.0,pencilForce);
+    color = speedToColor(speed);//*easeout(0.2,1.0,pencilForce);
     //easeout(0.1,0.5,pencilForce)
     gl_PointSize = brushSize * 5.0; //(1.0+tiltValue) * 3.0;
     

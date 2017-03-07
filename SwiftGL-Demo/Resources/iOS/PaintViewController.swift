@@ -12,7 +12,7 @@ import GLKit
 import SwiftGL
 import OpenGLES
 
-
+import StrokeAnalysis
 import SwiftColorPicker
 import GLFramework
 
@@ -529,7 +529,7 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate,StrokePr
     
     @IBOutlet weak var tutorialControlPanel: UIView!
     
-    
+    var FeedbackBrushModeOn = false
     
     
     @IBAction func paperSwitchBtnTouched(_ sender: UIBarButtonItem) {
@@ -556,8 +556,122 @@ class PaintViewController:UIViewController, UIGestureRecognizerDelegate,StrokePr
     
     @IBOutlet weak var strokeDiagnosisSpeedLabel: UILabel!
     
-}
+    @IBOutlet weak var feedbackBtn: UIButton!
+    
+    @IBAction func feedbackBtnTouched(_ sender: UIButton) {
+        FeedbackBrushModeOn = !FeedbackBrushModeOn
+        var text = "Feedback Mode: Off"
+        if FeedbackBrushModeOn
+        {
+            text = "Feedback Mode: On"
+        }
+        feedbackBtn.setTitle(text, for: UIControlState.normal)
+    }
+    
+    
+    @IBOutlet weak var colorPickerModeBtn: UIButton!
+    
+    var isColorPikerOn = false
+    @IBAction func colorPickerModeBtnTouched(_ sender: UIButton) {
+        isColorPikerOn = !isColorPikerOn
+        
+        var text = "Picker:Off"
+        if isColorPikerOn
+        {
+            text = "Picker:On"
+        }
+        colorPickerModeBtn.setTitle(text, for: UIControlState.normal)
+        
+    }
+    
+    var pickOrder = 0
+    
+    var motion1:[CGFloat] = [0,0,0]
+    var motion2:[CGFloat] = [0,0,0]
+    func colorPickerPick(color:UIColor)
+    {
+        let motion = colorToMotion(color: color)
+        if pickOrder == 0
+        {
+            
+            pickOrder = 1
+            motion1 = motion
+            
+            //DLog("\(motion)")
+        }
+        else
+        {
+            
+            pickOrder = 0
+            motion2 = motion
+            //DLog("\(motion)")
+        }
+        var speedText = "write slower"
+        if motion1[0] < motion2[0]
+        {
+            speedText = "write quicker"
+        }
+        
+        var forceText = "less pressure"
+        if motion1[1] < motion2[1]
+        {
+            forceText = "more pressure"
+        }
+        
+        var altText = "strait more"
+        if motion1[2] < motion2[2]
+        {
+            altText = "tilt more"
+        }
 
+        strokeDiagnosisSpeedLabel.text = "Speed: T:\(motion1[0].format(f: ".2")), S:\(motion2[0].format(f: ".2")) \(speedText)"
+        strokeDiagnosisForceLabel.text = "Force: T:\(motion1[1].format(f: ".2")) S:\(motion2[1].format(f: ".2")) \(forceText)"
+
+        strokeDiagnosisAltitudeLabel.text = "Alititude: T:\(motion1[2].format(f: ".2")) S:\(motion2[2].format(f: ".2")) \(altText)"
+
+    }
+    
+    func colorToMotion(color:UIColor)->[CGFloat]
+    {
+        let rgba = color.cgColor.components
+        
+        let r = rgba?[0]
+        let g = rgba?[1]
+        let b = rgba?[2]
+//        let a = rgba?[3]
+        
+        let speed = r
+        let force = g
+        let azimuth = b
+        
+        return [force!,azimuth!,speed!]
+    }
+    @IBOutlet weak var suggestionTextView: UITextView!
+    
+    let suggestions = ["Try to tilt more when you do shading","Good Job!","You can increase the pressure to draw darker tone","Nice!","Nice!"]
+    var count = 0
+    var index = 0
+    func nextSuggestion()
+    {
+        count = count+1
+        if count > 10
+        {
+            if index < suggestions.count
+            {
+                suggestionTextView.text = suggestions[index]
+                index = index + 1
+                count = 0
+            }
+        }
+        
+    }
+    
+}
+extension CGFloat {
+    func format(f: String) -> String {
+        return String(format: "%\(f)f", Float(self))
+    }
+}
 
 func isPointContain(_ vertices:[CGPoint],test:CGPoint)->Bool{
     let nvert = vertices.count;
